@@ -19,7 +19,7 @@ public class SUController {
 		
 		suService.exeList();
 		
-		return JsonResult.success("얏호호");
+		return JsonResult.success("얏호");
 		
 		
 	}
