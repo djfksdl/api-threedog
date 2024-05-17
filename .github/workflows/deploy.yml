@@ -1,15 +1,15 @@
 name: Deploy threedog App
 
 #팀작업할떄는 팀장이 한번씩 눌러서 서버 적용하는게 서버과부화 안걸리고 괜춘할듯
-#on:
-#  workflow_dispatch:
-#    inputs:
-
-
 on:
-  push:
-    branches:
-      - master # 또는 프로젝트의 기본 브랜치명
+  workflow_dispatch:
+    inputs:
+
+
+#on:
+#  push:
+#    branches:
+#      - master # 또는 프로젝트의 기본 브랜치명
 
 jobs:
   build-and-deploy:
