@@ -2,29 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ay">
 
-	
+
 	<!-- 반려견등록 -->
 	<insert id="petInsert" parameterType="com.javaex.vo.DogVo">
       <![CDATA[
       ]]>
-      insert into dog values(null,
-      						#{dogName},
-      						#{kind},
-      						#{weight},
-      						#{birth},
-      						#{gender},
-      						#{neutering},
-      						#{experience},
-      						#{bite},
-      						#{memo},
-      						'sdfsdf',
-      						#{size},
-      						#{skin},
-      						#{heart},
-      						#{marking},
-      						#{mounting}
-      						)
-      
+		insert into dog values(null,
+		#{dogName},
+		#{kind},
+		#{weight},
+		#{birth},
+		#{gender},
+		#{neutering},
+		#{experience},
+		#{bite},
+		#{memo},
+		#{dogImg},
+		#{size},
+		#{skin},
+		#{heart},
+		#{marking},
+		#{mounting}
+		)
+
 	</insert>
 
 </mapper>

@@ -1,8 +1,8 @@
 package com.javaex.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.javaex.service.AYService;
@@ -17,7 +17,7 @@ public class AYController {
 
 	// 반려견등록
 	@PostMapping("/api/mypage/doginsert")
-	public JsonResult petInsert(@RequestBody  DogVo dogVo) {
+	public JsonResult  petInsert(@ModelAttribute DogVo dogVo) {
 		System.out.println("AYController.petInsert");
 		System.out.println(dogVo);
 
