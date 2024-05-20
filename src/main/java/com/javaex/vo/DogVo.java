@@ -1,5 +1,7 @@
 package com.javaex.vo;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class DogVo {
 
 	private int dogNo;
@@ -12,12 +14,13 @@ public class DogVo {
 	private boolean experience;
 	private int bite;
 	private String memo;
-	private String dogImg;
+	private String dogImg;	// saveName
 	private String size;
 	private boolean skin;
 	private boolean heart;
 	private boolean marking;
 	private boolean mounting;
+	private MultipartFile file;
 
 	public DogVo() {
 		super();
@@ -25,7 +28,7 @@ public class DogVo {
 
 	public DogVo(int dogNo, String dogName, String kind, double weight, String birth, String gender, boolean neutering,
 			boolean experience, int bite, String memo, String dogImg, String size, boolean skin, boolean heart,
-			boolean marking, boolean mounting) {
+			boolean marking, boolean mounting, MultipartFile file) {
 		super();
 		this.dogNo = dogNo;
 		this.dogName = dogName;
@@ -43,6 +46,7 @@ public class DogVo {
 		this.heart = heart;
 		this.marking = marking;
 		this.mounting = mounting;
+		this.file = file;
 	}
 
 	public int getDogNo() {
@@ -173,12 +177,24 @@ public class DogVo {
 		this.mounting = mounting;
 	}
 
+	public MultipartFile getFile() {
+		return file;
+	}
+
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
+
 	@Override
 	public String toString() {
 		return "DogVo [dogNo=" + dogNo + ", dogName=" + dogName + ", kind=" + kind + ", weight=" + weight + ", birth="
 				+ birth + ", gender=" + gender + ", neutering=" + neutering + ", experience=" + experience + ", bite="
 				+ bite + ", memo=" + memo + ", dogImg=" + dogImg + ", size=" + size + ", skin=" + skin + ", heart="
-				+ heart + ", marking=" + marking + ", mounting=" + mounting + "]";
+				+ heart + ", marking=" + marking + ", mounting=" + mounting + ", file=" + file + "]";
 	}
+	
+	
 
+	
+	
 }
