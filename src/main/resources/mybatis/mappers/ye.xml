@@ -2,6 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ye">
 
-
+	<!-- 사업자 회원가입 -->
+	<insert id="bInsert" parameterType="com.javaex.vo.BusinessVo">
+      <![CDATA[
+      ]]>
+		insert into business (bNo, bId, bPw, bNum, bZipCode, bAddress, bdAddress, bPhone)
+		values (
+		null,
+		#{bId}, #{bPw}, #{bNum},
+		#{bZipCode}, #{bAddress}, #{bdAddress},
+		#{bPhone}
+		);
+	</insert>
+	<!-- 사업자 회원가입 - 중복 체크 -->
+	<select id="bSelect" resultType="int">
+		<![CDATA[
+			select count(*) count from business
+			where bId = #{bId}
+		]]>
+	</select>
+	<!-- 사업자 회원가입 -->
 	
+	<!-- 사업자 로그인 -->
+	<select id="bSelectOne" parameterType="com.javaex.vo.BusinessVo" resultType="com.javaex.vo.BusinessVo">
+		<![CDATA[
+			select * from business
+			where bId = #{bId} and bPw = #{bPw}
+		]]>
+	</select>
+	<!-- 사업자 로그인 -->
+
 </mapper>
