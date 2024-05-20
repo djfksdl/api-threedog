@@ -8,6 +8,7 @@ public class ReviewVo {
 	private int star;
 	private String rContent;
 	private String rDate;
+	private int views;
 	private int riNo;
 	private String saveName;
 	private String orgName;
@@ -18,8 +19,8 @@ public class ReviewVo {
 		super();
 	}
 
-	public ReviewVo(int rNo, int bNo, int uNo, int star, String rContent, String rDate, int riNo, String saveName,
-			String orgName, int fileSize, String filePath) {
+	public ReviewVo(int rNo, int bNo, int uNo, int star, String rContent, String rDate, int views, int riNo,
+			String saveName, String orgName, int fileSize, String filePath) {
 		super();
 		this.rNo = rNo;
 		this.bNo = bNo;
@@ -27,6 +28,7 @@ public class ReviewVo {
 		this.star = star;
 		this.rContent = rContent;
 		this.rDate = rDate;
+		this.views = views;
 		this.riNo = riNo;
 		this.saveName = saveName;
 		this.orgName = orgName;
@@ -122,11 +124,19 @@ public class ReviewVo {
 		this.filePath = filePath;
 	}
 
+	public int getViews() {
+		return views;
+	}
+
+	public void setViews(int views) {
+		this.views = views;
+	}
+
 	@Override
 	public String toString() {
 		return "ReviewVo [rNo=" + rNo + ", bNo=" + bNo + ", uNo=" + uNo + ", star=" + star + ", rContent=" + rContent
-				+ ", rDate=" + rDate + ", riNo=" + riNo + ", saveName=" + saveName + ", orgName=" + orgName
-				+ ", fileSize=" + fileSize + ", filePath=" + filePath + "]";
+				+ ", rDate=" + rDate + ", views=" + views + ", riNo=" + riNo + ", saveName=" + saveName + ", orgName="
+				+ orgName + ", fileSize=" + fileSize + ", filePath=" + filePath + "]";
 	}
 
 }

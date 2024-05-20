@@ -20,6 +20,7 @@ public class AYController {
 	@PostMapping("/api/mypage/doginsert")
 	public JsonResult petInsert(@ModelAttribute DogVo dogVo) {
 		System.out.println("AYController.petInsert");
+		System.out.println(dogVo.getuNo());
 		System.out.println(dogVo);
 
 		ayService.exePetInsert(dogVo);
@@ -28,13 +29,13 @@ public class AYController {
 	}
 
 	// 리뷰등록
-//	@PostMapping("/api/edit/reviewinsert")
-//	public JsonResult reviewInsert(@ModelAttribute ReviewVo reviewVo) {
-//		System.out.println("AYController.reviewInsert");
-//		System.out.println(reviewVo);
-//
-//		ayService.exeReviewInsert(reviewVo);
-//
-//		return JsonResult.success(reviewVo.getSaveName());
-//	}
+	@PostMapping("/api/edit/reviewinsert")
+	public JsonResult reviewInsert(@ModelAttribute ReviewVo reviewVo) {
+		System.out.println("AYController.reviewInsert");
+		System.out.println(reviewVo);
+
+		ayService.exeReviewInsert(reviewVo);
+
+		return JsonResult.success(reviewVo.getSaveName());
+	}
 }

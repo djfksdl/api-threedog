@@ -6,8 +6,25 @@
 	<!-- 반려견등록 -->
 	<insert id="petInsert" parameterType="com.javaex.vo.DogVo">
       <![CDATA[
-      ]]>
-		insert into dog values(null,
+		INSERT INTO dog (
+		dogName,
+		kind,
+		weight,
+		birth,
+		gender,
+		neutering,
+		experience,
+		bite,
+		memo,
+		dogImg,
+		size,
+		skin,
+		heart,
+		marking,
+		mounting,
+		uNo
+		)
+		SELECT
 		#{dogName},
 		#{kind},
 		#{weight},
@@ -22,9 +39,12 @@
 		#{skin},
 		#{heart},
 		#{marking},
-		#{mounting}
-		)
+		#{mounting},
+		#{uNo}
+		FROM DUAL
+		WHERE EXISTS (SELECT 1 FROM dog WHERE uNo = #{uNo});
 
+  ]]>
 	</insert>
 
 </mapper>

@@ -14,13 +14,14 @@ public class DogVo {
 	private boolean experience;
 	private int bite;
 	private String memo;
-	private String dogImg;	// saveName
+	private String dogImg; // saveName
 	private String size;
 	private boolean skin;
 	private boolean heart;
 	private boolean marking;
 	private boolean mounting;
 	private MultipartFile file;
+	private int uNo;
 
 	public DogVo() {
 		super();
@@ -28,7 +29,7 @@ public class DogVo {
 
 	public DogVo(int dogNo, String dogName, String kind, double weight, String birth, String gender, boolean neutering,
 			boolean experience, int bite, String memo, String dogImg, String size, boolean skin, boolean heart,
-			boolean marking, boolean mounting, MultipartFile file) {
+			boolean marking, boolean mounting, MultipartFile file, int uNo) {
 		super();
 		this.dogNo = dogNo;
 		this.dogName = dogName;
@@ -47,6 +48,7 @@ public class DogVo {
 		this.marking = marking;
 		this.mounting = mounting;
 		this.file = file;
+		this.uNo = uNo;
 	}
 
 	public int getDogNo() {
@@ -185,16 +187,20 @@ public class DogVo {
 		this.file = file;
 	}
 
+	public int getuNo() {
+		return uNo;
+	}
+
+	public void setuNo(int uNo) {
+		this.uNo = uNo;
+	}
+
 	@Override
 	public String toString() {
 		return "DogVo [dogNo=" + dogNo + ", dogName=" + dogName + ", kind=" + kind + ", weight=" + weight + ", birth="
 				+ birth + ", gender=" + gender + ", neutering=" + neutering + ", experience=" + experience + ", bite="
 				+ bite + ", memo=" + memo + ", dogImg=" + dogImg + ", size=" + size + ", skin=" + skin + ", heart="
-				+ heart + ", marking=" + marking + ", mounting=" + mounting + ", file=" + file + "]";
+				+ heart + ", marking=" + marking + ", mounting=" + mounting + ", file=" + file + ", uNo=" + uNo + "]";
 	}
-	
-	
 
-	
-	
 }
