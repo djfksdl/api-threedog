@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.javaex.dao.AYDao;
 import com.javaex.vo.DogVo;
+import com.javaex.vo.ReviewVo;
 
 @Service
 public class AYService {
@@ -20,7 +21,7 @@ public class AYService {
 	private AYDao ayDao;
 
 	// 반려견등록
-	public int exeInsert(DogVo dogVo) {
+	public String exePetInsert(DogVo dogVo) {
 		System.out.println("AYService.exeInsert()");
 
 		// 운영체제 확인
@@ -38,21 +39,25 @@ public class AYService {
 			saveDir = "C:\\javaStudy\\upload\\";
 		}
 
+		System.out.println(dogVo.getFile().getOriginalFilename());
+		System.out.println(dogVo.getFile().getSize());
+
+		// 확장자
+		String exName = dogVo.getFile().getOriginalFilename()
+				.substring(dogVo.getFile().getOriginalFilename().lastIndexOf("."));
+		System.out.println(exName);
+
+		// 저장파일명바꾸기
+		dogVo.setDogImg(System.currentTimeMillis() + UUID.randomUUID().toString() + exName);
+		System.out.println(dogVo.getDogImg());
+
+		// 파일전체경로
+		String filePath = saveDir + File.separator + dogVo.getDogImg();
+		System.out.println(filePath);
+
 		try {
-
-			// 확장자
-			String exName = dogVo.getDogImg().substring(dogVo.getDogImg().lastIndexOf("."));
-			System.out.println(exName);
-
-			// 저장파일명바꾸기
-			String saveName = System.currentTimeMillis() + UUID.randomUUID().toString() + exName;
-			System.out.println(dogVo.getDogImg());
-
-			// 파일전체경로
-			String filePath = saveDir + File.separator + saveName;
-			System.out.println(filePath);
-
-			byte[] fileData = dogVo.getDogImg().getBytes();
+			byte[] fileData;
+			fileData = dogVo.getFile().getBytes();
 
 			OutputStream os = new FileOutputStream(filePath);
 			BufferedOutputStream bos = new BufferedOutputStream(os);
@@ -61,12 +66,23 @@ public class AYService {
 			bos.close();
 
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		int count = ayDao.addPet(dogVo);
-
-		return count;
+		ayDao.addPet(dogVo);
+		
+		return dogVo.getDogImg();
 	}
+	
+	
+	// 리뷰등록
+		public String reviewInsert(ReviewVo reviewVo) {
+			System.out.println("AYService.reviewInsert()");
+			
+
+			
+			return reviewVo.getSaveName();
+		}
 
 }

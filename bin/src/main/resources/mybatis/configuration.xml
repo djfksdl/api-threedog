@@ -6,5 +6,6 @@
 	<mappers>
 		<mapper resource="mybatis/mappers/su.xml" />
 		<mapper resource="mybatis/mappers/ay.xml" />
+		<mapper resource="mybatis/mappers/ye.xml" />
 	</mappers>
 </configuration>
