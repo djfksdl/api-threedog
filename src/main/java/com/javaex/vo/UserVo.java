@@ -1,5 +1,7 @@
 package com.javaex.vo;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class UserVo {
 	
 	//필드
@@ -13,15 +15,15 @@ public class UserVo {
 	private String uAddress;
 	private String uDetailAddress;
 	private int uPoint;
+	private MultipartFile file;
 	private String uProfile;
 	
 	//생성자
 	public UserVo() {
 		super();
-	}
-
+	}		
 	public UserVo(int uNo, String uId, String uPw, String uName, String uPhone, String uZipCode, String uAddress,
-			String uDetailAddress, int uPoint, String uProfile) {
+			String uDetailAddress, int uPoint, MultipartFile file, String uProfile) {
 		super();
 		this.uNo = uNo;
 		this.uId = uId;
@@ -32,10 +34,10 @@ public class UserVo {
 		this.uAddress = uAddress;
 		this.uDetailAddress = uDetailAddress;
 		this.uPoint = uPoint;
+		this.file = file;
 		this.uProfile = uProfile;
 	}
 
-		
 	//메소드-gs
 
 	public int getuNo() {
@@ -108,23 +110,26 @@ public class UserVo {
 
 	public void setuPoint(int uPoint) {
 		this.uPoint = uPoint;
+	}	
+	public MultipartFile getFile() {
+		return file;
 	}
-
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
 	public String getuProfile() {
 		return uProfile;
 	}
-
 	public void setuProfile(String uProfile) {
 		this.uProfile = uProfile;
 	}
-
-	
 	//메소드-일반
 	@Override
 	public String toString() {
 		return "UserVo [uNo=" + uNo + ", uId=" + uId + ", uPw=" + uPw + ", uName=" + uName + ", uPhone=" + uPhone
 				+ ", uZipCode=" + uZipCode + ", uAddress=" + uAddress + ", uDetailAddress=" + uDetailAddress
-				+ ", uPoint=" + uPoint + ", uProfile=" + uProfile + "]";
+				+ ", uPoint=" + uPoint + ", file=" + file + ", uProfile=" + uProfile + "]";
 	}
+
 
 }
