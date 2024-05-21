@@ -1,11 +1,14 @@
 package com.javaex.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.javaex.vo.BusinessVo;
+import com.javaex.vo.ReviewListVo;
 
 @Repository
 public class YEDao {
@@ -33,6 +36,14 @@ public class YEDao {
 		BusinessVo auth = sqlSession.selectOne("ye.bSelectOne", businessVo);
 		
 		return auth;
+	}
+
+	public List<ReviewListVo> searchList() {
+		System.out.println("YEDao.searchList()");
+		
+		List<ReviewListVo> reviewList = sqlSession.selectList("ye.searchlist");
+		
+		return reviewList;
 	}
 
 }
