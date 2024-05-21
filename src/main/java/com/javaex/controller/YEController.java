@@ -68,7 +68,7 @@ public class YEController {
 		System.out.println("YEController.searchList()");
 
 		List<ReviewListVo> reviewList = yeService.exeSearchList();
-		System.out.println(reviewList);
+//		System.out.println(reviewList);
 		
 		return JsonResult.success(reviewList);
 	}
