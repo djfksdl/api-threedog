@@ -35,7 +35,7 @@ public class SUController {
 //	회원가입
 	@PostMapping("/api/su/signup")
 	public JsonResult signup(@ModelAttribute UserVo userVo) {
-		System.out.println("SUController.list");
+		System.out.println("SUController.signup");
 		
 		System.out.println(userVo);
 		
@@ -47,7 +47,7 @@ public class SUController {
 //	로그인
 	@PostMapping("/api/su/login")
 	public JsonResult login(@RequestBody UserVo userVo, HttpServletResponse response) {
-		System.out.println("SUController.list");
+		System.out.println("SUController.login");
 		
 //		System.out.println(userVo);
 		
