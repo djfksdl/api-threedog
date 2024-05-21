@@ -38,7 +38,7 @@ public class YEController {
 	@GetMapping("/api/msignup/id")
 	public JsonResult idCheck(@RequestParam String id) {
 		System.out.println("YEController.idCheck()");
-		System.out.println(id);
+//		System.out.println(id);
 
 		int count = yeService.exeIdCheck(id);
 //		System.out.println(count);
