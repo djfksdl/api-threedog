@@ -11,8 +11,7 @@
 		null,
 		#{bId}, #{bPw}, #{bNum},
 		#{bZipCode}, #{bAddress}, #{bdAddress},
-		#{bPhone}, #{latitude}, #{longitude}
-		);
+		#{bPhone}, #{latitude}, #{longitude})
 	</insert>
 	<!-- 사업자 회원가입 - 중복 체크 -->
 	<select id="bSelect" resultType="int">
