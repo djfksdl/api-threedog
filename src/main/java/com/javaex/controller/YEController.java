@@ -75,4 +75,13 @@ public class YEController {
 		return JsonResult.success(reviewList);
 	}
 
+	
+	// 지도, 캘린더로 검색 리스트
+	@GetMapping("/api/searchmaplist")
+	public JsonResult searchMap() {
+		System.out.println("YEController.searchmaplist()");
+
+		
+		return JsonResult.success("");
+	}
 }
