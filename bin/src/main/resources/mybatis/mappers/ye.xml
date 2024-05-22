@@ -22,7 +22,7 @@
 		]]>
 	</select>
 	<!-- 사업자 회원가입 -->
-	
+
 	<!-- 사업자 로그인 -->
 	<select id="bSelectOne" parameterType="com.javaex.vo.BusinessVo" resultType="com.javaex.vo.BusinessVo">
 		<![CDATA[
@@ -31,5 +31,17 @@
 		]]>
 	</select>
 	<!-- 사업자 로그인 -->
+
+	<!-- 검색 화면 리스트, 조회순 -->
+	<select id="searchlist" resultType="com.javaex.vo.ReviewListVo">
+		<![CDATA[
+			select r.rNo, r.star, b.title, ri.saveName, b.bNo
+			from review r
+			join business b on r.bNo = b.bNo
+			left join reviewimg ri on r.rNo = ri.rNo
+			order by r.views desc
+		]]>
+	</select>
+	<!-- 검색 화면 리스트 -->
 
 </mapper>

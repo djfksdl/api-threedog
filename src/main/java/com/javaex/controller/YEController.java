@@ -27,10 +27,12 @@ public class YEController {
 	@PostMapping("/api/msignup")
 	public JsonResult mSignup(@ModelAttribute BusinessVo businessVo) {
 		System.out.println("YEController.mSignup()");
-//		System.out.println(businessVo);
-
+		
+		System.out.println(businessVo);
+		
 		yeService.exeMsignup(businessVo);
-
+		
+		System.out.println(businessVo);
 		return JsonResult.success(businessVo);
 	}
 
@@ -68,7 +70,7 @@ public class YEController {
 		System.out.println("YEController.searchList()");
 
 		List<ReviewListVo> reviewList = yeService.exeSearchList();
-		System.out.println(reviewList);
+//		System.out.println(reviewList);
 		
 		return JsonResult.success(reviewList);
 	}
