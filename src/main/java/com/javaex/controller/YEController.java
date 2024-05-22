@@ -27,10 +27,12 @@ public class YEController {
 	@PostMapping("/api/msignup")
 	public JsonResult mSignup(@ModelAttribute BusinessVo businessVo) {
 		System.out.println("YEController.mSignup()");
-//		System.out.println(businessVo);
-
+		
+		System.out.println(businessVo);
+		
 		yeService.exeMsignup(businessVo);
-
+		
+		System.out.println(businessVo);
 		return JsonResult.success(businessVo);
 	}
 
