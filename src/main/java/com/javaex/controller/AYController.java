@@ -29,13 +29,16 @@ public class AYController {
 	}
 
 	// 리뷰등록
-	@PostMapping("/api/edit/reviewinsert")
+	@PostMapping("/api/mypage/reviewinsert")
 	public JsonResult reviewInsert(@ModelAttribute ReviewVo reviewVo) {
 		System.out.println("AYController.reviewInsert");
 		System.out.println(reviewVo);
-
+//		System.out.println(reviewVo.getImgCount());
+		
 		ayService.exeReviewInsert(reviewVo);
-
-		return JsonResult.success(reviewVo.getSaveName());
+		
+		return JsonResult.success("성공");
 	}
+	
+	
 }
