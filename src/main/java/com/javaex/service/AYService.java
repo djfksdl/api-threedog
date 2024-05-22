@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.javaex.dao.AYDao;
+import com.javaex.vo.BusinessVo;
 import com.javaex.vo.DogVo;
 import com.javaex.vo.ReviewVo;
 
@@ -141,6 +142,15 @@ public class AYService {
 //		reviewVo.setpDate(reviewVo.getrDate());	//날짜
 //		reviewVo.setRvNum(reviewVo.getrNo());//리뷰번호
 		ayDao.addReview(reviewVo);
+	}
+	
+	// 가게정보 가져오기
+	public BusinessVo exeGetBList(int bNo) {
+		System.out.println("AYService.exeGetBList");
+		
+		BusinessVo businessVo = ayDao.getBList(bNo);
+		
+		return businessVo;
 	}
 
 }

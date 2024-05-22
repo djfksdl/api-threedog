@@ -1,12 +1,15 @@
 package com.javaex.dao;
 
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.javaex.vo.BusinessVo;
 import com.javaex.vo.DogVo;
 import com.javaex.vo.ReviewVo;
 
@@ -42,7 +45,7 @@ public class AYDao {
 
 		// 리뷰 이미지 정보를 등록
 		for (String saveName : reviewVo.getSaveNameList()) {
-			Map<String, Object> paramMap = new HashMap<>();
+			Map<String, Object> paramMap = new HashMap<String, Object>();
 			paramMap.put("rNo", rNo);
 			paramMap.put("saveName", saveName);
 			System.out.println(saveName);
@@ -55,4 +58,14 @@ public class AYDao {
 		System.out.println("성공");
 	}
 
+	// 가게정보 가져오기
+	public BusinessVo getBList(int bNo) {
+		System.out.println("AYDao.getBList()");
+		BusinessVo businessVo = sqlSession.selectOne("ay.selectOne",bNo);
+
+		System.out.println(businessVo);
+		
+		return businessVo;
+
+	}
 }

@@ -79,6 +79,16 @@
         ]]>
 	</update>
 
+	<!--가게정보1개 가져오기 -->
+	<select id="selectOne" parameterType="int" resultType="com.javaex.vo.BusinessVo">
+		<![CDATA[
+		select b.bNo, b.bPhone, b.bAddress, b.bdAddress, b.title ,b.logo, round(avg(r.star),1) averageStar
+		from business b 
+		join review r on b.bNo=r.bNo
+		where b.bNo=#{bNo};
+		]]>
+	</select>
+
 
 
 
