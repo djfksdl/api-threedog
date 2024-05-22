@@ -28,6 +28,9 @@ CREATE TABLE business (
    cutImg varchar(300) NULL,
    utilTime varchar(500) NULL
 );
+ALTER TABLE business
+ADD COLUMN latitude DECIMAL(10, 8),
+ADD COLUMN longitude DECIMAL(11, 8);
 
 CREATE TABLE dog (
    dogNo int auto_increment primary key,
