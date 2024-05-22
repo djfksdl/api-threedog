@@ -1,5 +1,9 @@
 package com.javaex.vo;
 
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 public class ReviewVo {
 
 	private int rNo;
@@ -10,29 +14,31 @@ public class ReviewVo {
 	private String rDate;
 	private int views;
 	private int riNo;
-	private String saveName;
+	private int imgCount;
 	private String orgName;
-	private int fileSize;
 	private String filePath;
+	private int userPoint;
+
+	private List<String> saveNameList;
+	private List<MultipartFile> file;
 
 	public ReviewVo() {
 		super();
 	}
 
-	public ReviewVo(int rNo, int bNo, int uNo, int star, String rContent, String rDate, int views, int riNo,
-			String saveName, String orgName, int fileSize, String filePath) {
-		super();
-		this.rNo = rNo;
-		this.bNo = bNo;
-		this.uNo = uNo;
-		this.star = star;
-		this.rContent = rContent;
-		this.rDate = rDate;
-		this.views = views;
-		this.riNo = riNo;
-		this.saveName = saveName;
+	public String getOrgName() {
+		return orgName;
+	}
+
+	public void setOrgName(String orgName) {
 		this.orgName = orgName;
-		this.fileSize = fileSize;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
 		this.filePath = filePath;
 	}
 
@@ -84,46 +90,6 @@ public class ReviewVo {
 		this.rDate = rDate;
 	}
 
-	public int getRiNo() {
-		return riNo;
-	}
-
-	public void setRiNo(int riNo) {
-		this.riNo = riNo;
-	}
-
-	public String getSaveName() {
-		return saveName;
-	}
-
-	public void setSaveName(String saveName) {
-		this.saveName = saveName;
-	}
-
-	public String getOrgName() {
-		return orgName;
-	}
-
-	public void setOrgName(String orgName) {
-		this.orgName = orgName;
-	}
-
-	public int getFileSize() {
-		return fileSize;
-	}
-
-	public void setFileSize(int fileSize) {
-		this.fileSize = fileSize;
-	}
-
-	public String getFilePath() {
-		return filePath;
-	}
-
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
-	}
-
 	public int getViews() {
 		return views;
 	}
@@ -132,11 +98,54 @@ public class ReviewVo {
 		this.views = views;
 	}
 
+	public int getRiNo() {
+		return riNo;
+	}
+
+	public void setRiNo(int riNo) {
+		this.riNo = riNo;
+	}
+
+	public int getImgCount() {
+		return imgCount;
+	}
+
+	public void setImgCount(int imgCount) {
+		this.imgCount = imgCount;
+	}
+
+	public List<String> getSaveNameList() {
+		return saveNameList;
+	}
+
+	public void setSaveNameList(List<String> saveNameList) {
+		this.saveNameList = saveNameList;
+	}
+
+	public List<MultipartFile> getFile() {
+		return file;
+	}
+
+	public void setFile(List<MultipartFile> file) {
+		this.file = file;
+	}
+
+	public int getUserPoint() {
+		return userPoint;
+	}
+
+	public void setUserPoint(int userPoint) {
+		this.userPoint = userPoint;
+	}
+
 	@Override
 	public String toString() {
 		return "ReviewVo [rNo=" + rNo + ", bNo=" + bNo + ", uNo=" + uNo + ", star=" + star + ", rContent=" + rContent
-				+ ", rDate=" + rDate + ", views=" + views + ", riNo=" + riNo + ", saveName=" + saveName + ", orgName="
-				+ orgName + ", fileSize=" + fileSize + ", filePath=" + filePath + "]";
+				+ ", rDate=" + rDate + ", views=" + views + ", riNo=" + riNo + ", imgCount=" + imgCount + ", orgName="
+				+ orgName + ", filePath=" + filePath + ", userPoint=" + userPoint + ", saveNameList=" + saveNameList
+				+ ", file=" + file + "]";
 	}
+
+
 
 }
