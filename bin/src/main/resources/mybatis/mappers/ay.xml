@@ -6,8 +6,26 @@
 	<!-- 반려견등록 -->
 	<insert id="petInsert" parameterType="com.javaex.vo.DogVo">
       <![CDATA[
-      ]]>
-		insert into dog values(null,
+		INSERT INTO dog 
+		(
+		dogName,
+		kind,
+		weight,
+		birth,
+		gender,
+		neutering,
+		experience,
+		bite,
+		memo,
+		dogImg,
+		size,
+		skin,
+		heart,
+		marking,
+		mounting,
+		uNo
+		)
+		SELECT
 		#{dogName},
 		#{kind},
 		#{weight},
@@ -22,9 +40,46 @@
 		#{skin},
 		#{heart},
 		#{marking},
-		#{mounting}
-		)
+		#{mounting},
+		#{uNo}
+		FROM DUAL
+		WHERE EXISTS (SELECT 1 FROM dog WHERE uNo = #{uNo})
 
+  ]]>
 	</insert>
+
+
+	<!-- 리뷰 등록 -->
+	<insert id="addReview01" parameterType="com.javaex.vo.ReviewVo">
+        <![CDATA[
+            insert into review (rNo, bNo, uNo, star, rContent, rDate)
+            values (null, #{bNo}, #{uNo}, #{star}, #{rContent}, #{rDate})
+        ]]>
+		<selectKey keyProperty="rNo" resultType="int" order="AFTER">
+            <![CDATA[
+                select last_insert_id()
+            ]]>
+		</selectKey>
+	</insert>
+
+	<!-- 리뷰 이미지 등록 -->
+	<insert id="addReview02" parameterType="map">
+        <![CDATA[
+            insert into reviewimg (riNo, rNo, saveName, orgName, filePath)
+            values (null, #{rNo}, #{saveName}, #{orgName}, #{filePath})
+        ]]>
+	</insert>
+
+	<!-- 포인트 추가 -->
+	<update id="updatePoint" parameterType="com.javaex.vo.ReviewVo">
+	
+        <![CDATA[
+           update point set usePoint=usePoint+1000  ,pDate=#{rDate}
+			where uNo=#{uNo} and rvNum=#{rNo}
+        ]]>
+	</update>
+
+
+
 
 </mapper>

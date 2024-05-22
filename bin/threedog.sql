@@ -47,6 +47,7 @@ CREATE TABLE dog (
    marking boolean NULL,
    mounting boolean NULL
 );
+ALTER TABLE dog ADD COLUMN uNo int, ADD CONSTRAINT fk_user_dog FOREIGN KEY (uNo) REFERENCES users(uNo);
 
 CREATE TABLE beautylist (
    beautyNo int auto_increment primary key,
@@ -65,6 +66,8 @@ CREATE TABLE review (
    FOREIGN KEY (bNo) REFERENCES business(bNo),
    FOREIGN KEY (uNo) REFERENCES users(uNo)
 );
+alter table review
+add views int not  null default 0;
 
 CREATE TABLE reserve (
    rsNo int auto_increment primary key,
