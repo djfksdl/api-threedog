@@ -77,6 +77,7 @@ public class ReserveVo {
         this.marking = marking;
         this.mounting = mounting;
         this.uNo = uNo;
+        
     }
 
 	public int getRsNo() {
