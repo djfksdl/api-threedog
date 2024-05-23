@@ -28,8 +28,7 @@
     <!-- 시간 수정 -->
     <update id="updateReserveTime" parameterType="com.javaex.vo.ReserveVo">
         UPDATE reserve
-        SET rsDate = #{rsDate}, 
-            rsTime = #{rsTime},
+        SET rsTime = #{rsTime},
             expectedPrice = #{expectedPrice}
         WHERE rsNo = #{rsNo}
     </update>
