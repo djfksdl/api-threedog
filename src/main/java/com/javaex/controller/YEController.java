@@ -116,7 +116,6 @@ public class YEController {
 	    
 	    List<StoreVo> storeList = yeService.exeSearchMap(storeVo);
 	   
-
 		System.out.println(storeList);
 		
 	    return JsonResult.success(storeList);
