@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.javaex.vo.BusinessVo;
 import com.javaex.vo.PriceVo;
 import com.javaex.vo.UserVo;
 
@@ -41,6 +42,7 @@ public class SUDao {
 		return authUser;
 	}
 //	editPage==================
+	//초기가격 불러오기
 	public List<PriceVo> getPrice() {
 		System.out.println("SUDao.getPrice");
 		
@@ -49,7 +51,15 @@ public class SUDao {
 		System.out.println(pList);
 		
 		return pList;
+	}
+	
+	//가게정보 불러오기
+	public BusinessVo getShopInfo(){
+		System.out.println("SUDao.getShopInfo");
 		
+		BusinessVo shopInfo = sqlSession.selectOne("su.getShopInfo");
+		
+		return shopInfo;
 	}
 	
 }
