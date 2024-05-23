@@ -5,12 +5,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.javaex.dao.SUDao;
+import com.javaex.vo.PriceVo;
 import com.javaex.vo.UserVo;
 
 @Service
@@ -110,6 +112,16 @@ public class SUService {
 		UserVo authUser = suDao.login(userVo);
 
 		return authUser;
+	}
+	
+//	editPage ==============================
+	//초기가격 불러오기
+	public List<PriceVo> exeFirstPrice() {
+		System.out.println("SUService.exeFirstPrice");
+		
+		List<PriceVo> pList =suDao.getPrice();
+		
+		return pList;
 	}
 
 }

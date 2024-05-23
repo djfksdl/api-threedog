@@ -29,4 +29,34 @@
 			and uPw = #{uPw}
 		]]>
 	</select>
+	
+	<!-- =================== 홈페이지 만들기 =================== -->
+	<!-- 가격표 만들기 - Max를 사용하는 이유: 함수는 주어진 그룹 내에서 여러 행이 반환될 수 있는 상황에서 단일 값을 반환하는 데 유용 -->
+	<select id="getPrice" resultType="com.javaex.vo.PriceVo">
+		<![CDATA[
+			SELECT weightDiv,
+				   sizeDiv,
+				   b.beautyNo,
+			       priceNo,
+				   MAX(CASE WHEN beauty = '목욕' THEN onePrice END) as 목욕,
+			       MAX(CASE WHEN beauty = '부분' THEN onePrice END) as 부분,
+			       MAX(CASE WHEN beauty = '목욕+부분' THEN onePrice END) as 목욕_부분,
+			       MAX(CASE WHEN beauty = '얼굴+부분+목욕' THEN onePrice END) as 얼굴_부분_목욕,
+			       MAX(CASE WHEN beauty = '기본전체미용' THEN onePrice END) as 기본전체미용,
+			       MAX(CASE WHEN beauty = '스포팅' THEN onePrice END) as 스포팅,
+			       MAX(CASE WHEN beauty = '가위컷' THEN onePrice END) as 가위컷,
+	               MAX(CASE WHEN beauty = '컷' THEN onePrice END) as 컷,
+     			   MAX(CASE WHEN beauty = '엉킴' THEN onePrice END) as 엉킴,
+      			   MAX(CASE WHEN beauty = '기장' THEN onePrice END) as 기장,
+       			   MAX(CASE WHEN beauty = '특수얼굴컷' THEN onePrice END) as 특수얼굴컷,
+       			   MAX(CASE WHEN beauty = '투톤염색' THEN onePrice END) as 투톤염색,
+       			   MAX(CASE WHEN beauty = '염색' THEN onePrice END) as 염색
+			FROM price p 
+			JOIN beautylist b 
+			ON p.beautyNo = b.beautyNo
+			WHERE bNo = 1
+			GROUP BY weightDiv,sizeDiv
+		]]>
+	</select>
+	
 </mapper>
