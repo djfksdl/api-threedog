@@ -14,6 +14,7 @@ import com.javaex.util.JsonResult;
 import com.javaex.util.JwtUtil;
 import com.javaex.vo.BusinessVo;
 import com.javaex.vo.ReviewListVo;
+import com.javaex.vo.StoreVo;
 
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -64,7 +65,7 @@ public class YEController {
 		}
 	}
 
-	// 검색 화면 기본 리스트(조회순, 검색기본화면, 인기짱강아지리스트)
+	// 검색 화면 기본 후기 리스트(조회순, 검색기본화면, 인기짱강아지리스트)
 	@GetMapping("/api/searchlist")
 	public JsonResult searchList() {
 		System.out.println("YEController.searchList()");
@@ -74,14 +75,50 @@ public class YEController {
 		
 		return JsonResult.success(reviewList);
 	}
+	
+	// 메인 가게 리스트(거리순)
+	@GetMapping("/api/mainlist")
+	public JsonResult mainList(
+			@RequestParam(value = "lat") Double lat,
+	        @RequestParam(value = "lng") Double lng
+	        ) {
+		System.out.println("YEController.mainList()");
+
+		if (lat == null) lat = 37.5665;
+	    if (lng == null) lng = 126.9780;
+	    
+	    StoreVo storeVo = new StoreVo(lat, lng);
+	    
+	    List<StoreVo> mainList = yeService.exeList(storeVo);
+		
+//	    System.out.println(mainList);
+	    
+		return JsonResult.success(mainList);
+	}
 
 	
 	// 지도, 캘린더로 검색 리스트
-	@GetMapping("/api/searchmaplist")
-	public JsonResult searchMap() {
-		System.out.println("YEController.searchmaplist()");
-
+	@GetMapping("/api/searchmap")
+	public JsonResult searchMap(
+	        @RequestParam(value = "lat") Double lat,
+	        @RequestParam(value = "lng") Double lng,
+	        @RequestParam(value = "rsDate") String rsDate) {
+	    System.out.println("YEController.searchmap()");
+	    
+	    if (lat == null) lat = 37.5665;
+	    if (lng == null) lng = 126.9780;
+	    
+	    StoreVo storeVo = new StoreVo(lat, lng, rsDate);
+	    
+	    System.out.println("Received lat: " + storeVo.getLat());
+	    System.out.println("Received lng: " + storeVo.getLan());
+	    System.out.println("Received rsDate: " + storeVo.getRsDate());
+	    
+	    List<StoreVo> storeList = yeService.exeSearchMap(storeVo);
+	   
+		System.out.println(storeList);
 		
-		return JsonResult.success("");
+	    return JsonResult.success(storeList);
 	}
+
 }

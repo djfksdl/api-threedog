@@ -10,7 +10,8 @@
 		values (
 		null,
 		#{bId}, #{bPw}, #{bNum},
-		#{bZipCode}, #{bAddress}, #{bdAddress},
+		#{bZipCode},
+		#{bAddress}, #{bdAddress},
 		#{bPhone}, #{latitude}, #{longitude})
 	</insert>
 	<!-- 사업자 회원가입 - 중복 체크 -->
@@ -42,5 +43,47 @@
 		]]>
 	</select>
 	<!-- 검색 화면 리스트 -->
+
+
+	<!-- 지도, 캘린더 검색 	-->
+	<select id="searchmap" resultType="com.javaex.vo.StoreVo">
+		<![CDATA[
+			SELECT b.bNo, b.title, b.logo,
+		       (3959 * acos(cos(radians(COALESCE(#{lat}, b.latitude))) * cos(radians(b.latitude)) 
+		       * cos(radians(b.longitude) - radians(COALESCE(#{lan}, b.longitude))) + sin(radians(COALESCE(#{lat}, b.latitude))) 
+		       * sin(radians(b.latitude)))) AS distance
+			FROM business b
+			LEFT JOIN (
+			        SELECT bNo, COUNT(*) as reserved_count
+			        FROM reserve
+			        WHERE rsDate = COALESCE(#{rsDate}, rsDate)
+			        GROUP BY bNo
+			        ) r ON b.bNo = r.bNo
+			WHERE r.reserved_count IS NULL OR r.reserved_count < (
+			    SELECT MAX(count_per_bNo) FROM (
+			        SELECT COUNT(*) as count_per_bNo
+			        FROM reserve
+			        WHERE rsDate = COALESCE(#{rsDate}, rsDate)
+			        GROUP BY bNo
+			    ) as subquery
+			)
+			ORDER BY distance ASC
+		]]>
+	</select>
+	
+	<!-- 그냥 가게 리스트 	-->
+	<select id="mainlist" resultType="com.javaex.vo.StoreVo">
+    <![CDATA[
+        SELECT b.bNo, b.title, b.logo,
+           (3959 * acos(cos(radians(COALESCE(#{lat}, b.latitude))) * cos(radians(b.latitude)) 
+           * cos(radians(b.longitude) - radians(COALESCE(#{lan}, b.longitude))) + sin(radians(COALESCE(#{lat}, b.latitude))) 
+           * sin(radians(b.latitude)))) AS distance
+        FROM business b
+        ORDER BY distance ASC
+        limit 10
+    ]]>
+	</select>
+	<!-- 그냥 가게 리스트 	-->
+	
 
 </mapper>

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.javaex.vo.BusinessVo;
 import com.javaex.vo.ReviewListVo;
+import com.javaex.vo.StoreVo;
 
 @Repository
 public class YEDao {
@@ -18,32 +19,48 @@ public class YEDao {
 
 	public void msignup(BusinessVo businessVo) {
 		System.out.println("YEDao.msignup()");
-		
+
 		sqlSession.insert("ye.bInsert", businessVo);
 	}
 
 	public int idCheck(String id) {
 		System.out.println("YEDao.idCheck()");
-		
+
 		int count = sqlSession.selectOne("ye.bSelect", id);
-		
+
 		return count;
 	}
 
 	public BusinessVo mlogin(@ModelAttribute BusinessVo businessVo) {
 		System.out.println("YEDao.mlogin()");
-		
+
 		BusinessVo auth = sqlSession.selectOne("ye.bSelectOne", businessVo);
-		
+
 		return auth;
 	}
 
 	public List<ReviewListVo> searchList() {
 		System.out.println("YEDao.searchList()");
-		
+
 		List<ReviewListVo> reviewList = sqlSession.selectList("ye.searchlist");
-		
+
 		return reviewList;
+	}
+
+	public List<StoreVo> searchMap(StoreVo storeVo) {
+		System.out.println("YEDao.searchMap()");
+
+		List<StoreVo> storeList = sqlSession.selectList("ye.searchmap", storeVo);
+
+		return storeList;
+	}
+
+	public List<StoreVo> mainList(StoreVo storeVo) {
+		System.out.println("YEDao.mainList()");
+		
+		List<StoreVo> mainList= sqlSession.selectList("ye.mainlist", storeVo);
+		
+		return mainList;
 	}
 
 }
