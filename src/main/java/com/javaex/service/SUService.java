@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.javaex.dao.SUDao;
+import com.javaex.vo.BusinessVo;
 import com.javaex.vo.PriceVo;
 import com.javaex.vo.UserVo;
 
@@ -122,6 +123,15 @@ public class SUService {
 		List<PriceVo> pList =suDao.getPrice();
 		
 		return pList;
+	}
+	
+	//가게정보 불러오기
+	public BusinessVo exeShopInfo(){
+		System.out.println("SUService.exeShopInfo");
+		
+		BusinessVo shopInfo =suDao.getShopInfo();
+		
+		return shopInfo;
 	}
 
 }

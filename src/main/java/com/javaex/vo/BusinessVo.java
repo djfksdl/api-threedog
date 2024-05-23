@@ -15,6 +15,7 @@ public class BusinessVo {
 	private double averageStar;
 	private String logo;
 	private String title;
+	private String subTitle;
 
 	public BusinessVo() {
 		super();
@@ -123,13 +124,24 @@ public class BusinessVo {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	
+
+	public String getSubTitle() {
+		return subTitle;
+	}
+
+	public void setSubTitle(String subTitle) {
+		this.subTitle = subTitle;
+	}
 
 	@Override
 	public String toString() {
 		return "BusinessVo [bNo=" + bNo + ", bId=" + bId + ", bPw=" + bPw + ", bNum=" + bNum + ", bZipCode=" + bZipCode
 				+ ", bAddress=" + bAddress + ", bdAddress=" + bdAddress + ", bPhone=" + bPhone + ", latitude="
 				+ latitude + ", longitude=" + longitude + ", averageStar=" + averageStar + ", logo=" + logo + ", title="
-				+ title + "]";
+				+ title + ", subTitle=" + subTitle + "]";
 	}
+
+	
 
 }

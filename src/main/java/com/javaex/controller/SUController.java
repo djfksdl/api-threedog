@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.javaex.service.SUService;
 import com.javaex.util.JsonResult;
 import com.javaex.util.JwtUtil;
+import com.javaex.vo.BusinessVo;
 import com.javaex.vo.PriceVo;
 import com.javaex.vo.UserVo;
 
@@ -69,7 +70,7 @@ public class SUController {
 	
 	//editPage================================
 	
-	//초기 가격 불러오기
+	//초기가격 불러오기
 	@GetMapping("/api/su/firstprice")
 	public JsonResult firstPrice() {
 		System.out.println("SUController.firstPrice");
@@ -79,4 +80,17 @@ public class SUController {
 		
 		return JsonResult.success(pList);
 	}
+	
+	//가게정보 불러오기
+	@GetMapping("/api/su/shopInfo")
+	public JsonResult shopInfo() {
+		System.out.println("SUController.shopInfo");
+		
+		BusinessVo shopInfo = suService.exeShopInfo();
+		
+		
+		return JsonResult.success(shopInfo);
+	}
+	
+	
 }
