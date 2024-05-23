@@ -34,51 +34,65 @@ public class ReserveVo {
     private Boolean marking;
     private Boolean mounting;
     private int uNo;
-    
+    private int rspNo;
+    private int priceNo;
+    private int beautyNo;
+    private Integer onePrice; 
+    private String sizeDiv;
+    private String weightDiv;
+    private String beauty;
+     
     // 생성자
     public ReserveVo() {
         super();
     }
 
-    public ReserveVo(int rsNo, int bNo, int dogNo, String rsDate, String rsTime, String signImg, int expectedPrice,
-                     String attitude, String rCondition, String tangle, String disliked, String bath, Integer surcharge,
-                     String message, Double currentWeight, String dogName, String kind, double weight, String birth,
-                     String gender, Boolean neutering, Boolean experience, Integer bite, String memo, String dogImg, String size,
-                     Boolean skin, Boolean heart, Boolean marking, Boolean mounting,int uNo) {
-        super();
-        this.rsNo = rsNo;
-        this.bNo = bNo;
-        this.dogNo = dogNo;
-        this.rsDate = rsDate;
-        this.rsTime = rsTime;
-        this.signImg = signImg;
-        this.expectedPrice = expectedPrice;
-        this.attitude = attitude;
-        this.rCondition = rCondition;
-        this.tangle = tangle;
-        this.disliked = disliked;
-        this.bath = bath;
-        this.surcharge = surcharge;
-        this.message = message;
-        this.currentWeight = currentWeight;
-        this.dogName = dogName;
-        this.kind = kind;
-        this.weight = weight;
-        this.birth = birth;
-        this.gender = gender;
-        this.neutering = neutering;
-        this.experience = experience;
-        this.bite = bite;
-        this.memo = memo;
-        this.dogImg = dogImg;
-        this.size = size;
-        this.skin = skin;
-        this.heart = heart;
-        this.marking = marking;
-        this.mounting = mounting;
-        this.uNo = uNo;
-        
-    }
+	public ReserveVo(int rsNo, int bNo, int dogNo, String rsDate, String rsTime, String signImg, int expectedPrice,
+			String attitude, String rCondition, String tangle, String disliked, String bath, Integer surcharge,
+			String message, Double currentWeight, String dogName, String kind, double weight, String birth,
+			String gender, Boolean neutering, Boolean experience, Integer bite, String memo, String dogImg, String size,
+			Boolean skin, Boolean heart, Boolean marking, Boolean mounting, int uNo, int rspNo, int priceNo,
+			int beautyNo, Integer onePrice, String sizeDiv, String weightDiv, String beauty) {
+		super();
+		this.rsNo = rsNo;
+		this.bNo = bNo;
+		this.dogNo = dogNo;
+		this.rsDate = rsDate;
+		this.rsTime = rsTime;
+		this.signImg = signImg;
+		this.expectedPrice = expectedPrice;
+		this.attitude = attitude;
+		this.rCondition = rCondition;
+		this.tangle = tangle;
+		this.disliked = disliked;
+		this.bath = bath;
+		this.surcharge = surcharge;
+		this.message = message;
+		this.currentWeight = currentWeight;
+		this.dogName = dogName;
+		this.kind = kind;
+		this.weight = weight;
+		this.birth = birth;
+		this.gender = gender;
+		this.neutering = neutering;
+		this.experience = experience;
+		this.bite = bite;
+		this.memo = memo;
+		this.dogImg = dogImg;
+		this.size = size;
+		this.skin = skin;
+		this.heart = heart;
+		this.marking = marking;
+		this.mounting = mounting;
+		this.uNo = uNo;
+		this.rspNo = rspNo;
+		this.priceNo = priceNo;
+		this.beautyNo = beautyNo;
+		this.onePrice = onePrice;
+		this.sizeDiv = sizeDiv;
+		this.weightDiv = weightDiv;
+		this.beauty = beauty;
+	}
 
 	public int getRsNo() {
 		return rsNo;
@@ -328,6 +342,62 @@ public class ReserveVo {
 		this.uNo = uNo;
 	}
 
+	public int getRspNo() {
+		return rspNo;
+	}
+
+	public void setRspNo(int rspNo) {
+		this.rspNo = rspNo;
+	}
+
+	public int getPriceNo() {
+		return priceNo;
+	}
+
+	public void setPriceNo(int priceNo) {
+		this.priceNo = priceNo;
+	}
+
+	public int getBeautyNo() {
+		return beautyNo;
+	}
+
+	public void setBeautyNo(int beautyNo) {
+		this.beautyNo = beautyNo;
+	}
+
+	public Integer getOnePrice() {
+		return onePrice;
+	}
+
+	public void setOnePrice(Integer onePrice) {
+		this.onePrice = onePrice;
+	}
+
+	public String getSizeDiv() {
+		return sizeDiv;
+	}
+
+	public void setSizeDiv(String sizeDiv) {
+		this.sizeDiv = sizeDiv;
+	}
+
+	public String getWeightDiv() {
+		return weightDiv;
+	}
+
+	public void setWeightDiv(String weightDiv) {
+		this.weightDiv = weightDiv;
+	}
+
+	public String getBeauty() {
+		return beauty;
+	}
+
+	public void setBeauty(String beauty) {
+		this.beauty = beauty;
+	}
+
 	@Override
 	public String toString() {
 		return "ReserveVo [rsNo=" + rsNo + ", bNo=" + bNo + ", dogNo=" + dogNo + ", rsDate=" + rsDate + ", rsTime="
@@ -337,8 +407,26 @@ public class ReserveVo {
 				+ ", dogName=" + dogName + ", kind=" + kind + ", weight=" + weight + ", birth=" + birth + ", gender="
 				+ gender + ", neutering=" + neutering + ", experience=" + experience + ", bite=" + bite + ", memo="
 				+ memo + ", dogImg=" + dogImg + ", size=" + size + ", skin=" + skin + ", heart=" + heart + ", marking="
-				+ marking + ", mounting=" + mounting + ", uNo=" + uNo + "]";
+				+ marking + ", mounting=" + mounting + ", uNo=" + uNo + ", rspNo=" + rspNo + ", priceNo=" + priceNo
+				+ ", beautyNo=" + beautyNo + ", onePrice=" + onePrice + ", sizeDiv=" + sizeDiv + ", weightDiv="
+				+ weightDiv + ", beauty=" + beauty + ", getRsNo()=" + getRsNo() + ", getbNo()=" + getbNo()
+				+ ", getDogNo()=" + getDogNo() + ", getRsDate()=" + getRsDate() + ", getRsTime()=" + getRsTime()
+				+ ", getSignImg()=" + getSignImg() + ", getExpectedPrice()=" + getExpectedPrice() + ", getAttitude()="
+				+ getAttitude() + ", getrCondition()=" + getrCondition() + ", getTangle()=" + getTangle()
+				+ ", getDisliked()=" + getDisliked() + ", getBath()=" + getBath() + ", getSurcharge()=" + getSurcharge()
+				+ ", getMessage()=" + getMessage() + ", getCurrentWeight()=" + getCurrentWeight() + ", getDogName()="
+				+ getDogName() + ", getKind()=" + getKind() + ", getWeight()=" + getWeight() + ", getBirth()="
+				+ getBirth() + ", getGender()=" + getGender() + ", getNeutering()=" + getNeutering()
+				+ ", getExperience()=" + getExperience() + ", getBite()=" + getBite() + ", getMemo()=" + getMemo()
+				+ ", getDogImg()=" + getDogImg() + ", getSize()=" + getSize() + ", getSkin()=" + getSkin()
+				+ ", getHeart()=" + getHeart() + ", getMarking()=" + getMarking() + ", getMounting()=" + getMounting()
+				+ ", getuNo()=" + getuNo() + ", getRspNo()=" + getRspNo() + ", getPriceNo()=" + getPriceNo()
+				+ ", getBeautyNo()=" + getBeautyNo() + ", getOnePrice()=" + getOnePrice() + ", getSizeDiv()="
+				+ getSizeDiv() + ", getWeightDiv()=" + getWeightDiv() + ", getBeauty()=" + getBeauty() + ", getClass()="
+				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
-
     
+    
+
+
 }
