@@ -117,19 +117,19 @@ public class SUService {
 	
 //	editPage ==============================
 	//초기가격 불러오기
-	public List<PriceVo> exeFirstPrice() {
+	public List<PriceVo> exeFirstPrice(int bNo) {
 		System.out.println("SUService.exeFirstPrice");
 		
-		List<PriceVo> pList =suDao.getPrice();
+		List<PriceVo> pList =suDao.getPrice(bNo);
 		
 		return pList;
 	}
 	
 	//가게정보 불러오기
-	public BusinessVo exeShopInfo(){
+	public BusinessVo exeShopInfo(int bNo){
 		System.out.println("SUService.exeShopInfo");
 		
-		BusinessVo shopInfo =suDao.getShopInfo();
+		BusinessVo shopInfo =suDao.getShopInfo(bNo);
 		
 		return shopInfo;
 	}

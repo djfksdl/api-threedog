@@ -32,7 +32,7 @@
 	
 	<!-- =================== 홈페이지 만들기 =================== -->
 	<!-- 초기가격 불러오기 - Max를 사용하는 이유: 함수는 주어진 그룹 내에서 여러 행이 반환될 수 있는 상황에서 단일 값을 반환하는 데 유용 -->
-	<select id="getPrice" resultType="com.javaex.vo.PriceVo">
+	<select id="getPrice" parameterType="int" resultType="com.javaex.vo.PriceVo">
 		<![CDATA[
 			SELECT weightDiv,
 				   sizeDiv,
@@ -54,13 +54,13 @@
 			FROM price p 
 			JOIN beautylist b 
 			ON p.beautyNo = b.beautyNo
-			WHERE bNo = 1
+			WHERE bNo = #{bNo}
 			GROUP BY weightDiv,sizeDiv
 		]]>
 	</select>
 	
 	<!-- 가게정보 불러오기 -->
-	<select id="getShopInfo" resultType="com.javaex.vo.BusinessVo">
+	<select id="getShopInfo" parameterType="int" resultType="com.javaex.vo.BusinessVo">
 		<![CDATA[
 			select bNo,
 				   bZipCode,
@@ -74,7 +74,7 @@
 			       latitude,
 			       longitude
 			from business
-			where bNo=1
+			where bNo=#{bNo}
 		]]>
 	</select>
 	

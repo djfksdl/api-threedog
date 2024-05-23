@@ -43,21 +43,21 @@ public class SUDao {
 	}
 //	editPage==================
 	//초기가격 불러오기
-	public List<PriceVo> getPrice() {
+	public List<PriceVo> getPrice(int bNo) {
 		System.out.println("SUDao.getPrice");
 		
-		List<PriceVo> pList = sqlSession.selectList("su.getPrice");
-		System.out.println("가기전에 확인하기");
-		System.out.println(pList);
+		List<PriceVo> pList = sqlSession.selectList("su.getPrice",bNo);
+//		System.out.println("가기전에 확인하기");
+//		System.out.println(pList);
 		
 		return pList;
 	}
 	
 	//가게정보 불러오기
-	public BusinessVo getShopInfo(){
+	public BusinessVo getShopInfo(int bNo){
 		System.out.println("SUDao.getShopInfo");
 		
-		BusinessVo shopInfo = sqlSession.selectOne("su.getShopInfo");
+		BusinessVo shopInfo = sqlSession.selectOne("su.getShopInfo",bNo);
 		
 		return shopInfo;
 	}
