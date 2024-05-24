@@ -1,6 +1,7 @@
 package com.javaex.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +28,7 @@ public class SUController {
 	
 	//아이디 중복체크
 	@PostMapping("/api/su/idcheck")
-	public JsonResult idcheck(@RequestParam String uId) {
+	public JsonResult idcheck(@RequestParam(value="uId") String uId) {
 		System.out.println("SUController.list");
 		
 		System.out.println(uId);
@@ -70,27 +71,43 @@ public class SUController {
 	
 	//editPage================================
 	
-	//초기가격 불러오기
-	@GetMapping("/api/su/firstprice")
-	public JsonResult firstPrice() {
-		System.out.println("SUController.firstPrice");
+	//가격 불러오기
+	@GetMapping("/api/su/getPriceBybNo")
+	public JsonResult firstPrice(@RequestParam(value="bNo") int bNo) {
+		System.out.println("SUController.getPriceBybNo");
 		
-		List<PriceVo> pList = suService.exeFirstPrice();
+		
+		List<PriceVo> pList = suService.exePriceBybNo(bNo);
 		
 		
 		return JsonResult.success(pList);
 	}
 	
-	//가게정보 불러오기
+	//가게정보 불러오기 - editPage
 	@GetMapping("/api/su/shopInfo")
-	public JsonResult shopInfo() {
-		System.out.println("SUController.shopInfo");
+	public JsonResult shopInfoList(@RequestParam(value="bNo") int bNo) {
+		System.out.println("SUController.shopInfoList");
+//		System.out.println("가게번호: "+ bNo);
 		
-		BusinessVo shopInfo = suService.exeShopInfo();
+		BusinessVo shopInfo = suService.exeShopInfoList(bNo);
 		
 		
 		return JsonResult.success(shopInfo);
 	}
+	
+	//가게 등록 -editform
+	@GetMapping("/api/su/registerPrice")
+	public JsonResult registerPrice(@RequestParam(value="bNo") int bNo) {
+		System.out.println("SUController.shopInfoList");
+//		System.out.println("가게번호: "+ bNo);
+		
+		BusinessVo shopInfo = suService.exeShopInfoList(bNo);
+		
+		
+		return JsonResult.success(shopInfo);
+	}
+	
+	
 	
 	
 }

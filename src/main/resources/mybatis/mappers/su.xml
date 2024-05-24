@@ -2,15 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="su">
 
-	<!-- 아이디 중복체크-->
-	<select id="checkId" parameterType="String" resultType="int" >
+	<!-- 아이디 중복체크 -->
+	<select id="checkId" parameterType="String" resultType="int">
 		<![CDATA[
 			select count(uId)
 			from users
 			where uId = #{uId}
 		]]>
 	</select>
-	
+
 	<!-- 회원가입 -->
 	<insert id="insertUser" parameterType="com.javaex.vo.UserVo">
 		<![CDATA[
@@ -18,7 +18,7 @@
 			values(null, #{uId}, #{uPw},#{uName},#{uPhone}, #{uZipCode},#{uAddress},#{uDetailAddress},null,#{uProfile})
 		]]>
 	</insert>
-	
+
 	<!-- 로그인 -->
 	<select id="login" parameterType="com.javaex.vo.UserVo" resultType="com.javaex.vo.UserVo">
 		<![CDATA[
@@ -29,40 +29,27 @@
 			and uPw = #{uPw}
 		]]>
 	</select>
-	
+
 	<!-- =================== 홈페이지 만들기 =================== -->
-	<!-- 초기가격 불러오기 - Max를 사용하는 이유: 함수는 주어진 그룹 내에서 여러 행이 반환될 수 있는 상황에서 단일 값을 반환하는 데 유용 -->
-	<select id="getPrice" resultType="com.javaex.vo.PriceVo">
+	<!-- 가격정보 불러오기 -->
+	<select id="getPrice" parameterType="int" resultType="com.javaex.vo.PriceVo">
 		<![CDATA[
-			SELECT weightDiv,
-				   sizeDiv,
+			SELECT p.bNo,
 				   b.beautyNo,
-			       priceNo,
-				   MAX(CASE WHEN beauty = '목욕' THEN onePrice END) as 목욕,
-			       MAX(CASE WHEN beauty = '부분' THEN onePrice END) as 부분,
-			       MAX(CASE WHEN beauty = '목욕+부분' THEN onePrice END) as 목욕_부분,
-			       MAX(CASE WHEN beauty = '얼굴+부분+목욕' THEN onePrice END) as 얼굴_부분_목욕,
-			       MAX(CASE WHEN beauty = '기본전체미용' THEN onePrice END) as 기본전체미용,
-			       MAX(CASE WHEN beauty = '스포팅' THEN onePrice END) as 스포팅,
-			       MAX(CASE WHEN beauty = '가위컷' THEN onePrice END) as 가위컷,
-	               MAX(CASE WHEN beauty = '컷' THEN onePrice END) as 컷,
-     			   MAX(CASE WHEN beauty = '엉킴' THEN onePrice END) as 엉킴,
-      			   MAX(CASE WHEN beauty = '기장' THEN onePrice END) as 기장,
-       			   MAX(CASE WHEN beauty = '특수얼굴컷' THEN onePrice END) as 특수얼굴컷,
-       			   MAX(CASE WHEN beauty = '투톤염색' THEN onePrice END) as 투톤염색,
-       			   MAX(CASE WHEN beauty = '염색' THEN onePrice END) as 염색
-			FROM price p 
-			JOIN beautylist b 
-			ON p.beautyNo = b.beautyNo
-			WHERE bNo = 1
-			GROUP BY weightDiv,sizeDiv
+				   sizeDiv,
+			       weightDiv,
+			       beauty,
+			       onePrice
+			FROM beautylist b join price p
+			on b.beautyNo = p.beautyNo
+			where p.bNo=#{bNo}
 		]]>
 	</select>
-	
+
 	<!-- 가게정보 불러오기 -->
-	<select id="getShopInfo" resultType="com.javaex.vo.BusinessVo">
+	<select id="getShopInfo" parameterType="int" resultType="com.javaex.vo.BusinessVo">
 		<![CDATA[
-			select bNo,
+			select b.bNo,
 				   bZipCode,
 			       bAddress,
 			       bdAddress,
@@ -72,10 +59,18 @@
 			       logo,
 			       utilTime,
 			       latitude,
-			       longitude
-			from business
-			where bNo=1
+			       longitude,
+			       dName,
+			       introduce,
+			       dProfile,
+			       job,
+			       utilTime
+			from business b join designer d
+			on b.bNo = d.bNo
+			where b.bNo=#{bNo}
 		]]>
 	</select>
-	
+
+
+
 </mapper>

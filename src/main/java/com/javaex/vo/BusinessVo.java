@@ -16,11 +16,45 @@ public class BusinessVo {
 	private String logo;
 	private String title;
 	private String subTitle;
+	private String dName;
+	private String introduce;
+	private String dProfile;
+	private String  job;
+	private String utilTime;
 
+//	생성자
 	public BusinessVo() {
 		super();
 	}
 
+public BusinessVo(int bNo, String bId, String bPw, String bNum, String bZipCode, String bAddress, String bdAddress,
+			String bPhone, double latitude, double longitude, double averageStar, String logo, String title,
+			String subTitle, String dName, String introduce, String dProfile, String job,  String utilTime) {
+		super();
+		this.bNo = bNo;
+		this.bId = bId;
+		this.bPw = bPw;
+		this.bNum = bNum;
+		this.bZipCode = bZipCode;
+		this.bAddress = bAddress;
+		this.bdAddress = bdAddress;
+		this.bPhone = bPhone;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.averageStar = averageStar;
+		this.logo = logo;
+		this.title = title;
+		this.subTitle = subTitle;
+		this.dName = dName;
+		this.introduce = introduce;
+		this.dProfile = dProfile;
+		this.job = job;
+		this.utilTime= utilTime;
+	}
+
+
+
+	//	메소드-gs
 	public double getLatitude() {
 		return latitude;
 	}
@@ -134,13 +168,65 @@ public class BusinessVo {
 		this.subTitle = subTitle;
 	}
 
+	public String getdName() {
+		return dName;
+	}
+
+	public void setdName(String dName) {
+		this.dName = dName;
+	}
+
+	public String getIntroduce() {
+		return introduce;
+	}
+
+	public void setIntroduce(String introduce) {
+		this.introduce = introduce;
+	}
+
+	public String getdProfile() {
+		return dProfile;
+	}
+
+	public void setdProfile(String dProfile) {
+		this.dProfile = dProfile;
+	}
+	
+	public String getJob() {
+		return job;
+	}
+
+	public void setJob(String job) {
+		this.job = job;
+	}
+	
+	public String getUtilTime() {
+		return utilTime;
+	}
+
+	public void setUtilTime(String utilTime) {
+		this.utilTime = utilTime;
+	}
+
+	
+	// 메소드-일반
 	@Override
 	public String toString() {
 		return "BusinessVo [bNo=" + bNo + ", bId=" + bId + ", bPw=" + bPw + ", bNum=" + bNum + ", bZipCode=" + bZipCode
 				+ ", bAddress=" + bAddress + ", bdAddress=" + bdAddress + ", bPhone=" + bPhone + ", latitude="
 				+ latitude + ", longitude=" + longitude + ", averageStar=" + averageStar + ", logo=" + logo + ", title="
-				+ title + ", subTitle=" + subTitle + "]";
+				+ title + ", subTitle=" + subTitle + ", dName=" + dName + ", introduce=" + introduce + ", dProfile="
+				+ dProfile + ", job=" + job + ", utilTime=" + utilTime + "]";
 	}
+
+
+
+
+
+
+
+
+	
 
 	
 

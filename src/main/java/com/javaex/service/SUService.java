@@ -5,7 +5,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,22 +118,28 @@ public class SUService {
 	}
 	
 //	editPage ==============================
-	//초기가격 불러오기
-	public List<PriceVo> exeFirstPrice() {
-		System.out.println("SUService.exeFirstPrice");
+	//가격 불러오기 
+	public List<PriceVo> exePriceBybNo(int bNo) {
+		System.out.println("SUService.exePriceBybNo");
+
+		//가격정보 불러오기
+		List<PriceVo> pList =suDao.getPrice(bNo);
 		
-		List<PriceVo> pList =suDao.getPrice();
+//		Map<String, Object> priceInvetoryMap = new HashMap<String,Object>();
+//		priceInvetoryMap.put("pList", pList);
+//		priceInvetoryMap.put("inventoryList", inventoryList);
 		
 		return pList;
 	}
 	
-	//가게정보 불러오기
-	public BusinessVo exeShopInfo(){
-		System.out.println("SUService.exeShopInfo");
+	//가게정보 불러오기 
+	public BusinessVo exeShopInfoList(int bNo){
+		System.out.println("SUService.exeShopInfoList");
 		
-		BusinessVo shopInfo =suDao.getShopInfo();
+		BusinessVo shopInfo =suDao.getShopInfo(bNo);
 		
 		return shopInfo;
 	}
+	
 
 }

@@ -6,8 +6,9 @@ public class ReserveVo {
     private int rsNo;
     private int bNo;
     private int dogNo;
-    private String rsDate;
-    private String rsTime;
+    private int rtNo;
+    private String rtDate;
+    private String rtTime;
     private String signImg;
     private int expectedPrice;
     private String attitude;
@@ -47,18 +48,19 @@ public class ReserveVo {
         super();
     }
 
-	public ReserveVo(int rsNo, int bNo, int dogNo, String rsDate, String rsTime, String signImg, int expectedPrice,
-			String attitude, String rCondition, String tangle, String disliked, String bath, Integer surcharge,
-			String message, Double currentWeight, String dogName, String kind, double weight, String birth,
-			String gender, Boolean neutering, Boolean experience, Integer bite, String memo, String dogImg, String size,
-			Boolean skin, Boolean heart, Boolean marking, Boolean mounting, int uNo, int rspNo, int priceNo,
-			int beautyNo, Integer onePrice, String sizeDiv, String weightDiv, String beauty) {
+	public ReserveVo(int rsNo, int bNo, int dogNo, int rtNo, String rtDate, String rtTime, String signImg,
+			int expectedPrice, String attitude, String rCondition, String tangle, String disliked, String bath,
+			Integer surcharge, String message, Double currentWeight, String dogName, String kind, double weight,
+			String birth, String gender, Boolean neutering, Boolean experience, Integer bite, String memo,
+			String dogImg, String size, Boolean skin, Boolean heart, Boolean marking, Boolean mounting, int uNo,
+			int rspNo, int priceNo, int beautyNo, Integer onePrice, String sizeDiv, String weightDiv, String beauty) {
 		super();
 		this.rsNo = rsNo;
 		this.bNo = bNo;
 		this.dogNo = dogNo;
-		this.rsDate = rsDate;
-		this.rsTime = rsTime;
+		this.rtNo = rtNo;
+		this.rtDate = rtDate;
+		this.rtTime = rtTime;
 		this.signImg = signImg;
 		this.expectedPrice = expectedPrice;
 		this.attitude = attitude;
@@ -118,20 +120,28 @@ public class ReserveVo {
 		this.dogNo = dogNo;
 	}
 
-	public String getRsDate() {
-		return rsDate;
+	public int getRtNo() {
+		return rtNo;
 	}
 
-	public void setRsDate(String rsDate) {
-		this.rsDate = rsDate;
+	public void setRtNo(int rtNo) {
+		this.rtNo = rtNo;
 	}
 
-	public String getRsTime() {
-		return rsTime;
+	public String getRtDate() {
+		return rtDate;
 	}
 
-	public void setRsTime(String rsTime) {
-		this.rsTime = rsTime;
+	public void setRtDate(String rtDate) {
+		this.rtDate = rtDate;
+	}
+
+	public String getRtTime() {
+		return rtTime;
+	}
+
+	public void setRtTime(String rtTime) {
+		this.rtTime = rtTime;
 	}
 
 	public String getSignImg() {
@@ -400,33 +410,15 @@ public class ReserveVo {
 
 	@Override
 	public String toString() {
-		return "ReserveVo [rsNo=" + rsNo + ", bNo=" + bNo + ", dogNo=" + dogNo + ", rsDate=" + rsDate + ", rsTime="
-				+ rsTime + ", signImg=" + signImg + ", expectedPrice=" + expectedPrice + ", attitude=" + attitude
-				+ ", rCondition=" + rCondition + ", tangle=" + tangle + ", disliked=" + disliked + ", bath=" + bath
-				+ ", surcharge=" + surcharge + ", message=" + message + ", currentWeight=" + currentWeight
+		return "ReserveVo [rsNo=" + rsNo + ", bNo=" + bNo + ", dogNo=" + dogNo + ", rtNo=" + rtNo + ", rtDate=" + rtDate
+				+ ", rtTime=" + rtTime + ", signImg=" + signImg + ", expectedPrice=" + expectedPrice + ", attitude="
+				+ attitude + ", rCondition=" + rCondition + ", tangle=" + tangle + ", disliked=" + disliked + ", bath="
+				+ bath + ", surcharge=" + surcharge + ", message=" + message + ", currentWeight=" + currentWeight
 				+ ", dogName=" + dogName + ", kind=" + kind + ", weight=" + weight + ", birth=" + birth + ", gender="
 				+ gender + ", neutering=" + neutering + ", experience=" + experience + ", bite=" + bite + ", memo="
 				+ memo + ", dogImg=" + dogImg + ", size=" + size + ", skin=" + skin + ", heart=" + heart + ", marking="
 				+ marking + ", mounting=" + mounting + ", uNo=" + uNo + ", rspNo=" + rspNo + ", priceNo=" + priceNo
 				+ ", beautyNo=" + beautyNo + ", onePrice=" + onePrice + ", sizeDiv=" + sizeDiv + ", weightDiv="
-				+ weightDiv + ", beauty=" + beauty + ", getRsNo()=" + getRsNo() + ", getbNo()=" + getbNo()
-				+ ", getDogNo()=" + getDogNo() + ", getRsDate()=" + getRsDate() + ", getRsTime()=" + getRsTime()
-				+ ", getSignImg()=" + getSignImg() + ", getExpectedPrice()=" + getExpectedPrice() + ", getAttitude()="
-				+ getAttitude() + ", getrCondition()=" + getrCondition() + ", getTangle()=" + getTangle()
-				+ ", getDisliked()=" + getDisliked() + ", getBath()=" + getBath() + ", getSurcharge()=" + getSurcharge()
-				+ ", getMessage()=" + getMessage() + ", getCurrentWeight()=" + getCurrentWeight() + ", getDogName()="
-				+ getDogName() + ", getKind()=" + getKind() + ", getWeight()=" + getWeight() + ", getBirth()="
-				+ getBirth() + ", getGender()=" + getGender() + ", getNeutering()=" + getNeutering()
-				+ ", getExperience()=" + getExperience() + ", getBite()=" + getBite() + ", getMemo()=" + getMemo()
-				+ ", getDogImg()=" + getDogImg() + ", getSize()=" + getSize() + ", getSkin()=" + getSkin()
-				+ ", getHeart()=" + getHeart() + ", getMarking()=" + getMarking() + ", getMounting()=" + getMounting()
-				+ ", getuNo()=" + getuNo() + ", getRspNo()=" + getRspNo() + ", getPriceNo()=" + getPriceNo()
-				+ ", getBeautyNo()=" + getBeautyNo() + ", getOnePrice()=" + getOnePrice() + ", getSizeDiv()="
-				+ getSizeDiv() + ", getWeightDiv()=" + getWeightDiv() + ", getBeauty()=" + getBeauty() + ", getClass()="
-				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+				+ weightDiv + ", beauty=" + beauty + "]";
 	}
-    
-    
-
-
 }
