@@ -63,4 +63,20 @@ public class YEDao {
 		return mainList;
 	}
 
+	public List<StoreVo> popList() {
+		System.out.println("YEDao.popList()");
+		
+		List<StoreVo> storeList = sqlSession.selectList("ye.poplist");
+		
+		return storeList;
+	}
+
+	public List<BusinessVo> markList() {
+		System.out.println("YEDao.markList()");
+		
+		List<BusinessVo> markList = sqlSession.selectList("ye.marklist");
+		
+		return markList;
+	}
+
 }

@@ -9,6 +9,7 @@ public class StoreVo {
 	private double lan;
 	private String rsDate;
 	private double distance;
+	private int reservationCount;
 	
 	public StoreVo() {
 		super();
@@ -30,6 +31,17 @@ public class StoreVo {
 	}
 
 	
+	
+	public int getReservationCount() {
+		return reservationCount;
+	}
+
+
+	public void setReservationCount(int reservationCount) {
+		this.reservationCount = reservationCount;
+	}
+
+
 	public double getDistance() {
 		return distance;
 	}
@@ -78,9 +90,7 @@ public class StoreVo {
 	@Override
 	public String toString() {
 		return "StoreVo [bNo=" + bNo + ", title=" + title + ", logo=" + logo + ", lat=" + lat + ", lan=" + lan
-				+ ", rsDate=" + rsDate + ", distance=" + distance + "]";
+				+ ", rsDate=" + rsDate + ", distance=" + distance + ", reservationCount=" + reservationCount + "]";
 	}
-	
-	
 	
 }

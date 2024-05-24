@@ -28,11 +28,11 @@ public class YEController {
 	@PostMapping("/api/msignup")
 	public JsonResult mSignup(@ModelAttribute BusinessVo businessVo) {
 		System.out.println("YEController.mSignup()");
-		
+
 		System.out.println(businessVo);
-		
+
 		yeService.exeMsignup(businessVo);
-		
+
 		System.out.println(businessVo);
 		return JsonResult.success(businessVo);
 	}
@@ -57,10 +57,10 @@ public class YEController {
 //		System.out.println(businessVo);
 		BusinessVo auth = yeService.exeMlogin(businessVo);
 
-		if(auth != null) {
-			JwtUtil.createTokenAndSetHeader(response, "" + auth.getbNo() );
+		if (auth != null) {
+			JwtUtil.createTokenAndSetHeader(response, "" + auth.getbNo());
 			return JsonResult.success(auth);
-		}else {
+		} else {
 			return JsonResult.fail("로그인실패");
 		}
 	}
@@ -72,53 +72,75 @@ public class YEController {
 
 		List<ReviewListVo> reviewList = yeService.exeSearchList();
 //		System.out.println(reviewList);
-		
+
 		return JsonResult.success(reviewList);
 	}
-	
+
 	// 메인 가게 리스트(거리순)
 	@GetMapping("/api/mainlist")
-	public JsonResult mainList(
-			@RequestParam(value = "lat") Double lat,
-	        @RequestParam(value = "lng") Double lng
-	        ) {
+	public JsonResult mainList(@RequestParam(value = "lat") Double lat, @RequestParam(value = "lng") Double lng) {
 		System.out.println("YEController.mainList()");
 
-		if (lat == null) lat = 37.5665;
-	    if (lng == null) lng = 126.9780;
-	    
-	    StoreVo storeVo = new StoreVo(lat, lng);
-	    
-	    List<StoreVo> mainList = yeService.exeList(storeVo);
-		
-//	    System.out.println(mainList);
-	    
+		if (lat == null)
+			lat = 37.5665;
+		if (lng == null)
+			lng = 126.9780;
+
+		StoreVo storeVo = new StoreVo(lat, lng);
+
+		List<StoreVo> mainList = yeService.exeList(storeVo);
+
+		System.out.println("-----------");
+	    System.out.println(mainList);
+
 		return JsonResult.success(mainList);
 	}
 
-	
 	// 지도, 캘린더로 검색 리스트
 	@GetMapping("/api/searchmap")
-	public JsonResult searchMap(
-	        @RequestParam(value = "lat") Double lat,
-	        @RequestParam(value = "lng") Double lng,
-	        @RequestParam(value = "rsDate") String rsDate) {
-	    System.out.println("YEController.searchmap()");
-	    
-	    if (lat == null) lat = 37.5665;
-	    if (lng == null) lng = 126.9780;
-	    
-	    StoreVo storeVo = new StoreVo(lat, lng, rsDate);
-	    
-	    System.out.println("Received lat: " + storeVo.getLat());
-	    System.out.println("Received lng: " + storeVo.getLan());
-	    System.out.println("Received rsDate: " + storeVo.getRsDate());
-	    
-	    List<StoreVo> storeList = yeService.exeSearchMap(storeVo);
-	   
+	public JsonResult searchMap(@RequestParam(value = "lat") Double lat, @RequestParam(value = "lng") Double lng,
+			@RequestParam(value = "rsDate") String rsDate) {
+		System.out.println("YEController.searchmap()");
+
+		if (lat == null)
+			lat = 37.5665;
+		if (lng == null)
+			lng = 126.9780;
+
+		StoreVo storeVo = new StoreVo(lat, lng, rsDate);
+
+		System.out.println("Received lat: " + storeVo.getLat());
+		System.out.println("Received lng: " + storeVo.getLan());
+		System.out.println("Received rsDate: " + storeVo.getRsDate());
+
+		List<StoreVo> storeList = yeService.exeSearchMap(storeVo);
+
 		System.out.println(storeList);
-		
-	    return JsonResult.success(storeList);
+
+		return JsonResult.success(storeList);
+	}
+
+	// 인기검색어
+	@GetMapping("/api/poprank")
+	public JsonResult popRank() {
+		System.out.println("YEController.popRank()");
+
+		List<StoreVo> storeList = yeService.exePopList();
+//		System.out.println("------------------");
+//		System.out.println(storeList);
+//		System.out.println("------------------");
+		return JsonResult.success(storeList);
+	}
+
+	// 인기검색어
+	@GetMapping("/api/marker")
+	public JsonResult marker() {
+		System.out.println("YEController.marker()");
+
+		List<BusinessVo> markList = yeService.exeMarker();
+		System.out.println(markList);
+
+		return JsonResult.success(markList);
 	}
 
 }

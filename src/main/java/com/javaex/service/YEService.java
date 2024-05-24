@@ -63,5 +63,21 @@ public class YEService {
 		
 		return mainList;
 	}
+
+	public List<StoreVo> exePopList() {
+		System.out.println("YEService.exePopList()");
+		
+		List<StoreVo> storeList = yeDao.popList();
+		
+		return storeList;
+	}
+
+	public List<BusinessVo> exeMarker() {
+		System.out.println("YEService.exeMarker()");
+		
+		List<BusinessVo> markList = yeDao.markList();
+		
+		return markList;
+	}
 	
 }
