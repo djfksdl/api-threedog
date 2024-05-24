@@ -71,10 +71,9 @@ CREATE TABLE review (
 );
 alter table review add views int not  null default 0;
 ALTER TABLE review ADD COLUMN rsNo int ;
-ALTER TABLE review ADD COLUMN rtNo int ;
 
-ALTER TABLE review ADD CONSTRAINT FOREIGN KEY (rtNo) REFERENCES reserveTime(rtNo);
 ALTER TABLE review ADD CONSTRAINT FOREIGN KEY (rsNo) REFERENCES reserve(rsNo);
+
 
 
 CREATE TABLE reserve (
