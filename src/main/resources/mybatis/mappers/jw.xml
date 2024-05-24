@@ -7,30 +7,34 @@
 				 
     <!-- 한 가게의 예약 리스트 정보 조회 -->
     <select id="selectReserveList" parameterType="int" resultType="com.javaex.vo.ReserveVo">
-		SELECT r.*, d.*, p.*, b.*
+		SELECT r.*, d.*, p.*, b.*, rt.rtDate, rt.rtTime
 		FROM reserve r
 		JOIN dog d ON r.dogNo = d.dogNo
 		JOIN rsPrice rp ON r.rsNo = rp.rsNo
 		JOIN price p ON rp.priceNo = p.priceNo
 		JOIN beautylist b ON p.beautyNo = b.beautyNo
+		JOIN reserveTime rt ON r.rtNo = rt.rtNo
 		WHERE r.bNo = #{bNo};
     </select>
     
     <!-- 일자 수정 -->
     <update id="updateReserveDate" parameterType="com.javaex.vo.ReserveVo">
-        UPDATE reserve
-        SET rsDate = #{rsDate}, 
-            rsTime = #{rsTime}
-        WHERE rsNo = #{rsNo}
+		UPDATE reserveTime
+		SET rtDate = #{rtDate},
+		    rtTime = #{rtTime}
+		WHERE rtNo = (SELECT rtNo 
+		              FROM reserve 
+		              WHERE rsNo =#{rsNo});
     </update>
     
     
     <!-- 시간 수정 -->
     <update id="updateReserveTime" parameterType="com.javaex.vo.ReserveVo">
-        UPDATE reserve
-        SET rsTime = #{rsTime},
-            expectedPrice = #{expectedPrice}
-        WHERE rsNo = #{rsNo}
+		UPDATE reserveTime
+		SET rtTime = #{rtTime}
+		WHERE rtNo = (SELECT rtNo 
+		              FROM reserve 
+		              WHERE rsNo = #{rsNo});
     </update>
 
     <!-- 예약 삭제 -->
@@ -44,16 +48,20 @@
 				 <!-- ************************ 알림장 화면 ***************************** -->
   
     <!-- 예약 정보 업데이트 -->
-    <update id="updateReserve" parameterType="com.javaex.vo.ReserveVo">
-        UPDATE reserve
-        SET attitude = #{attitude},
-            rCondition = #{rCondition},
-            tangle = #{tangle},
-            disliked = #{disliked},
-            bath = #{bath},
-            message = #{message},
-            curruntWeight = #{curruntWeight}
-        WHERE rsNo = #{rsNo};
-    </update>
+		<update id="updateReserve" parameterType="com.javaex.vo.ReserveVo">
+		    UPDATE reserve
+		    SET attitude = #{attitude},
+		        rCondition = #{rCondition},
+		        tangle = #{tangle},
+		        disliked = #{disliked},
+		        bath = #{bath},
+		        message = #{message},
+		        curruntWeight = #{curruntWeight}
+		    WHERE rtNo = (
+		        SELECT rtNo 
+		        FROM reserve 
+		        WHERE rsNo = #{rsNo}
+		    );
+		</update>
 
 </mapper>

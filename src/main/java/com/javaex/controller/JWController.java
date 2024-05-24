@@ -48,7 +48,7 @@ public class JWController {
 		System.out.println("시간 수정 메서드 실행");
 
 		// rsDate를 함께 제공
-		reserveVo.setRsDate(reserveVo.getRsDate());
+		reserveVo.setRtDate(reserveVo.getRtDate());
 
 		jwService.updateReserveTime(reserveVo);
 		return JsonResult.success(reserveVo);
