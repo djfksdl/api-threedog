@@ -1,6 +1,7 @@
 package com.javaex.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -70,28 +71,30 @@ public class SUController {
 	
 	//editPage================================
 	
-	//초기가격 불러오기
+	//초기가격 불러오기+ 상품목록 불러오기
 	@GetMapping("/api/su/firstprice")
 	public JsonResult firstPrice(@RequestParam(value="bNo") int bNo) {
 		System.out.println("SUController.firstPrice");
 		
-		List<PriceVo> pList = suService.exeFirstPrice(bNo);
+		Map<String, Object> priceInvetoryMap = suService.exeFirstPrice(bNo);
 		
 		
-		return JsonResult.success(pList);
+		return JsonResult.success(priceInvetoryMap);
 	}
 	
-	//가게정보 불러오기
+	//가게정보 불러오기 
 	@GetMapping("/api/su/shopInfo")
-	public JsonResult shopInfo(@RequestParam(value="bNo") int bNo) {
-		System.out.println("SUController.shopInfo");
+	public JsonResult shopInfoList(@RequestParam(value="bNo") int bNo) {
+		System.out.println("SUController.shopInfoList");
 //		System.out.println("가게번호: "+ bNo);
 		
-		BusinessVo shopInfo = suService.exeShopInfo(bNo);
+		BusinessVo shopInfo = suService.exeShopInfoList(bNo);
 		
 		
 		return JsonResult.success(shopInfo);
 	}
+	
+	
 	
 	
 }

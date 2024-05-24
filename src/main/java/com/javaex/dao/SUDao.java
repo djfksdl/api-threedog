@@ -53,6 +53,16 @@ public class SUDao {
 		return pList;
 	}
 	
+	//상품목록 불러오기
+	public List<PriceVo> getShopList() {
+		System.out.println("SUDao.getShopList");
+		
+		List<PriceVo> inventoryList = sqlSession.selectList("su.getShopList");
+		
+		return inventoryList;
+		
+	}
+	
 	//가게정보 불러오기
 	public BusinessVo getShopInfo(int bNo){
 		System.out.println("SUDao.getShopInfo");
@@ -61,5 +71,7 @@ public class SUDao {
 		
 		return shopInfo;
 	}
+	
+
 	
 }
