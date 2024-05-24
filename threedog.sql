@@ -70,6 +70,12 @@ CREATE TABLE review (
    FOREIGN KEY (uNo) REFERENCES users(uNo)
 );
 alter table review add views int not  null default 0;
+ALTER TABLE review ADD COLUMN rsNo int ;
+ALTER TABLE review ADD COLUMN rtNo int ;
+
+ALTER TABLE review ADD CONSTRAINT FOREIGN KEY (rtNo) REFERENCES reserveTime(rtNo);
+ALTER TABLE review ADD CONSTRAINT FOREIGN KEY (rsNo) REFERENCES reserve(rsNo);
+
 
 CREATE TABLE reserve (
    rsNo int auto_increment primary key,
@@ -111,8 +117,6 @@ CREATE TABLE price (
    onePrice int NULL,
    FOREIGN KEY (beautyNo) REFERENCES beautylist(beautyNo)
 );
-ALTER TABLE price
-MODIFY COLUMN onePrice int not  null default 0;
 
 CREATE TABLE homeimg (
    hiNo int auto_increment primary key,
@@ -134,6 +138,8 @@ CREATE TABLE designer (
    dProfile varchar(300) NULL,
    FOREIGN KEY (bNo) REFERENCES business(bNo)
 );
+ALTER TABLE designer
+ADD COLUMN job varchar(100) Null ;
 
 CREATE TABLE reviewimg (
    riNo int auto_increment primary key,

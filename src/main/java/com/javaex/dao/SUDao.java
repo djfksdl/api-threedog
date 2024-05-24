@@ -52,7 +52,6 @@ public class SUDao {
 		return pList;
 	}
 
-	
 	//가게정보 불러오기
 	public BusinessVo getShopInfo(int bNo){
 		System.out.println("SUDao.getShopInfo");

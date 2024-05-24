@@ -83,7 +83,7 @@ public class SUController {
 		return JsonResult.success(pList);
 	}
 	
-	//가게정보 불러오기 - editPage
+	//가게정보 불러오기
 	@GetMapping("/api/su/shopInfo")
 	public JsonResult shopInfoList(@RequestParam(value="bNo") int bNo) {
 		System.out.println("SUController.shopInfoList");
@@ -95,16 +95,15 @@ public class SUController {
 		return JsonResult.success(shopInfo);
 	}
 	
-	//가게 등록 -editform
-	@GetMapping("/api/su/registerPrice")
-	public JsonResult registerPrice(@RequestParam(value="bNo") int bNo) {
-		System.out.println("SUController.shopInfoList");
-//		System.out.println("가게번호: "+ bNo);
+	//가게 등록
+	@PostMapping("/api/su/registerShop")
+	public JsonResult registerPrice() {
+		System.out.println("SUController.registerPrice");
 		
-		BusinessVo shopInfo = suService.exeShopInfoList(bNo);
+//		suService.exeShopInfoList();
 		
 		
-		return JsonResult.success(shopInfo);
+		return JsonResult.success("얏호");
 	}
 	
 	
