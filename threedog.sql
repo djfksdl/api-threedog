@@ -69,8 +69,7 @@ CREATE TABLE review (
    FOREIGN KEY (bNo) REFERENCES business(bNo),
    FOREIGN KEY (uNo) REFERENCES users(uNo)
 );
-alter table review
-add views int not  null default 0;
+alter table review add views int not  null default 0;
 
 CREATE TABLE reserve (
    rsNo int auto_increment primary key,
@@ -91,6 +90,19 @@ CREATE TABLE reserve (
    FOREIGN KEY (bNo) REFERENCES business(bNo),
    FOREIGN KEY (dogNo) REFERENCES dog(dogNo)
 );
+ALTER TABLE reserve DROP COLUMN rsDate, DROP COLUMN rsTime;
+ALTER TABLE reserve DROP COLUMN rtTime;
+ALTER TABLE reserve ADD COLUMN rtNo int;
+
+-- 외래키 이름 찾기
+-- SELECT CONSTRAINT_NAME FROM information_schema.KEY_COLUMN_USAGE WHERE TABLE_NAME = 'reserve' AND COLUMN_NAME = 'bNo';
+-- 포링키 해제
+ALTER TABLE reserve DROP FOREIGN KEY reserve_ibfk_1;
+-- 포링키 추가
+ALTER TABLE reserve ADD CONSTRAINT FOREIGN KEY (rtNo) REFERENCES reserveTime(rtNo);
+
+
+
 
 CREATE TABLE price (
    priceNo int auto_increment primary key,
@@ -99,6 +111,8 @@ CREATE TABLE price (
    onePrice int NULL,
    FOREIGN KEY (beautyNo) REFERENCES beautylist(beautyNo)
 );
+ALTER TABLE price
+MODIFY COLUMN onePrice int not  null default 0;
 
 CREATE TABLE homeimg (
    hiNo int auto_increment primary key,
@@ -166,3 +180,14 @@ CREATE TABLE point (
    usePoint int NULL,
    FOREIGN KEY (uNo) REFERENCES users(uNo)
 );
+
+CREATE TABLE reserveTime (
+   rtNo int auto_increment primary key,
+   bNo int not null,
+   rtDate datetime Null,
+   rtTime int NULL,
+   FOREIGN KEY (bNo) REFERENCES reserve(bNo)
+);
+ALTER TABLE reserveTime
+MODIFY COLUMN rtTime time NULL;
+

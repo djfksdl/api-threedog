@@ -118,22 +118,18 @@ public class SUService {
 	}
 	
 //	editPage ==============================
-	//초기가격 불러오기 + 상품목록 불러오기
-	public Map<String, Object> exeFirstPrice(int bNo) {
-		System.out.println("SUService.exeFirstPrice");
+	//가격 불러오기 
+	public List<PriceVo> exePriceBybNo(int bNo) {
+		System.out.println("SUService.exePriceBybNo");
 
 		//가격정보 불러오기
 		List<PriceVo> pList =suDao.getPrice(bNo);
 		
-		//상품목록 불러오기
-		List<PriceVo> inventoryList = suDao.getShopList();
+//		Map<String, Object> priceInvetoryMap = new HashMap<String,Object>();
+//		priceInvetoryMap.put("pList", pList);
+//		priceInvetoryMap.put("inventoryList", inventoryList);
 		
-		Map<String, Object> priceInvetoryMap = new HashMap<String,Object>();
-		
-		priceInvetoryMap.put("pList", pList);
-		priceInvetoryMap.put("inventoryList", inventoryList);
-		
-		return priceInvetoryMap;
+		return pList;
 	}
 	
 	//가게정보 불러오기 
