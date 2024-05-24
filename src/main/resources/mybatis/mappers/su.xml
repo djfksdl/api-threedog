@@ -62,7 +62,9 @@
 			       longitude,
 			       dName,
 			       introduce,
-			       dProfile
+			       dProfile,
+			       job,
+			       utilTime
 			from business b join designer d
 			on b.bNo = d.bNo
 			where b.bNo=#{bNo}
