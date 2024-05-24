@@ -62,11 +62,23 @@
 	<!-- 상품목록 불러오기 -->
 	<select id="getShopList" resultType="com.javaex.vo.PriceVo">
 		<![CDATA[
-			select beautyNo,
-				   sizeDiv,
-			       weightDiv,
-			       beauty
-			from beautylist
+			SELECT sizeDiv,weightDiv,
+			       GROUP_CONCAT(CASE WHEN beauty = '목욕' THEN beauty END) AS 목욕,
+			       GROUP_CONCAT(CASE WHEN beauty = '부분' THEN beauty END) AS 부분,
+			       GROUP_CONCAT(CASE WHEN beauty = '목욕+부분' THEN beauty END) AS 목욕_부분,
+			       GROUP_CONCAT(CASE WHEN beauty = '얼굴+부분+목욕' THEN beauty END) AS 얼굴_부분_목욕,
+			       GROUP_CONCAT(CASE WHEN beauty = '기본전체미용' THEN beauty END) AS 기본전체미용,
+			       GROUP_CONCAT(CASE WHEN beauty = '스포팅' THEN beauty END) AS 기본전체미용,
+				   GROUP_CONCAT(CASE WHEN beauty = '가위컷' THEN beauty END) AS 가위컷 ,
+			       GROUP_CONCAT(CASE WHEN beauty = '컷' THEN beauty END) AS 컷 ,
+			       GROUP_CONCAT(CASE WHEN beauty = '엉킴' THEN beauty END) AS 엉킴 ,
+			       GROUP_CONCAT(CASE WHEN beauty = '기장' THEN beauty END) AS 기장 ,
+			       GROUP_CONCAT(CASE WHEN beauty = '특수컷' THEN beauty END) AS 특수컷 ,
+			       GROUP_CONCAT(CASE WHEN beauty = '투톤염색' THEN beauty END) AS 투톤염색 ,
+			       GROUP_CONCAT(CASE WHEN beauty = '염색' THEN beauty END) AS 염색 
+			FROM beautylist
+			GROUP BY weightDiv,sizeDiv
+			order by beautyNo
 		]]>
 	</select>
 
