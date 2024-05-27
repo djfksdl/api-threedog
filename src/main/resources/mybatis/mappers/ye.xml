@@ -93,7 +93,6 @@
 			    )
 			    )
 			ORDER BY distance ASC
-
 		]]>
 	</select>
 
