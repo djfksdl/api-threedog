@@ -40,6 +40,7 @@ public class JWService {
 		jwDao.deleteReserve(rsNo);
 	}
 
+
 	// 예약 정보 업데이트
 	public int exeUpdateReserve(ReserveVo reserveVo) {
 		System.out.println("JWService.exeUpdateReserve()");
@@ -47,3 +48,4 @@ public class JWService {
 		return count;
 	}
 }
+

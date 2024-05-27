@@ -19,7 +19,7 @@ public class JWDao {
 		System.out.println("JWDao.selectReserveList()");
 
 		List<ReserveVo> reserveList = sqlSession.selectList("jw.selectReserveList", bNo);
-		// System.out.println("fdefg"+reserveList);
+		// System.out.println("밍밍밍"+reserveList);
 
 		return reserveList;
 	}
@@ -39,6 +39,7 @@ public class JWDao {
 	// 예약 삭제
 	public void deleteReserve(int rsNo) {
 		sqlSession.delete("jw.deleteReserve", rsNo);
+		System.out.println("예약 정보 삭제 완료: " + rsNo);
 	}
 
 	// 예약 정보 업데이트

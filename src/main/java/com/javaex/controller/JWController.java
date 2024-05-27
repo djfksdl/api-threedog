@@ -55,12 +55,13 @@ public class JWController {
 	}
 
 	// 일정 삭제
-	@DeleteMapping("/api/jw/{rsNo}")
+	@DeleteMapping("/api/jw/{rsNo}/delete")
 	public JsonResult deleteReserve(@PathVariable("rsNo") int rsNo) {
+		
 		jwService.deleteReserve(rsNo);
 		return JsonResult.success(rsNo);
 	}
-
+	
 	// 예약 정보 업데이트
 	@PutMapping("/api/jw/diary/{rsNo}")
 	public JsonResult updateReserve(@PathVariable("rsNo") int rsNo, @RequestBody ReserveVo reserveVo) {
