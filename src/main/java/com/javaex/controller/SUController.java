@@ -87,9 +87,10 @@ public class SUController {
 	@GetMapping("/api/su/shopInfo")
 	public JsonResult shopInfoList(@RequestParam(value="bNo") int bNo) {
 		System.out.println("SUController.shopInfoList");
-//		System.out.println("가게번호: "+ bNo);
+		System.out.println("가게번호: "+ bNo);
 		
 		BusinessVo shopInfo = suService.exeShopInfoList(bNo);
+		System.out.println("나와라" +shopInfo);
 		
 		
 		return JsonResult.success(shopInfo);
