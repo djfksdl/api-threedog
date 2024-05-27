@@ -153,5 +153,4 @@ public class YEController {
 
 		return JsonResult.success(reviewList);
 	}
-	
 }
