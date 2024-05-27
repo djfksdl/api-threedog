@@ -58,6 +58,8 @@ public class SUDao {
 		
 		BusinessVo shopInfo = sqlSession.selectOne("su.getShopInfo",bNo);
 		
+		System.out.println(shopInfo);
+		
 		return shopInfo;
 	}
 	

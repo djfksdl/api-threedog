@@ -93,7 +93,6 @@
 			    )
 			    )
 			ORDER BY distance ASC
-
 		]]>
 	</select>
 
@@ -122,7 +121,7 @@
 	<!-- 가게들 마커 표시 -->
 	<select id="marklist" resultType="com.javaex.vo.BusinessVo">
 		<![CDATA[
-			select bNo, title, latitude, longitude from business
+			select bNo, title, logo, bAddress, bdAddress, latitude, longitude from business
 		]]>
 	</select>
 	<!-- 가게들 마커 표시 -->

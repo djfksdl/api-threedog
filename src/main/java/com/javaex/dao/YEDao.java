@@ -79,4 +79,12 @@ public class YEDao {
 		return markList;
 	}
 
+	public List<ReviewListVo> keyword(String keyword, List<String> selectedItems) {
+		System.out.println("YEDao.keyword()");
+
+		List<ReviewListVo> reviewList = sqlSession.selectList(""); //
+				
+		return reviewList;
+	}
+
 }
