@@ -50,7 +50,7 @@
 <!-- ************************ 알림장 화면 ***************************** -->
   
     <!-- 예약 정보 업데이트 -->
-		<update id="updateReserve" parameterType="com.javaex.vo.ReserveVo">
+		<!--<update id="updateReserve" parameterType="com.javaex.vo.ReserveVo">
 		    UPDATE reserve
 		    SET attitude = #{attitude},
 		        rCondition = #{rCondition},
@@ -64,6 +64,6 @@
 		        FROM reserve 
 		        WHERE rsNo = #{rsNo}
 		    );
-		</update>
+		</update>-->
 
 </mapper>

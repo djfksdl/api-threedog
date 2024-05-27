@@ -42,10 +42,10 @@ public class JWService {
 
 
 	// 예약 정보 업데이트
-	public int exeUpdateReserve(ReserveVo reserveVo) {
-		System.out.println("JWService.exeUpdateReserve()");
-		int count = jwDao.updateReserve(reserveVo);
-		return count;
-	}
+//	public int exeUpdateReserve(ReserveVo reserveVo) {
+//		System.out.println("JWService.exeUpdateReserve()");
+//		int count = jwDao.updateReserve(reserveVo);
+//		return count;
+//	}
 }
 

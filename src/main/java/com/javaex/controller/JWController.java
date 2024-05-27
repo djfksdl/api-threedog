@@ -63,19 +63,19 @@ public class JWController {
 	}
 	
 	// 예약 정보 업데이트
-	@PutMapping("/api/jw/diary/{rsNo}")
-	public JsonResult updateReserve(@PathVariable("rsNo") int rsNo, @RequestBody ReserveVo reserveVo) {
-		System.out.println("JWController.updateReserve");
-
-		reserveVo.setRsNo(rsNo);
-		System.out.println(reserveVo);
-
-		int count = jwService.exeUpdateReserve(reserveVo);
-
-		if (count > 0) {
-			return JsonResult.success(reserveVo);
-		} else {
-			return JsonResult.fail("Update failed");
-		}
-	}
+//	@PutMapping("/api/jw/diary/{rsNo}")
+//	public JsonResult updateReserve(@PathVariable("rsNo") int rsNo, @RequestBody ReserveVo reserveVo) {
+//		System.out.println("JWController.updateReserve");
+//
+//		reserveVo.setRsNo(rsNo);
+//		System.out.println(reserveVo);
+//
+//		int count = jwService.exeUpdateReserve(reserveVo);
+//
+//		if (count > 0) {
+//			return JsonResult.success(reserveVo);
+//		} else {
+//			return JsonResult.fail("Update failed");
+//		}
+//	}
 }

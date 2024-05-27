@@ -19,8 +19,6 @@ public class JWDao {
 		System.out.println("JWDao.selectReserveList()");
 
 		List<ReserveVo> reserveList = sqlSession.selectList("jw.selectReserveList", bNo);
-		// System.out.println("밍밍밍"+reserveList);
-
 		return reserveList;
 	}
 
@@ -43,12 +41,12 @@ public class JWDao {
 	}
 
 	// 예약 정보 업데이트
-	public int updateReserve(ReserveVo reserveVo) {
-		System.out.println("JWDao.updateReserve()");
-
-		int count = sqlSession.update("jw.updateReserve", reserveVo);
-		System.out.println(count);
-		return count;
-	}
+//	public int updateReserve(ReserveVo reserveVo) {
+//		System.out.println("JWDao.updateReserve()");
+//
+//		int count = sqlSession.update("jw.updateReserve", reserveVo);
+//		System.out.println(count);
+//		return count;
+//	}
 
 }
