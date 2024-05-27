@@ -1,5 +1,7 @@
 package com.javaex.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -43,6 +45,18 @@ public class AYController {
 		return JsonResult.success("성공");
 	}
 	
+	// 리뷰리스트
+	@GetMapping("/api/mypage/getRList")
+	public JsonResult reviewList(@RequestParam (value="bNo") int bNo) {
+		System.out.println("AYController.getRList");
+		
+		List<ReviewVo> reviewVo=ayService.exeGetRList(bNo);
+		
+		return JsonResult.success(reviewVo);
+	}
+	
+	
+	// 예약페이지 가게정보
 	@GetMapping("/api/mypage/getbList")
 	public JsonResult getBList(@RequestParam (value="bNo") int bNo) {
 		System.out.println("AYController.getBList");

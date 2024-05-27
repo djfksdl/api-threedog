@@ -18,6 +18,7 @@ public class ReviewVo {
 	private String orgName;
 	private String filePath;
 	private int userPoint;
+	private int rsNo;
 
 	private List<String> saveNameList;
 	private List<MultipartFile> file;
@@ -138,12 +139,20 @@ public class ReviewVo {
 		this.userPoint = userPoint;
 	}
 
+	public int getRsNo() {
+		return rsNo;
+	}
+
+	public void setRsNo(int rsNo) {
+		this.rsNo = rsNo;
+	}
+
 	@Override
 	public String toString() {
 		return "ReviewVo [rNo=" + rNo + ", bNo=" + bNo + ", uNo=" + uNo + ", star=" + star + ", rContent=" + rContent
 				+ ", rDate=" + rDate + ", views=" + views + ", riNo=" + riNo + ", imgCount=" + imgCount + ", orgName="
-				+ orgName + ", filePath=" + filePath + ", userPoint=" + userPoint + ", saveNameList=" + saveNameList
-				+ ", file=" + file + "]";
+				+ orgName + ", filePath=" + filePath + ", userPoint=" + userPoint + ", rsNo=" + rsNo + ", saveNameList="
+				+ saveNameList + ", file=" + file + "]";
 	}
 
 

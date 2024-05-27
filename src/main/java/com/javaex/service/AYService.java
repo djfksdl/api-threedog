@@ -143,13 +143,22 @@ public class AYService {
 //		reviewVo.setRvNum(reviewVo.getrNo());//리뷰번호
 		ayDao.addReview(reviewVo);
 	}
-	
+
+	// 가게리스트
+	public List<ReviewVo> exeGetRList(int bNo) {
+		System.out.println("AYService.exeGetRList");
+
+		List<ReviewVo> reviewVo = ayDao.getRList(bNo);
+
+		return reviewVo;
+	}
+
 	// 가게정보 가져오기
 	public BusinessVo exeGetBList(int bNo) {
 		System.out.println("AYService.exeGetBList");
-		
+
 		BusinessVo businessVo = ayDao.getBList(bNo);
-		
+
 		return businessVo;
 	}
 
