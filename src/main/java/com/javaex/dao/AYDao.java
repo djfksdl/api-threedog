@@ -1,6 +1,5 @@
 package com.javaex.dao;
 
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +38,7 @@ public class AYDao {
 
 		// 리뷰 정보를 먼저 등록
 		sqlSession.insert("ay.addReview01", reviewVo);
-		sqlSession.update("ay.updatePoint", reviewVo);
+		sqlSession.update("ay.insertPoint", reviewVo);
 		// 등록된 리뷰의 rNo를 가져옴
 		int rNo = reviewVo.getrNo();
 
@@ -58,13 +57,21 @@ public class AYDao {
 		System.out.println("성공");
 	}
 
+	// 가게리스트
+	public List<ReviewVo> getRList(int bNo) {
+		System.out.println("AYDao.getRList");
+		List<ReviewVo> reviewVo = sqlSession.selectList("ay.reviewSelect", bNo);
+
+		return reviewVo;
+	}
+
 	// 가게정보 가져오기
 	public BusinessVo getBList(int bNo) {
 		System.out.println("AYDao.getBList()");
-		BusinessVo businessVo = sqlSession.selectOne("ay.selectOne",bNo);
+		BusinessVo businessVo = sqlSession.selectOne("ay.selectOne", bNo);
 
 		System.out.println(businessVo);
-		
+
 		return businessVo;
 
 	}
