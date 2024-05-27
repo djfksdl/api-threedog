@@ -31,6 +31,15 @@
 	</select>
 
 	<!-- =================== 홈페이지 만들기 =================== -->
+	
+	<!-- 가게 등록 -->
+	<insert id="insertShopInfo" parameterType="com.javaex.vo.BusinessVo">
+		<![CDATA[
+			insert business 
+			values(#{bNo},null,null,null,null,null,null,null,null,"타이틀","서브타이틀",);
+		]]>
+	</insert>
+	
 	<!-- 가격정보 불러오기 -->
 	<select id="getPrice" parameterType="int" resultType="com.javaex.vo.PriceVo">
 		<![CDATA[

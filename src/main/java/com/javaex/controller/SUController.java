@@ -71,6 +71,19 @@ public class SUController {
 	
 	//editPage================================
 	
+	//가게 등록
+	@PostMapping("/api/su/registerShop")
+	public JsonResult registerPrice(@ModelAttribute BusinessVo businessVo) {
+		System.out.println("SUController.registerPrice");
+		
+		System.out.println("이거 확인하기:"+businessVo);
+		
+		suService.exeShopInfoList(businessVo);
+		
+		
+		return JsonResult.success("얏호");
+	}
+	
 	//가격 불러오기
 	@GetMapping("/api/su/getPriceBybNo")
 	public JsonResult firstPrice(@RequestParam(value="bNo") int bNo) {
@@ -96,16 +109,7 @@ public class SUController {
 		return JsonResult.success(shopInfo);
 	}
 	
-	//가게 등록
-	@PostMapping("/api/su/registerShop")
-	public JsonResult registerPrice() {
-		System.out.println("SUController.registerPrice");
-		
-//		suService.exeShopInfoList();
-		
-		
-		return JsonResult.success("얏호");
-	}
+
 	
 	
 	

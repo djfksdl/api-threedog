@@ -42,6 +42,18 @@ public class SUDao {
 		return authUser;
 	}
 //	editPage==================
+	
+	// 가게 등록
+	public void insertShopInfo(BusinessVo businessVo) {
+		System.out.println("SUDao.insertShopInfo");
+		
+//		여기서부터 하기
+//		sqlSession.insert("su.insertShopInfo",businessVo);
+
+		
+//		return pList;
+	}
+	
 	//가격정보 불러오기
 	public List<PriceVo> getPrice(int bNo) {
 		System.out.println("SUDao.getPrice");

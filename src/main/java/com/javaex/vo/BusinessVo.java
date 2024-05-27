@@ -1,5 +1,9 @@
 package com.javaex.vo;
 
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 public class BusinessVo {
 
 	private int bNo;
@@ -13,23 +17,29 @@ public class BusinessVo {
 	private double latitude;
 	private double longitude;
 	private double averageStar;
-	private String logo;
 	private String title;
 	private String subTitle;
 	private String dName;
 	private String introduce;
-	private String dProfile;
-	private String  job;
+	private String job;
 	private String utilTime;
+	private MultipartFile logo;
+	private List<MultipartFile> slideImgs;
+    private List<MultipartFile> cutImgs;
+    private MultipartFile dProfile;
+    private String logoSaveName;
+  
+    private List<Integer> priceList;
 
 //	생성자
 	public BusinessVo() {
 		super();
 	}
-
-public BusinessVo(int bNo, String bId, String bPw, String bNum, String bZipCode, String bAddress, String bdAddress,
-			String bPhone, double latitude, double longitude, double averageStar, String logo, String title,
-			String subTitle, String dName, String introduce, String dProfile, String job,  String utilTime) {
+	public BusinessVo(int bNo, String bId, String bPw, String bNum, String bZipCode, String bAddress, String bdAddress,
+			String bPhone, double latitude, double longitude, double averageStar, String title, String subTitle,
+			String dName, String introduce, String job, String utilTime, MultipartFile logo,
+			List<MultipartFile> slideImgs, List<MultipartFile> cutImgs, MultipartFile dProfile, String logoSaveName,
+			List<Integer> priceList) {
 		super();
 		this.bNo = bNo;
 		this.bId = bId;
@@ -42,34 +52,27 @@ public BusinessVo(int bNo, String bId, String bPw, String bNum, String bZipCode,
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.averageStar = averageStar;
-		this.logo = logo;
 		this.title = title;
 		this.subTitle = subTitle;
 		this.dName = dName;
 		this.introduce = introduce;
-		this.dProfile = dProfile;
 		this.job = job;
-		this.utilTime= utilTime;
+		this.utilTime = utilTime;
+		this.logo = logo;
+		this.slideImgs = slideImgs;
+		this.cutImgs = cutImgs;
+		this.dProfile = dProfile;
+		this.logoSaveName = logoSaveName;
+		this.priceList = priceList;
 	}
+
+
+
+
 
 
 
 	//	메소드-gs
-	public double getLatitude() {
-		return latitude;
-	}
-
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
-	}
-
-	public double getLongitude() {
-		return longitude;
-	}
-
-	public void setLongitude(double longitude) {
-		this.longitude = longitude;
-	}
 
 	public int getbNo() {
 		return bNo;
@@ -135,20 +138,28 @@ public BusinessVo(int bNo, String bId, String bPw, String bNum, String bZipCode,
 		this.bPhone = bPhone;
 	}
 
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+
 	public double getAverageStar() {
 		return averageStar;
 	}
 
 	public void setAverageStar(double averageStar) {
 		this.averageStar = averageStar;
-	}
-
-	public String getLogo() {
-		return logo;
-	}
-
-	public void setLogo(String logo) {
-		this.logo = logo;
 	}
 
 	public String getTitle() {
@@ -158,7 +169,6 @@ public BusinessVo(int bNo, String bId, String bPw, String bNum, String bZipCode,
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
 
 	public String getSubTitle() {
 		return subTitle;
@@ -184,14 +194,6 @@ public BusinessVo(int bNo, String bId, String bPw, String bNum, String bZipCode,
 		this.introduce = introduce;
 	}
 
-	public String getdProfile() {
-		return dProfile;
-	}
-
-	public void setdProfile(String dProfile) {
-		this.dProfile = dProfile;
-	}
-	
 	public String getJob() {
 		return job;
 	}
@@ -199,7 +201,7 @@ public BusinessVo(int bNo, String bId, String bPw, String bNum, String bZipCode,
 	public void setJob(String job) {
 		this.job = job;
 	}
-	
+
 	public String getUtilTime() {
 		return utilTime;
 	}
@@ -208,16 +210,67 @@ public BusinessVo(int bNo, String bId, String bPw, String bNum, String bZipCode,
 		this.utilTime = utilTime;
 	}
 
+	public MultipartFile getLogo() {
+		return logo;
+	}
+
+	public void setLogo(MultipartFile logo) {
+		this.logo = logo;
+	}
+
+	public List<MultipartFile> getSlideImgs() {
+		return slideImgs;
+	}
+
+	public void setSlideImgs(List<MultipartFile> slideImgs) {
+		this.slideImgs = slideImgs;
+	}
+
+	public List<MultipartFile> getCutImgs() {
+		return cutImgs;
+	}
+
+	public void setCutImgs(List<MultipartFile> cutImgs) {
+		this.cutImgs = cutImgs;
+	}
+
+	public MultipartFile getdProfile() {
+		return dProfile;
+	}
+
+	public void setdProfile(MultipartFile dProfile) {
+		this.dProfile = dProfile;
+	}
+
+	public List<Integer> getPriceList() {
+		return priceList;
+	}
+
+	public void setPriceList(List<Integer> priceList) {
+		this.priceList = priceList;
+	}
+	public String getLogoSaveName() {
+		return logoSaveName;
+	}
+	public void setLogoSaveName(String logoSaveName) {
+		this.logoSaveName = logoSaveName;
+	}
 	
 	// 메소드-일반
 	@Override
 	public String toString() {
 		return "BusinessVo [bNo=" + bNo + ", bId=" + bId + ", bPw=" + bPw + ", bNum=" + bNum + ", bZipCode=" + bZipCode
 				+ ", bAddress=" + bAddress + ", bdAddress=" + bdAddress + ", bPhone=" + bPhone + ", latitude="
-				+ latitude + ", longitude=" + longitude + ", averageStar=" + averageStar + ", logo=" + logo + ", title="
-				+ title + ", subTitle=" + subTitle + ", dName=" + dName + ", introduce=" + introduce + ", dProfile="
-				+ dProfile + ", job=" + job + ", utilTime=" + utilTime + "]";
+				+ latitude + ", longitude=" + longitude + ", averageStar=" + averageStar + ", title=" + title
+				+ ", subTitle=" + subTitle + ", dName=" + dName + ", introduce=" + introduce + ", job=" + job
+				+ ", utilTime=" + utilTime + ", logo=" + logo + ", slideImgs=" + slideImgs + ", cutImgs=" + cutImgs
+				+ ", dProfile=" + dProfile + ", logoSaveName=" + logoSaveName + ", priceList=" + priceList + "]";
 	}
+
+	
+	
+
+
 
 
 
