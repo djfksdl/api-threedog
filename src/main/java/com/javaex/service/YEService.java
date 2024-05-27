@@ -79,5 +79,13 @@ public class YEService {
 		
 		return markList;
 	}
+
+	public List<ReviewListVo> exeKeyword(String keyword, List<String> selectedItems) {
+		System.out.println("YEService.exeKeyword()");
+		
+		List<ReviewListVo> reviewList = yeDao.keyword(keyword, selectedItems);
+		
+		return reviewList;
+	}
 	
 }

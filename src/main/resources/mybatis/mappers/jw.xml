@@ -3,7 +3,7 @@
 
 <mapper namespace="jw">
 
-				 <!-- ************************ 스케줄 화면 ***************************** -->
+<!-- ************************ 스케줄 화면 ***************************** -->
 				 
     <!-- 한 가게의 예약 리스트 정보 조회 -->
     <select id="selectReserveList" parameterType="int" resultType="com.javaex.vo.ReserveVo">
@@ -14,7 +14,7 @@
 		JOIN price p ON rp.priceNo = p.priceNo
 		JOIN beautylist b ON p.beautyNo = b.beautyNo
 		JOIN reserveTime rt ON r.rtNo = rt.rtNo
-		WHERE r.bNo = #{bNo};
+		WHERE rt.bNo = #{bNo};
     </select>
     
     <!-- 일자 수정 -->
@@ -36,16 +36,18 @@
 		              FROM reserve 
 		              WHERE rsNo = #{rsNo});
     </update>
-
-    <!-- 예약 삭제 -->
+    
+    
+   <!-- 예약 정보 삭제 -->
     <delete id="deleteReserve" parameterType="int">
-        DELETE FROM reserve
-        WHERE rsNo = #{rsNo}
+        DELETE rp, rt, r
+		FROM rsPrice rp
+		JOIN reserve r ON rp.rsNo = r.rsNo
+		JOIN reserveTime rt ON r.rtNo = rt.rtNo
+		WHERE r.rsNo = #{rsNo};
     </delete>
-    
-    
-    
-				 <!-- ************************ 알림장 화면 ***************************** -->
+
+<!-- ************************ 알림장 화면 ***************************** -->
   
     <!-- 예약 정보 업데이트 -->
 		<update id="updateReserve" parameterType="com.javaex.vo.ReserveVo">

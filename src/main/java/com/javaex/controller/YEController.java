@@ -109,13 +109,13 @@ public class YEController {
 
 		StoreVo storeVo = new StoreVo(lat, lng, rsDate);
 
-		System.out.println("Received lat: " + storeVo.getLat());
-		System.out.println("Received lng: " + storeVo.getLan());
-		System.out.println("Received rsDate: " + storeVo.getRsDate());
+//		System.out.println("Received lat: " + storeVo.getLat());
+//		System.out.println("Received lng: " + storeVo.getLan());
+//		System.out.println("Received rsDate: " + storeVo.getRsDate());
 
 		List<StoreVo> storeList = yeService.exeSearchMap(storeVo);
 
-		System.out.println(storeList);
+//		System.out.println("dd"+storeList);
 
 		return JsonResult.success(storeList);
 	}
@@ -132,14 +132,26 @@ public class YEController {
 		return JsonResult.success(storeList);
 	}
 
-	// 인기검색어
+	// 가게 마커 표시하고 싶어용 ㅜㅜ
 	@GetMapping("/api/marker")
 	public JsonResult marker() {
 		System.out.println("YEController.marker()");
 
 		List<BusinessVo> markList = yeService.exeMarker();
-		System.out.println(markList);
+//		System.out.println(markList);
 
 		return JsonResult.success(markList);
 	}
+	
+	// 키워드 검색
+	@GetMapping("/api/keyword")
+	public JsonResult keyword(@RequestParam(value = "searchKeyword") String keyword,
+           					@RequestParam(value = "selectedItems") List<String> selectedItems) {
+		System.out.println("YEController.keyword()");
+		
+		List<ReviewListVo> reviewList = yeService.exeKeyword(keyword, selectedItems);
+
+		return JsonResult.success(reviewList);
+	}
+	
 }

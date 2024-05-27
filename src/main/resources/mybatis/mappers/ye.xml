@@ -37,11 +37,19 @@
 	<!-- 검색 화면 리스트, 조회순 -->
 	<select id="searchlist" resultType="com.javaex.vo.ReviewListVo">
 		<![CDATA[
-			select r.rNo, r.star, b.title, ri.saveName, b.bNo
-			from review r
-			join business b on r.bNo = b.bNo
-			left join reviewimg ri on r.rNo = ri.rNo
-			order by r.views desc
+			SELECT r.rNo, r.star, b.title, ri.saveName, b.bNo
+			FROM review r
+			JOIN business b ON r.bNo = b.bNo
+			LEFT JOIN (
+			    SELECT ri1.rNo, ri1.saveName
+			    FROM reviewimg ri1
+			    JOIN (
+			        SELECT rNo, MIN(riNo) AS minRiNo
+			        FROM reviewimg
+			        GROUP BY rNo
+			    ) ri2 ON ri1.rNo = ri2.rNo AND ri1.riNo = ri2.minRiNo
+			) ri ON r.rNo = ri.rNo
+			ORDER BY r.views DESC
 		]]>
 	</select>
 	<!-- 검색 화면 리스트 -->
@@ -54,35 +62,37 @@
 			       (3959 * acos(cos(radians(COALESCE(#{lat}, b.latitude))) * cos(radians(b.latitude)) 
 			       * cos(radians(b.longitude) - radians(COALESCE(#{lan}, b.longitude))) + sin(radians(COALESCE(#{lat}, b.latitude))) 
 			       * sin(radians(b.latitude)))) AS distance
-		FROM business b
-		LEFT JOIN (
-		        SELECT bNo, COUNT(*) as reserved_count
-		        FROM reserve
-		        GROUP BY bNo
-		        ) r ON b.bNo = r.bNo
-		LEFT JOIN (
-		        SELECT bNo, COUNT(*) as reserved_time_count
-		        FROM reserveTime
-		        WHERE rtDate = COALESCE(#{rsDate}, rtDate)
-		        GROUP BY bNo
-		        ) rt ON b.bNo = rt.bNo
-		WHERE (r.reserved_count IS NULL OR r.reserved_count < (
-		        SELECT MAX(count_per_bNo) FROM (
-		            SELECT COUNT(*) as count_per_bNo
-		            FROM reserve
-		            GROUP BY bNo
-		        ) as subquery
-		    )
-		    ) AND (rt.reserved_time_count IS NULL OR rt.reserved_time_count < (
-		        SELECT MAX(count_per_bNo) FROM (
-		            SELECT COUNT(*) as count_per_bNo
-		            FROM reserveTime
-		            WHERE rtDate = COALESCE(#{rsDate}, rtDate)
-		            GROUP BY bNo
-		        ) as subquery
-		    )
-		    )
-		ORDER BY distance ASC
+			FROM business b
+			LEFT JOIN (
+			        SELECT rt.bNo, COUNT(*) as reserved_count
+			        FROM reserve r
+			        JOIN reserveTime rt ON r.rtNo = rt.rtNo
+			        GROUP BY rt.bNo
+			        ) r ON b.bNo = r.bNo
+			LEFT JOIN (
+			        SELECT bNo, COUNT(*) as reserved_time_count
+			        FROM reserveTime
+			        WHERE rtDate = COALESCE(#{rsDate}, rtDate)
+			        GROUP BY bNo
+			        ) rt ON b.bNo = rt.bNo
+			WHERE (r.reserved_count IS NULL OR r.reserved_count < (
+			        SELECT MAX(count_per_bNo) FROM (
+			            SELECT rt.bNo, COUNT(*) as count_per_bNo
+			            FROM reserve r
+			            JOIN reserveTime rt ON r.rtNo = rt.rtNo
+			            GROUP BY rt.bNo
+			        ) as subquery
+			    )
+			    ) AND (rt.reserved_time_count IS NULL OR rt.reserved_time_count < (
+			        SELECT MAX(count_per_bNo) FROM (
+			            SELECT bNo, COUNT(*) as count_per_bNo
+			            FROM reserveTime
+			            WHERE rtDate = COALESCE(#{rsDate}, rtDate)
+			            GROUP BY bNo
+			        ) as subquery
+			    )
+			    )
+			ORDER BY distance ASC
 		]]>
 	</select>
 
@@ -90,16 +100,24 @@
 	<select id="mainlist" resultType="com.javaex.vo.StoreVo">
     <![CDATA[
         SELECT b.bNo, b.title, b.logo,
-           (3959 * acos(cos(radians(COALESCE(#{lat}, b.latitude))) * cos(radians(b.latitude)) 
-           * cos(radians(b.longitude) - radians(COALESCE(#{lan}, b.longitude))) + sin(radians(COALESCE(#{lat}, b.latitude))) 
-           * sin(radians(b.latitude)))) AS distance,  latitude lat, longitude lan
-        FROM business b
-        ORDER BY distance ASC
-        limit 10
+	       (3959 * acos(cos(radians(COALESCE(#{lat}, b.latitude))) * cos(radians(b.latitude)) 
+	       * cos(radians(b.longitude) - radians(COALESCE(#{lan}, b.longitude))) + sin(radians(COALESCE(#{lat}, b.latitude))) 
+	       * sin(radians(b.latitude)))) AS distance, 
+	       b.latitude AS lat, 
+	       b.longitude AS lan
+		FROM business b
+		LEFT JOIN (
+		    SELECT bNo, COUNT(*) as reserved_time_count
+		    FROM reserveTime
+		    GROUP BY bNo
+		) rt ON b.bNo = rt.bNo
+		ORDER BY distance ASC
+		LIMIT 10
+
     ]]>
 	</select>
 	<!-- 그냥 가게 리스트 -->
-	
+
 	<!-- 가게들 마커 표시 -->
 	<select id="marklist" resultType="com.javaex.vo.BusinessVo">
 		<![CDATA[
@@ -111,10 +129,10 @@
 	<!-- 인기 검색어 리스트 -->
 	<select id="poplist" resultType="com.javaex.vo.StoreVo">
     <![CDATA[
-        SELECT b.title, COUNT(r.rsNo) AS reservationCount
+       SELECT b.title, COUNT(r.rsNo) AS reservationCount
 		FROM business b
-		JOIN reserve r ON b.bNo = r.bNo
-		JOIN reserveTime rt ON r.rtNo = rt.rtNo
+		JOIN reserveTime rt ON b.bNo = rt.bNo
+		JOIN reserve r ON rt.rtNo = r.rtNo
 		WHERE rt.rtDate >= DATE_SUB(NOW(), INTERVAL 1 WEEK)
 		GROUP BY b.bNo, b.title
 		ORDER BY reservationCount DESC
