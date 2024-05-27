@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.javaex.vo.BusinessVo;
 import com.javaex.vo.DogVo;
+import com.javaex.vo.ReserveVo;
 import com.javaex.vo.ReviewVo;
 
 @Repository
@@ -74,5 +75,22 @@ public class AYDao {
 
 		return businessVo;
 
+	}
+
+	//  반려견 불러오기
+	public 	List<ReserveVo> getPetList(int uNo) {
+		System.out.println("AYDao.getPetList");
+		System.out.println(uNo);
+		List<ReserveVo> reserveVo = sqlSession.selectList("ay.selectPetList", uNo);
+
+		return reserveVo;
+	}
+	
+	// 반려견 정보1개 가져오기
+	public 	DogVo getPetInfor(int dogNo) {
+		System.out.println("AYDao.getPetInfor");
+		DogVo dogVo = sqlSession.selectOne("ay.selectPetInforOne", dogNo);
+
+		return dogVo;
 	}
 }

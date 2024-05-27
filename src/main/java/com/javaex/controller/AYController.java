@@ -13,6 +13,7 @@ import com.javaex.service.AYService;
 import com.javaex.util.JsonResult;
 import com.javaex.vo.BusinessVo;
 import com.javaex.vo.DogVo;
+import com.javaex.vo.ReserveVo;
 import com.javaex.vo.ReviewVo;
 
 @RestController
@@ -67,5 +68,27 @@ public class AYController {
 		return JsonResult.success(businessVo);
 	}
 	
+	// 반려견 불러오기
+	@GetMapping("/api/mypage/getpetlist")
+	public JsonResult getPetList(@RequestParam (value="uNo") int uNo) {
+		System.out.println("AYController.getPetList");
+
+		List<ReserveVo> reserveVo=ayService.exeGetPetList(uNo);
+		System.out.println(reserveVo);
+
+		return JsonResult.success(reserveVo);
+	}
+	
+	// 반려견 정보1개 가져오기
+	@GetMapping("/api/mypage/getpetinfor")
+	public JsonResult getPetInfor(@RequestParam (value="dogNo") int dogNo) {
+		System.out.println("AYController.getPetInfor");
+
+		DogVo dogVo=ayService.exeGetPetInfor(dogNo);
+		
+		System.out.println(dogVo);
+
+		return JsonResult.success(dogVo);
+	}
 	
 }

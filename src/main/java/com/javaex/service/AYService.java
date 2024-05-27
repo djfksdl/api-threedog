@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.javaex.dao.AYDao;
 import com.javaex.vo.BusinessVo;
 import com.javaex.vo.DogVo;
+import com.javaex.vo.ReserveVo;
 import com.javaex.vo.ReviewVo;
 
 @Service
@@ -144,7 +145,7 @@ public class AYService {
 		ayDao.addReview(reviewVo);
 	}
 
-	// 가게리스트
+	// 가게1개정보 가져오기
 	public List<ReviewVo> exeGetRList(int bNo) {
 		System.out.println("AYService.exeGetRList");
 
@@ -160,6 +161,24 @@ public class AYService {
 		BusinessVo businessVo = ayDao.getBList(bNo);
 
 		return businessVo;
+	}
+
+	// 반려견 불러오기
+	public List<ReserveVo> exeGetPetList(int uNo) {
+		System.out.println("AYService.exeGetPetList");
+
+		List<ReserveVo> reserveVo = ayDao.getPetList(uNo);
+
+		return reserveVo;
+	}
+
+	// 반려견 정보1개 가져오기
+	public DogVo exeGetPetInfor(int dogNo) {
+		System.out.println("AYService.exeGetPetInfor");
+
+		DogVo dogVo = ayDao.getPetInfor(dogNo);
+
+		return dogVo;
 	}
 
 }

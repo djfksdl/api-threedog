@@ -76,6 +76,24 @@
 		where b.bNo=#{bNo};
 		]]>
 	</select>
+	
+	<!--  반려견 불러오기  -->
+	<select id="selectPetList" parameterType="int" resultType="com.javaex.vo.ReserveVo">
+		<![CDATA[
+		select dogNo, dogName
+		from dog 
+		where uNo=#{uNo}
+		]]>
+	</select>
+	
+		<!--  반려견 불러오기  -->
+	<select id="selectPetInforOne" parameterType="int" resultType="com.javaex.vo.DogVo">
+		<![CDATA[
+			select dogNo, dogName,  neutering, experience, bite, memo, size, skin, heart marking, mounting
+			from dog
+			where dogNo=#{dogNo}
+		]]>
+	</select>
 
 
 
