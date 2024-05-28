@@ -13,6 +13,7 @@ import com.javaex.service.AYService;
 import com.javaex.util.JsonResult;
 import com.javaex.vo.BusinessVo;
 import com.javaex.vo.DogVo;
+import com.javaex.vo.PriceVo;
 import com.javaex.vo.ReserveVo;
 import com.javaex.vo.ReviewVo;
 
@@ -89,6 +90,19 @@ public class AYController {
 		System.out.println(dogVo);
 
 		return JsonResult.success(dogVo);
+	}
+	
+	// 가격표 가져오기
+	@GetMapping("/api/mypage/getprice")
+	public JsonResult getPrice(@RequestParam (value="bNo") int bNo,
+			@RequestParam (value="sizeDiv") String sizeDiv) {
+		System.out.println("AYController.getPrice");
+
+		PriceVo priceVo = new PriceVo(bNo, sizeDiv);
+		
+		List<PriceVo> priceList=ayService.exeGetPrice(priceVo);
+		
+		return JsonResult.success(priceList);
 	}
 	
 }

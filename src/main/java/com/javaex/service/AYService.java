@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.javaex.dao.AYDao;
 import com.javaex.vo.BusinessVo;
 import com.javaex.vo.DogVo;
+import com.javaex.vo.PriceVo;
 import com.javaex.vo.ReserveVo;
 import com.javaex.vo.ReviewVo;
 
@@ -179,6 +180,15 @@ public class AYService {
 		DogVo dogVo = ayDao.getPetInfor(dogNo);
 
 		return dogVo;
+	}
+	
+	// 미용목록 가져오기
+	public List<PriceVo> exeGetPrice(PriceVo priceVo) {
+		System.out.println("AYService.exeGetPrice");
+
+		List<PriceVo> priceList = ayDao.getPriceList(priceVo);
+
+		return priceList;
 	}
 
 }

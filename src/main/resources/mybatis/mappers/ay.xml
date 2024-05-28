@@ -76,8 +76,8 @@
 		where b.bNo=#{bNo};
 		]]>
 	</select>
-	
-	<!--  반려견 불러오기  -->
+
+	<!-- 반려견 불러오기 -->
 	<select id="selectPetList" parameterType="int" resultType="com.javaex.vo.ReserveVo">
 		<![CDATA[
 		select dogNo, dogName
@@ -85,8 +85,8 @@
 		where uNo=#{uNo}
 		]]>
 	</select>
-	
-		<!--  반려견 불러오기  -->
+
+	<!-- 반려견 불러오기 -->
 	<select id="selectPetInforOne" parameterType="int" resultType="com.javaex.vo.DogVo">
 		<![CDATA[
 			select dogNo, dogName,  neutering, experience, bite, memo, size, skin, heart marking, mounting
@@ -95,7 +95,16 @@
 		]]>
 	</select>
 
-
+	<!-- 가격표 가져오기 -->
+	<!-- 미용목록 -->
+	<select id="selectPrice" parameterType="com.javaex.vo.PriceVo" resultType="com.javaex.vo.PriceVo">
+		<![CDATA[
+			select b.weightDiv, b.beauty , p.onePrice
+			from beautylist b
+			join price p on b.beautyNo=p.beautyNo
+			where p.bNo=#{bNo} and b.sizeDiv=#{sizeDiv}
+		]]>
+	</select>
 
 
 </mapper>
