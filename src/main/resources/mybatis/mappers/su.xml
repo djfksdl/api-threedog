@@ -31,7 +31,7 @@
 	</select>
 
 	<!-- =================== 홈페이지 만들기 =================== -->
-	
+
 	<!-- 가게 등록-business -->
 	<update id="updateBusinessInfo" parameterType="com.javaex.vo.BusinessVo">
 		<![CDATA[
@@ -40,38 +40,38 @@
 			WHERE bNo = #{bNo}
 		]]>
 	</update>
-	
+
+	<!-- 가게 등록-price -->
+	<insert id="insertPriceInfo" parameterType="java.util.List">
+		insert into price(priceNo, beautyNo ,bNo,onePrice) values
+		<foreach collection="list" item="price" separator=",">
+			(null, #{price.beautyNo}, #{price.bNo}, #{price.onePrice})
+		</foreach>
+	</insert>
+
 	<!-- 가게 등록-slideImgs -->
 	<insert id="insertSlideImgs" parameterType="map">
-	    insert into homeimg (hiNo, bNo, saveName,orgName,fileSize,filePath,category,cutContents) values 
-	    <foreach collection="slideImgsSaveName" item="slideImgSaveName" separator=",">
-	        (null, #{bNo}, #{slideImgSaveName},null,null,null,1,null)
-	    </foreach>
+		insert into homeimg (hiNo, bNo, saveName,orgName,fileSize,filePath,category,cutContents) values
+		<foreach collection="slideImgsSaveName" item="slideImgSaveName" separator=",">
+			(null, #{bNo}, #{slideImgSaveName},null,null,null,1,null)
+		</foreach>
 	</insert>
-	
+
 	<!-- 가게 등록-cutImgs -->
 	<insert id="insertCutImgs" parameterType="map">
-	    insert into homeimg (hiNo, bNo, saveName,orgName,fileSize,filePath,category,cutContents) values 
-	    <foreach collection="cutImgsSaveName" item="cutImgsSaveName" separator=",">
-	        (null, #{bNo}, #{cutImgsSaveName},null,null,null,2,null)
-	    </foreach>
+		insert into homeimg (hiNo, bNo, saveName,orgName,fileSize,filePath,category,cutContents) values
+		<foreach collection="cutImgsSaveName" item="cutImgsSaveName" separator=",">
+			(null, #{bNo}, #{cutImgsSaveName},null,null,null,2,null)
+		</foreach>
 	</insert>
-	
+
 	<!-- 가게 등록-designer -->
 	<insert id="insertDesignerInfo" parameterType="com.javaex.vo.BusinessVo">
 		<![CDATA[
 			insert designer values(null, #{bNo}, #{dName}, #{introduce},#{dProfileSaveName},#{job})
 		]]>
 	</insert>
-	
-	<!-- 가게 등록-price -->
-	<insert id="insertPriceInfo" parameterType="java.util.List">
-        insert into price(priceNo, beautyNo ,bNo,onePrice) values 
-	    <foreach collection="list" item="price" separator=",">
-	        (null, #{price.beautyNo}, #{price.bNo}, #{price.onePrice})
-	    </foreach>
-	</insert>
-	
+
 	<!-- 가게정보 불러오기 -->
 	<select id="getShopInfo" parameterType="int" resultType="com.javaex.vo.BusinessVo">
 		<![CDATA[
@@ -82,7 +82,7 @@
 			       bPhone,
 			       title,
 			       subTitle,
-			       logo,
+			       logo as logoSaveName,
 			       utilTime,
 			       latitude,
 			       longitude,
@@ -96,7 +96,7 @@
 			where b.bNo=#{bNo}
 		]]>
 	</select>
-	
+
 	<!-- 가격정보 불러오기 -->
 	<select id="getPrice" parameterType="int" resultType="com.javaex.vo.PriceVo">
 		<![CDATA[
