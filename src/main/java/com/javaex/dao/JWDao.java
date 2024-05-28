@@ -1,6 +1,8 @@
 package com.javaex.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,10 @@ public class JWDao {
 
 	@Autowired
 	private SqlSession sqlSession;
+
+	/****************************
+	 * 스케줕화면
+	 ****************************/
 
 	// 한 가게의 예약 리스트 정보 조회
 	public List<ReserveVo> selectReserveList(int bNo) {
@@ -40,13 +46,24 @@ public class JWDao {
 		System.out.println("예약 정보 삭제 완료: " + rsNo);
 	}
 
-	// 예약 정보 업데이트
-//	public int updateReserve(ReserveVo reserveVo) {
-//		System.out.println("JWDao.updateReserve()");
-//
-//		int count = sqlSession.update("jw.updateReserve", reserveVo);
-//		System.out.println(count);
-//		return count;
-//	}
+	/****************************
+	 * 알림장화면
+	 ****************************/
+	// 미용 기록 업데이트
+		public void updateGroomingRecord(ReserveVo reserveVo) {
+			sqlSession.update("com.example.mapper.JWMapper.updateGroomingRecord", reserveVo);
+		}
+		// 사진 업로드
+		public void insertAfterImg(int rsNo, String saveName, String orgName, long fileSize, String filePath) {
+		    Map<String, Object> paramMap = new HashMap<>();
+		    paramMap.put("rsNo", rsNo);
+		    paramMap.put("saveName", saveName);
+		    paramMap.put("orgName", orgName);
+		    paramMap.put("fileSize", fileSize);
+		    paramMap.put("filePath", filePath);
+
+		    sqlSession.insert("jw.insertAfterImg", paramMap);
+		}
+
 
 }

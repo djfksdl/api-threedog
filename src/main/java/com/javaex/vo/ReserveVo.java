@@ -1,5 +1,9 @@
 package com.javaex.vo;
 
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 public class ReserveVo {
 
     // 필드
@@ -43,6 +47,19 @@ public class ReserveVo {
     private String weightDiv;
     private String beauty;
      
+    private int aiNo;
+    private String key;
+    private String saveName;
+    private String orgName;
+    private String fileSize;
+    private String filePath;
+    
+    private int pushNo;
+    private String pushTime;
+    
+    private List<MultipartFile> files;
+
+    
     // 생성자
     public ReserveVo() {
         super();
@@ -53,7 +70,9 @@ public class ReserveVo {
 			Integer surcharge, String message, Double currentWeight, String dogName, String kind, double weight,
 			String birth, String gender, Boolean neutering, Boolean experience, Integer bite, String memo,
 			String dogImg, String size, Boolean skin, Boolean heart, Boolean marking, Boolean mounting, int uNo,
-			int rspNo, int priceNo, int beautyNo, Integer onePrice, String sizeDiv, String weightDiv, String beauty) {
+			int rspNo, int priceNo, int beautyNo, Integer onePrice, String sizeDiv, String weightDiv, String beauty,
+			int aiNo, String key, String saveName, String orgName, String fileSize, String filePath, int pushNo,
+			String pushTime, List<MultipartFile> files) {
 		super();
 		this.rsNo = rsNo;
 		this.bNo = bNo;
@@ -94,6 +113,15 @@ public class ReserveVo {
 		this.sizeDiv = sizeDiv;
 		this.weightDiv = weightDiv;
 		this.beauty = beauty;
+		this.aiNo = aiNo;
+		this.key = key;
+		this.saveName = saveName;
+		this.orgName = orgName;
+		this.fileSize = fileSize;
+		this.filePath = filePath;
+		this.pushNo = pushNo;
+		this.pushTime = pushTime;
+		this.files = files;
 	}
 
 	public int getRsNo() {
@@ -408,6 +436,78 @@ public class ReserveVo {
 		this.beauty = beauty;
 	}
 
+	public int getAiNo() {
+		return aiNo;
+	}
+
+	public void setAiNo(int aiNo) {
+		this.aiNo = aiNo;
+	}
+
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+	public String getSaveName() {
+		return saveName;
+	}
+
+	public void setSaveName(String saveName) {
+		this.saveName = saveName;
+	}
+
+	public String getOrgName() {
+		return orgName;
+	}
+
+	public void setOrgName(String orgName) {
+		this.orgName = orgName;
+	}
+
+	public String getFileSize() {
+		return fileSize;
+	}
+
+	public void setFileSize(String fileSize) {
+		this.fileSize = fileSize;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
+	public int getPushNo() {
+		return pushNo;
+	}
+
+	public void setPushNo(int pushNo) {
+		this.pushNo = pushNo;
+	}
+
+	public String getPushTime() {
+		return pushTime;
+	}
+
+	public void setPushTime(String pushTime) {
+		this.pushTime = pushTime;
+	}
+
+	public List<MultipartFile> getFiles() {
+		return files;
+	}
+
+	public void setFiles(List<MultipartFile> files) {
+		this.files = files;
+	}
+
 	@Override
 	public String toString() {
 		return "ReserveVo [rsNo=" + rsNo + ", bNo=" + bNo + ", dogNo=" + dogNo + ", rtNo=" + rtNo + ", rtDate=" + rtDate
@@ -419,6 +519,8 @@ public class ReserveVo {
 				+ memo + ", dogImg=" + dogImg + ", size=" + size + ", skin=" + skin + ", heart=" + heart + ", marking="
 				+ marking + ", mounting=" + mounting + ", uNo=" + uNo + ", rspNo=" + rspNo + ", priceNo=" + priceNo
 				+ ", beautyNo=" + beautyNo + ", onePrice=" + onePrice + ", sizeDiv=" + sizeDiv + ", weightDiv="
-				+ weightDiv + ", beauty=" + beauty + "]";
+				+ weightDiv + ", beauty=" + beauty + ", aiNo=" + aiNo + ", key=" + key + ", saveName=" + saveName
+				+ ", orgName=" + orgName + ", fileSize=" + fileSize + ", filePath=" + filePath + ", pushNo=" + pushNo
+				+ ", pushTime=" + pushTime + ", files=" + files + "]";
 	}
 }
