@@ -25,10 +25,12 @@ public class BusinessVo {
 	private String utilTime;
 	private MultipartFile logo;
 	private String logoSaveName; //파일받는건 logo로 하고, 넣는건 새로 만들어서 넣어주면 됨. 동시에 받고 넣는건 안된다.자료형도 달라서 안되긴함.
-	private List<MultipartFile> slideImgs;
-    private List<MultipartFile> cutImgs;
     private MultipartFile dProfile;
     private String dProfileSaveName;
+    private List<MultipartFile> slideImgs;
+    private List<String> slideImgsSaveName;
+    private List<MultipartFile> cutImgs;
+    private List<String> cutImgsSaveName;
   
     private List<PriceVo> priceList;
 
@@ -36,12 +38,12 @@ public class BusinessVo {
 	public BusinessVo() {
 		super();
 	}
-	
+
 	public BusinessVo(int bNo, String bId, String bPw, String bNum, String bZipCode, String bAddress, String bdAddress,
 			String bPhone, double latitude, double longitude, double averageStar, String title, String subTitle,
 			String dName, String introduce, String job, String utilTime, MultipartFile logo, String logoSaveName,
-			List<MultipartFile> slideImgs, List<MultipartFile> cutImgs, MultipartFile dProfile, String dProfileSaveName,
-			List<PriceVo> priceList) {
+			MultipartFile dProfile, String dProfileSaveName, List<MultipartFile> slideImgs, List<String> slideImgsSaveName,
+			List<MultipartFile> cutImgs, List<String> cutImgsSaveName, List<PriceVo> priceList) {
 		super();
 		this.bNo = bNo;
 		this.bId = bId;
@@ -62,18 +64,14 @@ public class BusinessVo {
 		this.utilTime = utilTime;
 		this.logo = logo;
 		this.logoSaveName = logoSaveName;
-		this.slideImgs = slideImgs;
-		this.cutImgs = cutImgs;
 		this.dProfile = dProfile;
 		this.dProfileSaveName = dProfileSaveName;
+		this.slideImgs = slideImgs;
+		this.slideImgsSaveName = slideImgsSaveName;
+		this.cutImgs = cutImgs;
+		this.cutImgsSaveName = cutImgsSaveName;
 		this.priceList = priceList;
 	}
-
-
-
-
-
-
 
 	//	메소드-gs
 
@@ -268,6 +266,22 @@ public class BusinessVo {
 		this.dProfileSaveName = dProfileSaveName;
 	}
 
+	public List<String> getSlideImgsSaveName() {
+		return slideImgsSaveName;
+	}
+
+	public void setSlideImgsSaveName(List<String> slideImgsSaveName) {
+		this.slideImgsSaveName = slideImgsSaveName;
+	}
+
+	public List<String> getCutImgsSaveName() {
+		return cutImgsSaveName;
+	}
+
+	public void setCutImgsSaveName(List<String> cutImgsSaveName) {
+		this.cutImgsSaveName = cutImgsSaveName;
+	}
+
 	// 메소드-일반
 	@Override
 	public String toString() {
@@ -275,28 +289,11 @@ public class BusinessVo {
 				+ ", bAddress=" + bAddress + ", bdAddress=" + bdAddress + ", bPhone=" + bPhone + ", latitude="
 				+ latitude + ", longitude=" + longitude + ", averageStar=" + averageStar + ", title=" + title
 				+ ", subTitle=" + subTitle + ", dName=" + dName + ", introduce=" + introduce + ", job=" + job
-				+ ", utilTime=" + utilTime + ", logo=" + logo + ", logoSaveName=" + logoSaveName + ", slideImgs="
-				+ slideImgs + ", cutImgs=" + cutImgs + ", dProfile=" + dProfile + ", dProfileSaveName="
-				+ dProfileSaveName + ", priceList=" + priceList + "]";
+				+ ", utilTime=" + utilTime + ", logo=" + logo + ", logoSaveName=" + logoSaveName + ", dProfile="
+				+ dProfile + ", dProfileSaveName=" + dProfileSaveName + ", slideImgs=" + slideImgs
+				+ ", slideImgsSaveName=" + slideImgsSaveName + ", cutImgs=" + cutImgs + ", cutImgsSaveName="
+				+ cutImgsSaveName + ", priceList=" + priceList + "]";
 	}
 
-
-
-
-	
-	
-
-
-
-
-
-
-
-
-
-
-	
-
-	
 
 }

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.javaex.dao.SUDao;
 import com.javaex.vo.BusinessVo;
@@ -140,20 +142,88 @@ public class SUService {
 
 		// (1)파일관련 정보 추출///////////////////////////////////////////////////
 
+		//여기는 슬라이드 사진 추출
+		List<MultipartFile> slideImgs = businessVo.getSlideImgs();
+		List<String> slideImgsSaveName = new ArrayList<>();
+		
+	   // 슬라이드 이미지 파일 처리 추가 부분 ///////////////////////
+	    for (MultipartFile slideImg : slideImgs) {
+	        // 오리지널 파일명
+	        String orgName = slideImg.getOriginalFilename();
+	        
+	        // 확장자
+	        String exName = orgName.substring(orgName.lastIndexOf("."));
+	        
+	        // 저장파일명(겹치지 않아야 된다)
+	        String saveName = System.currentTimeMillis() + UUID.randomUUID().toString() + exName;
+	        
+	        // 파일전체경로
+	        String filePath = saveDir + File.separator + saveName;
+	        
+	        // 파일 저장 이름 리스트에 추가
+	        slideImgsSaveName.add(saveName);
+
+	        // 파일 저장
+	        try {
+	            byte[] fileData = slideImg.getBytes();
+	            OutputStream os = new FileOutputStream(filePath);
+	            BufferedOutputStream bos = new BufferedOutputStream(os);
+	            bos.write(fileData);
+	            bos.close();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    
+	    businessVo.setSlideImgsSaveName(slideImgsSaveName);
+	    
+	    //여기는 컷이미지 사진 추출
+		List<MultipartFile> cutImgs = businessVo.getCutImgs() ;
+		List<String> cutImgsSaveName = new ArrayList<>();
+		
+		   // 슬라이드 이미지 파일 처리 추가 부분 ///////////////////////
+	    for (MultipartFile cutImg : cutImgs) {
+	        // 오리지널 파일명
+	        String orgName = cutImg.getOriginalFilename();
+	        
+	        // 확장자
+	        String exName = orgName.substring(orgName.lastIndexOf("."));
+	        
+	        // 저장파일명(겹치지 않아야 된다)
+	        String saveName = System.currentTimeMillis() + UUID.randomUUID().toString() + exName;
+	        
+	        // 파일전체경로
+	        String filePath = saveDir + File.separator + saveName;
+	        
+	        // 파일 저장 이름 리스트에 추가
+	        cutImgsSaveName.add(saveName);
+
+	        // 파일 저장
+	        try {
+	            byte[] fileData = cutImg.getBytes();
+	            OutputStream os = new FileOutputStream(filePath);
+	            BufferedOutputStream bos = new BufferedOutputStream(os);
+	            bos.write(fileData);
+	            bos.close();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    businessVo.setCutImgsSaveName(cutImgsSaveName);
+		
+	    //여기는 로고랑 프로필이미지 추출
 		// 오리지널 파일명		
 		String orgName = businessVo.getLogo().getOriginalFilename();
 		String orgName2 = businessVo.getdProfile().getOriginalFilename();
-//		System.out.println(orgName);
+		
 
 		// 확장자
 		String exName = orgName.substring(orgName.lastIndexOf("."));
 		String exName2 = orgName2.substring(orgName2.lastIndexOf("."));
-//		System.out.println(exName);
 
 		// 저장파일명(겹치지 않아야 된다)
 		String saveName = System.currentTimeMillis() + UUID.randomUUID().toString() + exName;
 		String saveName2 = System.currentTimeMillis() + UUID.randomUUID().toString() + exName2;
-//		System.out.println(saveName);
 
 		// 파일사이즈
 //		long fileSize = businessVo.getLogo().getSize() ;
@@ -162,7 +232,6 @@ public class SUService {
 		// 파일전체경로
 		String filePath = saveDir + File.separator + saveName;
 		String filePath2 = saveDir + File.separator + saveName2;
-//		System.out.println(filePath);
 
 		// vo로묶기
 		businessVo.setLogoSaveName(saveName);
@@ -187,7 +256,9 @@ public class SUService {
 		// (3)DB저장 /////////////////////////////////////////////////////
 		suDao.insertBusinessInfo(businessVo);
 		suDao.insertDesignerInfo(businessVo);
-		suDao.insertPriceInfo(businessVo );
+		suDao.insertPriceInfo(businessVo);
+		suDao.insertSlideImgs(businessVo);
+		suDao.insertCutImgs(businessVo);
 
 	}
 

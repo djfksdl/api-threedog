@@ -1,6 +1,8 @@
 package com.javaex.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,11 +71,42 @@ public class SUDao {
 	        priceVo.setbNo(bNo);
 	    }
 		
-		System.out.println("등록전 pricelist:"+ priceList);
-		
 		sqlSession.insert("su.insertPriceInfo",priceList);
 		
 	}
+	
+	// 가게 등록 -슬라이드 이미지
+	public void insertSlideImgs(BusinessVo businessVo) {
+		System.out.println("SUDao.insertSlideImgs");
+		
+		List<String> sImgSaveNameList = businessVo.getSlideImgsSaveName();
+		
+		// BusinessVo에서 bNo를 가져와서 PriceVo의 bNo 필드에 설정
+	    int bNo = businessVo.getbNo();
+	    
+	    Map<String, Object> slideImgsMap = new HashMap<>();
+	    slideImgsMap.put("bNo", bNo);
+	    slideImgsMap.put("slideImgsSaveName", sImgSaveNameList);
+		
+		sqlSession.insert("su.insertSlideImgs",slideImgsMap);
+		
+	}
+	// 가게 등록 -컷 이미지
+		public void insertCutImgs(BusinessVo businessVo) {
+			System.out.println("SUDao.insertCutImgs");
+		
+			List<String> cImgSaveNameList = businessVo.getCutImgsSaveName() ;
+
+			// BusinessVo에서 bNo를 가져와서 PriceVo의 bNo 필드에 설정
+		    int bNo = businessVo.getbNo();
+		    
+		    Map<String, Object> cutImgsMap = new HashMap<>();
+		    cutImgsMap.put("bNo", bNo);
+		    cutImgsMap.put("cutImgsSaveName", cImgSaveNameList);
+			
+			sqlSession.insert("su.insertCutImgs",cutImgsMap);
+			
+		}
 	
 	
 	

@@ -76,9 +76,10 @@ public class SUController {
 	public JsonResult registerPrice(@ModelAttribute BusinessVo businessVo) {
 		System.out.println("SUController.registerPrice");
 		
-		System.out.println("이거 확인하기:"+businessVo);
+		System.out.println("슬라이드 이미지:"+businessVo.getSlideImgs() );
+		System.out.println("컷이미지:" + businessVo.getCutImgs());
 		
-		suService.exeShopInfoList(businessVo);
+		suService.exeShopInfoList(businessVo );
 		
 		
 		return JsonResult.success("얏호");

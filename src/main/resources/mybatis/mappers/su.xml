@@ -41,6 +41,22 @@
 		]]>
 	</update>
 	
+	<!-- 가게 등록-slideImgs -->
+	<insert id="insertSlideImgs" parameterType="map">
+	    insert into homeimg (hiNo, bNo, saveName,orgName,fileSize,filePath,category,cutContents) values 
+	    <foreach collection="slideImgsSaveName" item="slideImgSaveName" separator=",">
+	        (null, #{bNo}, #{slideImgSaveName},null,null,null,1,null)
+	    </foreach>
+	</insert>
+	
+	<!-- 가게 등록-cutImgs -->
+	<insert id="insertCutImgs" parameterType="map">
+	    insert into homeimg (hiNo, bNo, saveName,orgName,fileSize,filePath,category,cutContents) values 
+	    <foreach collection="cutImgsSaveName" item="cutImgsSaveName" separator=",">
+	        (null, #{bNo}, #{cutImgsSaveName},null,null,null,2,null)
+	    </foreach>
+	</insert>
+	
 	<!-- 가게 등록-designer -->
 	<insert id="insertDesignerInfo" parameterType="com.javaex.vo.BusinessVo">
 		<![CDATA[
