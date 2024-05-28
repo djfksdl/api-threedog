@@ -76,39 +76,39 @@ public class SUController {
 	public JsonResult registerPrice(@ModelAttribute BusinessVo businessVo) {
 		System.out.println("SUController.registerPrice");
 		
-		System.out.println("슬라이드 이미지:"+businessVo.getSlideImgs() );
-		System.out.println("컷이미지:" + businessVo.getCutImgs());
+//		System.out.println("슬라이드 이미지:"+businessVo.getSlideImgs() );
+//		System.out.println("컷이미지:" + businessVo.getCutImgs());
 		
 		suService.exeShopInfoList(businessVo );
 		
 		
-		return JsonResult.success("얏호");
+		return JsonResult.success("저장성공");
 	}
 	
-	//가격 불러오기
-	@GetMapping("/api/su/getPriceBybNo")
-	public JsonResult firstPrice(@RequestParam(value="bNo") int bNo) {
-		System.out.println("SUController.getPriceBybNo");
-		
-		
-		List<PriceVo> pList = suService.exePriceBybNo(bNo);
-		
-		
-		return JsonResult.success(pList);
-	}
-	
-	//가게정보 불러오기
+	//가게,가격 정보 불러오기
 	@GetMapping("/api/su/shopInfo")
 	public JsonResult shopInfoList(@RequestParam(value="bNo") int bNo) {
 		System.out.println("SUController.shopInfoList");
-		System.out.println("가게번호: "+ bNo);
 		
-		BusinessVo shopInfo = suService.exeShopInfoList(bNo);
-		System.out.println("나와라" +shopInfo);
+		Map<String, Object> infoPriceMap = suService.exeShopInfoList(bNo);
+//		System.out.println("나와라" + infoPriceMap );
 		
-		
-		return JsonResult.success(shopInfo);
+		return JsonResult.success(infoPriceMap);
 	}
+	
+	//가격 불러오기
+//	@GetMapping("/api/su/getPriceBybNo")
+//	public JsonResult firstPrice(@RequestParam(value="bNo") int bNo) {
+//		System.out.println("SUController.getPriceBybNo");
+//		
+//		
+//		List<PriceVo> pList = suService.exePriceBybNo(bNo);
+//		
+//		
+//		return JsonResult.success(pList);
+//	}
+	
+
 	
 
 	

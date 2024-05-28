@@ -213,8 +213,8 @@ public class SUService {
 		
 	    //여기는 로고랑 프로필이미지 추출
 		// 오리지널 파일명		
-		String orgName = businessVo.getLogo().getOriginalFilename();
-		String orgName2 = businessVo.getdProfile().getOriginalFilename();
+		String orgName = businessVo.getLogoFile().getOriginalFilename();
+		String orgName2 = businessVo.getdProfileFile().getOriginalFilename();
 		
 
 		// 확장자
@@ -234,13 +234,13 @@ public class SUService {
 		String filePath2 = saveDir + File.separator + saveName2;
 
 		// vo로묶기
-		businessVo.setLogoSaveName(saveName);
-		businessVo.setdProfileSaveName(saveName2);
+		businessVo.setLogo(saveName);
+		businessVo.setdProfile(saveName2);
 
 		// (2)파일저장(서버쪽 하드디스크에 저장)///////////////////////////////////////////////////
 		try {
 			byte[] fileData;
-			fileData = businessVo.getLogo().getBytes();
+			fileData = businessVo.getLogoFile().getBytes();
 			fileData = businessVo.getdProfile().getBytes();
 
 			OutputStream os = new FileOutputStream(filePath);
@@ -262,27 +262,39 @@ public class SUService {
 
 	}
 
-	// 가격 불러오기
-	public List<PriceVo> exePriceBybNo(int bNo) {
-		System.out.println("SUService.exePriceBybNo");
-
-		// 가격정보 불러오기
-		List<PriceVo> pList = suDao.getPrice(bNo);
-
-//		Map<String, Object> priceInvetoryMap = new HashMap<String,Object>();
-//		priceInvetoryMap.put("pList", pList);
-//		priceInvetoryMap.put("inventoryList", inventoryList);
-
-		return pList;
-	}
-
-	// 가게정보 불러오기
-	public BusinessVo exeShopInfoList(int bNo) {
+	// 가게,가격 정보 불러오기
+	public Map<String, Object> exeShopInfoList(int bNo) {
 		System.out.println("SUService.exeShopInfoList");
 
+		//가게정보 
 		BusinessVo shopInfo = suDao.getShopInfo(bNo);
+		
+		//가격정보
+		List<PriceVo> pList = suDao.getPrice(bNo);
+		
+		//합쳐서 가져오기
+		Map<String, Object> infoPriceMap = new HashMap<String,Object>();
+		infoPriceMap.put("shopInfo", shopInfo);
+		infoPriceMap.put("pList", pList);
+		
 
-		return shopInfo;
+		return infoPriceMap;
 	}
+	
+	// 가격 불러오기
+//	public List<PriceVo> exePriceBybNo(int bNo) {
+//		System.out.println("SUService.exePriceBybNo");
+//
+//		// 가격정보 불러오기
+//		List<PriceVo> pList = suDao.getPrice(bNo);
+//
+////		Map<String, Object> priceInvetoryMap = new HashMap<String,Object>();
+////		priceInvetoryMap.put("pList", pList);
+////		priceInvetoryMap.put("inventoryList", inventoryList);
+//
+//		return pList;
+//	}
+
+
 
 }

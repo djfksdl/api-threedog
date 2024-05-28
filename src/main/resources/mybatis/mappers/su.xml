@@ -73,6 +73,30 @@
 	</insert>
 	
 	
+	<!-- 가게정보 불러오기 -->
+	<select id="getShopInfo" parameterType="int" resultType="com.javaex.vo.BusinessVo">
+		<![CDATA[
+			select b.bNo,
+				   bZipCode,
+			       bAddress,
+			       bdAddress,
+			       bPhone,
+			       title,
+			       subTitle,
+			       logo as logoSaveName,
+			       logo,
+			       latitude,
+			       longitude,
+			       dName,
+			       introduce,
+			       dProfile,
+			       job
+			from business b join designer d
+			on b.bNo = d.bNo
+			where b.bNo=#{bNo}
+		]]>
+	</select>
+	
 	<!-- 가격정보 불러오기 -->
 	<select id="getPrice" parameterType="int" resultType="com.javaex.vo.PriceVo">
 		<![CDATA[
@@ -88,30 +112,7 @@
 		]]>
 	</select>
 
-	<!-- 가게정보 불러오기 -->
-	<select id="getShopInfo" parameterType="int" resultType="com.javaex.vo.BusinessVo">
-		<![CDATA[
-			select b.bNo,
-				   bZipCode,
-			       bAddress,
-			       bdAddress,
-			       bPhone,
-			       title,
-			       subTitle,
-			       logo,
-			       utilTime,
-			       latitude,
-			       longitude,
-			       dName,
-			       introduce,
-			       dProfile,
-			       job,
-			       utilTime
-			from business b join designer d
-			on b.bNo = d.bNo
-			where b.bNo=#{bNo}
-		]]>
-	</select>
+
 
 
 

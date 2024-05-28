@@ -108,7 +108,16 @@ public class SUDao {
 			
 		}
 	
-	
+	//가게정보 불러오기
+	public BusinessVo getShopInfo(int bNo){
+		System.out.println("SUDao.getShopInfo");
+		
+		BusinessVo shopInfo = sqlSession.selectOne("su.getShopInfo",bNo);
+		
+		System.out.println(shopInfo);
+		
+		return shopInfo;
+	}
 	
 	//가격정보 불러오기
 	public List<PriceVo> getPrice(int bNo) {
@@ -120,16 +129,7 @@ public class SUDao {
 		return pList;
 	}
 
-	//가게정보 불러오기
-	public BusinessVo getShopInfo(int bNo){
-		System.out.println("SUDao.getShopInfo");
-		
-		BusinessVo shopInfo = sqlSession.selectOne("su.getShopInfo",bNo);
-		
-		System.out.println(shopInfo);
-		
-		return shopInfo;
-	}
+
 	
 
 	
