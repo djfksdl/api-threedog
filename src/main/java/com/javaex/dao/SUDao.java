@@ -58,15 +58,20 @@ public class SUDao {
 		
 	}
 	// 가게 등록 -price
-	public void insertPriceInfo(List<PriceVo> priceList) {
+	public void insertPriceInfo(BusinessVo businessVo) {
 		System.out.println("SUDao.insertPriceInfo");
 		
-		System.out.println("등록전 pricelist:"+ priceList);
-		System.out.println(priceList);
+		List<PriceVo> priceList = businessVo.getPriceList();
 		
-		for(int i=0; i<priceList.size(); i++ ) {
-			sqlSession.insert("su.insertPriceInfo",priceList);
-		}
+	    // BusinessVo에서 bNo를 가져와서 PriceVo의 bNo 필드에 설정
+	    int bNo = businessVo.getbNo();
+	    for (PriceVo priceVo : priceList) {
+	        priceVo.setbNo(bNo);
+	    }
+		
+		System.out.println("등록전 pricelist:"+ priceList);
+		
+		sqlSession.insert("su.insertPriceInfo",priceList);
 		
 	}
 	

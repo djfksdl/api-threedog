@@ -187,7 +187,7 @@ public class SUService {
 		// (3)DB저장 /////////////////////////////////////////////////////
 		suDao.insertBusinessInfo(businessVo);
 		suDao.insertDesignerInfo(businessVo);
-		suDao.insertPriceInfo(businessVo.getPriceList() );
+		suDao.insertPriceInfo(businessVo );
 
 	}
 

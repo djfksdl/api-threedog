@@ -49,10 +49,11 @@
 	</insert>
 	
 	<!-- 가게 등록-price -->
-	<insert id="insertPriceInfo" parameterType="com.javaex.vo.PriceVo">
-		<![CDATA[
-			insert into price values(null, #{beautyNo},#{bNo},#{onePrice})
-		]]>
+	<insert id="insertPriceInfo" parameterType="java.util.List">
+        insert into price(priceNo, beautyNo ,bNo,onePrice) values 
+	    <foreach collection="list" item="price" separator=",">
+	        (null, #{price.beautyNo}, #{price.bNo}, #{price.onePrice})
+	    </foreach>
 	</insert>
 	
 	
