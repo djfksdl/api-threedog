@@ -23,10 +23,10 @@ public class BusinessVo {
 	private String introduce;
 	private String job;
 	private String utilTime;
-	private MultipartFile logoFile;
-	private String logo; //파일받는건 logoFile로 하고, 넣는건 새로 만들어서 넣어주면 됨. 동시에 받고 넣는건 안된다.자료형도 달라서 안되긴함.
-    private MultipartFile dProfileFile;
-    private String dProfile;
+	private MultipartFile logo;
+	private String logoSaveName; //파일받는건 logo로 하고, 넣는건 새로 만들어서 넣어주면 됨. 동시에 받고 넣는건 안된다.자료형도 달라서 안되긴함.
+    private MultipartFile dProfile;
+    private String dProfileSaveName;
     private List<MultipartFile> slideImgs;
     private List<String> slideImgsSaveName;
     private List<MultipartFile> cutImgs;
@@ -34,17 +34,15 @@ public class BusinessVo {
   
     private List<PriceVo> priceList;
 
-    
-    //	생성자
-
+//	생성자
 	public BusinessVo() {
 		super();
 	}
-    
+
 	public BusinessVo(int bNo, String bId, String bPw, String bNum, String bZipCode, String bAddress, String bdAddress,
 			String bPhone, double latitude, double longitude, double averageStar, String title, String subTitle,
-			String dName, String introduce, String job, String utilTime, MultipartFile logoFile, String logo,
-			MultipartFile dProfileFile, String dProfile, List<MultipartFile> slideImgs, List<String> slideImgsSaveName,
+			String dName, String introduce, String job, String utilTime, MultipartFile logo, String logoSaveName,
+			MultipartFile dProfile, String dProfileSaveName, List<MultipartFile> slideImgs, List<String> slideImgsSaveName,
 			List<MultipartFile> cutImgs, List<String> cutImgsSaveName, List<PriceVo> priceList) {
 		super();
 		this.bNo = bNo;
@@ -64,10 +62,10 @@ public class BusinessVo {
 		this.introduce = introduce;
 		this.job = job;
 		this.utilTime = utilTime;
-		this.logoFile = logoFile;
 		this.logo = logo;
-		this.dProfileFile = dProfileFile;
+		this.logoSaveName = logoSaveName;
 		this.dProfile = dProfile;
+		this.dProfileSaveName = dProfileSaveName;
 		this.slideImgs = slideImgs;
 		this.slideImgsSaveName = slideImgsSaveName;
 		this.cutImgs = cutImgs;
@@ -75,9 +73,8 @@ public class BusinessVo {
 		this.priceList = priceList;
 	}
 
-
 	//	메소드-gs
-	
+
 	public int getbNo() {
 		return bNo;
 	}
@@ -214,36 +211,12 @@ public class BusinessVo {
 		this.utilTime = utilTime;
 	}
 
-	public MultipartFile getLogoFile() {
-		return logoFile;
-	}
-
-	public void setLogoFile(MultipartFile logoFile) {
-		this.logoFile = logoFile;
-	}
-
-	public String getLogo() {
+	public MultipartFile getLogo() {
 		return logo;
 	}
 
-	public void setLogo(String logo) {
+	public void setLogo(MultipartFile logo) {
 		this.logo = logo;
-	}
-
-	public MultipartFile getdProfileFile() {
-		return dProfileFile;
-	}
-
-	public void setdProfileFile(MultipartFile dProfileFile) {
-		this.dProfileFile = dProfileFile;
-	}
-
-	public String getdProfile() {
-		return dProfile;
-	}
-
-	public void setdProfile(String dProfile) {
-		this.dProfile = dProfile;
 	}
 
 	public List<MultipartFile> getSlideImgs() {
@@ -254,20 +227,51 @@ public class BusinessVo {
 		this.slideImgs = slideImgs;
 	}
 
-	public List<String> getSlideImgsSaveName() {
-		return slideImgsSaveName;
-	}
-
-	public void setSlideImgsSaveName(List<String> slideImgsSaveName) {
-		this.slideImgsSaveName = slideImgsSaveName;
-	}
-
 	public List<MultipartFile> getCutImgs() {
 		return cutImgs;
 	}
 
 	public void setCutImgs(List<MultipartFile> cutImgs) {
 		this.cutImgs = cutImgs;
+	}
+
+	public MultipartFile getdProfile() {
+		return dProfile;
+	}
+
+	public void setdProfile(MultipartFile dProfile) {
+		this.dProfile = dProfile;
+	}
+
+	public List<PriceVo> getPriceList() {
+		return priceList;
+	}
+
+	public void setPriceList(List<PriceVo> priceList) {
+		this.priceList = priceList;
+	}
+	public String getLogoSaveName() {
+		return logoSaveName;
+	}
+	public void setLogoSaveName(String logoSaveName) {
+		this.logoSaveName = logoSaveName;
+	}
+	
+	
+	public String getdProfileSaveName() {
+		return dProfileSaveName;
+	}
+
+	public void setdProfileSaveName(String dProfileSaveName) {
+		this.dProfileSaveName = dProfileSaveName;
+	}
+
+	public List<String> getSlideImgsSaveName() {
+		return slideImgsSaveName;
+	}
+
+	public void setSlideImgsSaveName(List<String> slideImgsSaveName) {
+		this.slideImgsSaveName = slideImgsSaveName;
 	}
 
 	public List<String> getCutImgsSaveName() {
@@ -278,14 +282,6 @@ public class BusinessVo {
 		this.cutImgsSaveName = cutImgsSaveName;
 	}
 
-	public List<PriceVo> getPriceList() {
-		return priceList;
-	}
-
-	public void setPriceList(List<PriceVo> priceList) {
-		this.priceList = priceList;
-	}
-
 	// 메소드-일반
 	@Override
 	public String toString() {
@@ -293,18 +289,11 @@ public class BusinessVo {
 				+ ", bAddress=" + bAddress + ", bdAddress=" + bdAddress + ", bPhone=" + bPhone + ", latitude="
 				+ latitude + ", longitude=" + longitude + ", averageStar=" + averageStar + ", title=" + title
 				+ ", subTitle=" + subTitle + ", dName=" + dName + ", introduce=" + introduce + ", job=" + job
-				+ ", utilTime=" + utilTime + ", logoFile=" + logoFile + ", logo=" + logo + ", dProfileFile="
-				+ dProfileFile + ", dProfile=" + dProfile + ", slideImgs=" + slideImgs + ", slideImgsSaveName="
-				+ slideImgsSaveName + ", cutImgs=" + cutImgs + ", cutImgsSaveName=" + cutImgsSaveName + ", priceList="
-				+ priceList + "]";
+				+ ", utilTime=" + utilTime + ", logo=" + logo + ", logoSaveName=" + logoSaveName + ", dProfile="
+				+ dProfile + ", dProfileSaveName=" + dProfileSaveName + ", slideImgs=" + slideImgs
+				+ ", slideImgsSaveName=" + slideImgsSaveName + ", cutImgs=" + cutImgs + ", cutImgsSaveName="
+				+ cutImgsSaveName + ", priceList=" + priceList + "]";
 	}
-
-
-
-
-
-	
-
 
 
 }

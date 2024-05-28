@@ -72,7 +72,6 @@
 	    </foreach>
 	</insert>
 	
-	
 	<!-- 가게정보 불러오기 -->
 	<select id="getShopInfo" parameterType="int" resultType="com.javaex.vo.BusinessVo">
 		<![CDATA[
@@ -83,14 +82,15 @@
 			       bPhone,
 			       title,
 			       subTitle,
-			       logo as logoSaveName,
 			       logo,
+			       utilTime,
 			       latitude,
 			       longitude,
 			       dName,
 			       introduce,
 			       dProfile,
-			       job
+			       job,
+			       utilTime
 			from business b join designer d
 			on b.bNo = d.bNo
 			where b.bNo=#{bNo}

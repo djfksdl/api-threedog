@@ -76,13 +76,13 @@ public class SUController {
 	public JsonResult registerPrice(@ModelAttribute BusinessVo businessVo) {
 		System.out.println("SUController.registerPrice");
 		
-//		System.out.println("슬라이드 이미지:"+businessVo.getSlideImgs() );
-//		System.out.println("컷이미지:" + businessVo.getCutImgs());
+		System.out.println("슬라이드 이미지:"+businessVo.getSlideImgs() );
+		System.out.println("컷이미지:" + businessVo.getCutImgs());
 		
 		suService.exeShopInfoList(businessVo );
 		
 		
-		return JsonResult.success("저장성공");
+		return JsonResult.success("얏호");
 	}
 	
 	//가게,가격 정보 불러오기
@@ -95,20 +95,6 @@ public class SUController {
 		
 		return JsonResult.success(infoPriceMap);
 	}
-	
-	//가격 불러오기
-//	@GetMapping("/api/su/getPriceBybNo")
-//	public JsonResult firstPrice(@RequestParam(value="bNo") int bNo) {
-//		System.out.println("SUController.getPriceBybNo");
-//		
-//		
-//		List<PriceVo> pList = suService.exePriceBybNo(bNo);
-//		
-//		
-//		return JsonResult.success(pList);
-//	}
-	
-
 	
 
 	
