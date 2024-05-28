@@ -32,13 +32,29 @@
 
 	<!-- =================== 홈페이지 만들기 =================== -->
 	
-	<!-- 가게 등록 -->
-	<insert id="insertShopInfo" parameterType="com.javaex.vo.BusinessVo">
+	<!-- 가게 등록-business -->
+	<update id="updateBusinessInfo" parameterType="com.javaex.vo.BusinessVo">
 		<![CDATA[
-			insert business 
-			values(#{bNo},null,null,null,null,null,null,null,null,"타이틀","서브타이틀",);
+			UPDATE business 
+			SET title = #{title}, subTitle = #{subTitle}, logo = #{logoSaveName} 
+			WHERE bNo = #{bNo}
+		]]>
+	</update>
+	
+	<!-- 가게 등록-designer -->
+	<insert id="insertDesignerInfo" parameterType="com.javaex.vo.BusinessVo">
+		<![CDATA[
+			insert designer values(null, #{bNo}, #{dName}, #{introduce},#{dProfileSaveName},#{job})
 		]]>
 	</insert>
+	
+	<!-- 가게 등록-price -->
+	<insert id="insertPriceInfo" parameterType="com.javaex.vo.PriceVo">
+		<![CDATA[
+			insert into price values(null, #{beautyNo},#{bNo},#{onePrice})
+		]]>
+	</insert>
+	
 	
 	<!-- 가격정보 불러오기 -->
 	<select id="getPrice" parameterType="int" resultType="com.javaex.vo.PriceVo">

@@ -1,5 +1,7 @@
 package com.javaex.vo;
 
+import java.util.List;
+
 public class PriceVo {
 
 	//필드
@@ -31,9 +33,11 @@ public class PriceVo {
 		super();
 	}
 	
+
+
 	public PriceVo(int priceNo, int beautyNo, int bNo, int onePrice, String sizeDiv, String weightDiv, String beauty,
-			String 목욕, String 부분, String 목욕_부분, String 얼굴_부분_목욕, String 기본전체미용, String 스포팅, String 가위컷,
-			String 컷, String 엉킴, String 기장, String 특수얼굴컷, String 투톤염색, String 염색) {
+			String 목욕, String 부분, String 목욕_부분, String 얼굴_부분_목욕, String 기본전체미용, String 스포팅,
+			String 가위컷, String 컷, String 엉킴, String 기장, String 특수얼굴컷, String 투톤염색, String 염색) {
 		super();
 		this.priceNo = priceNo;
 		this.beautyNo = beautyNo;
@@ -56,6 +60,8 @@ public class PriceVo {
 		this.투톤염색 = 투톤염색;
 		this.염색 = 염색;
 	}
+
+
 
 	//메소드 -gs
 	public int getPriceNo() {
@@ -217,7 +223,9 @@ public class PriceVo {
 	public void set염색(String 염색) {
 		this.염색 = 염색;
 	}
-	
+
+
+
 	//메소드 -일반
 	@Override
 	public String toString() {
@@ -227,6 +235,10 @@ public class PriceVo {
 				+ 가위컷 + ", 컷=" + 컷 + ", 엉킴=" + 엉킴 + ", 기장=" + 기장 + ", 특수얼굴컷=" + 특수얼굴컷 + ", 투톤염색=" + 투톤염색 + ", 염색=" + 염색
 				+ "]";
 	}
+	
+
+
+
 	
 	
 }

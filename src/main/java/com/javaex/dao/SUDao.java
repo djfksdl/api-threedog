@@ -43,16 +43,34 @@ public class SUDao {
 	}
 //	editPage==================
 	
-	// 가게 등록
-	public void insertShopInfo(BusinessVo businessVo) {
-		System.out.println("SUDao.insertShopInfo");
+	// 가게 등록 -business
+	public void insertBusinessInfo(BusinessVo businessVo) {
+		System.out.println("SUDao.insertBusinessInfo");
 		
-//		여기서부터 하기
-//		sqlSession.insert("su.insertShopInfo",businessVo);
-
-		
-//		return pList;
+		sqlSession.update("su.updateBusinessInfo",businessVo);
+	
 	}
+	// 가게 등록 -designer
+	public void insertDesignerInfo(BusinessVo businessVo) {
+		System.out.println("SUDao.insertDesignerInfo");
+		
+		sqlSession.insert("su.insertDesignerInfo",businessVo);
+		
+	}
+	// 가게 등록 -price
+	public void insertPriceInfo(List<PriceVo> priceList) {
+		System.out.println("SUDao.insertPriceInfo");
+		
+		System.out.println("등록전 pricelist:"+ priceList);
+		System.out.println(priceList);
+		
+		for(int i=0; i<priceList.size(); i++ ) {
+			sqlSession.insert("su.insertPriceInfo",priceList);
+		}
+		
+	}
+	
+	
 	
 	//가격정보 불러오기
 	public List<PriceVo> getPrice(int bNo) {

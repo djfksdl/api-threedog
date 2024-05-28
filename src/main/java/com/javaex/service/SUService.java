@@ -140,34 +140,39 @@ public class SUService {
 
 		// (1)파일관련 정보 추출///////////////////////////////////////////////////
 
-		// 오리지널 파일명
+		// 오리지널 파일명		
 		String orgName = businessVo.getLogo().getOriginalFilename();
-		System.out.println(orgName);
+		String orgName2 = businessVo.getdProfile().getOriginalFilename();
+//		System.out.println(orgName);
 
 		// 확장자
 		String exName = orgName.substring(orgName.lastIndexOf("."));
-		System.out.println(exName);
+		String exName2 = orgName2.substring(orgName2.lastIndexOf("."));
+//		System.out.println(exName);
 
 		// 저장파일명(겹치지 않아야 된다)
 		String saveName = System.currentTimeMillis() + UUID.randomUUID().toString() + exName;
-		System.out.println(saveName);
+		String saveName2 = System.currentTimeMillis() + UUID.randomUUID().toString() + exName2;
+//		System.out.println(saveName);
 
 		// 파일사이즈
-		long fileSize = businessVo.getLogo().getSize() ;
-		System.out.println(fileSize);
+//		long fileSize = businessVo.getLogo().getSize() ;
+//		System.out.println(fileSize);
 
 		// 파일전체경로
 		String filePath = saveDir + File.separator + saveName;
-		System.out.println(filePath);
+		String filePath2 = saveDir + File.separator + saveName2;
+//		System.out.println(filePath);
 
 		// vo로묶기
 		businessVo.setLogoSaveName(saveName);
-//		businessVo.setuProfile(saveName);
+		businessVo.setdProfileSaveName(saveName2);
 
 		// (2)파일저장(서버쪽 하드디스크에 저장)///////////////////////////////////////////////////
 		try {
 			byte[] fileData;
 			fileData = businessVo.getLogo().getBytes();
+			fileData = businessVo.getdProfile().getBytes();
 
 			OutputStream os = new FileOutputStream(filePath);
 			BufferedOutputStream bos = new BufferedOutputStream(os);
@@ -180,7 +185,9 @@ public class SUService {
 		}
 
 		// (3)DB저장 /////////////////////////////////////////////////////
-		suDao.insertShopInfo(businessVo);
+		suDao.insertBusinessInfo(businessVo);
+		suDao.insertDesignerInfo(businessVo);
+		suDao.insertPriceInfo(businessVo.getPriceList() );
 
 	}
 
