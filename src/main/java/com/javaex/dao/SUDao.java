@@ -24,9 +24,9 @@ public class SUDao {
 		System.out.println("SUDao.checkId");
 		int count = sqlSession.selectOne("su.checkId",uId);
 		
-//		System.out.println("요기봐야함:"+count);
 		return count;
 	}
+	
 //	회원가입
 	public int signUp(UserVo userVo) {
 		System.out.println("SUDao.signUp");
@@ -35,6 +35,7 @@ public class SUDao {
 		
 		return count;
 	}
+	
 //	로그인
 	public UserVo login(UserVo userVo) {
 		System.out.println("SUDao.login");
@@ -43,6 +44,7 @@ public class SUDao {
 		
 		return authUser;
 	}
+	
 //	editPage==================
 	
 	// 가게 등록 -business
@@ -108,8 +110,7 @@ public class SUDao {
 			
 		}
 	
-	
-	
+
 		//가게정보 불러오기
 		public BusinessVo getShopInfo(int bNo){
 			System.out.println("SUDao.getShopInfo");
