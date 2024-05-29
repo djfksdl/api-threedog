@@ -95,61 +95,79 @@ public class SUDao {
 		
 	}
 	// 가게 등록 -컷 이미지
-		public void insertCutImgs(BusinessVo businessVo) {
-			System.out.println("SUDao.insertCutImgs");
-		
-			List<String> cImgSaveNameList = businessVo.getCutImgsSaveName() ;
+	public void insertCutImgs(BusinessVo businessVo) {
+		System.out.println("SUDao.insertCutImgs");
+	
+		List<String> cImgSaveNameList = businessVo.getCutImgsSaveName() ;
 
-			// BusinessVo에서 bNo를 가져와서 PriceVo의 bNo 필드에 설정
-		    int bNo = businessVo.getbNo();
-		    
-		    Map<String, Object> cutImgsMap = new HashMap<>();
-		    cutImgsMap.put("bNo", bNo);
-		    cutImgsMap.put("cutImgsSaveName", cImgSaveNameList);
-			
-			sqlSession.insert("su.insertCutImgs",cutImgsMap);
-			
-		}
+		// BusinessVo에서 bNo를 가져와서 PriceVo의 bNo 필드에 설정
+	    int bNo = businessVo.getbNo();
+	    
+	    Map<String, Object> cutImgsMap = new HashMap<>();
+	    cutImgsMap.put("bNo", bNo);
+	    cutImgsMap.put("cutImgsSaveName", cImgSaveNameList);
+		
+		sqlSession.insert("su.insertCutImgs",cutImgsMap);
+		
+	}
 	
 
-		//가게정보 불러오기
-		public BusinessVo getShopInfo(int bNo){
-			System.out.println("SUDao.getShopInfo");
-			
-			BusinessVo shopInfo = sqlSession.selectOne("su.getShopInfo",bNo);
-			
-			System.out.println(shopInfo);
-			
-			return shopInfo;
-		}
+	//가게정보 불러오기
+	public BusinessVo getShopInfo(int bNo){
+		System.out.println("SUDao.getShopInfo");
 		
-		//가격정보 불러오기
-		public List<PriceVo> getPrice(int bNo) {
-			System.out.println("SUDao.getPrice");
-			
-			List<PriceVo> pList = sqlSession.selectList("su.getPrice",bNo);
-
-			
-			return pList;
-		}
+		BusinessVo shopInfo = sqlSession.selectOne("su.getShopInfo",bNo);
 		
-		//가게 슬라이드 이미지 불러오기
-		public List<String> getSlide(int bNo) {
-			System.out.println("SUDao.getSlide");
-			
-			List<BusinessVo> sList =sqlSession.selectList("su.getSlide",bNo);
-			
-			// 결과를 단일 BusinessVo 객체의 slideImgsSaveName 리스트로 결합 why?: slideImgsSaveName는 List형태라서 결과가 여러 BusinessVo객체로 분리되어 반환됨.그래서 단일 객체로 결합되도록 해야함.
-		    List<String> slideImgsSaveName = new ArrayList<>();
-		    for (BusinessVo vo : sList) {
-		        slideImgsSaveName.addAll(vo.getSlideImgsSaveName());
-		    }
-			
-			System.out.println("슬라이드 이미지덜:"+slideImgsSaveName);
+		System.out.println(shopInfo);
+		
+		return shopInfo;
+	}
+		
+	//가격정보 불러오기
+	public List<PriceVo> getPrice(int bNo) {
+		System.out.println("SUDao.getPrice");
+		
+		List<PriceVo> pList = sqlSession.selectList("su.getPrice",bNo);
 
-			return slideImgsSaveName;
-			
-		}
+		
+		return pList;
+	}
+		
+	//메인 슬라이드 이미지 불러오기
+	public List<String> getSlide(int bNo) {
+		System.out.println("SUDao.getSlide");
+		
+		List<BusinessVo> sList =sqlSession.selectList("su.getSlide",bNo);
+		
+		// 결과를 단일 BusinessVo 객체의 slideImgsSaveName 리스트로 결합 why?: slideImgsSaveName는 List형태라서 결과가 여러 BusinessVo객체로 분리되어 반환됨.그래서 단일 객체로 결합되도록 해야함.
+	    List<String> slideImgsSaveName = new ArrayList<>();
+	    for (BusinessVo vo : sList) {
+	        slideImgsSaveName.addAll(vo.getSlideImgsSaveName());
+	    }
+		
+//		System.out.println("슬라이드 이미지덜:"+slideImgsSaveName);
+
+		return slideImgsSaveName;
+		
+	}
+	
+	//컷 슬라이드 이미지 불러오기
+	public List<String> getCut(int bNo) {
+		System.out.println("SUDao.getCut");
+		
+		List<BusinessVo> cList =sqlSession.selectList("su.getCut",bNo);
+		
+		// 결과를 단일 BusinessVo 객체의 cutImgsSaveName 리스트로 결합 
+	    List<String> cutImgsSaveName = new ArrayList<>();
+	    for (BusinessVo vo : cList) {
+	    	cutImgsSaveName.addAll(vo.getCutImgsSaveName());
+	    }
+		
+		System.out.println("컷 이미지덜:"+cutImgsSaveName);
+
+		return cutImgsSaveName;
+		
+	}
 	
 
 	

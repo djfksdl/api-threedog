@@ -279,15 +279,20 @@ public class SUService {
 		// 가격정보
 		List<PriceVo> pList = suDao.getPrice(bNo);
 		
-		//가게 슬라이드 이미지
+		//메인 슬라이드 이미지
 		List<String> slideImgsSaveName = suDao.getSlide(bNo);
-		shopInfo.setSlideImgsSaveName(slideImgsSaveName);
+//		shopInfo.setSlideImgsSaveName(slideImgsSaveName);
+		
+		//컷 슬라이드 이미지
+		List<String> cutImgsSaveName= suDao.getCut(bNo);
+//		shopInfo.setCutImgsSaveName(cutImgsSaveName);
 
 		// 합쳐서 가져오기
 		Map<String, Object> infoPriceMap = new HashMap<String, Object>();
 		infoPriceMap.put("shopInfo", shopInfo);
 		infoPriceMap.put("pList", pList);
 		infoPriceMap.put("sList", slideImgsSaveName);
+		infoPriceMap.put("cList", cutImgsSaveName);
 
 		return infoPriceMap;
 	}

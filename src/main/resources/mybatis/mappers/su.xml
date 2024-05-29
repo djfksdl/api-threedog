@@ -113,19 +113,35 @@
 		]]>
 	</select>
 
-	<!-- 가게 슬라이드 이미지 불러오기 -->
-	<resultMap id="BusinessVoResultMap" type="com.javaex.vo.BusinessVo">
+	<!-- 메인 슬라이드 이미지 불러오기 -->
+	<resultMap id="BusinessVoSlideMap" type="com.javaex.vo.BusinessVo">
 		<collection property="slideImgsSaveName" ofType="java.lang.String">
 			<result column="saveName" />
 		</collection>
 	</resultMap>
 
-	<select id="getSlide" parameterType="int" resultMap="BusinessVoResultMap">
+	<select id="getSlide" parameterType="int" resultMap="BusinessVoSlideMap">
     <![CDATA[
         select saveName,
                category
         from homeimg
         where bNo = #{bNo} and category = 1
+    ]]>
+	</select>
+	
+	<!-- 컷 슬라이드 이미지 불러오기 -->
+	<resultMap id="BusinessVoCutMap" type="com.javaex.vo.BusinessVo">
+		<collection property="cutImgsSaveName" ofType="java.lang.String">
+			<result column="saveName" />
+		</collection>
+	</resultMap>
+
+	<select id="getCut" parameterType="int" resultMap="BusinessVoCutMap">
+    <![CDATA[
+        select saveName,
+               category
+        from homeimg
+        where bNo = #{bNo} and category = 2
     ]]>
 	</select>
 
