@@ -22,83 +22,79 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 public class SUController {
-	
+
 	@Autowired
 	private SUService suService;
-	
-	//아이디 중복체크
+
+	// 아이디 중복체크
 	@PostMapping("/api/su/idcheck")
-	public JsonResult idcheck(@RequestParam(value="uId") String uId) {
+	public JsonResult idcheck(@RequestParam(value = "uId") String uId) {
 		System.out.println("SUController.list");
-		
+
 		System.out.println(uId);
-		
+
 		int count = suService.exeIdCheck(uId);
-		
+
 		return JsonResult.success(count);
 	}
-	
-	//회원가입
+
+	// 회원가입
 	@PostMapping("/api/su/signup")
 	public JsonResult signup(@ModelAttribute UserVo userVo) {
 		System.out.println("SUController.signup");
-		
+
 		System.out.println(userVo);
-		
+
 		int count = suService.exeSignUp(userVo);
-		
+
 		return JsonResult.success(count);
 	}
-	
-	//로그인
+
+	// 로그인
 	@PostMapping("/api/su/login")
 	public JsonResult login(@RequestBody UserVo userVo, HttpServletResponse response) {
 		System.out.println("SUController.login");
-		
+
 //		System.out.println(userVo);
-		
+
 		UserVo authUser = suService.exeLogIn(userVo);
 		System.out.println(authUser);
-		
-		if(authUser != null) {
-			JwtUtil.createTokenAndSetHeader(response, "" + authUser.getuNo() );
+
+		if (authUser != null) {
+			JwtUtil.createTokenAndSetHeader(response, "" + authUser.getuNo());
 			return JsonResult.success(authUser);
-		}else {
+		} else {
 			return JsonResult.fail("로그인실패");
 		}
-		
+
 	}
-	
-	//editPage================================
-	
-	//가게 등록
+
+	// editPage================================
+
+	// 가게 등록
 	@PostMapping("/api/su/registerShop")
 	public JsonResult registerPrice(@ModelAttribute BusinessVo businessVo) {
 		System.out.println("SUController.registerPrice");
-		
-		System.out.println("슬라이드 이미지:"+businessVo.getSlideImgs() );
-		System.out.println("컷이미지:" + businessVo.getCutImgs());
-		
-		suService.exeShopInfoList(businessVo );
-		
-		
+
+		System.out.println("등록전"+businessVo);
+//		System.out.println("슬라이드 이미지:" + businessVo.getSlideImgs());
+//		System.out.println("컷이미지:" + businessVo.getCutImgs());
+
+		suService.exeShopInfoList(businessVo);
+		System.out.println("등록후"+businessVo);
+
 		return JsonResult.success("얏호");
 	}
-	
-	//가게,가격 정보 불러오기
+
+	// 가게,가격 정보 불러오기
 	@GetMapping("/api/su/shopInfo")
-	public JsonResult shopInfoList(@RequestParam(value="bNo") int bNo) {
+	public JsonResult shopInfoList(@RequestParam(value = "bNo") int bNo) {
 		System.out.println("SUController.shopInfoList");
-		
+
 		Map<String, Object> infoPriceMap = suService.exeShopInfoList(bNo);
 //		System.out.println("나와라" + infoPriceMap );
-		
+
 		return JsonResult.success(infoPriceMap);
 	}
-	
 
-	
-	
-	
-	
 }
