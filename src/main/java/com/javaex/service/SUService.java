@@ -213,8 +213,8 @@ public class SUService {
 
 		// 여기는 로고랑 프로필이미지 추출
 		// 오리지널 파일명
-		String orgName = businessVo.getLogo().getOriginalFilename();
-		String orgName2 = businessVo.getdProfile().getOriginalFilename();
+		String orgName = businessVo.getLogoFile().getOriginalFilename();
+		String orgName2 = businessVo.getdProfileFile().getOriginalFilename();
 
 		// 확장자
 		String exName = orgName.substring(orgName.lastIndexOf("."));
@@ -233,15 +233,15 @@ public class SUService {
 		String filePath2 = saveDir + File.separator + saveName2;
 
 		// vo로묶기
-		businessVo.setLogoSaveName(saveName);
-		businessVo.setdProfileSaveName(saveName2);
+		businessVo.setLogo(saveName);
+		businessVo.setdProfile(saveName2);
 
 		// (2)파일저장(서버쪽 하드디스크에 저장)///////////////////////////////////////////////////
 		try {
 			byte[] fileData;
 			byte[] fileData2;
 			
-			fileData = businessVo.getLogo().getBytes();
+			fileData = businessVo.getLogoFile().getBytes();
 			fileData2 = businessVo.getdProfile().getBytes();
 
 			OutputStream os = new FileOutputStream(filePath);

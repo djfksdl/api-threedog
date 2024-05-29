@@ -36,7 +36,7 @@
 	<update id="updateBusinessInfo" parameterType="com.javaex.vo.BusinessVo">
 		<![CDATA[
 			UPDATE business 
-			SET title = #{title}, subTitle = #{subTitle}, logo = #{logoSaveName} 
+			SET title = #{title}, subTitle = #{subTitle}, logo = #{logo} 
 			WHERE bNo = #{bNo}
 		]]>
 	</update>
@@ -69,7 +69,7 @@
 	<insert id="insertDesignerInfo" parameterType="com.javaex.vo.BusinessVo">
 		<![CDATA[
 			insert into designer 
-			values(null, #{bNo}, #{dName}, #{introduce},#{dProfileSaveName},#{job})
+			values(null, #{bNo}, #{dName}, #{introduce},#{dProfile},#{job})
 		]]>
 	</insert>
 
@@ -83,13 +83,13 @@
 			       bPhone,
 			       title,
 			       subTitle,
-			       logo as logoSaveName,
+			       logo,
 			       utilTime,
 			       latitude,
 			       longitude,
 			       dName ,
 			       introduce,
-			       dProfile as dProfileSaveName,
+			       dProfile ,
 			       job,
 			       utilTime
 			from business b join designer d
