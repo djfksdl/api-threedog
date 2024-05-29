@@ -242,7 +242,7 @@ public class SUService {
 			byte[] fileData2;
 			
 			fileData = businessVo.getLogoFile().getBytes();
-			fileData2 = businessVo.getdProfile().getBytes();
+			fileData2 = businessVo.getdProfileFile().getBytes();
 
 			OutputStream os = new FileOutputStream(filePath);
 			BufferedOutputStream bos = new BufferedOutputStream(os);
