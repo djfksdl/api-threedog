@@ -280,13 +280,14 @@ public class SUService {
 		List<PriceVo> pList = suDao.getPrice(bNo);
 		
 		//가게 슬라이드 이미지
-		List<BusinessVo> sList = suDao.getSlide(bNo);
+		List<String> slideImgsSaveName = suDao.getSlide(bNo);
+		shopInfo.setSlideImgsSaveName(slideImgsSaveName);
 
 		// 합쳐서 가져오기
 		Map<String, Object> infoPriceMap = new HashMap<String, Object>();
 		infoPriceMap.put("shopInfo", shopInfo);
 		infoPriceMap.put("pList", pList);
-		infoPriceMap.put("sList", sList);
+		infoPriceMap.put("sList", slideImgsSaveName);
 
 		return infoPriceMap;
 	}

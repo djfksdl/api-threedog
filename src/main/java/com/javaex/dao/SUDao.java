@@ -1,5 +1,6 @@
 package com.javaex.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -133,14 +134,20 @@ public class SUDao {
 		}
 		
 		//가게 슬라이드 이미지 불러오기
-		public List<BusinessVo> getSlide(int bNo) {
+		public List<String> getSlide(int bNo) {
 			System.out.println("SUDao.getSlide");
 			
 			List<BusinessVo> sList =sqlSession.selectList("su.getSlide",bNo);
 			
-			System.out.println("슬라이드 이미지덜:"+sList);
+			// 결과를 단일 BusinessVo 객체의 slideImgsSaveName 리스트로 결합 why?: slideImgsSaveName는 List형태라서 결과가 여러 BusinessVo객체로 분리되어 반환됨.그래서 단일 객체로 결합되도록 해야함.
+		    List<String> slideImgsSaveName = new ArrayList<>();
+		    for (BusinessVo vo : sList) {
+		        slideImgsSaveName.addAll(vo.getSlideImgsSaveName());
+		    }
+			
+			System.out.println("슬라이드 이미지덜:"+slideImgsSaveName);
 
-			return sList;
+			return slideImgsSaveName;
 			
 		}
 	

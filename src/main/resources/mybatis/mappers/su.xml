@@ -114,12 +114,19 @@
 	</select>
 
 	<!-- 가게 슬라이드 이미지 불러오기 -->
-	<select id="getSlide" parameterType="int" resultType="com.javaex.vo.BusinessVo">
-		<![CDATA[
-			select saveName as slideImgsSaveName,
-					category
-			from homeimg where bNo= #{bNo} and category=1
-		]]>
+	<resultMap id="BusinessVoResultMap" type="com.javaex.vo.BusinessVo">
+		<collection property="slideImgsSaveName" ofType="java.lang.String">
+			<result column="saveName" />
+		</collection>
+	</resultMap>
+
+	<select id="getSlide" parameterType="int" resultMap="BusinessVoResultMap">
+    <![CDATA[
+        select saveName,
+               category
+        from homeimg
+        where bNo = #{bNo} and category = 1
+    ]]>
 	</select>
 
 
