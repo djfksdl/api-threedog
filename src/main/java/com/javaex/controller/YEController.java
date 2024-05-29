@@ -1,5 +1,7 @@
 package com.javaex.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,8 +92,8 @@ public class YEController {
 
 		List<StoreVo> mainList = yeService.exeList(storeVo);
 
-		System.out.println("-----------");
-	    System.out.println(mainList);
+//		System.out.println("-----------");
+//	    System.out.println(mainList);
 
 		return JsonResult.success(mainList);
 	}
@@ -145,12 +147,41 @@ public class YEController {
 	
 	// 키워드 검색
 	@GetMapping("/api/keyword")
-	public JsonResult keyword(@RequestParam(value = "searchKeyword") String keyword,
-           					@RequestParam(value = "selectedItems") List<String> selectedItems) {
-		System.out.println("YEController.keyword()");
-		
-		List<ReviewListVo> reviewList = yeService.exeKeyword(keyword, selectedItems);
+	public JsonResult keyword(
+	    @RequestParam(value = "searchKeyword") String keyword,
+	    @RequestParam(value = "selectedCities", required = false) String selectedCities,
+	    @RequestParam(value = "selectedWeights", required = false) String selectedWeights,
+	    @RequestParam(value = "selectedTypes", required = false) String selectedTypes,
+	    @RequestParam(value = "selectedPrices", required = false) String selectedPrices) {
 
-		return JsonResult.success(reviewList);
+	    System.out.println("YEController.keyword()");
+	    
+	    System.out.println(keyword);
+	    System.out.println(selectedCities);
+	    System.out.println(selectedWeights);
+	    System.out.println(selectedTypes);
+	    System.out.println(selectedPrices);
+
+	    List<String> selectedItems = new ArrayList<>();
+
+	    // 각 항목의 값을 리스트로 변환하여 결합
+	    if (selectedCities != null && !selectedCities.isEmpty()) {
+	        selectedItems.addAll(Arrays.asList(selectedCities.split(";")));
+	    }
+	    if (selectedWeights != null && !selectedWeights.isEmpty()) {
+	        selectedItems.addAll(Arrays.asList(selectedWeights.split(";")));
+	    }
+	    if (selectedTypes != null && !selectedTypes.isEmpty()) {
+	        selectedItems.addAll(Arrays.asList(selectedTypes.split(";")));
+	    }
+	    if (selectedPrices != null && !selectedPrices.isEmpty()) {
+	        selectedItems.addAll(Arrays.asList(selectedPrices.split(";")));
+	    }
+
+	    // 서비스로 리스트 전달
+	    List<ReviewListVo> reviewList = yeService.exeKeyword(keyword, selectedItems);
+
+	    return JsonResult.success(reviewList);
 	}
+
 }

@@ -54,7 +54,6 @@
 	</select>
 	<!-- 검색 화면 리스트 -->
 
-
 	<!-- 지도, 캘린더 검색 -->
 	<select id="searchmap" resultType="com.javaex.vo.StoreVo">
 		<![CDATA[
@@ -141,5 +140,12 @@
 	</select>
 	<!-- 인기 검색어 리스트 -->
 
+	<!-- 후기 키워드 검색 -->
+	<select id="keyword" resultType="com.javaex.vo.ReviewListVo">
+    <![CDATA[
+   
+    ]]>
+	</select>
+	<!-- 후기 키워드 검색 -->
 
 </mapper>

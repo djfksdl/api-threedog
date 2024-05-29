@@ -1,6 +1,8 @@
 package com.javaex.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,7 +85,11 @@ public class YEService {
 	public List<ReviewListVo> exeKeyword(String keyword, List<String> selectedItems) {
 		System.out.println("YEService.exeKeyword()");
 		
-		List<ReviewListVo> reviewList = yeDao.keyword(keyword, selectedItems);
+	    Map<String, Object> params = new HashMap<>();
+	    params.put("keyword", keyword);
+	    params.put("selectedItems", selectedItems);
+		
+		List<ReviewListVo> reviewList = yeDao.keyword(params);
 		
 		return reviewList;
 	}

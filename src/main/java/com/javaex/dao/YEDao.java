@@ -1,6 +1,8 @@
 package com.javaex.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,12 +81,13 @@ public class YEDao {
 		return markList;
 	}
 
-	public List<ReviewListVo> keyword(String keyword, List<String> selectedItems) {
+	public List<ReviewListVo> keyword(Map<String, Object> params) {
 		System.out.println("YEDao.keyword()");
+		System.out.println(params);
 
-		List<ReviewListVo> reviewList = sqlSession.selectList(""); //
+//		List<ReviewListVo> reviewList = sqlSession.selectList("ye.keyword", params);
 				
-		return reviewList;
+		return null;
 	}
 
 }
