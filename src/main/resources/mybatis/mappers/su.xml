@@ -68,7 +68,8 @@
 	<!-- 가게 등록-designer -->
 	<insert id="insertDesignerInfo" parameterType="com.javaex.vo.BusinessVo">
 		<![CDATA[
-			insert designer values(null, #{bNo}, #{dName}, #{introduce},#{dProfileSaveName},#{job})
+			insert into designer 
+			values(null, #{bNo}, #{dName}, #{introduce},#{dProfileSaveName},#{job})
 		]]>
 	</insert>
 
@@ -86,9 +87,9 @@
 			       utilTime,
 			       latitude,
 			       longitude,
-			       dName,
+			       dName ,
 			       introduce,
-			       dProfile,
+			       dProfile as dProfileSaveName,
 			       job,
 			       utilTime
 			from business b join designer d
