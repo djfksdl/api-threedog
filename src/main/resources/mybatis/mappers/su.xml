@@ -113,6 +113,15 @@
 		]]>
 	</select>
 
+	<!-- 가게 슬라이드 이미지 불러오기 -->
+	<select id="getSlide" parameterType="int" resultType="com.javaex.vo.BusinessVo">
+		<![CDATA[
+			select saveName as slideImgsSaveName,
+					category
+			from homeimg where bNo= #{bNo} and category=1
+		]]>
+	</select>
+
 
 
 

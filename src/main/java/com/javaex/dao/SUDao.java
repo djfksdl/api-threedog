@@ -131,6 +131,18 @@ public class SUDao {
 			
 			return pList;
 		}
+		
+		//가게 슬라이드 이미지 불러오기
+		public List<BusinessVo> getSlide(int bNo) {
+			System.out.println("SUDao.getSlide");
+			
+			List<BusinessVo> sList =sqlSession.selectList("su.getSlide",bNo);
+			
+			System.out.println("슬라이드 이미지덜:"+sList);
+
+			return sList;
+			
+		}
 	
 
 	
