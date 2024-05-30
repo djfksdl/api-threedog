@@ -1,6 +1,7 @@
 package com.javaex.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -69,19 +70,33 @@ public class JWController {
 		return JsonResult.success(rsNo);
 	}
 
+	// 특정 예약의 미용 기록 조회
+	@GetMapping("/api/jw/{rsNo}/groomingrecord")
+	public JsonResult selectGroomingRecord(@PathVariable("rsNo") int rsNo) {
+		System.out.println("특정 예약의 미용 기록 조회 메서드 실행");
+
+		ReserveVo groomingRecord = jwService.selectGroomingRecord(rsNo);
+		System.out.println(groomingRecord);
+
+		return JsonResult.success(groomingRecord);
+	}
+
 	/****************************
 	 * 알림장화면
 	 ****************************/
+	// 미용 기록 업데이트를 처리하는 컨트롤러 메서드
+	@PutMapping("/api/jw/{rsNo}/updategroomingrecord")
+	public JsonResult updateGroomingRecord(@PathVariable("rsNo") int rsNo, @RequestBody ReserveVo reserveVo) {
+		reserveVo.setRsNo(rsNo); // 예약 번호를 설정
+		jwService.updateGroomingRecord(reserveVo); // 서비스 호출하여 미용 기록 업데이트
+		return JsonResult.success(reserveVo); // 성공 응답 반환
+	}
 
-	// 미용 기록 업데이트
-		@PutMapping("/api/jw/{rsNo}/grooming-record")
-		 public JsonResult updateGroomingRecord(@PathVariable("rsNo") int rsNo, @RequestBody ReserveVo reserveVo) {
-	        reserveVo.setRsNo(rsNo);
-	        System.out.println("미용 기록 업데이트 메서드 실행");
+	// 사진 업로드를 처리하는 컨트롤러 메서드
+	@PostMapping("/api/jw/{rsNo}/uploadimage")
+	public JsonResult uploadImage(@PathVariable("rsNo") int rsNo, @RequestParam("file") MultipartFile file) {
+		String fileUrl = jwService.uploadImage(rsNo, file); // 서비스 호출하여 이미지 업로드
+		return JsonResult.success(Map.of("url", fileUrl)); // 업로드된 이미지의 URL 반환
+	}
 
-	        // JWService 클래스의 미용 기록 업데이트 메서드 호출
-	        jwService.updateGroomingRecord(reserveVo);
-	        
-	        return JsonResult.success(reserveVo);
-	    }
 }
