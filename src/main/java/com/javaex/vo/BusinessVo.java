@@ -24,15 +24,16 @@ public class BusinessVo {
 	private String job;
 	private String utilTime;
 	private MultipartFile logoFile;
-	private String logo; //파일받는건 logoFile로 하고, 넣는건 새로 만들어서 넣어주면 됨. 동시에 받고 넣는건 안된다.자료형도 달라서 안되긴함.
-    private MultipartFile dProfileFile;
-    private String dProfile;
-    private List<MultipartFile> slideImgs;
-    private List<String> slideImgsSaveName;
-    private List<MultipartFile> cutImgs;
-    private List<String> cutImgsSaveName;
-  
-    private List<PriceVo> priceList;
+	private String logo; // 파일받는건 logoFile로 하고, 넣는건 새로 만들어서 넣어주면 됨. 동시에 받고 넣는건 안된다.자료형도 달라서 안되긴함.
+	private MultipartFile dProfileFile;
+	private String dProfile;
+	private List<MultipartFile> slideImgs;
+	private List<String> slideImgsSaveName;
+	private List<MultipartFile> cutImgs;
+	private List<String> cutImgsSaveName;
+	private int hiNo;
+
+	private List<PriceVo> priceList;
 
 //	생성자
 	public BusinessVo() {
@@ -43,7 +44,7 @@ public class BusinessVo {
 			String bPhone, double latitude, double longitude, double averageStar, String title, String subTitle,
 			String dName, String introduce, String job, String utilTime, MultipartFile logoFile, String logo,
 			MultipartFile dProfileFile, String dProfile, List<MultipartFile> slideImgs, List<String> slideImgsSaveName,
-			List<MultipartFile> cutImgs, List<String> cutImgsSaveName, List<PriceVo> priceList) {
+			List<MultipartFile> cutImgs, List<String> cutImgsSaveName, int hiNo, List<PriceVo> priceList) {
 		super();
 		this.bNo = bNo;
 		this.bId = bId;
@@ -70,10 +71,11 @@ public class BusinessVo {
 		this.slideImgsSaveName = slideImgsSaveName;
 		this.cutImgs = cutImgs;
 		this.cutImgsSaveName = cutImgsSaveName;
+		this.hiNo = hiNo;
 		this.priceList = priceList;
 	}
 
-	//	메소드-gs
+	// 메소드-gs
 
 	public int getbNo() {
 		return bNo;
@@ -283,6 +285,14 @@ public class BusinessVo {
 		this.cutImgsSaveName = cutImgsSaveName;
 	}
 
+	public int getHiNo() {
+		return hiNo;
+	}
+
+	public void setHiNo(int hiNo) {
+		this.hiNo = hiNo;
+	}
+
 	// 메소드-일반
 	@Override
 	public String toString() {
@@ -290,14 +300,13 @@ public class BusinessVo {
 				+ ", bAddress=" + bAddress + ", bdAddress=" + bdAddress + ", bPhone=" + bPhone + ", latitude="
 				+ latitude + ", longitude=" + longitude + ", averageStar=" + averageStar + ", title=" + title
 				+ ", subTitle=" + subTitle + ", dName=" + dName + ", introduce=" + introduce + ", job=" + job
-				+ ", utilTime=" + utilTime + ", logoFile=" + logoFile + ", logo=" + logo + ", dProfileFile=" + dProfileFile
-				+ ", dProfile=" + dProfile + ", slideImgs=" + slideImgs + ", slideImgsSaveName="
-				+ slideImgsSaveName + ", cutImgs=" + cutImgs + ", cutImgsSaveName=" + cutImgsSaveName + ", priceList="
-				+ priceList + "]";
+				+ ", utilTime=" + utilTime + ", logoFile=" + logoFile + ", logo=" + logo + ", dProfileFile="
+				+ dProfileFile + ", dProfile=" + dProfile + ", slideImgs=" + slideImgs + ", slideImgsSaveName="
+				+ slideImgsSaveName + ", cutImgs=" + cutImgs + ", cutImgsSaveName=" + cutImgsSaveName + ", hiNo=" + hiNo
+				+ ", priceList=" + priceList + "]";
 	}
 
 
 	
-
 
 }

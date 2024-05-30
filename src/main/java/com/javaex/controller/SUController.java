@@ -1,12 +1,12 @@
 package com.javaex.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +15,6 @@ import com.javaex.service.SUService;
 import com.javaex.util.JsonResult;
 import com.javaex.util.JwtUtil;
 import com.javaex.vo.BusinessVo;
-import com.javaex.vo.PriceVo;
 import com.javaex.vo.UserVo;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -96,5 +95,19 @@ public class SUController {
 
 		return JsonResult.success(infoPriceMap);
 	}
+	
+	// 가게 수정
+	@PutMapping("/api/su/updateShop")
+	public JsonResult updateShop(@ModelAttribute BusinessVo businessVo) {
+		System.out.println("SUController.updateShop");
+
+		System.out.println("수정전"+businessVo);
+
+		suService.exeUpdateShopInfo(businessVo);
+		System.out.println("수정후"+businessVo);
+
+		return JsonResult.success("얏호");
+	}
+	
 
 }
