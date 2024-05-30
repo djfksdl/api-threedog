@@ -3,6 +3,7 @@ package com.javaex.controller;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import com.javaex.util.JsonResult;
 import com.javaex.util.JwtUtil;
 import com.javaex.vo.BusinessVo;
 import com.javaex.vo.ReviewListVo;
+import com.javaex.vo.SearchVo;
 import com.javaex.vo.StoreVo;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -144,7 +146,7 @@ public class YEController {
 
 		return JsonResult.success(markList);
 	}
-	
+
 	// 키워드 검색
 	@GetMapping("/api/keyword")
 	public JsonResult keyword(
@@ -155,33 +157,52 @@ public class YEController {
 	    @RequestParam(value = "selectedPrices", required = false) String selectedPrices) {
 
 	    System.out.println("YEController.keyword()");
-	    
-	    System.out.println(keyword);
-	    System.out.println(selectedCities);
-	    System.out.println(selectedWeights);
-	    System.out.println(selectedTypes);
-	    System.out.println(selectedPrices);
 
-	    List<String> selectedItems = new ArrayList<>();
+	    // 도시 리스트
+	    List<String> citiesList = selectedCities != null && !selectedCities.isEmpty() ? Arrays.asList(selectedCities.split(";")) : null;
 
-	    // 각 항목의 값을 리스트로 변환하여 결합
-	    if (selectedCities != null && !selectedCities.isEmpty()) {
-	        selectedItems.addAll(Arrays.asList(selectedCities.split(";")));
-	    }
+	    // 무게 리스트 분할 및 숫자 변환
+	    List<List<Integer>> weightsList = new ArrayList<>();
 	    if (selectedWeights != null && !selectedWeights.isEmpty()) {
-	        selectedItems.addAll(Arrays.asList(selectedWeights.split(";")));
-	    }
-	    if (selectedTypes != null && !selectedTypes.isEmpty()) {
-	        selectedItems.addAll(Arrays.asList(selectedTypes.split(";")));
-	    }
-	    if (selectedPrices != null && !selectedPrices.isEmpty()) {
-	        selectedItems.addAll(Arrays.asList(selectedPrices.split(";")));
+	        String[] weightRanges = selectedWeights.split(";");
+	        for (String range : weightRanges) {
+	            String[] weights = range.split("~");
+	            int weightMin = 0;
+	            int weightMax = 9999;
+	            if (weights.length == 2) {
+	                if (!weights[0].isEmpty()) {
+	                    weightMin = Integer.parseInt(weights[0].replaceAll("[^0-9]", ""));
+	                }
+	                if (!weights[1].isEmpty()) {
+	                    weightMax = Integer.parseInt(weights[1].replaceAll("[^0-9]", ""));
+	                }
+	            } else if (weights.length == 1) {
+	                if (range.startsWith("~")) {
+	                    weightMax = Integer.parseInt(weights[0].replaceAll("[^0-9]", ""));
+	                } else if (range.endsWith("~")) {
+	                    weightMin = Integer.parseInt(weights[0].replaceAll("[^0-9]", ""));
+	                }
+	            }
+	            weightsList.add(Arrays.asList(weightMin, weightMax));
+	        }
 	    }
 
-	    // 서비스로 리스트 전달
-	    List<ReviewListVo> reviewList = yeService.exeKeyword(keyword, selectedItems);
+	    // 타입 리스트
+	    List<String> typesList = selectedTypes != null && !selectedTypes.isEmpty() ? Arrays.asList(selectedTypes.split(";")) : null;
 
-	    return JsonResult.success(reviewList);
+	    // 가격 리스트 및 숫자 변환
+	    List<Integer> pricesList = selectedPrices != null && !selectedPrices.isEmpty() ? Arrays.stream(selectedPrices.split(";"))
+	            .map(price -> Integer.parseInt(price.replaceAll("[^0-9]", "")))
+	            .collect(Collectors.toList()) : null;
+
+	    // SearchVo 생성
+	    SearchVo searchVo = new SearchVo(keyword, citiesList, weightsList, typesList, pricesList);
+
+	    System.out.println(searchVo);
+//	    List<ReviewListVo> reviewList = yeService.exeKeyword(searchVo);
+
+	    return JsonResult.success("");
 	}
+
 
 }

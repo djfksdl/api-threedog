@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.javaex.vo.BusinessVo;
 import com.javaex.vo.ReviewListVo;
+import com.javaex.vo.SearchVo;
 import com.javaex.vo.StoreVo;
+
+import ch.qos.logback.core.recovery.ResilientSyslogOutputStream;
 
 @Repository
 public class YEDao {
@@ -59,34 +62,37 @@ public class YEDao {
 
 	public List<StoreVo> mainList(StoreVo storeVo) {
 		System.out.println("YEDao.mainList()");
-		
-		List<StoreVo> mainList= sqlSession.selectList("ye.mainlist", storeVo);
-		
+
+		List<StoreVo> mainList = sqlSession.selectList("ye.mainlist", storeVo);
+
 		return mainList;
 	}
 
 	public List<StoreVo> popList() {
 		System.out.println("YEDao.popList()");
-		
+
 		List<StoreVo> storeList = sqlSession.selectList("ye.poplist");
-		
+
 		return storeList;
 	}
 
 	public List<BusinessVo> markList() {
 		System.out.println("YEDao.markList()");
-		
+
 		List<BusinessVo> markList = sqlSession.selectList("ye.marklist");
-		
+
 		return markList;
 	}
 
-	public List<ReviewListVo> keyword(Map<String, Object> params) {
+//	public List<ReviewListVo> keyword(Map<String, Object> params) {
+//		System.out.println("YEDao.keyword()");
+//		System.out.println(params);
+//		return sqlSession.selectList("ye.keyword", params);
+//	}
+	
+	public List<ReviewListVo> keyword(SearchVo searchVo) {
 		System.out.println("YEDao.keyword()");
-		System.out.println(params);
-
-//		List<ReviewListVo> reviewList = sqlSession.selectList("ye.keyword", params);
-				
-		return null;
+		System.out.println(searchVo);
+		return sqlSession.selectList("ye.keyword", searchVo);
 	}
 }
