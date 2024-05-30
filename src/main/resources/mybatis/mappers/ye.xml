@@ -141,11 +141,62 @@
 	<!-- 인기 검색어 리스트 -->
 
 	<!-- 후기 키워드 검색 -->
-	<select id="keyword" resultType="com.javaex.vo.ReviewListVo">
+	<select id="keyword" parameterType="com.javaex.vo.SearchVo" resultType="com.javaex.vo.ReviewListVo">
     <![CDATA[
-   
+        SELECT b.title,
+                b.bNo,
+                AVG(r.star) AS star,
+                ri.saveName AS saveName
+        FROM business b
+        LEFT JOIN review r ON b.bNo = r.bNo
+        LEFT JOIN reviewimg ri ON r.rNo = ri.rNo
+        LEFT JOIN (
+            SELECT rs.curruntWeight, 
+                   rs.expectedPrice, 
+                   COALESCE(rs.surcharge, 0) AS surcharge, 
+                   d.size,
+                   rs.rsNo
+            FROM reserve rs
+            INNER JOIN dog d ON rs.dogNo = d.dogNo
+        ) rs ON r.rsNo = rs.rsNo
+        WHERE 1=1
+        <if test="keyword != null and !keyword.isEmpty()">
+            AND b.title LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        <if test="selectedCities != null and !selectedCities.isEmpty()">
+            AND (
+                <foreach collection="selectedCities" item="city" separator=" OR ">
+                    <if test="city != null and !city.isEmpty()">
+					    AND (
+					        b.bAddress LIKE CONCAT('%', #{city}, '%')
+					    )
+					</if>
+                </foreach>
+            )
+        </if>
+        <if test="selectedWeights != null and !selectedWeights.isEmpty()">
+		    AND (
+		        <foreach collection="selectedWeights" item="weights" separator=" OR ">
+		            rs.curruntWeight BETWEEN #{weights[0]} AND #{weights[1]}
+		        </foreach>
+		    )
+		</if>
+        <if test="selectedTypes != null and !selectedTypes.isEmpty()">
+            AND rs.size IN
+            <foreach item="type" collection="selectedTypes" open="(" close=")" separator=",">
+                #{type}
+            </foreach>
+        </if>
+        <if test="selectedPrices != null and !selectedPrices.isEmpty()">
+            AND (
+                rs.expectedPrice + rs.surcharge < 20000
+            )
+        </if>
+        GROUP BY b.title, b.bNo, ri.saveName
     ]]>
 	</select>
+
+
 	<!-- 후기 키워드 검색 -->
 
 </mapper>

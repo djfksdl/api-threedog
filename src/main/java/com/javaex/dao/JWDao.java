@@ -46,24 +46,34 @@ public class JWDao {
 		System.out.println("예약 정보 삭제 완료: " + rsNo);
 	}
 
+	// 특정 예약의 미용 기록 조회
+	public ReserveVo selectGroomingRecord(int rsNo) {
+		System.out.println("DAO에서 특정 예약의 미용 기록 조회 메서드 실행");
+
+		ReserveVo groomingRecord = sqlSession.selectOne("jw.selectGroomingRecord", rsNo);
+
+		System.out.println("미용 기록 조회 결과: " + groomingRecord);
+
+		return groomingRecord;
+	}
+
 	/****************************
 	 * 알림장화면
 	 ****************************/
-	// 미용 기록 업데이트
-		public void updateGroomingRecord(ReserveVo reserveVo) {
-			sqlSession.update("com.example.mapper.JWMapper.updateGroomingRecord", reserveVo);
-		}
-		// 사진 업로드
-		public void insertAfterImg(int rsNo, String saveName, String orgName, long fileSize, String filePath) {
-		    Map<String, Object> paramMap = new HashMap<>();
-		    paramMap.put("rsNo", rsNo);
-		    paramMap.put("saveName", saveName);
-		    paramMap.put("orgName", orgName);
-		    paramMap.put("fileSize", fileSize);
-		    paramMap.put("filePath", filePath);
+	// 미용 기록 업데이트 쿼리 실행
+	public void updateGroomingRecord(ReserveVo reserveVo) {
+		sqlSession.update("jw.updateGroomingRecord", reserveVo);
+	}
 
-		    sqlSession.insert("jw.insertAfterImg", paramMap);
-		}
-
+	// 이미지 정보 DB에 삽입
+	public void insertAfterImg(int rsNo, String saveName, String orgName, long fileSize, String filePath) {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("rsNo", rsNo); // 예약 번호
+		paramMap.put("saveName", saveName); // 저장된 파일명
+		paramMap.put("orgName", orgName); // 원본 파일명
+		paramMap.put("fileSize", fileSize); // 파일 크기
+		paramMap.put("filePath", filePath); // 파일 경로
+		sqlSession.insert("jw.insertAfterImg", paramMap); // 쿼리 실행하여 DB에 삽입
+	}
 
 }

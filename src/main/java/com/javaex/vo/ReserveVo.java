@@ -51,7 +51,7 @@ public class ReserveVo {
     private String key;
     private String saveName;
     private String orgName;
-    private String fileSize;
+    private long fileSize;
     private String filePath;
     
     private int pushNo;
@@ -71,7 +71,7 @@ public class ReserveVo {
 			String birth, String gender, Boolean neutering, Boolean experience, Integer bite, String memo,
 			String dogImg, String size, Boolean skin, Boolean heart, Boolean marking, Boolean mounting, int uNo,
 			int rspNo, int priceNo, int beautyNo, Integer onePrice, String sizeDiv, String weightDiv, String beauty,
-			int aiNo, String key, String saveName, String orgName, String fileSize, String filePath, int pushNo,
+			int aiNo, String key, String saveName, String orgName, long fileSize, String filePath, int pushNo,
 			String pushTime, List<MultipartFile> files) {
 		super();
 		this.rsNo = rsNo;
@@ -468,11 +468,11 @@ public class ReserveVo {
 		this.orgName = orgName;
 	}
 
-	public String getFileSize() {
+	public long getFileSize() {
 		return fileSize;
 	}
 
-	public void setFileSize(String fileSize) {
+	public void setFileSize(long fileSize) {
 		this.fileSize = fileSize;
 	}
 

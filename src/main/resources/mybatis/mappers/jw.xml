@@ -55,9 +55,26 @@
 		]]>
 	</delete>
 
-	<!-- ************************ 알림장 화면 ***************************** -->
+	<!-- 특정 예약의 미용 기록 조회 -->
+	<select id="selectGroomingRecord" parameterType="int" resultType="com.javaex.vo.ReserveVo"> 
+	   <![CDATA[
+	      SELECT r.*, d.*, p.*, b.*, rt.rtDate, rt.rtTime, ai.*, push.*
+	      FROM reserve r
+	      JOIN dog d ON r.dogNo = d.dogNo
+	      JOIN rsPrice rp ON r.rsNo = rp.rsNo
+	      JOIN price p ON rp.priceNo = p.priceNo
+	      JOIN beautylist b ON p.beautyNo = b.beautyNo
+	      JOIN reserveTime rt ON r.rtNo = rt.rtNo
+	      LEFT JOIN afterImg ai ON r.rsNo = ai.rsNo
+	      LEFT JOIN push ON r.rsNo = push.rsNo
+	      WHERE r.rsNo = #{rsNo}; 
+	   ]]>
+	</select>
 
-	<!-- 미용 기록 업데이트 -->
+
+
+	<!-- ************************ 알림장 화면 ***************************** -->
+	<!-- 미용 기록 업데이트 쿼리 -->
 	<update id="updateGroomingRecord" parameterType="com.javaex.vo.ReserveVo">
 	   <![CDATA[
 	    UPDATE reserve
@@ -74,12 +91,12 @@
 	    WHERE rsNo = #{rsNo};
 	    ]]>
 	</update>
-
-	<!-- 사진 업로드 -->
+	
+	<!-- 이미지 정보 삽입 쿼리 -->
 	<insert id="insertAfterImg" parameterType="map">
 	    <![CDATA[
 	    INSERT INTO afterImg (rsNo, saveName, orgName, fileSize, filePath)
-	    VALUES (null,#{rsNo}, #{saveName}, #{orgName}, #{fileSize}, #{filePath});
+	    VALUES (NULL,#{rsNo}, #{saveName}, #{orgName}, #{fileSize}, #{filePath});
 	    ]]>
 	</insert>
 

@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="su">
 
+	<!-- ************************** user ************************** -->
 	<!-- 아이디 중복체크 -->
 	<select id="checkId" parameterType="String" resultType="int">
 		<![CDATA[
@@ -30,7 +31,7 @@
 		]]>
 	</select>
 
-	<!-- =================== 홈페이지 만들기 =================== -->
+	<!-- ************************** editPage ************************** -->
 
 	<!-- 가게 등록-business -->
 	<update id="updateBusinessInfo" parameterType="com.javaex.vo.BusinessVo">
@@ -40,6 +41,14 @@
 			WHERE bNo = #{bNo}
 		]]>
 	</update>
+
+	<!-- 가게 등록-designer -->
+	<insert id="insertDesignerInfo" parameterType="com.javaex.vo.BusinessVo">
+		<![CDATA[
+			insert into designer 
+			values(null, #{bNo}, #{dName}, #{introduce},#{dProfile},#{job})
+		]]>
+	</insert>
 
 	<!-- 가게 등록-price -->
 	<insert id="insertPriceInfo" parameterType="java.util.List">
@@ -63,14 +72,6 @@
 		<foreach collection="cutImgsSaveName" item="cutImgsSaveName" separator=",">
 			(null, #{bNo}, #{cutImgsSaveName},null,null,null,2,null)
 		</foreach>
-	</insert>
-
-	<!-- 가게 등록-designer -->
-	<insert id="insertDesignerInfo" parameterType="com.javaex.vo.BusinessVo">
-		<![CDATA[
-			insert into designer 
-			values(null, #{bNo}, #{dName}, #{introduce},#{dProfile},#{job})
-		]]>
 	</insert>
 
 	<!-- 가게정보 불러오기 -->
@@ -122,13 +123,14 @@
 
 	<select id="getSlide" parameterType="int" resultMap="BusinessVoSlideMap">
     <![CDATA[
-        select saveName,
+        select hiNo,
+        	   saveName,
                category
         from homeimg
         where bNo = #{bNo} and category = 1
     ]]>
 	</select>
-	
+
 	<!-- 컷 슬라이드 이미지 불러오기 -->
 	<resultMap id="BusinessVoCutMap" type="com.javaex.vo.BusinessVo">
 		<collection property="cutImgsSaveName" ofType="java.lang.String">
@@ -144,6 +146,41 @@
         where bNo = #{bNo} and category = 2
     ]]>
 	</select>
+
+
+	<!-- 가게 수정 -designer -->
+	<update id="updateDesignerInfo" parameterType="com.javaex.vo.BusinessVo">
+		<![CDATA[
+			update designer 
+			set dName =#{dName}, introduce=#{introduce}, dProfile=#{dProfile} , job=#{job}
+			where bNo = #{bNo}
+		]]>
+	</update>
+
+	<!-- 가게 수정-price -->
+	<update id="updatePriceInfo" parameterType="java.util.List">
+		<foreach collection="list" item="price" separator=";">
+			UPDATE price
+			SET onePrice = #{price.onePrice}
+	        WHERE bNo = #{price.bNo} and beautyNo = #{price.beautyNo}
+		</foreach>
+	</update>
+
+	<!-- 가게 수정-slideImgs -->
+	<update id="updateSlideImgs" parameterType="map">
+		insert into homeimg (hiNo, bNo, saveName,orgName,fileSize,filePath,category,cutContents) values
+		<foreach collection="slideImgsSaveName" item="slideImgSaveName" separator=",">
+			(null, #{bNo}, #{slideImgSaveName},null,null,null,1,null)
+		</foreach>
+	</update>
+
+	<!-- 가게 등록-cutImgs -->
+	<update id="updateCutImgs" parameterType="map">
+		insert into homeimg (hiNo, bNo, saveName,orgName,fileSize,filePath,category,cutContents) values
+		<foreach collection="cutImgsSaveName" item="cutImgsSaveName" separator=",">
+			(null, #{bNo}, #{cutImgsSaveName},null,null,null,2,null)
+		</foreach>
+	</update>
 
 
 
