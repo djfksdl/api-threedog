@@ -13,6 +13,7 @@ import com.javaex.vo.DogVo;
 import com.javaex.vo.PriceVo;
 import com.javaex.vo.ReserveVo;
 import com.javaex.vo.ReviewVo;
+import com.javaex.vo.UserVo;
 
 @Repository
 public class AYDao {
@@ -99,9 +100,39 @@ public class AYDao {
 	public List<PriceVo> getPriceList(PriceVo priceVo) {
 		System.out.println("AYDao.getPriceList");
 		System.out.println(priceVo);
-		
-		List<PriceVo> priceList=sqlSession.selectList("ay.selectPrice", priceVo);
-		
+
+		List<PriceVo> priceList = sqlSession.selectList("ay.selectPrice", priceVo);
+
 		return priceList;
+	}
+
+	// 추가요금 불러오기
+	public List<PriceVo> getPlusPrice(int bNo) {
+		System.out.println("AYDao.getPlusPrice");
+		System.out.println(bNo);
+
+		List<PriceVo> priceList = sqlSession.selectList("ay.selectPlusPrice", bNo);
+		System.out.println("-----------------------추가요금----------------");
+		System.out.println(priceList);
+		return priceList;
+	}
+
+	// 유저포인트 가져오기
+	public UserVo getPoint(int uNo) {
+		System.out.println("AYDao.getPoint");
+
+		UserVo userVo = sqlSession.selectOne("ay.selectUserPoint", uNo);
+		System.out.println("********************유저포인트가져오기**************************");
+		System.out.println(userVo);
+		return userVo;
+	}
+
+	// 시간 가져오기
+	public List<ReserveVo> getTimeList(int bNo) {
+		System.out.println("AYDao.getTimeList");
+
+		List<ReserveVo> reserveList = sqlSession.selectList("ay.selecTimeList", bNo);
+		
+		return reserveList;
 	}
 }
