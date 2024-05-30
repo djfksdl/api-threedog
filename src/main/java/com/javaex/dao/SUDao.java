@@ -194,7 +194,9 @@ public class SUDao {
 			priceVo.setbNo(bNo);
 		}
 
+		System.out.println("디비에 집어 넣기 전"+priceList);
 		sqlSession.update("su.updatePriceInfo", priceList);
+		
 
 	}
 
@@ -211,7 +213,9 @@ public class SUDao {
 		slideImgsMap.put("bNo", bNo);
 		slideImgsMap.put("slideImgsSaveName", sImgSaveNameList);
 
-		sqlSession.insert("su.updateSlideImgs", slideImgsMap);
+		//기존에 있던 슬라이드(category=1)이미지 삭제하고나서 insert하기
+		sqlSession.delete("su.deleteSlideImgs", bNo);
+		sqlSession.insert("su.insertSlideImgs", slideImgsMap);
 
 	}
 
@@ -228,7 +232,9 @@ public class SUDao {
 		cutImgsMap.put("bNo", bNo);
 		cutImgsMap.put("cutImgsSaveName", cImgSaveNameList);
 
-		sqlSession.insert("su.updateCutImgs", cutImgsMap);
+		//기존에 있던 컷(category=2)이미지 삭제하고나서 insert하기
+		sqlSession.delete("su.deleteCutImgs", bNo);
+		sqlSession.insert("su.insertCutImgs", cutImgsMap);
 
 	}
 

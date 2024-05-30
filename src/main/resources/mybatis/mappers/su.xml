@@ -123,8 +123,7 @@
 
 	<select id="getSlide" parameterType="int" resultMap="BusinessVoSlideMap">
     <![CDATA[
-        select hiNo,
-        	   saveName,
+        select saveName,
                category
         from homeimg
         where bNo = #{bNo} and category = 1
@@ -166,21 +165,15 @@
 		</foreach>
 	</update>
 
-	<!-- 가게 수정-slideImgs -->
-	<update id="updateSlideImgs" parameterType="map">
-		insert into homeimg (hiNo, bNo, saveName,orgName,fileSize,filePath,category,cutContents) values
-		<foreach collection="slideImgsSaveName" item="slideImgSaveName" separator=",">
-			(null, #{bNo}, #{slideImgSaveName},null,null,null,1,null)
-		</foreach>
-	</update>
+	<!-- 가게 수정-slideImgs - 삭제-->
+	<delete id="deleteSlideImgs" parameterType="map">
+		delete from homeimg where bNo=#{bNo} and category=1
+	</delete>
 
-	<!-- 가게 등록-cutImgs -->
-	<update id="updateCutImgs" parameterType="map">
-		insert into homeimg (hiNo, bNo, saveName,orgName,fileSize,filePath,category,cutContents) values
-		<foreach collection="cutImgsSaveName" item="cutImgsSaveName" separator=",">
-			(null, #{bNo}, #{cutImgsSaveName},null,null,null,2,null)
-		</foreach>
-	</update>
+	<!-- 가게 등록-cutImgs - 삭제 -->
+	<delete id="deleteCutImgs" parameterType="map">
+		delete from homeimg where bNo=#{bNo} and category=2
+	</delete>
 
 
 

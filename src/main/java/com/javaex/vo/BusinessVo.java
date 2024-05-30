@@ -31,7 +31,6 @@ public class BusinessVo {
 	private List<String> slideImgsSaveName;
 	private List<MultipartFile> cutImgs;
 	private List<String> cutImgsSaveName;
-	private int hiNo;
 
 	private List<PriceVo> priceList;
 
@@ -44,7 +43,7 @@ public class BusinessVo {
 			String bPhone, double latitude, double longitude, double averageStar, String title, String subTitle,
 			String dName, String introduce, String job, String utilTime, MultipartFile logoFile, String logo,
 			MultipartFile dProfileFile, String dProfile, List<MultipartFile> slideImgs, List<String> slideImgsSaveName,
-			List<MultipartFile> cutImgs, List<String> cutImgsSaveName, int hiNo, List<PriceVo> priceList) {
+			List<MultipartFile> cutImgs, List<String> cutImgsSaveName, List<PriceVo> priceList) {
 		super();
 		this.bNo = bNo;
 		this.bId = bId;
@@ -71,7 +70,6 @@ public class BusinessVo {
 		this.slideImgsSaveName = slideImgsSaveName;
 		this.cutImgs = cutImgs;
 		this.cutImgsSaveName = cutImgsSaveName;
-		this.hiNo = hiNo;
 		this.priceList = priceList;
 	}
 
@@ -285,13 +283,7 @@ public class BusinessVo {
 		this.cutImgsSaveName = cutImgsSaveName;
 	}
 
-	public int getHiNo() {
-		return hiNo;
-	}
 
-	public void setHiNo(int hiNo) {
-		this.hiNo = hiNo;
-	}
 
 	// 메소드-일반
 	@Override
@@ -302,11 +294,9 @@ public class BusinessVo {
 				+ ", subTitle=" + subTitle + ", dName=" + dName + ", introduce=" + introduce + ", job=" + job
 				+ ", utilTime=" + utilTime + ", logoFile=" + logoFile + ", logo=" + logo + ", dProfileFile="
 				+ dProfileFile + ", dProfile=" + dProfile + ", slideImgs=" + slideImgs + ", slideImgsSaveName="
-				+ slideImgsSaveName + ", cutImgs=" + cutImgs + ", cutImgsSaveName=" + cutImgsSaveName + ", hiNo=" + hiNo
-				+ ", priceList=" + priceList + "]";
+				+ slideImgsSaveName + ", cutImgs=" + cutImgs + ", cutImgsSaveName=" + cutImgsSaveName + ", priceList=" + priceList + "]";
 	}
 
 
-	
 
 }

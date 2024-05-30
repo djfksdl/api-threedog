@@ -439,7 +439,7 @@ public class SUService {
 		// (3)DB저장 /////////////////////////////////////////////////////
 		suDao.updateBusinessInfo(businessVo);
 		suDao.updateDesignerInfo(businessVo);
-		suDao.updatePriceInfo(businessVo);
+//		suDao.updatePriceInfo(businessVo);
 		suDao.updateSlideImgs(businessVo);
 		suDao.updateCutImgs(businessVo);
 		
