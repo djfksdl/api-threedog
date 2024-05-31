@@ -94,7 +94,7 @@
 	<insert id="insertAfterImg" parameterType="map">
 	    <![CDATA[
 	    INSERT INTO afterImg (aiNo, rsNo, saveName)
-	    VALUES (NULL,#{rsNo},#{saveName};
+	    VALUES (#{aiNo},#{rsNo},#{saveName};
 	    ]]>
 	</insert>
 	

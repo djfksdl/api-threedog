@@ -76,13 +76,14 @@ public class JWService {
 
 	// 이미지 업로드 메서드
 	public String uploadImage(int rsNo, MultipartFile file) {
-		String uploadDir = getUploadDirectory(); // 파일 업로드 디렉토리 경로 설정
+		String saveDir = getSaveDirectory(); // 파일 저장 디렉토리 경로 설정
 		try {
 			byte[] bytes = file.getBytes(); // 파일 바이트 데이터 가져오기
 			String uniqueFileName = System.currentTimeMillis() + "_" + file.getOriginalFilename(); // 유니크 파일명 생성
-			String fileUrl = uploadDir + uniqueFileName; // 파일 URL 생성
-			saveFile(uploadDir, uniqueFileName, bytes); // 파일 저장
+			String fileUrl = saveDir + File.separator + uniqueFileName; // 파일 URL 생성
+			saveFile(saveDir, uniqueFileName, bytes); // 파일 저장
 			jwDao.insertAfterImg(rsNo, uniqueFileName); // 파일 정보 DB에 저장
+			System.out.println("파일이 업로드되었습니다. URL: " + fileUrl); // 콘솔 출력 추가
 			return fileUrl; // 저장된 파일 경로 반환
 		} catch (IOException e) {
 			throw new RuntimeException("File upload failed", e); // 파일 업로드 실패시 예외 발생
@@ -90,8 +91,8 @@ public class JWService {
 	}
 
 	// 파일을 저장하는 메서드
-	private void saveFile(String uploadDir, String fileName, byte[] bytes) throws IOException {
-		File directory = new File(uploadDir); // 디렉토리 생성
+	private void saveFile(String saveDir, String fileName, byte[] bytes) throws IOException {
+		File directory = new File(saveDir); // 디렉토리 생성
 		if (!directory.exists()) {
 			directory.mkdirs(); // 디렉토리가 존재하지 않으면 생성
 		}
@@ -100,8 +101,8 @@ public class JWService {
 		}
 	}
 
-	// 운영 체제에 따라 파일 저장 경로를 설정하는 메서드
-	private String getUploadDirectory() {
+	// 파일 저장 디렉토리 경로를 반환하는 메서드
+	private String getSaveDirectory() {
 		String osName = System.getProperty("os.name").toLowerCase();
 		if (osName.contains("linux")) {
 			return "/app/upload/"; // 리눅스 경로 설정
