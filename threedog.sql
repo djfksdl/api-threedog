@@ -24,7 +24,6 @@ CREATE TABLE business (
    title varchar(150) NULL,
    subTitle varchar(150) NULL,
    logo varchar(300) NULL,
-   utilTime varchar(500) NULL,
    latitude DECIMAL(10, 8),
    longitude DECIMAL(11, 8)
 );
@@ -75,9 +74,9 @@ CREATE TABLE reserve (
    curruntWeight double NULL,
    CONSTRAINT fk_reserveTime_dog FOREIGN KEY (dogNo) REFERENCES dog(dogNo)
 );
+-- alter table reserve add column rsTime tiem;-- 
 -- 포링키 추가
 ALTER TABLE reserve ADD CONSTRAINT fk_reserveTime_reserve FOREIGN KEY (rtNo) REFERENCES reserveTime(rtNo);
-
 
 -- 외래키 이름 찾기
 -- SELECT CONSTRAINT_NAME FROM information_schema.KEY_COLUMN_USAGE WHERE TABLE_NAME = 'reserve' AND COLUMN_NAME = 'bNo';
@@ -114,13 +113,10 @@ CREATE TABLE homeimg (
    hiNo int auto_increment primary key,
    bNo int NOT NULL,
    saveName varchar(300) NULL,
-   orgName varchar(300) NULL,
-   fileSize int NULL,
-   filePath varchar(500) NULL,
    category int NULL,
-   cutContents varchar(500) NULL,
    CONSTRAINT fk_homeimg_business FOREIGN KEY (bNo) REFERENCES business(bNo)
 );
+
 
 CREATE TABLE designer (
    dNo int auto_increment primary key,
@@ -137,21 +133,17 @@ CREATE TABLE reviewimg (
    riNo int auto_increment primary key,
    rNo int NOT NULL,
    saveName varchar(300) NULL,
-   orgName varchar(300) NULL,
-   fileSize int NULL,
-   filePath varchar(500) NULL,
    CONSTRAINT fk_reviewimg_review FOREIGN KEY (rNo) REFERENCES review(rNo)
 );
+
 
 CREATE TABLE afterImg (
    aiNo int auto_increment primary key,
    rsNo int NOT NULL,
    saveName varchar(200) NULL,
-   orgName varchar(300) NULL,
-   fileSize varchar(300) NULL,
-   filePath varchar(300) NULL,
    CONSTRAINT fk_afterImg_reserve FOREIGN KEY (rsNo) REFERENCES reserve(rsNo)
 );
+
 
 CREATE TABLE rsPrice (
    rspNo int auto_increment primary key,
@@ -187,7 +179,10 @@ CREATE TABLE reserveTime (
    bNo int not null,
    rtDate datetime Null,
    rtTime time NULL,
+   rtFinish boolean,
    CONSTRAINT fk_reserveTime_business FOREIGN KEY (bNo) REFERENCES business(bNo)
 );
+
+
 
 

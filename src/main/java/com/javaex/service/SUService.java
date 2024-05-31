@@ -319,86 +319,86 @@ public class SUService {
 		// (1)파일관련 정보 추출///////////////////////////////////////////////////
 
 		// 여기는 슬라이드 사진 추출
-		List<MultipartFile> slideImgs = businessVo.getSlideImgs();
-		List<String> slideImgsSaveName = new ArrayList<>();
-
-		// 슬라이드 이미지 파일 처리 추가 부분 ///////////////////////
-		for (MultipartFile slideImg : slideImgs) {
-			// 오리지널 파일명
-			String orgName = slideImg.getOriginalFilename();
-
-			// 확장자
-			String exName = orgName.substring(orgName.lastIndexOf("."));
-
-			// 저장파일명(겹치지 않아야 된다)
-			String saveName = System.currentTimeMillis() + UUID.randomUUID().toString() + exName;
-
-			// 파일전체경로
-			String filePath = saveDir + File.separator + saveName;
-
-			// 파일 저장 이름 리스트에 추가
-			slideImgsSaveName.add(saveName);
-
-			// 파일 저장
-			try {
-				byte[] fileData = slideImg.getBytes();
-				OutputStream os = new FileOutputStream(filePath);
-				BufferedOutputStream bos = new BufferedOutputStream(os);
-				bos.write(fileData);
-				bos.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		businessVo.setSlideImgsSaveName(slideImgsSaveName);
-
-		// 여기는 컷이미지 사진 추출
-		List<MultipartFile> cutImgs = businessVo.getCutImgs();
-		List<String> cutImgsSaveName = new ArrayList<>();
-
-		// 슬라이드 이미지 파일 처리 추가 부분 ///////////////////////
-		for (MultipartFile cutImg : cutImgs) {
-			// 오리지널 파일명
-			String orgName = cutImg.getOriginalFilename();
-
-			// 확장자
-			String exName = orgName.substring(orgName.lastIndexOf("."));
-
-			// 저장파일명(겹치지 않아야 된다)
-			String saveName = System.currentTimeMillis() + UUID.randomUUID().toString() + exName;
-
-			// 파일전체경로
-			String filePath = saveDir + File.separator + saveName;
-
-			// 파일 저장 이름 리스트에 추가
-			cutImgsSaveName.add(saveName);
-
-			// 파일 저장
-			try {
-				byte[] fileData = cutImg.getBytes();
-				OutputStream os = new FileOutputStream(filePath);
-				BufferedOutputStream bos = new BufferedOutputStream(os);
-				bos.write(fileData);
-				bos.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		businessVo.setCutImgsSaveName(cutImgsSaveName);
+//		List<MultipartFile> slideImgs = businessVo.getSlideImgs();
+//		List<String> slideImgsSaveName = new ArrayList<>();
+//
+//		// 슬라이드 이미지 파일 처리 추가 부분 ///////////////////////
+//		for (MultipartFile slideImg : slideImgs) {
+//			// 오리지널 파일명
+//			String orgName = slideImg.getOriginalFilename();
+//
+//			// 확장자
+//			String exName = orgName.substring(orgName.lastIndexOf("."));
+//
+//			// 저장파일명(겹치지 않아야 된다)
+//			String saveName = System.currentTimeMillis() + UUID.randomUUID().toString() + exName;
+//
+//			// 파일전체경로
+//			String filePath = saveDir + File.separator + saveName;
+//
+//			// 파일 저장 이름 리스트에 추가
+//			slideImgsSaveName.add(saveName);
+//
+//			// 파일 저장
+//			try {
+//				byte[] fileData = slideImg.getBytes();
+//				OutputStream os = new FileOutputStream(filePath);
+//				BufferedOutputStream bos = new BufferedOutputStream(os);
+//				bos.write(fileData);
+//				bos.close();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//
+//		businessVo.setSlideImgsSaveName(slideImgsSaveName);
+//
+//		// 여기는 컷이미지 사진 추출
+//		List<MultipartFile> cutImgs = businessVo.getCutImgs();
+//		List<String> cutImgsSaveName = new ArrayList<>();
+//
+//		// 슬라이드 이미지 파일 처리 추가 부분 ///////////////////////
+//		for (MultipartFile cutImg : cutImgs) {
+//			// 오리지널 파일명
+//			String orgName = cutImg.getOriginalFilename();
+//
+//			// 확장자
+//			String exName = orgName.substring(orgName.lastIndexOf("."));
+//
+//			// 저장파일명(겹치지 않아야 된다)
+//			String saveName = System.currentTimeMillis() + UUID.randomUUID().toString() + exName;
+//
+//			// 파일전체경로
+//			String filePath = saveDir + File.separator + saveName;
+//
+//			// 파일 저장 이름 리스트에 추가
+//			cutImgsSaveName.add(saveName);
+//
+//			// 파일 저장
+//			try {
+//				byte[] fileData = cutImg.getBytes();
+//				OutputStream os = new FileOutputStream(filePath);
+//				BufferedOutputStream bos = new BufferedOutputStream(os);
+//				bos.write(fileData);
+//				bos.close();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		businessVo.setCutImgsSaveName(cutImgsSaveName);
 
 		// 여기는 로고랑 프로필이미지 추출
 		// 오리지널 파일명
 		String orgName = businessVo.getLogoFile().getOriginalFilename();
-		String orgName2 = businessVo.getdProfileFile().getOriginalFilename();
+//		String orgName2 = businessVo.getdProfileFile().getOriginalFilename();
 
 		// 확장자
 		String exName = orgName.substring(orgName.lastIndexOf("."));
-		String exName2 = orgName2.substring(orgName2.lastIndexOf("."));
+//		String exName2 = orgName2.substring(orgName2.lastIndexOf("."));
 
 		// 저장파일명(겹치지 않아야 된다)
 		String saveName = System.currentTimeMillis() + UUID.randomUUID().toString() + exName;
-		String saveName2 = System.currentTimeMillis() + UUID.randomUUID().toString() + exName2;
+//		String saveName2 = System.currentTimeMillis() + UUID.randomUUID().toString() + exName2;
 
 		// 파일사이즈
 //		long fileSize = businessVo.getLogo().getSize() ;
@@ -406,19 +406,19 @@ public class SUService {
 
 		// 파일전체경로
 		String filePath = saveDir + File.separator + saveName;
-		String filePath2 = saveDir + File.separator + saveName2;
+//		String filePath2 = saveDir + File.separator + saveName2;
 
 		// vo로묶기
 		businessVo.setLogo(saveName);
-		businessVo.setdProfile(saveName2);
+//		businessVo.setdProfile(saveName2);
 
 		// (2)파일저장(서버쪽 하드디스크에 저장)///////////////////////////////////////////////////
 		try {
 			byte[] fileData;
-			byte[] fileData2;
+//			byte[] fileData2;
 			
 			fileData = businessVo.getLogoFile().getBytes();
-			fileData2 = businessVo.getdProfileFile().getBytes();
+//			fileData2 = businessVo.getdProfileFile().getBytes();
 
 			OutputStream os = new FileOutputStream(filePath);
 			BufferedOutputStream bos = new BufferedOutputStream(os);
@@ -426,11 +426,11 @@ public class SUService {
 			bos.write(fileData);
 			bos.close();
 			
-			OutputStream os2 = new FileOutputStream(filePath2);
-			BufferedOutputStream bos2 = new BufferedOutputStream(os2);
-
-			bos2.write(fileData2);
-			bos2.close();
+//			OutputStream os2 = new FileOutputStream(filePath2);
+//			BufferedOutputStream bos2 = new BufferedOutputStream(os2);
+//
+//			bos2.write(fileData2);
+//			bos2.close();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -438,10 +438,10 @@ public class SUService {
 
 		// (3)DB저장 /////////////////////////////////////////////////////
 		suDao.updateBusinessInfo(businessVo);
-		suDao.updateDesignerInfo(businessVo);
+//		suDao.updateDesignerInfo(businessVo);
 //		suDao.updatePriceInfo(businessVo);
-		suDao.updateSlideImgs(businessVo);
-		suDao.updateCutImgs(businessVo);
+//		suDao.updateSlideImgs(businessVo);
+//		suDao.updateCutImgs(businessVo);
 		
 	}
 

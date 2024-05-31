@@ -60,17 +60,17 @@
 
 	<!-- 가게 등록-slideImgs -->
 	<insert id="insertSlideImgs" parameterType="map">
-		insert into homeimg (hiNo, bNo, saveName,orgName,fileSize,filePath,category,cutContents) values
+		insert into homeimg (hiNo, bNo, saveName,category) values
 		<foreach collection="slideImgsSaveName" item="slideImgSaveName" separator=",">
-			(null, #{bNo}, #{slideImgSaveName},null,null,null,1,null)
+			(null, #{bNo}, #{slideImgSaveName},1)
 		</foreach>
 	</insert>
 
 	<!-- 가게 등록-cutImgs -->
 	<insert id="insertCutImgs" parameterType="map">
-		insert into homeimg (hiNo, bNo, saveName,orgName,fileSize,filePath,category,cutContents) values
+		insert into homeimg (hiNo, bNo, saveName,category) values
 		<foreach collection="cutImgsSaveName" item="cutImgsSaveName" separator=",">
-			(null, #{bNo}, #{cutImgsSaveName},null,null,null,2,null)
+			(null, #{bNo}, #{cutImgsSaveName},2)
 		</foreach>
 	</insert>
 
@@ -85,14 +85,12 @@
 			       title,
 			       subTitle,
 			       logo,
-			       utilTime,
 			       latitude,
 			       longitude,
 			       dName ,
 			       introduce,
 			       dProfile ,
-			       job,
-			       utilTime
+			       job
 			from business b join designer d
 			on b.bNo = d.bNo
 			where b.bNo=#{bNo}
