@@ -46,7 +46,7 @@ public class ReserveVo {
 	private String sizeDiv;
 	private String weightDiv;
 	private String beauty;
-
+	private Boolean rtFinish;
 	private int aiNo;
 	private String key;
 	private String saveName;
@@ -195,6 +195,14 @@ public class ReserveVo {
 
 	public String getAttitude() {
 		return attitude;
+	}
+
+	public Boolean getRtFinish() {
+		return rtFinish;
+	}
+
+	public void setRtFinish(Boolean rtFinish) {
+		this.rtFinish = rtFinish;
 	}
 
 	public void setAttitude(String attitude) {
@@ -524,8 +532,9 @@ public class ReserveVo {
 				+ memo + ", dogImg=" + dogImg + ", size=" + size + ", skin=" + skin + ", heart=" + heart + ", marking="
 				+ marking + ", mounting=" + mounting + ", uNo=" + uNo + ", rspNo=" + rspNo + ", priceNo=" + priceNo
 				+ ", beautyNo=" + beautyNo + ", onePrice=" + onePrice + ", sizeDiv=" + sizeDiv + ", weightDiv="
-				+ weightDiv + ", beauty=" + beauty + ", aiNo=" + aiNo + ", key=" + key + ", saveName=" + saveName
-				+ ", orgName=" + orgName + ", fileSize=" + fileSize + ", filePath=" + filePath + ", pushNo=" + pushNo
-				+ ", pushTime=" + pushTime + ", files=" + files + "]";
+				+ weightDiv + ", beauty=" + beauty + ", rtFinish=" + rtFinish + ", aiNo=" + aiNo + ", key=" + key
+				+ ", saveName=" + saveName + ", orgName=" + orgName + ", fileSize=" + fileSize + ", filePath="
+				+ filePath + ", pushNo=" + pushNo + ", pushTime=" + pushTime + ", files=" + files + "]";
 	}
+
 }
