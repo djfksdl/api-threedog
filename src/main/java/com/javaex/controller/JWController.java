@@ -93,10 +93,10 @@ public class JWController {
 	}
 
 	// 사진 업로드를 처리하는 컨트롤러 메서드
-	@PostMapping("/api/jw/{rsNo}/uploadimage")
-	public JsonResult uploadImage(@PathVariable("rsNo") int rsNo, @RequestParam("file") MultipartFile file) {
-		String fileUrl = jwService.uploadImage(rsNo, file); // 서비스 호출하여 이미지 업로드
-		return JsonResult.success(Map.of("url", fileUrl)); // 업로드된 이미지의 URL 반환
-	}
+    @PostMapping("/{rsNo}/uploadimage")
+    public JsonResult uploadImage(@PathVariable("rsNo") int rsNo, @RequestParam("file") MultipartFile file) {
+        String fileUrl = jwService.uploadImage(rsNo, file);
+        return JsonResult.success(Map.of("url", fileUrl)); // 업로드된 이미지의 URL 반환
+    }
 
 }
