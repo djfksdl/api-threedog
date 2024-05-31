@@ -144,59 +144,89 @@
 	<select id="keyword" parameterType="com.javaex.vo.SearchVo" resultType="com.javaex.vo.ReviewListVo">
     <![CDATA[
         SELECT b.title,
-                b.bNo,
-                AVG(r.star) AS star,
-                ri.saveName AS saveName
-        FROM business b
-        LEFT JOIN review r ON b.bNo = r.bNo
-        LEFT JOIN reviewimg ri ON r.rNo = ri.rNo
-        LEFT JOIN (
-            SELECT rs.curruntWeight, 
-                   rs.expectedPrice, 
-                   COALESCE(rs.surcharge, 0) AS surcharge, 
-                   d.size,
-                   rs.rsNo
-            FROM reserve rs
-            INNER JOIN dog d ON rs.dogNo = d.dogNo
-        ) rs ON r.rsNo = rs.rsNo
-        WHERE 1=1
-        <if test="keyword != null and !keyword.isEmpty()">
-            AND b.title LIKE CONCAT('%', #{keyword}, '%')
-        </if>
-        <if test="selectedCities != null and !selectedCities.isEmpty()">
-            AND (
-                <foreach collection="selectedCities" item="city" separator=" OR ">
-                    <if test="city != null and !city.isEmpty()">
-					    AND (
-					        b.bAddress LIKE CONCAT('%', #{city}, '%')
-					    )
-					</if>
-                </foreach>
-            )
-        </if>
-        <if test="selectedWeights != null and !selectedWeights.isEmpty()">
+       b.bNo,
+       AVG(r.star) AS star,
+       ri.saveName AS saveName
+		FROM business b
+		LEFT JOIN review r ON b.bNo = r.bNo
+		LEFT JOIN reviewimg ri ON r.rNo = ri.rNo
+		LEFT JOIN (
+		    SELECT rs.curruntWeight, 
+		           rs.expectedPrice, 
+		           COALESCE(rs.surcharge, 0) AS surcharge, 
+		           d.size,
+		           rs.rsNo
+		    FROM reserve rs
+		    INNER JOIN dog d ON rs.dogNo = d.dogNo
+		) rs ON r.rsNo = rs.rsNo
+		WHERE 1=1
+		<if test="keyword != null and !keyword.isEmpty()">
+		    AND b.title LIKE CONCAT('%', #{keyword}, '%')
+		</if>
+		<if test="selectedCities != null and !selectedCities.isEmpty()">
 		    AND (
-		        <foreach collection="selectedWeights" item="weights" separator=" OR ">
-		            rs.curruntWeight BETWEEN #{weights[0]} AND #{weights[1]}
+		        <foreach collection="selectedCities" item="city" separator=" OR ">
+		            <if test="city != null and !city.isEmpty()">
+		                b.bAddress LIKE CONCAT('%', #{city}, '%')
+		            </if>
 		        </foreach>
 		    )
 		</if>
-        <if test="selectedTypes != null and !selectedTypes.isEmpty()">
-            AND rs.size IN
-            <foreach item="type" collection="selectedTypes" open="(" close=")" separator=",">
-                #{type}
-            </foreach>
-        </if>
-        <if test="selectedPrices != null and !selectedPrices.isEmpty()">
-            AND (
-                rs.expectedPrice + rs.surcharge < 20000
-            )
-        </if>
-        GROUP BY b.title, b.bNo, ri.saveName
+		<if test="selectedWeights != null and !selectedWeights.isEmpty()">
+		    AND (
+		        <foreach collection="selectedWeights" item="weight" separator=" OR ">
+		            <choose>
+		                <when test="weight == 0">
+		                    rs.curruntWeight BETWEEN 0 AND 2
+		                </when>
+		                <when test="weight == 1">
+		                    rs.curruntWeight BETWEEN 2 AND 5
+		                </when>
+		                <when test="weight == 2">
+		                    rs.curruntWeight BETWEEN 5 AND 8
+		                </when>
+		                <when test="weight == 3">
+		                    rs.curruntWeight BETWEEN 8 AND 10
+		                </when>
+		                <when test="weight == 4">
+		                    rs.curruntWeight BETWEEN 10 AND 12
+		                </when>
+		                <when test="weight == 5">
+		                    rs.curruntWeight >= 12
+		                </when>
+		            </choose>
+		        </foreach>
+		    )
+		</if>
+		<if test="selectedTypes != null and !selectedTypes.isEmpty()">
+		    AND rs.size IN
+		    <foreach item="type" collection="selectedTypes" open="(" close=")" separator=",">
+		        #{type}
+		    </foreach>
+		</if>
+		<if test="selectedPrices != null and !selectedPrices.isEmpty()">
+		    AND (
+		        <foreach collection="selectedPrices" item="price" separator=" OR ">
+		            <choose>
+		                <when test="price == 0">
+		                    rs.expectedPrice + rs.surcharge <= 20000
+		                </when>
+		                <when test="price == 1">
+		                    rs.expectedPrice + rs.surcharge <= 40000
+		                </when>
+		                <when test="price == 2">
+		                    rs.expectedPrice + rs.surcharge <= 60000
+		                </when>
+		                <when test="price == 3">
+		                    rs.expectedPrice + rs.surcharge >= 60000
+		                </when>
+		            </choose>
+		        </foreach>
+		    )
+		</if>
+		GROUP BY b.title, b.bNo, ri.saveName
     ]]>
 	</select>
-
-
 	<!-- 후기 키워드 검색 -->
 
 </mapper>
