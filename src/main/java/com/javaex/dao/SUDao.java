@@ -137,48 +137,80 @@ public class SUDao {
 	}
 
 	// 메인 슬라이드 이미지 불러오기
-	public List<String> getSlide(int bNo) {
+	public List<Map<String, Object>> getSlide(int bNo) {
 		System.out.println("SUDao.getSlide");
 
 		List<BusinessVo> sList = sqlSession.selectList("su.getSlide", bNo);
 
 		// 결과를 단일 BusinessVo 객체의 slideImgsSaveName 리스트로 결합 why?: slideImgsSaveName는
 		// List형태라서 결과가 여러 BusinessVo객체로 분리되어 반환됨.그래서 단일 객체로 결합되도록 해야함.
-		List<String> slideImgsSaveName = new ArrayList<>();
+		List<Map<String, Object>> result = new ArrayList<>();
 		for (BusinessVo vo : sList) {
-			slideImgsSaveName.addAll(vo.getSlideImgsSaveName());
+			List<String> slideImgsSaveName = vo.getSlideImgsSaveName();
+			List<Integer> hiNos = vo.getHiNos();
+
+			for (int i = 0; i < slideImgsSaveName.size(); i++) {
+				Map<String, Object> map = new HashMap<>();
+				map.put("hiNo", hiNos.get(i));
+				map.put("saveName", slideImgsSaveName.get(i));
+				result.add(map);
+			}
 		}
 
-//		System.out.println("슬라이드 이미지덜:"+slideImgsSaveName);
+		System.out.println("슬라이드 이미지덜:"+result);
 
-		return slideImgsSaveName;
+		return result;
 
 	}
 
 	// 컷 슬라이드 이미지 불러오기
-	public List<String> getCut(int bNo) {
+	public List<Map<String, Object>> getCut(int bNo) {
 		System.out.println("SUDao.getCut");
-
+		
 		List<BusinessVo> cList = sqlSession.selectList("su.getCut", bNo);
 
-		// 결과를 단일 BusinessVo 객체의 cutImgsSaveName 리스트로 결합
-		List<String> cutImgsSaveName = new ArrayList<>();
+		List<Map<String, Object>> result = new ArrayList<>();
 		for (BusinessVo vo : cList) {
-			cutImgsSaveName.addAll(vo.getCutImgsSaveName());
+			List<String> cutImgsSaveName = vo.getCutImgsSaveName();
+			List<Integer> hiNos = vo.getHiNos();
+
+			for (int i = 0; i < cutImgsSaveName.size(); i++) {
+				Map<String, Object> map = new HashMap<>();
+				map.put("hiNo", hiNos.get(i));
+				map.put("saveName", cutImgsSaveName.get(i));
+				result.add(map);
+			}
 		}
 
-		System.out.println("컷 이미지덜:" + cutImgsSaveName);
+		System.out.println("컷 이미지덜:" + result);
 
-		return cutImgsSaveName;
+		return result;
 
 	}
 
 	// ========================= 수정 =========================
+	// 가게 수정(파일 안바꿨을때) -business
+	public void updateBusinessInfoNoImg(BusinessVo businessVo) {
+		System.out.println("SUDao.updateBusinessInfoNoImg");
+
+//			System.out.println(businessVo);
+		sqlSession.update("su.updateBusinessInfoNoImg", businessVo);
+
+	}
+
 	// 가게 수정 -designer
 	public void updateDesignerInfo(BusinessVo businessVo) {
 		System.out.println("SUDao.updateDesignerInfo");
 
 		sqlSession.update("su.updateDesignerInfo", businessVo);
+
+	}
+
+	// 가게 수정(파일 안바꿨을때) -designer
+	public void updateDesignerInfoNoImg(BusinessVo businessVo) {
+		System.out.println("SUDao.updateDesignerInfoNoImg");
+
+		sqlSession.update("su.updateDesignerInfoNoImg", businessVo);
 
 	}
 
@@ -194,47 +226,33 @@ public class SUDao {
 			priceVo.setbNo(bNo);
 		}
 
-		System.out.println("디비에 집어 넣기 전"+priceList);
+		System.out.println("디비에 집어 넣기 전" + priceList);
 		sqlSession.update("su.updatePriceInfo", priceList);
-		
 
 	}
 
-	// 가게 수정 -슬라이드 이미지
-	public void updateSlideImgs(BusinessVo businessVo) {
-		System.out.println("SUDao.updateSlideImgs");
+	// 가게 수정(삭제파일) -슬라이드 이미지
+	public void deleteSlideImgs(BusinessVo businessVo) {
+		System.out.println("SUDao.deleteSlideImgs");
 
-		List<String> sImgSaveNameList = businessVo.getSlideImgsSaveName();
+		List<Integer> delSlideHiNosList = businessVo.getDelSlideHiNos() ;
 
-		// BusinessVo에서 bNo를 가져와서 PriceVo의 bNo 필드에 설정
-		int bNo = businessVo.getbNo();
 
-		Map<String, Object> slideImgsMap = new HashMap<>();
-		slideImgsMap.put("bNo", bNo);
-		slideImgsMap.put("slideImgsSaveName", sImgSaveNameList);
-
-		//기존에 있던 슬라이드(category=1)이미지 삭제하고나서 insert하기
-		sqlSession.delete("su.deleteSlideImgs", bNo);
-		sqlSession.insert("su.insertSlideImgs", slideImgsMap);
+		System.out.println("슬라이드 삭제:" + delSlideHiNosList);
+		// 기존에 있던 슬라이드(category=1)이미지 삭제
+		sqlSession.delete("su.deleteSlideImgs", delSlideHiNosList);
+		System.out.println("슬라이드 삭제:" + businessVo.getSlideImgsSaveName() );
 
 	}
 
-	// 가게 수정 -컷 이미지
-	public void updateCutImgs(BusinessVo businessVo) {
-		System.out.println("SUDao.updateCutImgs");
+	// 가게 수정(삭제파일) -컷 이미지
+	public void deleteCutImgs(BusinessVo businessVo) {
+		System.out.println("SUDao.deleteCutImgs");
 
-		List<String> cImgSaveNameList = businessVo.getCutImgsSaveName();
+		List<Integer> delDelCutHiNosList = businessVo.getDelCutHiNos();
 
-		// BusinessVo에서 bNo를 가져와서 PriceVo의 bNo 필드에 설정
-		int bNo = businessVo.getbNo();
-
-		Map<String, Object> cutImgsMap = new HashMap<>();
-		cutImgsMap.put("bNo", bNo);
-		cutImgsMap.put("cutImgsSaveName", cImgSaveNameList);
-
-		//기존에 있던 컷(category=2)이미지 삭제하고나서 insert하기
-		sqlSession.delete("su.deleteCutImgs", bNo);
-		sqlSession.insert("su.insertCutImgs", cutImgsMap);
+		// 기존에 있던 컷(category=2)이미지 삭제하고나서 insert하기
+		sqlSession.delete("su.deleteCutImgs", delDelCutHiNosList);
 
 	}
 

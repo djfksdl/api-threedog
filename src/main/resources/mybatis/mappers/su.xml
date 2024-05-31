@@ -117,11 +117,15 @@
 		<collection property="slideImgsSaveName" ofType="java.lang.String">
 			<result column="saveName" />
 		</collection>
+		<collection property="hiNos" ofType="java.lang.Integer">
+			<result column="hiNo" />
+		</collection>
 	</resultMap>
 
 	<select id="getSlide" parameterType="int" resultMap="BusinessVoSlideMap">
     <![CDATA[
-        select saveName,
+        select hiNo,
+        	   saveName,
                category
         from homeimg
         where bNo = #{bNo} and category = 1
@@ -133,16 +137,29 @@
 		<collection property="cutImgsSaveName" ofType="java.lang.String">
 			<result column="saveName" />
 		</collection>
+		<collection property="hiNos" ofType="java.lang.Integer">
+			<result column="hiNo" />
+		</collection>
 	</resultMap>
 
 	<select id="getCut" parameterType="int" resultMap="BusinessVoCutMap">
     <![CDATA[
-        select saveName,
+        select hiNo,
+        	   saveName,
                category
         from homeimg
         where bNo = #{bNo} and category = 2
     ]]>
 	</select>
+
+	<!-- 가게 수정(파일 안바꿨을때)-business -->
+	<update id="updateBusinessInfoNoImg" parameterType="com.javaex.vo.BusinessVo">
+		<![CDATA[
+			UPDATE business 
+			SET title = #{title}, subTitle = #{subTitle}
+			WHERE bNo = #{bNo}
+		]]>
+	</update>
 
 
 	<!-- 가게 수정 -designer -->
@@ -154,23 +171,43 @@
 		]]>
 	</update>
 
+	<!-- 가게 수정(파일 안바꿨을때) -designer -->
+	<update id="updateDesignerInfoNoImg" parameterType="com.javaex.vo.BusinessVo">
+		<![CDATA[
+			update designer 
+			set dName =#{dName}, introduce=#{introduce} , job=#{job}
+			where bNo = #{bNo}
+		]]>
+	</update>
+
 	<!-- 가게 수정-price -->
 	<update id="updatePriceInfo" parameterType="java.util.List">
-		<foreach collection="list" item="price" separator=";">
+		<foreach collection="list" item="price" open="(" separator=";" close=")">
 			UPDATE price
 			SET onePrice = #{price.onePrice}
-	        WHERE bNo = #{price.bNo} and beautyNo = #{price.beautyNo}
+			WHERE bNo = #{price.bNo} and beautyNo =
+			#{price.beautyNo}
 		</foreach>
 	</update>
 
-	<!-- 가게 수정-slideImgs - 삭제-->
-	<delete id="deleteSlideImgs" parameterType="map">
-		delete from homeimg where bNo=#{bNo} and category=1
+	<!-- 가게 수정(삭제파일)-slideImgs - 삭제 -->
+	<delete id="deleteSlideImgs" parameterType="java.util.List">
+		delete from homeimg
+		where hiNo in
+		<foreach collection="list" item="hiNo" open="(" separator="," close=")">
+			#{hiNo}
+		</foreach>
+		and category=1
 	</delete>
 
 	<!-- 가게 등록-cutImgs - 삭제 -->
-	<delete id="deleteCutImgs" parameterType="map">
-		delete from homeimg where bNo=#{bNo} and category=2
+	<delete id="deleteCutImgs" parameterType="java.util.List">
+		delete from homeimg
+		where hiNo in
+		<foreach collection="list" item="hiNo" open="(" separator="," close=")">
+			#{hiNo}
+		</foreach>
+		and category=2
 	</delete>
 
 
