@@ -6,54 +6,54 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class ReserveVo {
 
-    // 필드
-    private int rsNo;
-    private int bNo;
-    private int dogNo;
-    private int rtNo;
-    private String rtDate;
-    private String rtTime;
-    private String signImg;
-    private int expectedPrice;
-    private String attitude;
-    private String rCondition;
-    private String tangle;
-    private String disliked;
-    private String bath;
-    private Integer surcharge;
-    private String message;
-    private Double currentWeight;
-    private String dogName;
-    private String kind;
-    private double weight;
-    private String birth;
-    private String gender;
-    private Boolean neutering;
-    private Boolean experience;
-    private Integer bite;
-    private String memo;
-    private String dogImg;
-    private String size;
-    private Boolean skin;
-    private Boolean heart;
-    private Boolean marking;
-    private Boolean mounting;
-    private int uNo;
-    private int rspNo;
-    private int priceNo;
-    private int beautyNo;
-    private Integer onePrice; 
-    private String sizeDiv;
-    private String weightDiv;
-    private String beauty;
-    private int aiNo;
-    private String saveName;
-    private int pushNo;
-    private String pushTime;
-    
-    private List<MultipartFile> files;
+	// 필드
+	private int rsNo;
+	private int bNo;
+	private int dogNo;
+	private int rtNo;
+	private String rtDate;
+	private String rtTime;
+	private String signImg;
+	private int expectedPrice;
+	private String attitude;
+	private String rCondition;
+	private String tangle;
+	private String disliked;
+	private String bath;
+	private Integer surcharge;
+	private String message;
+	private Double currentWeight;
+	private String dogName;
+	private String kind;
+	private double weight;
+	private String birth;
+	private String gender;
+	private Boolean neutering;
+	private Boolean experience;
+	private Integer bite;
+	private String memo;
+	private String dogImg;
+	private String size;
+	private Boolean skin;
+	private Boolean heart;
+	private Boolean marking;
+	private Boolean mounting;
+	private int uNo;
+	private int rspNo;
+	private int priceNo;
+	private int beautyNo;
+	private Integer onePrice;
+	private String sizeDiv;
+	private String weightDiv;
+	private String beauty;
+	private int aiNo;
+	private String saveName;
+	private int pushNo;
+	private String pushTime;
 
-    
+	private List<MultipartFile> files;
+
+	// 생성자
 	public ReserveVo() {
 		super();
 	}
@@ -106,7 +106,9 @@ public class ReserveVo {
 		this.weightDiv = weightDiv;
 		this.beauty = beauty;
 		this.aiNo = aiNo;
+
 		this.saveName = saveName;
+
 		this.pushNo = pushNo;
 		this.pushTime = pushTime;
 		this.files = files;
@@ -478,6 +480,4 @@ public class ReserveVo {
 				+ weightDiv + ", beauty=" + beauty + ", aiNo=" + aiNo + ", saveName=" + saveName + ", pushNo=" + pushNo
 				+ ", pushTime=" + pushTime + ", files=" + files + "]";
 	}
-    
-
 }
