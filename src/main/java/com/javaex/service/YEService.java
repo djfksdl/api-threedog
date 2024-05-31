@@ -92,7 +92,7 @@ public class YEService {
 
 	public List<ReviewListVo> exeKeyword(SearchVo searchVo) {
 		System.out.println("YEService.exeKeyword()");
-		System.out.println(searchVo);
+//		System.out.println(searchVo);
 
 		return yeDao.keyword(searchVo);
 	}

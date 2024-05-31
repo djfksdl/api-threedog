@@ -6,10 +6,25 @@ public class ReviewListVo {
 	private int star;
 	private String title;
 	private String saveName;
+	private int bNo;
 	
 	public ReviewListVo() {
 		super();
 	}
+
+	
+	
+	public int getbNo() {
+		return bNo;
+	}
+
+
+
+	public void setbNo(int bNo) {
+		this.bNo = bNo;
+	}
+
+
 
 	public int getrNo() {
 		return rNo;
@@ -45,6 +60,7 @@ public class ReviewListVo {
 
 	@Override
 	public String toString() {
-		return "ReviewListVo [rNo=" + rNo + ", star=" + star + ", title=" + title + ", saveName=" + saveName + "]";
+		return "ReviewListVo [rNo=" + rNo + ", star=" + star + ", title=" + title + ", saveName=" + saveName + ", bNo="
+				+ bNo + "] \n";
 	}
 }
