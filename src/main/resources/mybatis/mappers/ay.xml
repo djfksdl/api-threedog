@@ -96,7 +96,7 @@
 	</select>
 
 	<!-- 가격표 가져오기 -->
-	<!-- 미용목록 -->
+	<!-- 미용목록, 가격표가져오기 -->
 	<select id="selectPrice" parameterType="com.javaex.vo.PriceVo" resultType="com.javaex.vo.PriceVo">
 		<![CDATA[
 			select b.weightDiv, b.beauty , p.onePrice
@@ -106,5 +106,31 @@
 		]]>
 	</select>
 
+	<!-- 추가요금가져오기 -->
+	<select id="selectPlusPrice" parameterType="int" resultType="com.javaex.vo.PriceVo">
+		<![CDATA[
+			select b.beauty , p.onePrice
+			from beautylist b
+			join price p on b.beautyNo=p.beautyNo
+			where p.bNo=#{bNo} and b.sizeDiv='추가요금'
+		]]>
+	</select>
 
+	<!-- 유저포인트 가져오기 -->
+	<select id="selectUserPoint" parameterType="int" resultType="com.javaex.vo.UserVo">
+		<![CDATA[
+			select uNo, sum(usePoint) uPoint
+			from point
+			where uNo=#{uNo}
+		]]>
+	</select>
+
+	<!-- 유저포인트 가져오기 -->
+	<select id="selecTimeList" parameterType="int" resultType="com.javaex.vo.ReserveVo">
+		<![CDATA[
+			select bNo, rtDate, rtTime
+			from reserveTime
+			where bNo=#{bNo}
+		]]>
+	</select>
 </mapper>
