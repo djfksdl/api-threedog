@@ -47,8 +47,8 @@
 	<!-- 리뷰 이미지 등록 -->
 	<insert id="addReview02" parameterType="map">
         <![CDATA[
-            insert into reviewimg (riNo, rNo, saveName, orgName, filePath)
-            values (null, #{rNo}, #{saveName}, #{orgName}, #{filePath})
+            insert into reviewimg (riNo, rNo, saveName)
+            values (null, #{rNo}, #{saveName})
         ]]>
 	</insert>
 
@@ -125,12 +125,12 @@
 		]]>
 	</select>
 
-	<!-- 유저포인트 가져오기 -->
-	<select id="selecTimeList" parameterType="int" resultType="com.javaex.vo.ReserveVo">
+	<!-- 시간 가져오기 -->
+	<select id="selecTimeList" parameterType="com.javaex.vo.ReserveVo" resultType="com.javaex.vo.ReserveVo">
 		<![CDATA[
-			select bNo, rtDate, rtTime
+			select bNo, rtDate, rtTime, rtFinish
 			from reserveTime
-			where bNo=#{bNo}
+			where bNo=#{bNo} and rtDate=#{rtDate}
 		]]>
 	</select>
 </mapper>
