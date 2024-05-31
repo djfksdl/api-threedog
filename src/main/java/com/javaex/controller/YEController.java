@@ -162,28 +162,11 @@ public class YEController {
 	    List<String> citiesList = selectedCities != null && !selectedCities.isEmpty() ? Arrays.asList(selectedCities.split(";")) : null;
 
 	    // 무게 리스트 분할 및 숫자 변환
-	    List<List<Integer>> weightsList = new ArrayList<>();
+	    List<Integer> weightsList = new ArrayList<>();
 	    if (selectedWeights != null && !selectedWeights.isEmpty()) {
-	        String[] weightRanges = selectedWeights.split(";");
-	        for (String range : weightRanges) {
-	            String[] weights = range.split("~");
-	            int weightMin = 0;
-	            int weightMax = 9999;
-	            if (weights.length == 2) {
-	                if (!weights[0].isEmpty()) {
-	                    weightMin = Integer.parseInt(weights[0].replaceAll("[^0-9]", ""));
-	                }
-	                if (!weights[1].isEmpty()) {
-	                    weightMax = Integer.parseInt(weights[1].replaceAll("[^0-9]", ""));
-	                }
-	            } else if (weights.length == 1) {
-	                if (range.startsWith("~")) {
-	                    weightMax = Integer.parseInt(weights[0].replaceAll("[^0-9]", ""));
-	                } else if (range.endsWith("~")) {
-	                    weightMin = Integer.parseInt(weights[0].replaceAll("[^0-9]", ""));
-	                }
-	            }
-	            weightsList.add(Arrays.asList(weightMin, weightMax));
+	        String[] weightIndices = selectedWeights.split(";");
+	        for (String index : weightIndices) {
+	            weightsList.add(Integer.parseInt(index));
 	        }
 	    }
 
@@ -191,15 +174,19 @@ public class YEController {
 	    List<String> typesList = selectedTypes != null && !selectedTypes.isEmpty() ? Arrays.asList(selectedTypes.split(";")) : null;
 
 	    // 가격 리스트 및 숫자 변환
-	    List<Integer> pricesList = selectedPrices != null && !selectedPrices.isEmpty() ? Arrays.stream(selectedPrices.split(";"))
-	            .map(price -> Integer.parseInt(price.replaceAll("[^0-9]", "")))
-	            .collect(Collectors.toList()) : null;
-
+	    List<Integer> pricesList = new ArrayList<>();
+	    if (selectedPrices != null && !selectedPrices.isEmpty()) {
+	        String[] prices = selectedPrices.split(";");
+	        for (String price : prices) {
+	            pricesList.add(Integer.parseInt(price.replaceAll("[^0-9]", "")));
+	        }
+	    }
+	    
 	    // SearchVo 생성
 	    SearchVo searchVo = new SearchVo(keyword, citiesList, weightsList, typesList, pricesList);
 
 	    System.out.println(searchVo);
-//	    List<ReviewListVo> reviewList = yeService.exeKeyword(searchVo);
+	    List<ReviewListVo> reviewList = yeService.exeKeyword(searchVo);
 
 	    return JsonResult.success("");
 	}

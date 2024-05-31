@@ -6,7 +6,7 @@ public class SearchVo {
 
 	private String keyword;
 	private List<String> selectedCities;
-	private List<List<Integer>> selectedWeights;
+	private List<Integer> selectedWeights;
 	private List<String> selectedTypes;
 	private List<Integer> selectedPrices;
 
@@ -14,7 +14,7 @@ public class SearchVo {
 		super();
 	}
 
-	public SearchVo(String keyword, List<String> selectedCities, List<List<Integer>> selectedWeights,
+	public SearchVo(String keyword, List<String> selectedCities, List<Integer> selectedWeights,
 			List<String> selectedTypes, List<Integer> selectedPrices) {
 		super();
 		this.keyword = keyword;
@@ -40,11 +40,11 @@ public class SearchVo {
 		this.selectedCities = selectedCities;
 	}
 
-	public List<List<Integer>> getSelectedWeights() {
+	public List<Integer> getSelectedWeights() {
 		return selectedWeights;
 	}
 
-	public void setSelectedWeights(List<List<Integer>> selectedWeights) {
+	public void setSelectedWeights(List<Integer> selectedWeights) {
 		this.selectedWeights = selectedWeights;
 	}
 
