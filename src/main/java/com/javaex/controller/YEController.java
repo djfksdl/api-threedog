@@ -185,10 +185,13 @@ public class YEController {
 	    // SearchVo 생성
 	    SearchVo searchVo = new SearchVo(keyword, citiesList, weightsList, typesList, pricesList);
 
-	    System.out.println(searchVo);
+//	    System.out.println(searchVo);
 	    List<ReviewListVo> reviewList = yeService.exeKeyword(searchVo);
+	    
+	    System.out.println("=============");
+	    System.out.println(reviewList);
 
-	    return JsonResult.success("");
+	    return JsonResult.success(reviewList);
 	}
 	
 }

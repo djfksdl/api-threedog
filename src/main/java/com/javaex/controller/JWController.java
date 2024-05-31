@@ -84,19 +84,21 @@ public class JWController {
 	/****************************
 	 * 알림장화면
 	 ****************************/
+
+	// 이미지 업로드를 처리하는 컨트롤러 메서드
+	@PostMapping("/api/jw/{rsNo}/uploadimage")
+	public JsonResult uploadImage(@PathVariable("rsNo") int rsNo, @RequestParam("file") MultipartFile file) {
+		String fileUrl = jwService.uploadImage(rsNo, file);
+		System.out.println("업로드된 파일 URL: " + fileUrl); // 콘솔 출력 추가
+		return JsonResult.success(Map.of("url", fileUrl)); // 업로드된 이미지의 URL 반환
+	}
+
 	// 미용 기록 업데이트를 처리하는 컨트롤러 메서드
 	@PutMapping("/api/jw/{rsNo}/updategroomingrecord")
 	public JsonResult updateGroomingRecord(@PathVariable("rsNo") int rsNo, @RequestBody ReserveVo reserveVo) {
 		reserveVo.setRsNo(rsNo); // 예약 번호를 설정
 		jwService.updateGroomingRecord(reserveVo); // 서비스 호출하여 미용 기록 업데이트
 		return JsonResult.success(reserveVo); // 성공 응답 반환
-	}
-
-	// 사진 업로드를 처리하는 컨트롤러 메서드
-	@PostMapping("/api/jw/{rsNo}/uploadimage")
-	public JsonResult uploadImage(@PathVariable("rsNo") int rsNo, @RequestParam("file") MultipartFile file) {
-		String fileUrl = jwService.uploadImage(rsNo, file); // 서비스 호출하여 이미지 업로드
-		return JsonResult.success(Map.of("url", fileUrl)); // 업로드된 이미지의 URL 반환
 	}
 
 }
