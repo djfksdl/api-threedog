@@ -133,7 +133,30 @@ public class AYDao {
 
 		List<ReserveVo> reserveList = sqlSession.selectList("ay.selecTimeList", reserveVo);
 		System.out.println(reserveList);
-		
+
 		return reserveList;
+	}
+
+	// 예약하기
+	public String reserveInsert(ReserveVo reserveVo) {
+		System.out.println("AYDao.reserveInsert()");
+		System.out.println(reserveVo);
+
+		// 예약테이블 등록
+//		sqlSession.insert("ay.reserveInsert", reserveVo);
+//
+//		// 예약시간테이블 수정
+//		sqlSession.update("ay.reserveTime", reserveVo);
+//
+//		// 포인터테이블 등록
+//		sqlSession.insert("ay.reservePoint", reserveVo);
+//
+//		// 반려견테이블 수정
+//		sqlSession.update("ay.reserveDog", reserveVo);
+//
+//		// 예약가격테이블 등록
+//		sqlSession.insert("ay.reservePrice)", reserveVo);
+
+		return reserveVo.getSignImg();
 	}
 }

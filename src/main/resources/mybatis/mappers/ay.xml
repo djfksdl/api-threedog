@@ -133,4 +133,68 @@
 			where bNo=#{bNo} and rtDate=#{rtDate}
 		]]>
 	</select>
+
+
+	<!-- 예약하기 -->
+	<!-- 예약테이블 -->
+	<insert id="reserveInsert" parameterType="com.javaex.vo.ReserveVo">
+      <![CDATA[
+		insert into reserve values 
+		(null,
+		 #{dogNo},
+		 #{rtNo},
+		 #{signImg},
+		 #{expectedPrice},
+		 '',
+		 '',
+		 '',
+		 '',
+		 '',
+		 0,
+		 '',
+		 0.0,
+		 )
+ 	]]>
+ 	
+ 		<selectKey keyProperty="rsNo" resultType="int" order="AFTER">
+            <![CDATA[
+                select last_insert_id()
+            ]]>
+		</selectKey>
+	</insert>
+
+	<!-- 예약시간테이블 -->
+	<update id="reserveTime" parameterType="com.javaex.vo.ReserveVo">
+      <![CDATA[
+		update reserveTime set rtFinish=true
+		where rtNo=(select rtNo from reserve where rtNo=#{rtNo}) and bNo=#{bNo}
+		
+ 	]]>
+		<selectKey keyProperty="rtNo" resultType="int" order="AFTER">
+            <![CDATA[
+                select last_insert_id()
+            ]]>
+		</selectKey>
+	</update>
+
+	<!-- 예약가격테이블 -->
+	<insert id="reservePrice" parameterType="com.javaex.vo.ReserveVo">
+      <![CDATA[
+      insert into rsPrice values(null, #{rsNo}, #{priceNo}, #{rtNo})
+ 	]]>
+	</insert>
+	<!-- 포인트테이블 -->
+	<insert id="reservePoint" parameterType="com.javaex.vo.ReserveVo">
+      <![CDATA[
+		insert into point values (null, #{uNo}, now(), 1, #{rsNum}, 0,#{usePoint})
+ 	]]>
+	</insert>
+	<!-- 반려견테이블 -->
+	<update id="reserveDog" parameterType="com.javaex.vo.ReserveVo">
+      <![CDATA[
+		update dog set skin=#{skin}, heart=#{heart}, marking=#{marking}, mounting=#{mounting},
+		bite=#{bite}, memo=#{memo}
+		where dogNo=#{dogNo}
+ 	]]>
+	</update>
 </mapper>

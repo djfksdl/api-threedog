@@ -146,8 +146,11 @@ public class AYController {
 	@PostMapping("/api/mypage/reservation")
 	public JsonResult reserveInsert(@ModelAttribute ReserveVo reserveVo) {
 		System.out.println("AYController.reserveInsert");
+		System.out.println("예약하기 ~~~~~ ");
 		System.out.println(reserveVo);
+		
+		ayService.exeReserveInsert(reserveVo);
 
-		return JsonResult.success("");
+		return JsonResult.success("성공 ~~~~~");
 	}
 }
