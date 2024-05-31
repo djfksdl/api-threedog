@@ -181,13 +181,13 @@
 	</update>
 
 	<!-- 가게 수정-price -->
-	<update id="updatePriceInfo" parameterType="java.util.List">
-		<foreach collection="list" item="price" open="(" separator=";" close=")">
+	<update id="updatePriceInfo" parameterType="com.javaex.vo.PriceVo">
+		<![CDATA[
 			UPDATE price
-			SET onePrice = #{price.onePrice}
-			WHERE bNo = #{price.bNo} and beautyNo =
-			#{price.beautyNo}
-		</foreach>
+			SET onePrice = #{onePrice}
+			WHERE bNo = #{bNo}  
+			and beautyNo =#{beautyNo}
+		]]>
 	</update>
 
 	<!-- 가게 수정(삭제파일)-slideImgs - 삭제 -->

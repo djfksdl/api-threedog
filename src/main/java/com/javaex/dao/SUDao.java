@@ -215,19 +215,13 @@ public class SUDao {
 	}
 
 	// 가게 수정 -price
-	public void updatePriceInfo(BusinessVo businessVo) {
+	public void updatePriceInfo(PriceVo priceVo) {
 		System.out.println("SUDao.updatePriceInfo");
 
-		List<PriceVo> priceList = businessVo.getPriceList();
-
-		// BusinessVo에서 bNo를 가져와서 PriceVo의 bNo 필드에 설정
-		int bNo = businessVo.getbNo();
-		for (PriceVo priceVo : priceList) {
-			priceVo.setbNo(bNo);
-		}
-
-		System.out.println("디비에 집어 넣기 전" + priceList);
-		sqlSession.update("su.updatePriceInfo", priceList);
+		
+		
+		System.out.println("디비에 집어 넣기 전" + priceVo.getBeautyNo() );
+		sqlSession.update("su.updatePriceInfo", priceVo);
 
 	}
 

@@ -520,7 +520,12 @@ public class SUService {
 			suDao.updateDesignerInfoNoImg(businessVo);
 		}
 		
-		suDao.updatePriceInfo(businessVo);
+		for(int i= 0; i< businessVo.getPriceList().size(); i++ ) {
+			int bNo = businessVo.getbNo();
+			PriceVo pVo = businessVo.getPriceList().get(i);
+			pVo.setbNo(bNo);
+			suDao.updatePriceInfo(pVo);			
+		}
 		
 	}
 
