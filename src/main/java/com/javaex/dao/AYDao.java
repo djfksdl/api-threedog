@@ -128,10 +128,11 @@ public class AYDao {
 	}
 
 	// 시간 가져오기
-	public List<ReserveVo> getTimeList(int bNo) {
+	public List<ReserveVo> getTimeList(ReserveVo reserveVo) {
 		System.out.println("AYDao.getTimeList");
 
-		List<ReserveVo> reserveList = sqlSession.selectList("ay.selecTimeList", bNo);
+		List<ReserveVo> reserveList = sqlSession.selectList("ay.selecTimeList", reserveVo);
+		System.out.println(reserveList);
 		
 		return reserveList;
 	}

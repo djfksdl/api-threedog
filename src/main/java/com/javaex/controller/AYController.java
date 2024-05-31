@@ -127,9 +127,17 @@ public class AYController {
 
 	// 시간가져오기
 	@GetMapping("/api/mypage/gettimelist")
-	public JsonResult getTimeList(@RequestParam(value = "bNo") int bNo) {
+	public JsonResult getTimeList(@RequestParam(value = "bNo") int bNo,
+								  @RequestParam(value="rtDate") String rtDate) {
 		System.out.println("AYController.getTimeList");
-		List<ReserveVo> reserveList = ayService.exeGetTimeList(bNo);
+		System.out.println("시간ㄴㄴ을가가져오아아아");
+		System.out.println(bNo);
+		System.out.println(rtDate);
+		
+		ReserveVo reserveVo=new ReserveVo(bNo, rtDate);
+		System.out.println(reserveVo);
+		
+		List<ReserveVo> reserveList = ayService.exeGetTimeList(reserveVo);
 
 		return JsonResult.success(reserveList);
 
