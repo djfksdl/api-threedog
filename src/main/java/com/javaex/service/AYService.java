@@ -210,11 +210,11 @@ public class AYService {
 		return userVo;
 	}
 
-	// 유저포인트 가져오기
-	public List<ReserveVo>  exeGetTimeList(int bNo) {
+	// 시간 가져오기
+	public List<ReserveVo>  exeGetTimeList(ReserveVo reserveVo) {
 		System.out.println("AYService.exeGetPoint");
 
-		List<ReserveVo> reserveList = ayDao.getTimeList(bNo);
+		List<ReserveVo> reserveList = ayDao.getTimeList(reserveVo);
 
 		return reserveList;
 	}
