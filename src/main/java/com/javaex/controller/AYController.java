@@ -148,6 +148,6 @@ public class AYController {
 		System.out.println("AYController.reserveInsert");
 		System.out.println(reserveVo);
 
-		return JsonResult.success(reserveVo);
+		return JsonResult.success("");
 	}
 }

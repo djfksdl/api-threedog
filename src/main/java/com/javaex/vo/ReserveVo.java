@@ -51,6 +51,9 @@ public class ReserveVo {
 	private int pushNo;
 	private String pushTime;
 	private List<MultipartFile> files;
+	private MultipartFile signFile;
+	private List<String> beautyPlus;
+	private Boolean rtFinish;
 
 	// 생성자
 	public ReserveVo() {
@@ -69,7 +72,8 @@ public class ReserveVo {
 			String birth, String gender, Boolean neutering, Boolean experience, Integer bite, String memo,
 			String dogImg, String size, Boolean skin, Boolean heart, Boolean marking, Boolean mounting, int uNo,
 			int rspNo, int priceNo, int beautyNo, Integer onePrice, String sizeDiv, String weightDiv, String beauty,
-			int aiNo, String saveName, int pushNo, String pushTime, List<MultipartFile> files) {
+			int aiNo, String saveName, int pushNo, String pushTime, List<MultipartFile> files, MultipartFile signFile,
+			List<String> beautyPlus, Boolean rtFinish) {
 		super();
 		this.rsNo = rsNo;
 		this.bNo = bNo;
@@ -111,12 +115,94 @@ public class ReserveVo {
 		this.weightDiv = weightDiv;
 		this.beauty = beauty;
 		this.aiNo = aiNo;
-
 		this.saveName = saveName;
-
 		this.pushNo = pushNo;
 		this.pushTime = pushTime;
 		this.files = files;
+		this.signFile = signFile;
+		this.beautyPlus = beautyPlus;
+		this.rtFinish = rtFinish;
+	}
+
+	public Boolean getRtFinish() {
+		return rtFinish;
+	}
+
+	public void setRtFinish(Boolean rtFinish) {
+		this.rtFinish = rtFinish;
+	}
+
+	public MultipartFile getSignFile() {
+		return signFile;
+	}
+
+	public void setSignFile(MultipartFile signFile) {
+		this.signFile = signFile;
+	}
+
+	public List<String> getBeautyPlus() {
+		return beautyPlus;
+	}
+
+	public void setBeautyPlus(List<String> beautyPlus) {
+		this.beautyPlus = beautyPlus;
+	}
+
+	public ReserveVo(int rsNo, int bNo, int dogNo, int rtNo, String rtDate, String rtTime, String signImg,
+			int expectedPrice, String attitude, String rCondition, String tangle, String disliked, String bath,
+			Integer surcharge, String message, Double currentWeight, String dogName, String kind, double weight,
+			String birth, String gender, Boolean neutering, Boolean experience, Integer bite, String memo,
+			String dogImg, String size, Boolean skin, Boolean heart, Boolean marking, Boolean mounting, int uNo,
+			int rspNo, int priceNo, int beautyNo, Integer onePrice, String sizeDiv, String weightDiv, String beauty,
+			int aiNo, String saveName, int pushNo, String pushTime, List<MultipartFile> files, MultipartFile signFile,
+			List<String> beautyPlus) {
+		super();
+		this.rsNo = rsNo;
+		this.bNo = bNo;
+		this.dogNo = dogNo;
+		this.rtNo = rtNo;
+		this.rtDate = rtDate;
+		this.rtTime = rtTime;
+		this.signImg = signImg;
+		this.expectedPrice = expectedPrice;
+		this.attitude = attitude;
+		this.rCondition = rCondition;
+		this.tangle = tangle;
+		this.disliked = disliked;
+		this.bath = bath;
+		this.surcharge = surcharge;
+		this.message = message;
+		this.currentWeight = currentWeight;
+		this.dogName = dogName;
+		this.kind = kind;
+		this.weight = weight;
+		this.birth = birth;
+		this.gender = gender;
+		this.neutering = neutering;
+		this.experience = experience;
+		this.bite = bite;
+		this.memo = memo;
+		this.dogImg = dogImg;
+		this.size = size;
+		this.skin = skin;
+		this.heart = heart;
+		this.marking = marking;
+		this.mounting = mounting;
+		this.uNo = uNo;
+		this.rspNo = rspNo;
+		this.priceNo = priceNo;
+		this.beautyNo = beautyNo;
+		this.onePrice = onePrice;
+		this.sizeDiv = sizeDiv;
+		this.weightDiv = weightDiv;
+		this.beauty = beauty;
+		this.aiNo = aiNo;
+		this.saveName = saveName;
+		this.pushNo = pushNo;
+		this.pushTime = pushTime;
+		this.files = files;
+		this.signFile = signFile;
+		this.beautyPlus = beautyPlus;
 	}
 
 	public int getRsNo() {
@@ -483,6 +569,7 @@ public class ReserveVo {
 				+ marking + ", mounting=" + mounting + ", uNo=" + uNo + ", rspNo=" + rspNo + ", priceNo=" + priceNo
 				+ ", beautyNo=" + beautyNo + ", onePrice=" + onePrice + ", sizeDiv=" + sizeDiv + ", weightDiv="
 				+ weightDiv + ", beauty=" + beauty + ", aiNo=" + aiNo + ", saveName=" + saveName + ", pushNo=" + pushNo
-				+ ", pushTime=" + pushTime + ", files=" + files + "]";
+				+ ", pushTime=" + pushTime + ", files=" + files + ", signFile=" + signFile + ", beautyPlus="
+				+ beautyPlus + ", rtFinish=" + rtFinish + "]";
 	}
 }

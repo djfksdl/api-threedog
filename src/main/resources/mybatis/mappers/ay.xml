@@ -128,7 +128,7 @@
 	<!-- 시간 가져오기 -->
 	<select id="selecTimeList" parameterType="com.javaex.vo.ReserveVo" resultType="com.javaex.vo.ReserveVo">
 		<![CDATA[
-			select bNo, rtDate, rtTime, rtFinish
+			select rtNo, bNo, rtDate, rtTime, rtFinish
 			from reserveTime
 			where bNo=#{bNo} and rtDate=#{rtDate}
 		]]>
