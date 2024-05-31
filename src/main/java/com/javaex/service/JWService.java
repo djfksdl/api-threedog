@@ -50,38 +50,41 @@ public class JWService {
 		System.out.println("JWService.deleteReserve() 메서드 실행");
 	}
 
+	// 특정 예약의 미용 기록 조회
+	public ReserveVo selectGroomingRecord(int rsNo) {
+		System.out.println("JWService.selectGroomingRecord() 메서드 실행");
+
+		ReserveVo groomingRecord = jwDao.selectGroomingRecord(rsNo);
+
+		return groomingRecord;
+	}
+
 	/****************************
 	 * 알림장화면
 	 ****************************/
-	
 	// 미용 기록 업데이트
-		public void updateGroomingRecord(ReserveVo reserveVo) {
-		    System.out.println("JWService.updateGroomingRecord() 메서드 실행");
-
-		    // 파일 업로드 로직
-		    List<MultipartFile> files = reserveVo.getFiles();
-		    
-		    for (MultipartFile file : files) {
-		        // 파일 저장 경로 정의 (예시)
-		        String uploadDir = "/path/to/upload/directory/";
-
-		        // 파일 저장 로직
-		        try {
-		            byte[] bytes = file.getBytes();
-		            // 파일명 중복을 방지하기 위해 유니크한 파일명 생성
-		            String uniqueFileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-		            Path path = Paths.get(uploadDir + uniqueFileName);
-		            Files.write(path, bytes);
-
-		            // 파일 정보를 데이터베이스에 저장
-		            jwDao.insertAfterImg(reserveVo.getRsNo(), uniqueFileName, file.getOriginalFilename(), file.getSize(), uploadDir);
-		        } catch (IOException e) {
-		            e.printStackTrace();
-		        }
-		    }
-
-		    // 미용 기록 업데이트
-		    jwDao.updateGroomingRecord(reserveVo);
-		    System.out.println("미용 기록이 업데이트되었습니다.");
+	public void updateGroomingRecord(ReserveVo reserveVo) {
+		jwDao.updateGroomingRecord(reserveVo); // DAO 호출하여 미용 기록 업데이트
+		List<MultipartFile> files = reserveVo.getFiles(); // 첨부된 파일들 가져오기
+		for (MultipartFile file : files) {
+			uploadImage(reserveVo.getRsNo(), file); // 각 파일을 업로드
 		}
+	}
+
+	// 이미지 업로드
+	public String uploadImage(int rsNo, MultipartFile file) {
+		String uploadDir = "/path/to/upload/directory/"; // 파일 업로드 디렉토리 경로 설정
+		try {
+			byte[] bytes = file.getBytes(); // 파일 바이트 데이터 가져오기
+			String uniqueFileName = System.currentTimeMillis() + "_" + file.getOriginalFilename(); // 유니크 파일명 생성
+			Path path = Paths.get(uploadDir + uniqueFileName); // 파일 경로 설정
+			Files.write(path, bytes); // 파일 저장
+			jwDao.insertAfterImg(rsNo, uniqueFileName, file.getOriginalFilename(), file.getSize(), uploadDir); // 파일 정보
+																												// DB에
+																												// 저장
+			return uploadDir + uniqueFileName; // 저장된 파일 경로 반환
+		} catch (IOException e) {
+			throw new RuntimeException("File upload failed", e); // 파일 업로드 실패시 예외 발생
+		}
+	}
 }

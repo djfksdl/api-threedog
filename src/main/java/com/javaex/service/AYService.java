@@ -19,6 +19,7 @@ import com.javaex.vo.DogVo;
 import com.javaex.vo.PriceVo;
 import com.javaex.vo.ReserveVo;
 import com.javaex.vo.ReviewVo;
+import com.javaex.vo.UserVo;
 
 @Service
 public class AYService {
@@ -181,7 +182,7 @@ public class AYService {
 
 		return dogVo;
 	}
-	
+
 	// 미용목록 가져오기
 	public List<PriceVo> exeGetPrice(PriceVo priceVo) {
 		System.out.println("AYService.exeGetPrice");
@@ -189,6 +190,33 @@ public class AYService {
 		List<PriceVo> priceList = ayDao.getPriceList(priceVo);
 
 		return priceList;
+	}
+
+	// 추가요금 가져오기
+	public List<PriceVo> exeGetPlusPrice(int bNo) {
+		System.out.println("AYService.getPlusPrice");
+
+		List<PriceVo> priceList = ayDao.getPlusPrice(bNo);
+
+		return priceList;
+	}
+
+	// 유저포인트 가져오기
+	public UserVo exeGetPoint(int uNo) {
+		System.out.println("AYService.exeGetPoint");
+
+		UserVo userVo = ayDao.getPoint(uNo);
+
+		return userVo;
+	}
+
+	// 유저포인트 가져오기
+	public List<ReserveVo>  exeGetTimeList(int bNo) {
+		System.out.println("AYService.exeGetPoint");
+
+		List<ReserveVo> reserveList = ayDao.getTimeList(bNo);
+
+		return reserveList;
 	}
 
 }
