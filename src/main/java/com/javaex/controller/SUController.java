@@ -112,5 +112,8 @@ public class SUController {
 		return JsonResult.success("얏호");
 	}
 	
+	// manager================================
+	
+	
 
 }
