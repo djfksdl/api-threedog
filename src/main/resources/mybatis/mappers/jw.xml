@@ -74,7 +74,7 @@
 	
 	<!-- 미용 기록 업데이트 쿼리 -->
 	<update id="updateGroomingRecord" parameterType="com.javaex.vo.ReserveVo">
-	   <![CDATA[
+	  <![CDATA[
 	    UPDATE reserve
 	    SET signImg = #{signImg},
 	        expectedPrice = #{expectedPrice},
@@ -91,12 +91,20 @@
 	</update>
 	
 	<!-- 이미지 정보 삽입 쿼리 -->
+	
 	<insert id="insertAfterImg" parameterType="map">
+	    <![CDATA[
+	    INSERT INTO afterImg (rsNo, saveName)
+	    VALUES (#{rsNo}, #{saveName});
+	    ]]>
+   </insert>
+
+	<!-- <insert id="insertAfterImg" parameterType="map">
 	    <![CDATA[
 	    INSERT INTO afterImg (aiNo, rsNo, saveName)
 	    VALUES (#{aiNo},#{rsNo},#{saveName};
 	    ]]>
-	</insert>
+	</insert> -->
 	
 
 
