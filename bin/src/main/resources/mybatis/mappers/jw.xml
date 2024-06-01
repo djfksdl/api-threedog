@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jw">
+
+	<!-- ************************ 스케줄 화면 ***************************** -->
+
+	<!-- 한 가게의 예약 리스트 정보 조회 -->
+	<select id="selectReserveList" parameterType="int" resultType="com.javaex.vo.ReserveVo">
+		<![CDATA[
+		SELECT r.*, d.*, p.*, b.*, rt.rtDate, rt.rtTime
+		FROM reserve r
+		JOIN dog d ON r.dogNo = d.dogNo
+		JOIN rsPrice rp ON r.rsNo = rp.rsNo
+		JOIN price p ON rp.priceNo = p.priceNo
+		JOIN beautylist b ON p.beautyNo = b.beautyNo
+		JOIN reserveTime rt ON r.rtNo = rt.rtNo
+		WHERE rt.bNo = #{bNo};
+		 ]]>
+	</select>
+
+	<!-- 일자 수정 -->
+	<update id="updateReserveDate" parameterType="com.javaex.vo.ReserveVo">
+		<![CDATA[
+		UPDATE reserveTime
+		SET rtDate = #{rtDate},
+		    rtTime = #{rtTime}
+		WHERE rtNo = (SELECT rtNo 
+		              FROM reserve 
+		              WHERE rsNo =#{rsNo});
+		               ]]>
+	</update>
+
+
+	<!-- 시간 수정 -->
+	<update id="updateReserveTime" parameterType="com.javaex.vo.ReserveVo">
+		<![CDATA[
+		UPDATE reserveTime
+		SET rtTime = #{rtTime}
+		WHERE rtNo = (SELECT rtNo 
+		              FROM reserve 
+		              WHERE rsNo = #{rsNo});
+		              ]]>
+	</update>
+
+
+	<!-- 예약 정보 삭제 -->
+	<delete id="deleteReserve" parameterType="int">
+       <![CDATA[
+        DELETE rp, rt, r
+		FROM rsPrice rp
+		JOIN reserve r ON rp.rsNo = r.rsNo
+		JOIN reserveTime rt ON r.rtNo = rt.rtNo
+		WHERE r.rsNo = #{rsNo};
+		]]>
+	</delete>
+
+	<!-- ************************ 알림장 화면 ***************************** -->
+		<!-- 특정 예약의 미용 기록 조회 -->
+	<select id="selectGroomingRecord" parameterType="int" resultType="com.javaex.vo.ReserveVo"> 
+	   <![CDATA[
+	      SELECT r.*, d.*, p.*, b.*, rt.rtDate, rt.rtTime, ai.*, push.*
+	      FROM reserve r
+	      JOIN dog d ON r.dogNo = d.dogNo
+	      JOIN rsPrice rp ON r.rsNo = rp.rsNo
+	      JOIN price p ON rp.priceNo = p.priceNo
+	      JOIN beautylist b ON p.beautyNo = b.beautyNo
+	      JOIN reserveTime rt ON r.rtNo = rt.rtNo
+	      LEFT JOIN afterImg ai ON r.rsNo = ai.rsNo
+	      LEFT JOIN push ON r.rsNo = push.rsNo
+	      WHERE r.rsNo = #{rsNo}; 
+	   ]]>
+	</select>
+	
+	<!-- 미용 기록 업데이트 쿼리 -->
+	<update id="updateGroomingRecord" parameterType="com.javaex.vo.ReserveVo">
+	   <![CDATA[
+	    UPDATE reserve
+	    SET signImg = #{signImg},
+	        expectedPrice = #{expectedPrice},
+	        attitude = #{attitude},
+	        rCondition = #{rCondition},
+	        tangle = #{tangle},
+	        disliked = #{disliked},
+	        bath = #{bath},
+	        surcharge = #{surcharge},
+	        message = #{message},
+	        curruntWeight = #{curruntWeight}
+	    WHERE rsNo = #{rsNo};
+	    ]]>
+	</update>
+	
+	<!-- 이미지 정보 삽입 쿼리 -->
+	<insert id="insertAfterImg" parameterType="map">
+	    <![CDATA[
+	    INSERT INTO afterImg (aiNo, rsNo, saveName)
+	    VALUES (#{aiNo},#{rsNo},#{saveName};
+	    ]]>
+	</insert>
+	
+
+
+
+</mapper>
