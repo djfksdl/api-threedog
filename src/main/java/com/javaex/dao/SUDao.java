@@ -275,6 +275,16 @@ public class SUDao {
 	    }
 
 	}
+	
+	//가게 운영시간 등록 여부
+		public List<ReserveVo> getRt(int bNo) {
+			System.out.println("SUDao.getRt");
+
+			List<ReserveVo> dList = sqlSession.selectList("su.selectRtBybNo", bNo);
+			
+			return dList;
+
+		}
 
 
 }

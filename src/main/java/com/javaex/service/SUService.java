@@ -538,4 +538,13 @@ public class SUService {
 		
 		suDao.insertRt(reserveVo);
 	}
+	
+	//가게 운영시간 등록 여부
+		public List<ReserveVo> exeGetRtBybNo(int bNo) {
+			System.out.println("SUService.exeGetRtBybNo");
+			
+			List<ReserveVo> dList = suDao.getRt(bNo);
+			
+			return dList;
+		}
 }

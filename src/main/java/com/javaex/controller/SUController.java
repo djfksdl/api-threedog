@@ -1,5 +1,6 @@
 package com.javaex.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -120,10 +121,21 @@ public class SUController {
 	public JsonResult insertRtBybNo(@RequestBody ReserveVo reserveVo) {
 		System.out.println("SUController.insertRtBybNo");
 
-		System.out.println("잘넘어 오는가"+reserveVo);
+//		System.out.println("잘넘어 오는가"+reserveVo);
 		suService.exeInsertRtBybNo(reserveVo);
 
 		return JsonResult.success("얏호");
+	}
+	
+	//가게 운영시간 등록 여부
+	@GetMapping("/api/su/selectRt")
+	public JsonResult selectRt(@RequestParam(value="bNo")int bNo) {
+		System.out.println("SUController.selectRt");
+
+		List<ReserveVo> dList = suService.exeGetRtBybNo(bNo);
+
+		System.out.println("잘 가져왔는가"+dList);
+		return JsonResult.success(dList);
 	}
 	
 	
