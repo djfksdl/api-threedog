@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.javaex.dao.SUDao;
 import com.javaex.vo.BusinessVo;
 import com.javaex.vo.PriceVo;
+import com.javaex.vo.ReserveVo;
 import com.javaex.vo.UserVo;
 
 @Service
@@ -520,6 +521,7 @@ public class SUService {
 			suDao.updateDesignerInfoNoImg(businessVo);
 		}
 		
+//		가게 수정 - price
 		for(int i= 0; i< businessVo.getPriceList().size(); i++ ) {
 			int bNo = businessVo.getbNo();
 			PriceVo pVo = businessVo.getPriceList().get(i);
@@ -529,4 +531,11 @@ public class SUService {
 		
 	}
 
+	
+	//가게 운영시간 등록
+	public void exeInsertRtBybNo(ReserveVo reserveVo) {
+		System.out.println("SUService.exeInsertRtBybNo");
+		
+		suDao.insertRt(reserveVo);
+	}
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.javaex.vo.BusinessVo;
 import com.javaex.vo.PriceVo;
+import com.javaex.vo.ReserveVo;
 import com.javaex.vo.UserVo;
 
 @Repository
@@ -249,5 +250,31 @@ public class SUDao {
 		sqlSession.delete("su.deleteCutImgs", delDelCutHiNosList);
 
 	}
+	
+	
+//	************************** insertTime **************************
+	//가게 운영시간 등록
+	public void insertRt(ReserveVo reserveVo) {
+		System.out.println("SUDao.insertRt");
+
+		int bNo = reserveVo.getbNo();
+		
+		List<String> rtDates = reserveVo.getRtDates();
+	    List<String> rtTimes = reserveVo.getRtTimes();
+	    
+	 // rtDates와 rtTimes의 각 값을 매칭하여 데이터베이스에 삽입합니다.
+	    for (String rtDate : rtDates) {
+	        for (String startTime : rtTimes) {
+	            Map<String, Object> paramMap = new HashMap<>();
+	            paramMap.put("bNo", bNo);
+	            paramMap.put("rtDate", rtDate);
+	            paramMap.put("rtTime", startTime);
+
+	            sqlSession.insert("su.inserRtBybNo", paramMap);
+	        }
+	    }
+
+	}
+
 
 }

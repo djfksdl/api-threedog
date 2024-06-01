@@ -58,14 +58,10 @@ public class ReserveVo {
 	private int rsNum;
 	private int usePoint;
 	private List<Integer> priceNoPlus;
+	private List<String> rtDates;
+    private List<String> rtTimes;
 
-	public List<Integer> getPriceNoPlus() {
-		return priceNoPlus;
-	}
 
-	public void setPriceNoPlus(List<Integer> priceNoPlus) {
-		this.priceNoPlus = priceNoPlus;
-	}
 
 	// 생성자
 	public ReserveVo() {
@@ -469,6 +465,29 @@ public class ReserveVo {
 	public void setFiles(List<MultipartFile> files) {
 		this.files = files;
 	}
+	public List<Integer> getPriceNoPlus() {
+		return priceNoPlus;
+	}
+
+	public void setPriceNoPlus(List<Integer> priceNoPlus) {
+		this.priceNoPlus = priceNoPlus;
+	}
+
+	public List<String> getRtDates() {
+		return rtDates;
+	}
+
+	public void setRtDates(List<String> rtDates) {
+		this.rtDates = rtDates;
+	}
+
+	public List<String> getRtTimes() {
+		return rtTimes;
+	}
+
+	public void setRtTimes(List<String> rtTimes) {
+		this.rtTimes = rtTimes;
+	}
 
 	@Override
 	public String toString() {
@@ -484,7 +503,9 @@ public class ReserveVo {
 				+ weightDiv + ", beauty=" + beauty + ", aiNo=" + aiNo + ", saveName=" + saveName + ", pushNo=" + pushNo
 				+ ", pushTime=" + pushTime + ", files=" + files + ", signFile=" + signFile + ", beautyPlus="
 				+ beautyPlus + ", rtFinish=" + rtFinish + ", rsNum=" + rsNum + ", usePoint=" + usePoint
-				+ ", priceNoPlus=" + priceNoPlus + "]";
+				+ ", priceNoPlus=" + priceNoPlus + ", rtDates=" + rtDates + ", rtTimes=" + rtTimes + "]";
 	}
+
+
 
 }

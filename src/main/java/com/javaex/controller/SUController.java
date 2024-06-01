@@ -15,6 +15,7 @@ import com.javaex.service.SUService;
 import com.javaex.util.JsonResult;
 import com.javaex.util.JwtUtil;
 import com.javaex.vo.BusinessVo;
+import com.javaex.vo.ReserveVo;
 import com.javaex.vo.UserVo;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -113,6 +114,17 @@ public class SUController {
 	}
 	
 	// manager================================
+	
+	//가게 운영시간 등록
+	@PostMapping("/api/su/insertRT")
+	public JsonResult insertRtBybNo(@RequestBody ReserveVo reserveVo) {
+		System.out.println("SUController.insertRtBybNo");
+
+		System.out.println("잘넘어 오는가"+reserveVo);
+		suService.exeInsertRtBybNo(reserveVo);
+
+		return JsonResult.success("얏호");
+	}
 	
 	
 

@@ -209,6 +209,14 @@
 		</foreach>
 		and category=2
 	</delete>
+	
+	<!-- 가게 운영시간 등록 -->
+	<insert id="inserRtBybNo" parameterType="map">
+		<![CDATA[
+		    INSERT INTO reserveTime 
+		    VALUES (null,#{bNo}, #{rtDate}, #{rtTime}, false)
+	   	]]>
+	</insert>
 
 
 
