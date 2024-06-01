@@ -63,6 +63,7 @@
 	<!-- 후기가져오기 -->
 	<select id="reviewSelect" parameterType="int" resultType="com.javaex.vo.ReviewVo">
 		<![CDATA[
+			
 		
 		]]>
 	</select>

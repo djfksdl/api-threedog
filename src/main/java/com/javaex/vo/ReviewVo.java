@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class ReviewVo {
 
+	// 리뷰
 	private int rNo;
 	private int bNo;
 	private int uNo;
@@ -23,8 +24,57 @@ public class ReviewVo {
 	private List<String> saveNameList;
 	private List<MultipartFile> file;
 
+	// 반려견정보
+	private int dogNo;
+	private String dogName;
+	private double weight;
+
+	// 예약
+	private int expectedPrice;
+	private String beauty;
+
 	public ReviewVo() {
 		super();
+	}
+
+	public String getBeauty() {
+		return beauty;
+	}
+
+	public void setBeauty(String beauty) {
+		this.beauty = beauty;
+	}
+
+	public int getDogNo() {
+		return dogNo;
+	}
+
+	public void setDogNo(int dogNo) {
+		this.dogNo = dogNo;
+	}
+
+	public String getDogName() {
+		return dogName;
+	}
+
+	public void setDogName(String dogName) {
+		this.dogName = dogName;
+	}
+
+	public double getWeight() {
+		return weight;
+	}
+
+	public void setWeight(double weight) {
+		this.weight = weight;
+	}
+
+	public int getExpectedPrice() {
+		return expectedPrice;
+	}
+
+	public void setExpectedPrice(int expectedPrice) {
+		this.expectedPrice = expectedPrice;
 	}
 
 	public String getOrgName() {
@@ -152,9 +202,8 @@ public class ReviewVo {
 		return "ReviewVo [rNo=" + rNo + ", bNo=" + bNo + ", uNo=" + uNo + ", star=" + star + ", rContent=" + rContent
 				+ ", rDate=" + rDate + ", views=" + views + ", riNo=" + riNo + ", imgCount=" + imgCount + ", orgName="
 				+ orgName + ", filePath=" + filePath + ", userPoint=" + userPoint + ", rsNo=" + rsNo + ", saveNameList="
-				+ saveNameList + ", file=" + file + "]";
+				+ saveNameList + ", file=" + file + ", dogNo=" + dogNo + ", dogName=" + dogName + ", weight=" + weight
+				+ ", expectedPrice=" + expectedPrice + ", beauty=" + beauty + "]";
 	}
-
-
 
 }
