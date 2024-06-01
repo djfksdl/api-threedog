@@ -269,7 +269,12 @@ public class AYService {
 		System.out.println("전자서명 저장이름!!!!!!!!!!!!!!");
 		System.out.println(reserveVo.getSignImg());
 
-		ayDao.reserveInsert(reserveVo);
+	
+		ayDao.reserveInsert(reserveVo);	//예약테이블
+		ayDao.reserveTime(reserveVo);	//예약시간테이블
+		ayDao.reserveDog(reserveVo);	//반려견테이블
+		ayDao.reservePoint(reserveVo); 	//포인트테이블
+		ayDao.reservePrice(reserveVo);
 
 		return reserveVo.getSignImg();
 	}

@@ -149,6 +149,7 @@ public class AYController {
 		System.out.println("예약하기 ~~~~~ ");
 		System.out.println(reserveVo);
 		
+
 		ayService.exeReserveInsert(reserveVo);
 
 		return JsonResult.success("성공 ~~~~~");

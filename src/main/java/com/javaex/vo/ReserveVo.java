@@ -54,9 +54,19 @@ public class ReserveVo {
 	private MultipartFile signFile;
 	private List<String> beautyPlus;
 	private Boolean rtFinish;
+
 	private int rsNum;
 	private int usePoint;
-	
+	private List<Integer> priceNoPlus;
+
+	public List<Integer> getPriceNoPlus() {
+		return priceNoPlus;
+	}
+
+	public void setPriceNoPlus(List<Integer> priceNoPlus) {
+		this.priceNoPlus = priceNoPlus;
+	}
+
 	// 생성자
 	public ReserveVo() {
 		super();
@@ -67,13 +77,7 @@ public class ReserveVo {
 		this.bNo = bNo;
 		this.rtDate = rtDate;
 	}
-	
-	
 
-
-
-	
-	
 	public int getRsNum() {
 		return rsNum;
 	}
@@ -105,7 +109,6 @@ public class ReserveVo {
 	public void setBeautyPlus(List<String> beautyPlus) {
 		this.beautyPlus = beautyPlus;
 	}
-
 
 	public int getRsNo() {
 		return rsNo;
@@ -480,8 +483,8 @@ public class ReserveVo {
 				+ ", beautyNo=" + beautyNo + ", onePrice=" + onePrice + ", sizeDiv=" + sizeDiv + ", weightDiv="
 				+ weightDiv + ", beauty=" + beauty + ", aiNo=" + aiNo + ", saveName=" + saveName + ", pushNo=" + pushNo
 				+ ", pushTime=" + pushTime + ", files=" + files + ", signFile=" + signFile + ", beautyPlus="
-				+ beautyPlus + ", rtFinish=" + rtFinish + ", rsNum=" + rsNum + ", usePoint=" + usePoint + "]";
+				+ beautyPlus + ", rtFinish=" + rtFinish + ", rsNum=" + rsNum + ", usePoint=" + usePoint
+				+ ", priceNoPlus=" + priceNoPlus + "]";
 	}
-	
-	
+
 }

@@ -137,25 +137,62 @@ public class AYDao {
 		return reserveList;
 	}
 
-	// 예약하기
+	// 예약테이블 등록
 	public String reserveInsert(ReserveVo reserveVo) {
 		System.out.println("AYDao.reserveInsert()");
 		System.out.println(reserveVo);
 
-		// 예약테이블 등록
-//		sqlSession.insert("ay.reserveInsert", reserveVo);
-//
-//		// 예약시간테이블 수정
-//		sqlSession.update("ay.reserveTime", reserveVo);
-//
-//		// 포인터테이블 등록
-//		sqlSession.insert("ay.reservePoint", reserveVo);
-//
-//		// 반려견테이블 수정
-//		sqlSession.update("ay.reserveDog", reserveVo);
-//
-//		// 예약가격테이블 등록
-//		sqlSession.insert("ay.reservePrice)", reserveVo);
+		sqlSession.insert("ay.reserveInsert", reserveVo);
+		reserveVo.setRsNum(reserveVo.getRsNo());
+
+		return reserveVo.getSignImg();
+	}
+
+	// 예약시간테이블 수정
+	public String reserveTime(ReserveVo reserveVo) {
+		System.out.println("AYDao.reserveTime()");
+		System.out.println(reserveVo);
+
+		sqlSession.update("ay.reserveTime", reserveVo);
+
+		return reserveVo.getSignImg();
+	}
+
+	// 포인터테이블 등록
+	public String reservePoint(ReserveVo reserveVo) {
+		System.out.println("AYDao.reservePoint()");
+		System.out.println(reserveVo);
+		System.out.println("예약번호???????????");
+		System.out.println(reserveVo.getRsNum());
+		sqlSession.insert("ay.reservePoint", reserveVo);
+
+		return reserveVo.getSignImg();
+	}
+
+	// 반려견테이블 수정
+	public String reserveDog(ReserveVo reserveVo) {
+		System.out.println("AYDao.reserveDog()");
+		System.out.println(reserveVo);
+
+		sqlSession.update("ay.reserveDog", reserveVo);
+
+		return reserveVo.getSignImg();
+	}
+
+	// 예약가격테이블 등록
+	public String reservePrice(ReserveVo reserveVo) {
+		System.out.println("AYDao.reservePrice()");
+		System.out.println(reserveVo);
+
+		sqlSession.insert("ay.reservePrice", reserveVo);
+
+		for (int priceNo : reserveVo.getPriceNoPlus()) {
+			Map<String, Object> paramMap = new HashMap<>();
+			paramMap.put("rsNo", reserveVo.getRsNo());
+			paramMap.put("priceNo",priceNo);
+			paramMap.put("rtNo", reserveVo.getRtNo());
+			sqlSession.insert("ay.reservePrice2", paramMap);
+		}
 
 		return reserveVo.getSignImg();
 	}

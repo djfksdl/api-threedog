@@ -99,7 +99,7 @@
 	<!-- 미용목록, 가격표가져오기 -->
 	<select id="selectPrice" parameterType="com.javaex.vo.PriceVo" resultType="com.javaex.vo.PriceVo">
 		<![CDATA[
-			select b.weightDiv, b.beauty , p.onePrice
+			select b.weightDiv, b.beauty , p.onePrice, p.priceNo, p.beautyNo
 			from beautylist b
 			join price p on b.beautyNo=p.beautyNo
 			where p.bNo=#{bNo} and b.sizeDiv=#{sizeDiv}
@@ -109,7 +109,7 @@
 	<!-- 추가요금가져오기 -->
 	<select id="selectPlusPrice" parameterType="int" resultType="com.javaex.vo.PriceVo">
 		<![CDATA[
-			select b.beauty , p.onePrice
+			select b.weightDiv, b.beauty , p.onePrice, p.priceNo, p.beautyNo
 			from beautylist b
 			join price p on b.beautyNo=p.beautyNo
 			where p.bNo=#{bNo} and b.sizeDiv='추가요금'
@@ -119,9 +119,11 @@
 	<!-- 유저포인트 가져오기 -->
 	<select id="selectUserPoint" parameterType="int" resultType="com.javaex.vo.UserVo">
 		<![CDATA[
-			select uNo, sum(usePoint) uPoint
+			select
+			((select sum(usePoint) from point where pDiv=0) - (select sum(usePoint) from point where pDiv=1))upoint
 			from point
 			where uNo=#{uNo}
+			group by uNo
 		]]>
 	</select>
 
@@ -139,24 +141,11 @@
 	<!-- 예약테이블 -->
 	<insert id="reserveInsert" parameterType="com.javaex.vo.ReserveVo">
       <![CDATA[
-		insert into reserve values 
-		(null,
-		 #{dogNo},
-		 #{rtNo},
-		 #{signImg},
-		 #{expectedPrice},
-		 '',
-		 '',
-		 '',
-		 '',
-		 '',
-		 0,
-		 '',
-		 0.0,
-		 )
+		insert into reserve(rsNo, dogNo, rtNo, signImg, expectedPrice ) 
+		values(null, #{dogNo}, #{rtNo}, #{signImg}, #{expectedPrice} )
  	]]>
- 	
- 		<selectKey keyProperty="rsNo" resultType="int" order="AFTER">
+
+		<selectKey keyProperty="rsNo" resultType="int" order="AFTER">
             <![CDATA[
                 select last_insert_id()
             ]]>
@@ -167,7 +156,7 @@
 	<update id="reserveTime" parameterType="com.javaex.vo.ReserveVo">
       <![CDATA[
 		update reserveTime set rtFinish=true
-		where rtNo=(select rtNo from reserve where rtNo=#{rtNo}) and bNo=#{bNo}
+		where rtNo=#{rtNo} and bNo=#{bNo}
 		
  	]]>
 		<selectKey keyProperty="rtNo" resultType="int" order="AFTER">
@@ -177,18 +166,6 @@
 		</selectKey>
 	</update>
 
-	<!-- 예약가격테이블 -->
-	<insert id="reservePrice" parameterType="com.javaex.vo.ReserveVo">
-      <![CDATA[
-      insert into rsPrice values(null, #{rsNo}, #{priceNo}, #{rtNo})
- 	]]>
-	</insert>
-	<!-- 포인트테이블 -->
-	<insert id="reservePoint" parameterType="com.javaex.vo.ReserveVo">
-      <![CDATA[
-		insert into point values (null, #{uNo}, now(), 1, #{rsNum}, 0,#{usePoint})
- 	]]>
-	</insert>
 	<!-- 반려견테이블 -->
 	<update id="reserveDog" parameterType="com.javaex.vo.ReserveVo">
       <![CDATA[
@@ -197,4 +174,32 @@
 		where dogNo=#{dogNo}
  	]]>
 	</update>
+
+
+	<!-- 예약가격테이블 -->
+	<insert id="reservePrice" parameterType="com.javaex.vo.ReserveVo">
+      <![CDATA[
+      	insert into rsPrice values
+      	(null, #{rsNo}, #{priceNo}, #{rtNo})
+ 	]]>
+	</insert>
+
+	<!-- 예약가격테이블 -->
+	<insert id="reservePrice2" parameterType="map">
+        <![CDATA[
+           	insert into rsPrice values
+      	(null, #{rsNo}, #{priceNo}, #{rtNo})
+        ]]>
+	</insert>
+
+
+
+	<!-- 포인트테이블 -->
+	<insert id="reservePoint" parameterType="com.javaex.vo.ReserveVo">
+      <![CDATA[
+		insert into point values (null, #{uNo}, now(), 1, #{rsNum}, 0, #{usePoint})
+ 	]]>
+	</insert>
+
+
 </mapper>
