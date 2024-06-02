@@ -60,12 +60,43 @@ public class AYDao {
 		System.out.println("성공");
 	}
 
-	// 가게리스트
+	// 조회수 증가
+	public void updateView(int rNo) {
+		System.out.println("AYDao.updateView");
+
+		sqlSession.update("ay.reviewUpdateView", rNo);
+
+	}
+
+	// 리뷰리스트
 	public List<ReviewVo> getRList(int bNo) {
 		System.out.println("AYDao.getRList");
 		List<ReviewVo> reviewVo = sqlSession.selectList("ay.reviewSelect", bNo);
 
+		System.out.println(reviewVo);
+
 		return reviewVo;
+	}
+
+	// 리뷰1개 가져오기
+	public ReviewVo getOnerList(int rNo) {
+		System.out.println("AYDao.getOnerList()");
+		ReviewVo reviewVo = sqlSession.selectOne("ay.selectOneRList", rNo);
+
+		System.out.println(reviewVo);
+
+		return reviewVo;
+
+	}
+
+	public List<ReviewVo> getrSaveNameList(int rNo) {
+		System.out.println("AYDao.getrSaveNameList()");
+		List<ReviewVo> reviewVo = sqlSession.selectList("ay.SaveNameList", rNo);
+
+		System.out.println(reviewVo);
+
+		return reviewVo;
+
 	}
 
 	// 가게정보 가져오기
@@ -189,7 +220,7 @@ public class AYDao {
 		for (int priceNo : reserveVo.getPriceNoPlus()) {
 			Map<String, Object> paramMap = new HashMap<>();
 			paramMap.put("rsNo", reserveVo.getRsNo());
-			paramMap.put("priceNo",priceNo);
+			paramMap.put("priceNo", priceNo);
 			paramMap.put("rtNo", reserveVo.getRtNo());
 			sqlSession.insert("ay.reservePrice2", paramMap);
 		}

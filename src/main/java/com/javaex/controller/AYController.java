@@ -58,6 +58,39 @@ public class AYController {
 		return JsonResult.success(reviewVo);
 	}
 
+	// 조회수 증가
+	@PostMapping("/api/mypage/updateview")
+	public JsonResult updateView(@RequestParam(value = "rNo") int rNo) {
+		System.out.println("AYController.updateView");
+		System.out.println(rNo);
+
+		ayService.exeUpdateView(rNo);
+
+		return JsonResult.success("서엉ㅇ공~");
+	}
+
+	// 리뷰1개 가져오기
+	@GetMapping("/api/mypage/getonerlist")
+	public JsonResult getOnerList(@RequestParam(value = "rNo") int rNo) {
+		System.out.println("AYController.getOnerList");
+
+		System.out.println(rNo);
+		ReviewVo reviewVo = ayService.exeGetOnerList(rNo);
+
+		return JsonResult.success(reviewVo);
+	}
+
+	// 리뷰사진들
+	@GetMapping("/api/mypage/getsavename")
+	public JsonResult getrSaveNameList(@RequestParam(value = "rNo") int rNo) {
+		System.out.println("AYController.getrSaveNameList");
+
+		System.out.println(rNo);
+		List<ReviewVo> reviewVo = ayService.exegetrSaveNameList(rNo);
+
+		return JsonResult.success(reviewVo);
+	}
+
 	// 예약페이지 가게정보
 	@GetMapping("/api/mypage/getbList")
 	public JsonResult getBList(@RequestParam(value = "bNo") int bNo) {
@@ -148,7 +181,6 @@ public class AYController {
 		System.out.println("AYController.reserveInsert");
 		System.out.println("예약하기 ~~~~~ ");
 		System.out.println(reserveVo);
-		
 
 		ayService.exeReserveInsert(reserveVo);
 

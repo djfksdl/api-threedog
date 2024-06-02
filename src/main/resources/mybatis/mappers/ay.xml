@@ -63,10 +63,41 @@
 	<!-- 후기가져오기 -->
 	<select id="reviewSelect" parameterType="int" resultType="com.javaex.vo.ReviewVo">
 		<![CDATA[
-			
+			select r.rNo, r.bNo, r.uNo, r.rsNo, r.star, r.rContent, r.rDate, r.views, ri.riNo, ri.saveName, u.uId, res.dogNo , d.dogName, d.weight
+			from review r
+			join reviewimg ri on r.rNo=ri.rNo
+			join users u on u.uNo=r.uNo
+			join reserve res on res.rsNo=r.rsNo
+			join dog d on d.dogNo=res.dogNo
+			where bNo=#{bNo}
+			group by ri.rNo
 		
 		]]>
 	</select>
+
+	<!-- 조회수증가 -->
+	<update id="reviewUpdateView" parameterType="int">
+      <![CDATA[
+		update review set views=views+1
+		where rNo=#{rNo};
+		
+ 	]]>
+	</update>
+
+
+	<!-- 리뷰 1개 가져오기 -->
+	<select id="selectOneRList" parameterType="int" resultType="com.javaex.vo.ReviewVo">
+		<![CDATA[
+		SELECT r.rNo, rs.rtNo, u.uId, r.star, r.rContent, r.rDate, r.views, rs.expectedPrice, d.dogNo, d.dogName, d.weight
+		FROM review r
+		JOIN users u ON r.uNo = u.uNo
+		JOIN reserve rs ON rs.rsNo = r.rsNo
+		JOIN dog d ON d.dogNo = rs.dogNo
+		WHERE r.rNo = #{rNo}
+		]]>
+	</select>
+
+
 
 	<!--가게정보1개 가져오기 -->
 	<select id="selectOne" parameterType="int" resultType="com.javaex.vo.BusinessVo">

@@ -147,11 +147,36 @@ public class AYService {
 		ayDao.addReview(reviewVo);
 	}
 
-	// 가게1개정보 가져오기
+	// 리뷰리스트 가져오기
 	public List<ReviewVo> exeGetRList(int bNo) {
 		System.out.println("AYService.exeGetRList");
 
 		List<ReviewVo> reviewVo = ayDao.getRList(bNo);
+
+		return reviewVo;
+	}
+
+	// 조회수 증가
+	public void exeUpdateView(int rNo) {
+		System.out.println("AYService.exeUpdateView");
+
+		ayDao.updateView(rNo);
+
+	}
+
+	// 리뷰1개 가져오기
+	public ReviewVo exeGetOnerList(int rNo) {
+		System.out.println("AYService.exeGetOnerList");
+
+		ReviewVo reviewVo = ayDao.getOnerList(rNo);
+
+		return reviewVo;
+	}
+
+	public List<ReviewVo> exegetrSaveNameList(int rNo) {
+		System.out.println("AYService.exegetrSaveNameList");
+
+		List<ReviewVo> reviewVo = ayDao.getrSaveNameList(rNo);
 
 		return reviewVo;
 	}
@@ -269,11 +294,10 @@ public class AYService {
 		System.out.println("전자서명 저장이름!!!!!!!!!!!!!!");
 		System.out.println(reserveVo.getSignImg());
 
-	
-		ayDao.reserveInsert(reserveVo);	//예약테이블
-		ayDao.reserveTime(reserveVo);	//예약시간테이블
-		ayDao.reserveDog(reserveVo);	//반려견테이블
-		ayDao.reservePoint(reserveVo); 	//포인트테이블
+		ayDao.reserveInsert(reserveVo); // 예약테이블
+		ayDao.reserveTime(reserveVo); // 예약시간테이블
+		ayDao.reserveDog(reserveVo); // 반려견테이블
+		ayDao.reservePoint(reserveVo); // 포인트테이블
 		ayDao.reservePrice(reserveVo);
 
 		return reserveVo.getSignImg();

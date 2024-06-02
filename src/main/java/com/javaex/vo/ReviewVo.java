@@ -20,6 +20,7 @@ public class ReviewVo {
 	private String filePath;
 	private int userPoint;
 	private int rsNo;
+	private String saveName;
 
 	private List<String> saveNameList;
 	private List<MultipartFile> file;
@@ -32,9 +33,26 @@ public class ReviewVo {
 	// 예약
 	private int expectedPrice;
 	private String beauty;
+	private String uId;
 
 	public ReviewVo() {
 		super();
+	}
+
+	public String getSaveName() {
+		return saveName;
+	}
+
+	public void setSaveName(String saveName) {
+		this.saveName = saveName;
+	}
+
+	public String getuId() {
+		return uId;
+	}
+
+	public void setuId(String uId) {
+		this.uId = uId;
 	}
 
 	public String getBeauty() {
@@ -201,9 +219,10 @@ public class ReviewVo {
 	public String toString() {
 		return "ReviewVo [rNo=" + rNo + ", bNo=" + bNo + ", uNo=" + uNo + ", star=" + star + ", rContent=" + rContent
 				+ ", rDate=" + rDate + ", views=" + views + ", riNo=" + riNo + ", imgCount=" + imgCount + ", orgName="
-				+ orgName + ", filePath=" + filePath + ", userPoint=" + userPoint + ", rsNo=" + rsNo + ", saveNameList="
-				+ saveNameList + ", file=" + file + ", dogNo=" + dogNo + ", dogName=" + dogName + ", weight=" + weight
-				+ ", expectedPrice=" + expectedPrice + ", beauty=" + beauty + "]";
+				+ orgName + ", filePath=" + filePath + ", userPoint=" + userPoint + ", rsNo=" + rsNo + ", saveName="
+				+ saveName + ", saveNameList=" + saveNameList + ", file=" + file + ", dogNo=" + dogNo + ", dogName="
+				+ dogName + ", weight=" + weight + ", expectedPrice=" + expectedPrice + ", beauty=" + beauty + ", uId="
+				+ uId + "]";
 	}
 
 }
