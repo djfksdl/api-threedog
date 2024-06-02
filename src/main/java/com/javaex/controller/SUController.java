@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -151,8 +152,21 @@ public class SUController {
 
 		List<ReserveVo> timeList = suService.exeGetRtimeBybNo(rVo);
 
-		System.out.println("잘 가져왔는가"+timeList);
+//		System.out.println("잘 가져왔는가"+timeList);
 		return JsonResult.success(timeList);
+	}
+	
+	//가게 운영시간 삭제
+	@DeleteMapping("/api/su/deleteRtime")
+	public JsonResult deleteRtime(@RequestBody ReserveVo reserveVo) {
+		System.out.println("SUController.deleteRtime");
+		
+		System.out.println("받아온 bNo 확인하기" + reserveVo.getbNo() );
+		System.out.println("받아온 rtDate 확인하기" + reserveVo.getRtDate() );
+
+		suService.exeDeleteRt(reserveVo);
+
+		return JsonResult.success("얏호");
 	}
 	
 	

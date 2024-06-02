@@ -231,6 +231,13 @@
 		    select rtNo , rtDate , rtTime from reserveTime where bNo=#{bNo} and rtDate =#{rtDate}
 	   	]]>
 	</select>
+	
+	<!-- 가게 운영시간 삭제 -->
+	<delete id="deleteRt" parameterType="com.javaex.vo.ReserveVo" >
+		<![CDATA[
+		    delete from reserveTime where bNo=#{bNo} and rtDate=#{rtDate}
+	   	]]>
+	</delete>
 
 
 

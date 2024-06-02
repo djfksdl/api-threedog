@@ -556,4 +556,13 @@ public class SUService {
 		
 		return timeList;
 	}
+	
+	//가게 운영시간 삭제
+	public void exeDeleteRt(ReserveVo reserveVo) {
+		System.out.println("SUService.exeDeleteRt");
+		
+		suDao.deleteRt(reserveVo);
+	
+		
+	}
 }

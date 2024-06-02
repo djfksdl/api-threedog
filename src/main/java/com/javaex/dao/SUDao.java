@@ -296,6 +296,14 @@ public class SUDao {
 		return timeList;
 
 	}
+	
+	//가게 운영시간 삭제
+		public void deleteRt(ReserveVo reserveVo) {
+			System.out.println("SUDao.deleteRt");
+
+			sqlSession.delete("su.deleteRt", reserveVo);
+
+		}
 
 
 }
