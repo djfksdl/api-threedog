@@ -221,7 +221,7 @@
 	<!-- 가게 운영시간 등록 여부 -->
 	<select id="selectRtBybNo" parameterType="int" resultType="com.javaex.vo.ReserveVo" >
 		<![CDATA[
-		    select rtNo , rtDate from reserveTime where bNo=2 group by rtDate
+		    select rtNo , rtDate from reserveTime where bNo=#{bNo} group by rtDate
 	   	]]>
 	</select>
 

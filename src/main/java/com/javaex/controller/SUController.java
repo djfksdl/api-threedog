@@ -121,7 +121,7 @@ public class SUController {
 	public JsonResult insertRtBybNo(@RequestBody ReserveVo reserveVo) {
 		System.out.println("SUController.insertRtBybNo");
 
-		System.out.println("잘넘어 오는가"+reserveVo);
+//		System.out.println("잘넘어 오는가"+reserveVo);
 		suService.exeInsertRtBybNo(reserveVo);
 
 		return JsonResult.success("얏호");
