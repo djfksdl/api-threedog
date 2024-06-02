@@ -34,6 +34,16 @@ public class AYDao {
 
 		return dogVo.getDogImg();
 	}
+	
+	// 반려견수정
+		public String petUpdate(DogVo dogVo) {
+			System.out.println("AYDao.petUpdate()");
+			System.out.println(dogVo);
+
+			sqlSession.update("ay.petUpdate", dogVo);
+
+			return dogVo.getDogImg();
+		}
 
 	// 반려견정보1개 가져오기
 	public DogVo getPetGetInfor(int dogNo) {

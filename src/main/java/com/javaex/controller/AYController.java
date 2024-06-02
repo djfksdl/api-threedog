@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,6 +44,15 @@ public class AYController {
 		System.out.println(dogNo);
 
 		DogVo dogVo = ayService.exePetGetInfor(dogNo);
+
+		return JsonResult.success(dogVo);
+	}
+
+	@PutMapping("/api/mypage/petupdate")
+	public JsonResult petUpdate(@ModelAttribute DogVo dogVo) {
+		System.out.println("AYController.petUpdate");
+
+		ayService.exePetUpdate(dogVo);
 
 		return JsonResult.success(dogVo);
 	}
