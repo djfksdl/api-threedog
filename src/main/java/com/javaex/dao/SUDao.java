@@ -272,7 +272,7 @@ public class SUDao {
 	        paramMap.put("rtDate", rtDate);
 	        paramMap.put("rtTime", startTime);
 
-	        sqlSession.insert("su.inserRtBybNo", paramMap);
+	        sqlSession.insert("su.insertRtBybNo", paramMap);
 	    }
 
 	}
@@ -298,12 +298,33 @@ public class SUDao {
 	}
 	
 	//가게 운영시간 삭제
-		public void deleteRt(ReserveVo reserveVo) {
-			System.out.println("SUDao.deleteRt");
+	public void deleteRt(ReserveVo reserveVo) {
+		System.out.println("SUDao.deleteRt");
 
-			sqlSession.delete("su.deleteRt", reserveVo);
+		sqlSession.delete("su.deleteRt", reserveVo);
 
-		}
+	}
+	
+	//가게 운영시간 수정(1개 등록)
+	public void updateRt(ReserveVo reserveVo) {
+		System.out.println("SUDao.updateRt");
+
+		int bNo = reserveVo.getbNo();
+		String rtDate = reserveVo.getRtDate();
+		
+	    List<String> rtTimes = reserveVo.getRtTimes();
+	    
+	 // rtTimes의 각 값을 반복하여 데이터베이스에 삽입합니다.
+	    for (String startTime : rtTimes) {
+	        Map<String, Object> paramMap = new HashMap<>();
+	        paramMap.put("bNo", bNo);
+	        paramMap.put("rtDate", rtDate);
+	        paramMap.put("rtTime", startTime);
+
+	        sqlSession.insert("su.insertRtBybNo", paramMap);
+	    }
+
+	}
 
 
 }

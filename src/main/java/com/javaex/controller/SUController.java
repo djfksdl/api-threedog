@@ -169,6 +169,20 @@ public class SUController {
 		return JsonResult.success("얏호");
 	}
 	
+	//가게 운영시간 수정
+		@PostMapping("/api/su/updateRtime")
+		public JsonResult updateRtime(@RequestBody ReserveVo reserveVo) {
+			System.out.println("SUController.updateRtime");
+			
+			System.out.println("받아온 bNo 확인하기" + reserveVo.getbNo() );
+			System.out.println("받아온 rtDate 확인하기" + reserveVo.getRtDate() );
+			System.out.println("받아온 rtTimes 확인하기" + reserveVo.getRtTimes() );
+
+			suService.exeUpdateRt(reserveVo);
+
+			return JsonResult.success("얏호");
+		}
+	
 	
 
 }
