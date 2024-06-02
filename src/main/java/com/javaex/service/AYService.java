@@ -82,6 +82,15 @@ public class AYService {
 		return dogVo.getDogImg();
 	}
 
+	// 반려견정보1개 가져오기
+	public DogVo exePetGetInfor(int dogNo) {
+		System.out.println("AYService.exePetGetInfor");
+
+		DogVo dogVo = ayDao.getPetGetInfor(dogNo);
+
+		return dogVo;
+	}
+
 	// 리뷰등록
 	public void exeReviewInsert(ReviewVo reviewVo) {
 		System.out.println("AYService.reviewInsert()");

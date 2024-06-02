@@ -30,6 +30,15 @@
   ]]>
 	</insert>
 
+	<!-- 반려견1개정보 가져오기 -->
+	<select id="petSelectOne" parameterType="int" resultType="com.javaex.vo.DogVo">
+		<![CDATA[
+			select dogNo, uNo, dogName, kind, weight, birth, gender, neutering, experience, bite, memo, dogImg, size, skin, heart, marking, mounting
+			from dog
+			where dogNo=#{dogNo}
+		
+		]]>
+	</select>
 
 	<!-- 리뷰 등록 -->
 	<insert id="addReview01" parameterType="com.javaex.vo.ReviewVo">

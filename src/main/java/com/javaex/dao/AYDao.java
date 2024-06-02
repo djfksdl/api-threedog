@@ -35,6 +35,15 @@ public class AYDao {
 		return dogVo.getDogImg();
 	}
 
+	// 반려견정보1개 가져오기
+	public DogVo getPetGetInfor(int dogNo) {
+		System.out.println("AYDao.getPetGetInfor()");
+
+		DogVo dogVo = sqlSession.selectOne("ay.petSelectOne", dogNo);
+
+		return dogVo;
+	}
+
 	// 리뷰등록
 	public void addReview(ReviewVo reviewVo) {
 		System.out.println("AYDao.addReview()");
@@ -247,7 +256,7 @@ public class AYDao {
 
 		return userVo;
 	}
-	
+
 	public List<DogVo> getSidebar2(int uNo) {
 		System.out.println("AYDao.getSidebar");
 

@@ -36,6 +36,17 @@ public class AYController {
 		return JsonResult.success(dogVo.getDogImg());
 	}
 
+	// 반려견정보1개 가져오기
+	@GetMapping("/api/mypage/petgetinfor")
+	public JsonResult petGetInfor(@RequestParam(value = "dogNo") int dogNo) {
+		System.out.println("AYController.getRList");
+		System.out.println(dogNo);
+
+		DogVo dogVo = ayService.exePetGetInfor(dogNo);
+
+		return JsonResult.success(dogVo);
+	}
+
 	// 리뷰등록
 	@PostMapping("/api/mypage/reviewinsert")
 	public JsonResult reviewInsert(@ModelAttribute ReviewVo reviewVo) {
@@ -206,4 +217,5 @@ public class AYController {
 
 		return JsonResult.success(dogVo);
 	}
+
 }
