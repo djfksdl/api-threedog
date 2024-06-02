@@ -158,7 +158,7 @@ public class SUDao {
 			}
 		}
 
-		System.out.println("슬라이드 이미지덜:"+result);
+		System.out.println("슬라이드 이미지덜:" + result);
 
 		return result;
 
@@ -167,7 +167,7 @@ public class SUDao {
 	// 컷 슬라이드 이미지 불러오기
 	public List<Map<String, Object>> getCut(int bNo) {
 		System.out.println("SUDao.getCut");
-		
+
 		List<BusinessVo> cList = sqlSession.selectList("su.getCut", bNo);
 
 		List<Map<String, Object>> result = new ArrayList<>();
@@ -219,9 +219,7 @@ public class SUDao {
 	public void updatePriceInfo(PriceVo priceVo) {
 		System.out.println("SUDao.updatePriceInfo");
 
-		
-		
-		System.out.println("디비에 집어 넣기 전" + priceVo.getBeautyNo() );
+		System.out.println("디비에 집어 넣기 전" + priceVo.getBeautyNo());
 		sqlSession.update("su.updatePriceInfo", priceVo);
 
 	}
@@ -230,13 +228,12 @@ public class SUDao {
 	public void deleteSlideImgs(BusinessVo businessVo) {
 		System.out.println("SUDao.deleteSlideImgs");
 
-		List<Integer> delSlideHiNosList = businessVo.getDelSlideHiNos() ;
-
+		List<Integer> delSlideHiNosList = businessVo.getDelSlideHiNos();
 
 		System.out.println("슬라이드 삭제:" + delSlideHiNosList);
 		// 기존에 있던 슬라이드(category=1)이미지 삭제
 		sqlSession.delete("su.deleteSlideImgs", delSlideHiNosList);
-		System.out.println("슬라이드 삭제:" + businessVo.getSlideImgsSaveName() );
+		System.out.println("슬라이드 삭제:" + businessVo.getSlideImgsSaveName());
 
 	}
 
@@ -250,81 +247,79 @@ public class SUDao {
 		sqlSession.delete("su.deleteCutImgs", delDelCutHiNosList);
 
 	}
-	
-	
+
 //	************************** insertTime **************************
-	//가게 운영시간 등록
+	// 가게 운영시간 등록
 	public void insertRt(ReserveVo reserveVo) {
 		System.out.println("SUDao.insertRt");
 
 		int bNo = reserveVo.getbNo();
-		
+
 		List<String> rtDates = reserveVo.getRtDates();
-	    List<String> rtTimes = reserveVo.getRtTimes();
-	    
-	 // rtDates와 rtTimes의 각 값을 매칭하여 데이터베이스에 삽입합니다.
-	    for (int i = 0; i < rtDates.size(); i++) {
-	        String rtDate = rtDates.get(i);
-	        String startTime = rtTimes.get(i);
+		List<String> rtTimes = reserveVo.getRtTimes();
 
-	        Map<String, Object> paramMap = new HashMap<>();
-	        paramMap.put("bNo", bNo);
-	        paramMap.put("rtDate", rtDate);
-	        paramMap.put("rtTime", startTime);
+		// rtDates와 rtTimes의 각 값을 매칭하여 데이터베이스에 삽입합니다.
+		for (int i = 0; i < rtDates.size(); i++) {
+			String rtDate = rtDates.get(i);
+			String startTime = rtTimes.get(i);
 
-	        sqlSession.insert("su.insertRtBybNo", paramMap);
-	    }
+			Map<String, Object> paramMap = new HashMap<>();
+			paramMap.put("bNo", bNo);
+			paramMap.put("rtDate", rtDate);
+			paramMap.put("rtTime", startTime);
+
+			sqlSession.insert("su.insertRtBybNo", paramMap);
+		}
 
 	}
-	
-	//가게 운영시간 등록 여부
+
+	// 가게 운영시간 등록 여부
 	public List<ReserveVo> getRt(int bNo) {
 		System.out.println("SUDao.getRt");
 
 		List<ReserveVo> dList = sqlSession.selectList("su.selectRtBybNo", bNo);
-		
+
 		return dList;
 
 	}
-	
-	//가게 운영시간 가져오기
+
+	// 가게 운영시간 가져오기
 	public List<ReserveVo> getRtime(ReserveVo rVo) {
 		System.out.println("SUDao.getRtime");
 
 		List<ReserveVo> timeList = sqlSession.selectList("su.selectRtimeBybNo", rVo);
-		
+
 		return timeList;
 
 	}
-	
-	//가게 운영시간 삭제
+
+	// 가게 운영시간 삭제
 	public void deleteRt(ReserveVo reserveVo) {
 		System.out.println("SUDao.deleteRt");
 
 		sqlSession.delete("su.deleteRt", reserveVo);
 
 	}
-	
-	//가게 운영시간 수정(1개 등록)
+
+	// 가게 운영시간 수정(1개 등록)
 	public void updateRt(ReserveVo reserveVo) {
 		System.out.println("SUDao.updateRt");
 
 		int bNo = reserveVo.getbNo();
 		String rtDate = reserveVo.getRtDate();
-		
-	    List<String> rtTimes = reserveVo.getRtTimes();
-	    
-	 // rtTimes의 각 값을 반복하여 데이터베이스에 삽입합니다.
-	    for (String startTime : rtTimes) {
-	        Map<String, Object> paramMap = new HashMap<>();
-	        paramMap.put("bNo", bNo);
-	        paramMap.put("rtDate", rtDate);
-	        paramMap.put("rtTime", startTime);
 
-	        sqlSession.insert("su.insertRtBybNo", paramMap);
-	    }
+		List<String> rtTimes = reserveVo.getRtTimes();
+
+		// rtTimes의 각 값을 반복하여 데이터베이스에 삽입합니다.
+		for (String startTime : rtTimes) {
+			Map<String, Object> paramMap = new HashMap<>();
+			paramMap.put("bNo", bNo);
+			paramMap.put("rtDate", rtDate);
+			paramMap.put("rtTime", startTime);
+
+			sqlSession.insert("su.insertRtBybNo", paramMap);
+		}
 
 	}
-
 
 }

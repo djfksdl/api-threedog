@@ -536,6 +536,11 @@ public class SUService {
 	public void exeInsertRtBybNo(ReserveVo reserveVo) {
 		System.out.println("SUService.exeInsertRtBybNo");
 		
+		//저장되어있는지 확인하기
+		
+		//저장이 안되어있는 날짜 가져와서 등록하기 
+		//저장이 되어있는 날짜 가져와서 해당 시간은 삭제 후 등록하기
+		//새로운 정보 등록
 		suDao.insertRt(reserveVo);
 	}
 	
