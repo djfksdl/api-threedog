@@ -60,6 +60,13 @@
         ]]>
 	</insert>
 
+	<update id="addUserPoint" parameterType="com.javaex.vo.ReviewVo">
+		 <![CDATA[
+        	update users set uPoint=uPoint+1000
+			where uNo=#{uNo}
+        ]]>
+	</update>
+
 	<!-- 후기가져오기 -->
 	<select id="reviewSelect" parameterType="int" resultType="com.javaex.vo.ReviewVo">
 		<![CDATA[
@@ -151,11 +158,10 @@
 	<!-- 유저포인트 가져오기 -->
 	<select id="selectUserPoint" parameterType="int" resultType="com.javaex.vo.UserVo">
 		<![CDATA[
-			select
-			((select sum(usePoint) from point where pDiv=0) - (select sum(usePoint) from point where pDiv=1))upoint
-			from point
+			select uPoint
+			from users
 			where uNo=#{uNo}
-			group by uNo
+		
 		]]>
 	</select>
 
@@ -198,6 +204,14 @@
 		</selectKey>
 	</update>
 
+	<!-- 유저포인트 -->
+	<update id="userPoint" parameterType="com.javaex.vo.ReserveVo">
+      <![CDATA[
+		update users set uPoint=uPoint-#{usePoint}
+		where uNo=#{uNo}
+ 	]]>
+	</update>
+
 	<!-- 반려견테이블 -->
 	<update id="reserveDog" parameterType="com.javaex.vo.ReserveVo">
       <![CDATA[
@@ -234,4 +248,23 @@
 	</insert>
 
 
+	<!-- 사이드바 -->
+	<select id="selectSidebar1" parameterType="com.javaex.vo.UserVo" resultType="com.javaex.vo.UserVo">
+		<![CDATA[
+		select u.uNo, u.uId, u.uProfile, u.uPoint
+		from users u
+		where u.uNo=#{uNo}
+			
+		]]>
+	</select>
+
+	<!-- 사이드바2 -->
+	<select id="selectSidebar2" parameterType="com.javaex.vo.DogVo" resultType="com.javaex.vo.DogVo">
+		<![CDATA[
+		select dogImg, dogName, dogNo
+		from dog
+		where uNo=#{uNo}
+			
+		]]>
+	</select>
 </mapper>

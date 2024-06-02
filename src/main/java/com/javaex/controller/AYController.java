@@ -186,4 +186,24 @@ public class AYController {
 
 		return JsonResult.success("성공 ~~~~~");
 	}
+
+	// 사이드바
+	@GetMapping("/api/mypage/sidebar")
+	public JsonResult getSidebar(@RequestParam(value = "uNo") int uNo) {
+		System.out.println("AYController.getSidebar");
+
+		UserVo userVo = ayService.exeGetSidebar(uNo);
+
+		return JsonResult.success(userVo);
+	}
+
+	// 사이드바
+	@GetMapping("/api/mypage/sidebar2")
+	public JsonResult getSidebar2(@RequestParam(value = "uNo") int uNo) {
+		System.out.println("AYController.getSidebar2");
+
+		List<DogVo> dogVo = ayService.exeGetSidebar2(uNo);
+
+		return JsonResult.success(dogVo);
+	}
 }

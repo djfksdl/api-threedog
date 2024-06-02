@@ -142,9 +142,8 @@ public class AYService {
 			System.out.println(saveNameList);
 
 		}
-//		reviewVo.setpDate(reviewVo.getrDate());	//날짜
-//		reviewVo.setRvNum(reviewVo.getrNo());//리뷰번호
 		ayDao.addReview(reviewVo);
+
 	}
 
 	// 리뷰리스트 가져오기
@@ -299,8 +298,27 @@ public class AYService {
 		ayDao.reserveDog(reserveVo); // 반려견테이블
 		ayDao.reservePoint(reserveVo); // 포인트테이블
 		ayDao.reservePrice(reserveVo);
+		ayDao.userPoint(reserveVo);
 
 		return reserveVo.getSignImg();
+	}
+
+	// 사이드바
+	public UserVo exeGetSidebar(int uNo) {
+		System.out.println("AYService.exeGetSidebar");
+
+		UserVo userVo = ayDao.getSidebar(uNo);
+
+		return userVo;
+	}
+
+	// 사이드바
+	public List<DogVo> exeGetSidebar2(int uNo) {
+		System.out.println("AYService.exeGetSidebar");
+
+		List<DogVo> dogVo = ayDao.getSidebar2(uNo);
+
+		return dogVo;
 	}
 
 }

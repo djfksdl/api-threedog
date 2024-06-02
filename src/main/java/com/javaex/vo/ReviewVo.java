@@ -21,7 +21,7 @@ public class ReviewVo {
 	private int userPoint;
 	private int rsNo;
 	private String saveName;
-
+	private int uPoint;
 	private List<String> saveNameList;
 	private List<MultipartFile> file;
 
@@ -34,6 +34,14 @@ public class ReviewVo {
 	private int expectedPrice;
 	private String beauty;
 	private String uId;
+
+	public int getuPoint() {
+		return uPoint;
+	}
+
+	public void setuPoint(int uPoint) {
+		this.uPoint = uPoint;
+	}
 
 	public ReviewVo() {
 		super();
@@ -220,9 +228,9 @@ public class ReviewVo {
 		return "ReviewVo [rNo=" + rNo + ", bNo=" + bNo + ", uNo=" + uNo + ", star=" + star + ", rContent=" + rContent
 				+ ", rDate=" + rDate + ", views=" + views + ", riNo=" + riNo + ", imgCount=" + imgCount + ", orgName="
 				+ orgName + ", filePath=" + filePath + ", userPoint=" + userPoint + ", rsNo=" + rsNo + ", saveName="
-				+ saveName + ", saveNameList=" + saveNameList + ", file=" + file + ", dogNo=" + dogNo + ", dogName="
-				+ dogName + ", weight=" + weight + ", expectedPrice=" + expectedPrice + ", beauty=" + beauty + ", uId="
-				+ uId + "]";
+				+ saveName + ", uPoint=" + uPoint + ", saveNameList=" + saveNameList + ", file=" + file + ", dogNo="
+				+ dogNo + ", dogName=" + dogName + ", weight=" + weight + ", expectedPrice=" + expectedPrice
+				+ ", beauty=" + beauty + ", uId=" + uId + "]";
 	}
 
 }

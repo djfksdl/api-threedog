@@ -42,6 +42,7 @@ public class AYDao {
 		// 리뷰 정보를 먼저 등록
 		sqlSession.insert("ay.addReview01", reviewVo);
 		sqlSession.update("ay.insertPoint", reviewVo);
+		sqlSession.update("ay.addUserPoint", reviewVo);
 		// 등록된 리뷰의 rNo를 가져옴
 		int rNo = reviewVo.getrNo();
 
@@ -189,13 +190,23 @@ public class AYDao {
 		return reserveVo.getSignImg();
 	}
 
-	// 포인터테이블 등록
+	// 포인트테이블 등록
 	public String reservePoint(ReserveVo reserveVo) {
 		System.out.println("AYDao.reservePoint()");
 		System.out.println(reserveVo);
 		System.out.println("예약번호???????????");
 		System.out.println(reserveVo.getRsNum());
 		sqlSession.insert("ay.reservePoint", reserveVo);
+
+		return reserveVo.getSignImg();
+	}
+
+	// 유저포인트 수정
+	public String userPoint(ReserveVo reserveVo) {
+		System.out.println("AYDao.userPoint()");
+		System.out.println(reserveVo);
+
+		sqlSession.update("ay.userPoint", reserveVo);
 
 		return reserveVo.getSignImg();
 	}
@@ -226,5 +237,23 @@ public class AYDao {
 		}
 
 		return reserveVo.getSignImg();
+	}
+
+	public UserVo getSidebar(int uNo) {
+		System.out.println("AYDao.getSidebar");
+
+		UserVo userVo = sqlSession.selectOne("ay.selectSidebar1", uNo);
+		System.out.println(userVo);
+
+		return userVo;
+	}
+	
+	public List<DogVo> getSidebar2(int uNo) {
+		System.out.println("AYDao.getSidebar");
+
+		List<DogVo> dogVo = sqlSession.selectList("ay.selectSidebar2", uNo);
+		System.out.println(dogVo);
+
+		return dogVo;
 	}
 }
