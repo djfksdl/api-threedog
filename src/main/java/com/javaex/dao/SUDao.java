@@ -263,15 +263,16 @@ public class SUDao {
 	    List<String> rtTimes = reserveVo.getRtTimes();
 	    
 	 // rtDates와 rtTimes의 각 값을 매칭하여 데이터베이스에 삽입합니다.
-	    for (String rtDate : rtDates) {
-	        for (String startTime : rtTimes) {
-	            Map<String, Object> paramMap = new HashMap<>();
-	            paramMap.put("bNo", bNo);
-	            paramMap.put("rtDate", rtDate);
-	            paramMap.put("rtTime", startTime);
+	    for (int i = 0; i < rtDates.size(); i++) {
+	        String rtDate = rtDates.get(i);
+	        String startTime = rtTimes.get(i);
 
-	            sqlSession.insert("su.inserRtBybNo", paramMap);
-	        }
+	        Map<String, Object> paramMap = new HashMap<>();
+	        paramMap.put("bNo", bNo);
+	        paramMap.put("rtDate", rtDate);
+	        paramMap.put("rtTime", startTime);
+
+	        sqlSession.insert("su.inserRtBybNo", paramMap);
 	    }
 
 	}
