@@ -540,11 +540,20 @@ public class SUService {
 	}
 	
 	//가게 운영시간 등록 여부
-		public List<ReserveVo> exeGetRtBybNo(int bNo) {
-			System.out.println("SUService.exeGetRtBybNo");
-			
-			List<ReserveVo> dList = suDao.getRt(bNo);
-			
-			return dList;
-		}
+	public List<ReserveVo> exeGetRtBybNo(int bNo) {
+		System.out.println("SUService.exeGetRtBybNo");
+		
+		List<ReserveVo> dList = suDao.getRt(bNo);
+		
+		return dList;
+	}
+	
+	//가게 운영시간 가져오기
+	public List<ReserveVo> exeGetRtimeBybNo(ReserveVo rVo) {
+		System.out.println("SUService.exeGetRtimeBybNo");
+		
+		List<ReserveVo> timeList = suDao.getRtime(rVo);
+		
+		return timeList;
+	}
 }

@@ -134,8 +134,25 @@ public class SUController {
 
 		List<ReserveVo> dList = suService.exeGetRtBybNo(bNo);
 
-		System.out.println("잘 가져왔는가"+dList);
+//		System.out.println("잘 가져왔는가"+dList);
 		return JsonResult.success(dList);
+	}
+	
+	//가게 운영시간 가져오기
+	@GetMapping("/api/su/selectRtime")
+	public JsonResult selectRtime(@RequestParam(value="bNo")int bNo, @RequestParam(value="rtDate")String rtDate) {
+		System.out.println("SUController.selectRtime");
+		
+		ReserveVo rVo = new ReserveVo();
+		rVo.setbNo(bNo);
+		rVo.setRtDate(rtDate);
+		System.out.println("프론트에서 여기 확인하기"+rVo.getbNo() );
+		System.out.println("프론트에서 여기 확인하기"+rVo.getRtDate() );
+
+		List<ReserveVo> timeList = suService.exeGetRtimeBybNo(rVo);
+
+		System.out.println("잘 가져왔는가"+timeList);
+		return JsonResult.success(timeList);
 	}
 	
 	

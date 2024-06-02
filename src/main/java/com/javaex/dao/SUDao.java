@@ -286,6 +286,16 @@ public class SUDao {
 		return dList;
 
 	}
+	
+	//가게 운영시간 가져오기
+	public List<ReserveVo> getRtime(ReserveVo rVo) {
+		System.out.println("SUDao.getRtime");
+
+		List<ReserveVo> timeList = sqlSession.selectList("su.selectRtimeBybNo", rVo);
+		
+		return timeList;
+
+	}
 
 
 }

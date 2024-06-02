@@ -224,6 +224,13 @@
 		    select rtNo , rtDate from reserveTime where bNo=#{bNo} group by rtDate
 	   	]]>
 	</select>
+	
+	<!-- 가게 운영시간 가져오기 -->
+	<select id="selectRtimeBybNo" parameterType="com.javaex.vo.ReserveVo" resultType="com.javaex.vo.ReserveVo" >
+		<![CDATA[
+		    select rtNo , rtDate , rtTime from reserveTime where bNo=#{bNo} and rtDate =#{rtDate}
+	   	]]>
+	</select>
 
 
 
