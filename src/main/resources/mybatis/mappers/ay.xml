@@ -332,17 +332,15 @@
 	<!-- 알림장 -->
 	<select id="selectGetMydiary" parameterType="int" resultType="com.javaex.vo.ReserveVo">
 		<![CDATA[
-			select re.rNo,re.bNo, re.uNo, re.rsNo, re.star, re.rContent, re.rDate, re.views, ri.saveName, rs.dogNo, d.dogName, rs.expectedPrice, rs.surcharge, b.title, ri.saveName
-			from review re
-			join reviewimg ri on re.rNo=ri.rNo
-			join reserve rs on rs.rsNo = re.rsNo
-			join dog d on d.dogNo=rs.dogNo
-			join business b on b.bNo=re.bNo
-			where re.uNo=1
-			group by rNo
-			order by re.rNo desc
+			select r.rsNo, r.dogNo, r.rtNo, r.expectedPrice, r.attitude,r.rCondition,r.tangle,r.disliked,r.bath,r.message,rt.bNo, rt.rtDate, rt.rtTime,d.dogName, d.uNo, r.surcharge, p.pushNo, p.pushTime
+			from reserve r
+			join reserveTime rt on r.rtNo=rt.rtNo
+			join business b on b.bNo=rt.bNo
+			join dog d on d.dogNo=r.dogNo
+			join push p on p.rsNo=r.rsNo
+			where uNo=1 
+			order by pushNo desc
 			limit 1
-			
 		
 		]]>
 	</select>

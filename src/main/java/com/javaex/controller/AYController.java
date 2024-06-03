@@ -62,7 +62,6 @@ public class AYController {
 	public JsonResult reviewInsert(@ModelAttribute ReviewVo reviewVo) {
 		System.out.println("AYController.reviewInsert");
 		System.out.println(reviewVo);
-//		System.out.println(reviewVo.getImgCount());
 
 		ayService.exeReviewInsert(reviewVo);
 
