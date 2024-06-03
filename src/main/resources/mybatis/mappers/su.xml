@@ -228,7 +228,7 @@
 	<!-- 가게 운영시간 가져오기 -->
 	<select id="selectRtimeBybNo" parameterType="com.javaex.vo.ReserveVo" resultType="com.javaex.vo.ReserveVo" >
 		<![CDATA[
-		    select rtNo , rtDate , rtTime, rtFinish from reserveTime where bNo=#{bNo} and rtDate =#{rtDate}
+		    select rtNo , rtDate , rtTime, rtFinish from reserveTime where bNo=#{bNo} and rtDate =#{rtDate} order by rtTime asc
 	   	]]>
 	</select>
 	
@@ -239,7 +239,13 @@
 	   	]]>
 	</delete>
 
-
+	<!-- 가게 운영시간 수정(1개 등록) -->
+	<insert id="updateRtBybNo" parameterType="com.javaex.vo.ReserveVo">
+		<![CDATA[
+		    INSERT INTO reserveTime 
+		    VALUES (null,#{bNo}, #{rtDate}, #{rtTime}, false)
+	   	]]>
+	</insert>
 
 
 

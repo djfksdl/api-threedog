@@ -569,9 +569,6 @@ public class SUService {
 		public void exeUpdateRt(ReserveVo reserveVo) {
 			System.out.println("SUService.exeUpdateRt");
 			
-			//날짜에 해당하는 예약시간 삭제하기
-			suDao.deleteRt(reserveVo);
-			
 			//운영시간 등록하기
 			suDao.updateRt(reserveVo);
 		
