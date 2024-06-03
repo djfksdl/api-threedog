@@ -263,9 +263,9 @@ public class AYController {
 	public JsonResult getReservationList(@RequestParam(value = "uNo") int uNo) {
 		System.out.println("AYController.reservationlist");
 
-		List<ReserveVo> reserveVo = ayService.exeGetReservationList(uNo);
+		List<ReserveVo> reserveList = ayService.exeGetReservationList(uNo);
 
-		return JsonResult.success(reserveVo);
+		return JsonResult.success(reserveList);
 	}
 
 }

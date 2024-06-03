@@ -54,6 +54,7 @@ public class ReserveVo {
 	private MultipartFile signFile;
 	private List<String> beautyPlus;
 	private Boolean rtFinish;
+	private int rNo;
 
 	private int rsNum;
 	private int usePoint;
@@ -75,6 +76,14 @@ public class ReserveVo {
 		super();
 		this.bNo = bNo;
 		this.rtDate = rtDate;
+	}
+
+	public int getrNo() {
+		return rNo;
+	}
+
+	public void setrNo(int rNo) {
+		this.rNo = rNo;
 	}
 
 	public String getbPhone() {
@@ -538,7 +547,7 @@ public class ReserveVo {
 				+ ", beautyNo=" + beautyNo + ", onePrice=" + onePrice + ", sizeDiv=" + sizeDiv + ", weightDiv="
 				+ weightDiv + ", beauty=" + beauty + ", aiNo=" + aiNo + ", saveName=" + saveName + ", pushNo=" + pushNo
 				+ ", pushTime=" + pushTime + ", files=" + files + ", signFile=" + signFile + ", beautyPlus="
-				+ beautyPlus + ", rtFinish=" + rtFinish + ", rsNum=" + rsNum + ", usePoint=" + usePoint
+				+ beautyPlus + ", rtFinish=" + rtFinish + ", rNo=" + rNo + ", rsNum=" + rsNum + ", usePoint=" + usePoint
 				+ ", priceNoPlus=" + priceNoPlus + ", rtDates=" + rtDates + ", rtTimes=" + rtTimes + ", title=" + title
 				+ ", bPhone=" + bPhone + ", bAddress=" + bAddress + ", bdAddress=" + bdAddress + "]";
 	}

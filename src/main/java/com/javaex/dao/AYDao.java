@@ -123,7 +123,7 @@ public class AYDao {
 	public BusinessVo getBList(int bNo) {
 		System.out.println("AYDao.getBList()");
 		BusinessVo businessVo = sqlSession.selectOne("ay.selectOne", bNo);
-
+		System.out.println("가게정보!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		System.out.println(businessVo);
 
 		return businessVo;
@@ -307,14 +307,14 @@ public class AYDao {
 		return reserveVo;
 	}
 
-	// 마이페이지 예약
+	// 마이페이지 예약더보기
 	public List<ReserveVo> getReservationList(int uNo) {
 		System.out.println("AYDao.getReservationList");
 
-		List<ReserveVo> reserveVo = sqlSession.selectList("ay.selectListReservation", uNo);
-		System.out.println(reserveVo);
+		List<ReserveVo> reserveList = sqlSession.selectList("ay.selectListReservation", uNo);
+		System.out.println(reserveList);
 		
-		return reserveVo;
+		return reserveList;
 	}
 
 }

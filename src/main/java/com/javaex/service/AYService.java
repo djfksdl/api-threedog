@@ -416,9 +416,9 @@ public class AYService {
 	public List<ReserveVo> exeGetReservationList(int uNo) {
 		System.out.println("AYService.exeGetReservationList");
 
-		List<ReserveVo> reserveVo = ayDao.getReservationList(uNo);
+		List<ReserveVo> reserveList = ayDao.getReservationList(uNo);
 
-		return reserveVo;
+		return reserveList;
 	}
 	
 }
