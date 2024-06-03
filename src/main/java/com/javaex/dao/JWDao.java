@@ -42,9 +42,11 @@ public class JWDao {
 
 	// 예약 삭제
 	public void deleteReserve(int rsNo) {
-		sqlSession.delete("jw.deleteReserve", rsNo);
-		System.out.println("예약 정보 삭제 완료: " + rsNo);
+	    sqlSession.delete("jw.deleteReserve", rsNo);
+	    sqlSession.delete("jw.deleteReserve2", rsNo);
+	    System.out.println("예약 정보 삭제 완료: " + rsNo);
 	}
+
 
 	// 특정 예약의 미용 기록 조회
 	public ReserveVo selectGroomingRecord(int rsNo) {
