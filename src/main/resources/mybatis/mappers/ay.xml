@@ -39,7 +39,7 @@
 		
 		]]>
 	</select>
-	
+
 	<!-- 반려견 수정하기 -->
 	<update id="petUpdate" parameterType="com.javaex.vo.DogVo">
 		 <![CDATA[
@@ -298,7 +298,7 @@
 			
 		]]>
 	</select>
-	
+
 	<!-- 예약내역 -->
 	<select id="selectGetReserve" parameterType="int" resultType="com.javaex.vo.ReserveVo">
 		<![CDATA[
@@ -310,6 +310,22 @@
 		where d.uNo=#{uNo}
 		limit 1
 			
+		]]>
+	</select>
+
+	<!-- 후기내역 -->
+	<select id="selectGetReview" parameterType="int" resultType="com.javaex.vo.ReviewVo">
+		<![CDATA[
+			select re.rNo,re.bNo, re.uNo, re.rsNo, re.star, re.rContent, re.rDate, re.views, ri.saveName, rs.dogNo, d.dogName, rs.expectedPrice, rs.surcharge, b.title
+			from review re
+			join reviewimg ri on re.rNo=ri.rNo
+			join reserve rs on rs.rsNo = re.rsNo
+			join dog d on d.dogNo=rs.dogNo
+			join business b on b.bNo=re.bNo
+			where re.uNo=1
+			group by rNo
+			order by re.rNo desc
+			limit 1
 		]]>
 	</select>
 </mapper>

@@ -238,4 +238,14 @@ public class AYController {
 		return JsonResult.success(reserveVo);
 	}
 
+	// 마이페이지 후기
+	@GetMapping("/api/mypage/review")
+	public JsonResult getReview(@RequestParam(value = "uNo") int uNo) {
+		System.out.println("AYController.getReview");
+
+		ReviewVo reviewVo = ayService.exeGetReview(uNo);
+
+		return JsonResult.success(reviewVo);
+	}
+
 }

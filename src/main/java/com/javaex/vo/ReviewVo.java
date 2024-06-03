@@ -32,8 +32,26 @@ public class ReviewVo {
 
 	// 예약
 	private int expectedPrice;
+	private int surcharge;
 	private String beauty;
 	private String uId;
+	private String title;
+
+	public int getSurcharge() {
+		return surcharge;
+	}
+
+	public void setSurcharge(int surcharge) {
+		this.surcharge = surcharge;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
 	public int getuPoint() {
 		return uPoint;
@@ -230,7 +248,7 @@ public class ReviewVo {
 				+ orgName + ", filePath=" + filePath + ", userPoint=" + userPoint + ", rsNo=" + rsNo + ", saveName="
 				+ saveName + ", uPoint=" + uPoint + ", saveNameList=" + saveNameList + ", file=" + file + ", dogNo="
 				+ dogNo + ", dogName=" + dogName + ", weight=" + weight + ", expectedPrice=" + expectedPrice
-				+ ", beauty=" + beauty + ", uId=" + uId + "]";
+				+ ", surcharge=" + surcharge + ", beauty=" + beauty + ", uId=" + uId + ", title=" + title + "]";
 	}
 
 }

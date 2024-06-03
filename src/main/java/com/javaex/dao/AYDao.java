@@ -283,4 +283,13 @@ public class AYDao {
 		System.out.println(reserveVo);
 		return reserveVo;
 	}
+	
+	public ReviewVo getReview(int uNo) {
+		System.out.println("AYDao.getReview");
+
+		ReviewVo reviewVo = sqlSession.selectOne("ay.selectGetReview", uNo);
+		System.out.println(reviewVo);
+		
+		return reviewVo;
+	}
 }
