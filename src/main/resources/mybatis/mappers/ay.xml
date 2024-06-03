@@ -30,6 +30,37 @@
   ]]>
 	</insert>
 
+	<!-- 반려견1개정보 가져오기 -->
+	<select id="petSelectOne" parameterType="int" resultType="com.javaex.vo.DogVo">
+		<![CDATA[
+			select dogNo, uNo, dogName, kind, weight, birth, gender, neutering, experience, bite, memo, dogImg, size, skin, heart, marking, mounting
+			from dog
+			where dogNo=#{dogNo}
+		
+		]]>
+	</select>
+	
+	<!-- 반려견 수정하기 -->
+	<update id="petUpdate" parameterType="com.javaex.vo.DogVo">
+		 <![CDATA[
+        	update dog set dogName=#{dogName}, 
+        				   kind=#{kind},
+        				   weight=#{weight},
+        				   birth=#{birth},
+        				   gender=#{gender},
+        				   neutering=#{neutering},
+        				   experience=#{experience},
+        				   memo=#{memo},
+        				   size=#{size},
+        				   skin=#{skin},
+        				   heart=#{heart},
+        				   marking=#{marking},
+        				   mounting=#{mounting},
+        				   bite=#{bite},
+        				   dogImg=#{dogImg}
+			where dogNo=#{dogNo}
+        ]]>
+	</update>
 
 	<!-- 리뷰 등록 -->
 	<insert id="addReview01" parameterType="com.javaex.vo.ReviewVo">
@@ -60,12 +91,51 @@
         ]]>
 	</insert>
 
+	<update id="addUserPoint" parameterType="com.javaex.vo.ReviewVo">
+		 <![CDATA[
+        	update users set uPoint=uPoint+1000
+			where uNo=#{uNo}
+        ]]>
+	</update>
+
 	<!-- 후기가져오기 -->
 	<select id="reviewSelect" parameterType="int" resultType="com.javaex.vo.ReviewVo">
 		<![CDATA[
+			select r.rNo, r.bNo, r.uNo, r.rsNo, r.star, r.rContent, r.rDate, r.views, ri.riNo, ri.saveName, u.uId, res.dogNo , d.dogName, d.weight
+			from review r
+			join reviewimg ri on r.rNo=ri.rNo
+			join users u on u.uNo=r.uNo
+			join reserve res on res.rsNo=r.rsNo
+			join dog d on d.dogNo=res.dogNo
+			where bNo=#{bNo}
+			group by ri.rNo
 		
 		]]>
 	</select>
+
+	<!-- 조회수증가 -->
+	<update id="reviewUpdateView" parameterType="int">
+      <![CDATA[
+		update review set views=views+1
+		where rNo=#{rNo};
+		
+ 	]]>
+	</update>
+
+
+	<!-- 리뷰 1개 가져오기 -->
+	<select id="selectOneRList" parameterType="int" resultType="com.javaex.vo.ReviewVo">
+		<![CDATA[
+		SELECT r.rNo, rs.rtNo, u.uId, r.star, r.rContent, r.rDate, r.views, rs.expectedPrice, d.dogNo, d.dogName, d.weight
+		FROM review r
+		JOIN users u ON r.uNo = u.uNo
+		JOIN reserve rs ON rs.rsNo = r.rsNo
+		JOIN dog d ON d.dogNo = rs.dogNo
+		WHERE r.rNo = #{rNo}
+		]]>
+	</select>
+
+
 
 	<!--가게정보1개 가져오기 -->
 	<select id="selectOne" parameterType="int" resultType="com.javaex.vo.BusinessVo">
@@ -99,7 +169,7 @@
 	<!-- 미용목록, 가격표가져오기 -->
 	<select id="selectPrice" parameterType="com.javaex.vo.PriceVo" resultType="com.javaex.vo.PriceVo">
 		<![CDATA[
-			select b.weightDiv, b.beauty , p.onePrice
+			select b.weightDiv, b.beauty , p.onePrice, p.priceNo, p.beautyNo
 			from beautylist b
 			join price p on b.beautyNo=p.beautyNo
 			where p.bNo=#{bNo} and b.sizeDiv=#{sizeDiv}
@@ -109,7 +179,7 @@
 	<!-- 추가요금가져오기 -->
 	<select id="selectPlusPrice" parameterType="int" resultType="com.javaex.vo.PriceVo">
 		<![CDATA[
-			select b.beauty , p.onePrice
+			select b.weightDiv, b.beauty , p.onePrice, p.priceNo, p.beautyNo
 			from beautylist b
 			join price p on b.beautyNo=p.beautyNo
 			where p.bNo=#{bNo} and b.sizeDiv='추가요금'
@@ -119,18 +189,113 @@
 	<!-- 유저포인트 가져오기 -->
 	<select id="selectUserPoint" parameterType="int" resultType="com.javaex.vo.UserVo">
 		<![CDATA[
-			select uNo, sum(usePoint) uPoint
-			from point
+			select uPoint
+			from users
 			where uNo=#{uNo}
+		
 		]]>
 	</select>
 
 	<!-- 시간 가져오기 -->
 	<select id="selecTimeList" parameterType="com.javaex.vo.ReserveVo" resultType="com.javaex.vo.ReserveVo">
 		<![CDATA[
-			select bNo, rtDate, rtTime, rtFinish
+			select rtNo, bNo, rtDate, rtTime, rtFinish
 			from reserveTime
 			where bNo=#{bNo} and rtDate=#{rtDate}
+		]]>
+	</select>
+
+
+	<!-- 예약하기 -->
+	<!-- 예약테이블 -->
+	<insert id="reserveInsert" parameterType="com.javaex.vo.ReserveVo">
+      <![CDATA[
+		insert into reserve(rsNo, dogNo, rtNo, signImg, expectedPrice ) 
+		values(null, #{dogNo}, #{rtNo}, #{signImg}, #{expectedPrice} )
+ 	]]>
+
+		<selectKey keyProperty="rsNo" resultType="int" order="AFTER">
+            <![CDATA[
+                select last_insert_id()
+            ]]>
+		</selectKey>
+	</insert>
+
+	<!-- 예약시간테이블 -->
+	<update id="reserveTime" parameterType="com.javaex.vo.ReserveVo">
+      <![CDATA[
+		update reserveTime set rtFinish=true
+		where rtNo=#{rtNo} and bNo=#{bNo}
+		
+ 	]]>
+		<selectKey keyProperty="rtNo" resultType="int" order="AFTER">
+            <![CDATA[
+                select last_insert_id()
+            ]]>
+		</selectKey>
+	</update>
+
+	<!-- 유저포인트 -->
+	<update id="userPoint" parameterType="com.javaex.vo.ReserveVo">
+      <![CDATA[
+		update users set uPoint=uPoint-#{usePoint}
+		where uNo=#{uNo}
+ 	]]>
+	</update>
+
+	<!-- 반려견테이블 -->
+	<update id="reserveDog" parameterType="com.javaex.vo.ReserveVo">
+      <![CDATA[
+		update dog set skin=#{skin}, heart=#{heart}, marking=#{marking}, mounting=#{mounting},
+		bite=#{bite}, memo=#{memo}
+		where dogNo=#{dogNo}
+ 	]]>
+	</update>
+
+
+	<!-- 예약가격테이블 -->
+	<insert id="reservePrice" parameterType="com.javaex.vo.ReserveVo">
+      <![CDATA[
+      	insert into rsPrice values
+      	(null, #{rsNo}, #{priceNo}, #{rtNo})
+ 	]]>
+	</insert>
+
+	<!-- 예약가격테이블 -->
+	<insert id="reservePrice2" parameterType="map">
+        <![CDATA[
+           	insert into rsPrice values
+      	(null, #{rsNo}, #{priceNo}, #{rtNo})
+        ]]>
+	</insert>
+
+
+
+	<!-- 포인트테이블 -->
+	<insert id="reservePoint" parameterType="com.javaex.vo.ReserveVo">
+      <![CDATA[
+		insert into point values (null, #{uNo}, now(), 1, #{rsNum}, 0, #{usePoint})
+ 	]]>
+	</insert>
+
+
+	<!-- 사이드바 -->
+	<select id="selectSidebar1" parameterType="com.javaex.vo.UserVo" resultType="com.javaex.vo.UserVo">
+		<![CDATA[
+		select u.uNo, u.uId, u.uProfile, u.uPoint
+		from users u
+		where u.uNo=#{uNo}
+			
+		]]>
+	</select>
+
+	<!-- 사이드바2 -->
+	<select id="selectSidebar2" parameterType="com.javaex.vo.DogVo" resultType="com.javaex.vo.DogVo">
+		<![CDATA[
+		select dogImg, dogName, dogNo
+		from dog
+		where uNo=#{uNo}
+			
 		]]>
 	</select>
 </mapper>

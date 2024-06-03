@@ -24,13 +24,14 @@ CREATE TABLE business (
    title varchar(150) NULL,
    subTitle varchar(150) NULL,
    logo varchar(300) NULL,
-   slideImg varchar(300) NULL,
-   cutImg varchar(300) NULL,
-   utilTime varchar(500) NULL
+   latitude DECIMAL(10, 8),
+   longitude DECIMAL(11, 8)
 );
+
 
 CREATE TABLE dog (
    dogNo int auto_increment primary key,
+   uNo int,
    dogName varchar(50) NOT NULL,
    kind varchar(50) NOT NULL,
    weight double NOT NULL,
@@ -45,9 +46,10 @@ CREATE TABLE dog (
    skin boolean NULL,
    heart boolean NULL,
    marking boolean NULL,
-   mounting boolean NULL
+   mounting boolean NULL,
+   CONSTRAINT fk_user_dog FOREIGN KEY (uNo) REFERENCES users(uNo)
 );
-ALTER TABLE dog ADD COLUMN uNo int, ADD CONSTRAINT fk_user_dog FOREIGN KEY (uNo) REFERENCES users(uNo);
+
 
 CREATE TABLE beautylist (
    beautyNo int auto_increment primary key,
@@ -56,25 +58,10 @@ CREATE TABLE beautylist (
    beauty varchar(50) NOT NULL
 );
 
-CREATE TABLE review (
-   rNo int auto_increment primary key,
-   bNo int NOT NULL,
-   uNo int NOT NULL,
-   star int NOT NULL,
-   rContent varchar(500) NOT NULL,
-   rDate datetime NOT NULL,
-   FOREIGN KEY (bNo) REFERENCES business(bNo),
-   FOREIGN KEY (uNo) REFERENCES users(uNo)
-);
-alter table review
-add views int not  null default 0;
-
 CREATE TABLE reserve (
    rsNo int auto_increment primary key,
-   bNo int NOT NULL,
    dogNo int NOT NULL,
-   rsDate datetime NOT NULL,
-   rsTime time NOT NULL,
+   rtNo int,
    signImg varchar(300) NOT NULL,
    expectedPrice int NOT NULL,
    attitude varchar(300) NULL,
@@ -85,29 +72,51 @@ CREATE TABLE reserve (
    surcharge int NULL,
    message varchar(300) NULL,
    curruntWeight double NULL,
-   FOREIGN KEY (bNo) REFERENCES business(bNo),
-   FOREIGN KEY (dogNo) REFERENCES dog(dogNo)
+   CONSTRAINT fk_reserveTime_dog FOREIGN KEY (dogNo) REFERENCES dog(dogNo)
 );
+-- alter table reserve add column rsTime tiem;-- 
+-- 포링키 추가
+ALTER TABLE reserve ADD CONSTRAINT fk_reserveTime_reserve FOREIGN KEY (rtNo) REFERENCES reserveTime(rtNo);
+
+-- 외래키 이름 찾기
+-- SELECT CONSTRAINT_NAME FROM information_schema.KEY_COLUMN_USAGE WHERE TABLE_NAME = 'reserve' AND COLUMN_NAME = 'bNo';
+-- SHOW CREATE TABLE reserve;
+-- 포링키 해제
+-- ALTER TABLE reserve DROP FOREIGN KEY reserve_ibfk_1;
+
+
+CREATE TABLE review (
+   rNo int auto_increment primary key,
+   bNo int NOT NULL,
+   uNo int NOT NULL,
+   rsNo int,
+   star int NOT NULL,
+   rContent varchar(500) NOT NULL,
+   rDate datetime NOT NULL,
+   views int not  null default 0,
+   CONSTRAINT fk_review_business FOREIGN KEY (bNo) REFERENCES business(bNo),
+   CONSTRAINT fk_review_users FOREIGN KEY (uNo) REFERENCES users(uNo)
+);
+ALTER TABLE review ADD CONSTRAINT FOREIGN KEY (rsNo) REFERENCES reserve(rsNo);
+
+
 
 CREATE TABLE price (
    priceNo int auto_increment primary key,
    beautyNo int NOT NULL,
    bNo int NULL,
    onePrice int NULL,
-   FOREIGN KEY (beautyNo) REFERENCES beautylist(beautyNo)
+   CONSTRAINT fk_price_beautylist FOREIGN KEY (beautyNo) REFERENCES beautylist(beautyNo)
 );
 
 CREATE TABLE homeimg (
    hiNo int auto_increment primary key,
    bNo int NOT NULL,
    saveName varchar(300) NULL,
-   orgName varchar(300) NULL,
-   fileSize int NULL,
-   filePath varchar(500) NULL,
    category int NULL,
-   cutContents varchar(500) NULL,
-   FOREIGN KEY (bNo) REFERENCES business(bNo)
+   CONSTRAINT fk_homeimg_business FOREIGN KEY (bNo) REFERENCES business(bNo)
 );
+
 
 CREATE TABLE designer (
    dNo int auto_increment primary key,
@@ -115,42 +124,43 @@ CREATE TABLE designer (
    dName varchar(10) NULL,
    introduce varchar(500) NULL,
    dProfile varchar(300) NULL,
-   FOREIGN KEY (bNo) REFERENCES business(bNo)
+   job varchar(100) Null,
+   CONSTRAINT fk_designer_business FOREIGN KEY (bNo) REFERENCES business(bNo)
 );
+
 
 CREATE TABLE reviewimg (
    riNo int auto_increment primary key,
    rNo int NOT NULL,
    saveName varchar(300) NULL,
-   orgName varchar(300) NULL,
-   fileSize int NULL,
-   filePath varchar(500) NULL,
-   FOREIGN KEY (rNo) REFERENCES review(rNo)
+   CONSTRAINT fk_reviewimg_review FOREIGN KEY (rNo) REFERENCES review(rNo)
 );
+
 
 CREATE TABLE afterImg (
    aiNo int auto_increment primary key,
    rsNo int NOT NULL,
    saveName varchar(200) NULL,
-   orgName varchar(300) NULL,
-   fileSize varchar(300) NULL,
-   filePath varchar(300) NULL,
-   FOREIGN KEY (rsNo) REFERENCES reserve(rsNo)
+   CONSTRAINT fk_afterImg_reserve FOREIGN KEY (rsNo) REFERENCES reserve(rsNo)
 );
+
 
 CREATE TABLE rsPrice (
    rspNo int auto_increment primary key,
    rsNo int NOT NULL,
    priceNo int NOT NULL,
-   FOREIGN KEY (rsNo) REFERENCES reserve(rsNo),
-   FOREIGN KEY (priceNo) REFERENCES price(priceNo)
+   rtNo int not null,
+   CONSTRAINT fk_rsPrice_reserve FOREIGN KEY (rsNo) REFERENCES reserve(rsNo),
+   CONSTRAINT fk_rsPrice_price FOREIGN KEY (priceNo) REFERENCES price(priceNo),
+   CONSTRAINT fk_rsPrice_reserveTime FOREIGN KEY (rtNo) REFERENCES reserveTime(rtNo)
 );
+
 
 CREATE TABLE push (
    pushNo int auto_increment primary key,
    rsNo int NOT NULL,
    pushTime time NULL,
-   FOREIGN KEY (rsNo) REFERENCES reserve(rsNo)
+   CONSTRAINT fk_push_reserve FOREIGN KEY (rsNo) REFERENCES reserve(rsNo)
 );
 
 CREATE TABLE point (
@@ -161,5 +171,18 @@ CREATE TABLE point (
    rsNum int NULL,
    rvNum int NULL,
    usePoint int NULL,
-   FOREIGN KEY (uNo) REFERENCES users(uNo)
+   CONSTRAINT fk_point_users FOREIGN KEY (uNo) REFERENCES users(uNo)
 );
+
+CREATE TABLE reserveTime (
+   rtNo int auto_increment primary key,
+   bNo int not null,
+   rtDate datetime Null,
+   rtTime time NULL,
+   rtFinish boolean,
+   CONSTRAINT fk_reserveTime_business FOREIGN KEY (bNo) REFERENCES business(bNo)
+);
+
+
+
+

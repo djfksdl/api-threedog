@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,6 +37,26 @@ public class AYController {
 		return JsonResult.success(dogVo.getDogImg());
 	}
 
+	// 반려견정보1개 가져오기
+	@GetMapping("/api/mypage/petgetinfor")
+	public JsonResult petGetInfor(@RequestParam(value = "dogNo") int dogNo) {
+		System.out.println("AYController.getRList");
+		System.out.println(dogNo);
+
+		DogVo dogVo = ayService.exePetGetInfor(dogNo);
+
+		return JsonResult.success(dogVo);
+	}
+
+	@PutMapping("/api/mypage/petupdate")
+	public JsonResult petUpdate(@ModelAttribute DogVo dogVo) {
+		System.out.println("AYController.petUpdate");
+
+		ayService.exePetUpdate(dogVo);
+
+		return JsonResult.success(dogVo);
+	}
+
 	// 리뷰등록
 	@PostMapping("/api/mypage/reviewinsert")
 	public JsonResult reviewInsert(@ModelAttribute ReviewVo reviewVo) {
@@ -54,6 +75,39 @@ public class AYController {
 		System.out.println("AYController.getRList");
 
 		List<ReviewVo> reviewVo = ayService.exeGetRList(bNo);
+
+		return JsonResult.success(reviewVo);
+	}
+
+	// 조회수 증가
+	@PostMapping("/api/mypage/updateview")
+	public JsonResult updateView(@RequestParam(value = "rNo") int rNo) {
+		System.out.println("AYController.updateView");
+		System.out.println(rNo);
+
+		ayService.exeUpdateView(rNo);
+
+		return JsonResult.success("서엉ㅇ공~");
+	}
+
+	// 리뷰1개 가져오기
+	@GetMapping("/api/mypage/getonerlist")
+	public JsonResult getOnerList(@RequestParam(value = "rNo") int rNo) {
+		System.out.println("AYController.getOnerList");
+
+		System.out.println(rNo);
+		ReviewVo reviewVo = ayService.exeGetOnerList(rNo);
+
+		return JsonResult.success(reviewVo);
+	}
+
+	// 리뷰사진들
+	@GetMapping("/api/mypage/getsavename")
+	public JsonResult getrSaveNameList(@RequestParam(value = "rNo") int rNo) {
+		System.out.println("AYController.getrSaveNameList");
+
+		System.out.println(rNo);
+		List<ReviewVo> reviewVo = ayService.exegetrSaveNameList(rNo);
 
 		return JsonResult.success(reviewVo);
 	}
@@ -127,19 +181,51 @@ public class AYController {
 
 	// 시간가져오기
 	@GetMapping("/api/mypage/gettimelist")
-	public JsonResult getTimeList(@RequestParam(value = "bNo") int bNo,
-								  @RequestParam(value="rtDate") String rtDate) {
+	public JsonResult getTimeList(@RequestParam(value = "bNo") int bNo, @RequestParam(value = "rtDate") String rtDate) {
 		System.out.println("AYController.getTimeList");
 		System.out.println("시간ㄴㄴ을가가져오아아아");
 		System.out.println(bNo);
 		System.out.println(rtDate);
-		
-		ReserveVo reserveVo= new ReserveVo(bNo, rtDate);
+
+		ReserveVo reserveVo = new ReserveVo(bNo, rtDate);
 		System.out.println(reserveVo);
-		
+
 		List<ReserveVo> reserveList = ayService.exeGetTimeList(reserveVo);
 
 		return JsonResult.success(reserveList);
 
 	}
+
+	// 예약하기
+	@PostMapping("/api/mypage/reservation")
+	public JsonResult reserveInsert(@ModelAttribute ReserveVo reserveVo) {
+		System.out.println("AYController.reserveInsert");
+		System.out.println("예약하기 ~~~~~ ");
+		System.out.println(reserveVo);
+
+		ayService.exeReserveInsert(reserveVo);
+
+		return JsonResult.success("성공 ~~~~~");
+	}
+
+	// 사이드바
+	@GetMapping("/api/mypage/sidebar")
+	public JsonResult getSidebar(@RequestParam(value = "uNo") int uNo) {
+		System.out.println("AYController.getSidebar");
+
+		UserVo userVo = ayService.exeGetSidebar(uNo);
+
+		return JsonResult.success(userVo);
+	}
+
+	// 사이드바
+	@GetMapping("/api/mypage/sidebar2")
+	public JsonResult getSidebar2(@RequestParam(value = "uNo") int uNo) {
+		System.out.println("AYController.getSidebar2");
+
+		List<DogVo> dogVo = ayService.exeGetSidebar2(uNo);
+
+		return JsonResult.success(dogVo);
+	}
+
 }

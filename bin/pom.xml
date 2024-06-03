@@ -66,7 +66,7 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.11.0</version>
 		</dependency>
-		
+
 		<!--java-jwt : 토큰관련-->
 		<dependency>
 			<groupId>com.auth0</groupId>
@@ -74,12 +74,6 @@
 			<version>4.4.0</version>
 		</dependency>
 
-
-		<dependency>
-			<groupId>com.javaex</groupId>
-			<artifactId>api-addressbook</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
 	</dependencies>
 
 	<build>

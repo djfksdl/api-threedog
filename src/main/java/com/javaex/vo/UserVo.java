@@ -3,9 +3,9 @@ package com.javaex.vo;
 import org.springframework.web.multipart.MultipartFile;
 
 public class UserVo {
-	
-	//필드
-	
+
+	// 필드
+
 	private int uNo;
 	private String uId;
 	private String uPw;
@@ -17,13 +17,24 @@ public class UserVo {
 	private int uPoint;
 	private MultipartFile file;
 	private String uProfile;
-	
-	//생성자
+	private String dogName;
+	private String dogImg;
+	private int dogNo;
+
+	// 생성자
 	public UserVo() {
 		super();
-	}		
+	}
+
+	// 메소드-gs
+
+	public int getuNo() {
+		return uNo;
+	}
+
 	public UserVo(int uNo, String uId, String uPw, String uName, String uPhone, String uZipCode, String uAddress,
-			String uDetailAddress, int uPoint, MultipartFile file, String uProfile) {
+			String uDetailAddress, int uPoint, MultipartFile file, String uProfile, String dogName, String dogImg,
+			int dogNo) {
 		super();
 		this.uNo = uNo;
 		this.uId = uId;
@@ -36,12 +47,33 @@ public class UserVo {
 		this.uPoint = uPoint;
 		this.file = file;
 		this.uProfile = uProfile;
+		this.dogName = dogName;
+		this.dogImg = dogImg;
+		this.dogNo = dogNo;
 	}
 
-	//메소드-gs
+	public String getDogName() {
+		return dogName;
+	}
 
-	public int getuNo() {
-		return uNo;
+	public void setDogName(String dogName) {
+		this.dogName = dogName;
+	}
+
+	public String getDogImg() {
+		return dogImg;
+	}
+
+	public void setDogImg(String dogImg) {
+		this.dogImg = dogImg;
+	}
+
+	public int getDogNo() {
+		return dogNo;
+	}
+
+	public void setDogNo(int dogNo) {
+		this.dogNo = dogNo;
 	}
 
 	public void setuNo(int uNo) {
@@ -110,26 +142,30 @@ public class UserVo {
 
 	public void setuPoint(int uPoint) {
 		this.uPoint = uPoint;
-	}	
+	}
+
 	public MultipartFile getFile() {
 		return file;
 	}
+
 	public void setFile(MultipartFile file) {
 		this.file = file;
 	}
+
 	public String getuProfile() {
 		return uProfile;
 	}
+
 	public void setuProfile(String uProfile) {
 		this.uProfile = uProfile;
 	}
-	//메소드-일반
+
 	@Override
 	public String toString() {
 		return "UserVo [uNo=" + uNo + ", uId=" + uId + ", uPw=" + uPw + ", uName=" + uName + ", uPhone=" + uPhone
 				+ ", uZipCode=" + uZipCode + ", uAddress=" + uAddress + ", uDetailAddress=" + uDetailAddress
-				+ ", uPoint=" + uPoint + ", file=" + file + ", uProfile=" + uProfile + "]";
+				+ ", uPoint=" + uPoint + ", file=" + file + ", uProfile=" + uProfile + ", dogName=" + dogName
+				+ ", dogImg=" + dogImg + ", dogNo=" + dogNo + "]";
 	}
-
 
 }
