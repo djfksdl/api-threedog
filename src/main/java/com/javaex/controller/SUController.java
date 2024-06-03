@@ -163,6 +163,7 @@ public class SUController {
 		
 		System.out.println("받아온 bNo 확인하기" + reserveVo.getbNo() );
 		System.out.println("받아온 rtDate 확인하기" + reserveVo.getRtDate() );
+		System.out.println("받아온 rtTime 확인하기" + reserveVo.getRtTime() );
 
 		suService.exeDeleteRt(reserveVo);
 
