@@ -302,7 +302,7 @@
 	<!-- 예약내역 -->
 	<select id="selectGetReserve" parameterType="int" resultType="com.javaex.vo.ReserveVo">
 		<![CDATA[
-		select r.rsNo, r.dogNo, r.rtNo, r.expectedPrice, rt.bNo, rt.rtDate, rt.rtTime,d.dogName, d.uNo, b.title
+		select r.rsNo, r.dogNo, r.rtNo, r.expectedPrice, rt.bNo, rt.rtDate, rt.rtTime,d.dogName, d.uNo, b.title,r.surcharge
 		from reserve r
 		join reserveTime rt on r.rtNo=rt.rtNo
 		join business b on b.bNo=rt.bNo
