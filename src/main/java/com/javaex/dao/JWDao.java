@@ -41,10 +41,22 @@ public class JWDao {
 	}
 
 	// 예약 삭제
+	// 예약 삭제
 	public void deleteReserve(int rsNo) {
 	    sqlSession.delete("jw.deleteReserve", rsNo);
-	    sqlSession.delete("jw.deleteReserve2", rsNo);
 	    System.out.println("예약 정보 삭제 완료: " + rsNo);
+	}
+	
+	// 예약 테이블에서 예약 삭제
+	public void deleteReserve2(int rsNo) {
+	    sqlSession.delete("jw.deleteReserve2", rsNo);
+	    System.out.println("예약 정보 삭제 완료2: " + rsNo);
+	}
+
+	// 예약 시간 완료 상태 업데이트
+	public void updateReserveTimeFinishByRsNo(int rsNo) {
+	    sqlSession.update("jw.updateReserveTimeFinishByRsNo", rsNo);
+	    System.out.println("예약 정보 삭제 완료up: " + rsNo);
 	}
 
 

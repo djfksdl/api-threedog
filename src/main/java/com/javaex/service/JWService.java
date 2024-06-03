@@ -1,19 +1,17 @@
 package com.javaex.service;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.javaex.dao.JWDao;
-import com.javaex.vo.DogVo;
 import com.javaex.vo.ReserveVo;
 
 @Service
@@ -47,10 +45,16 @@ public class JWService {
 		System.out.println("JWService.updateReserveTime() 메서드 실행");
 	}
 
-	// 예약 삭제
-	public void deleteReserve(int rsNo) {
-		jwDao.deleteReserve(rsNo);
-		System.out.println("JWService.deleteReserve() 메서드 실행");
+	// 예약 삭제 및 예약 시간 완료 상태 업데이트
+	@Transactional
+	public void deleteAndFinishReserve(int rsNo) {
+	    // 예약 삭제
+	    jwDao.deleteReserve(rsNo);
+	    jwDao.deleteReserve2(rsNo);
+	    
+	    // 예약 시간 완료 상태 업데이트
+	    jwDao.updateReserveTimeFinishByRsNo(rsNo);
+	    System.out.println("예약 정보 삭제 및 예약 시간 완료 상태 업데이트 완료");
 	}
 
 	// 특정 예약의 미용 기록 조회
