@@ -94,8 +94,8 @@ public class YEController {
 
 		List<StoreVo> mainList = yeService.exeList(storeVo);
 
-//		System.out.println("-----------");
-//	    System.out.println(mainList);
+		System.out.println("-----------");
+	    System.out.println(mainList);
 
 		return JsonResult.success(mainList);
 	}
@@ -188,8 +188,8 @@ public class YEController {
 //	    System.out.println(searchVo);
 	    List<ReviewListVo> reviewList = yeService.exeKeyword(searchVo);
 	    
-	    System.out.println("=============");
-	    System.out.println(reviewList);
+//	    System.out.println("=============");
+//	    System.out.println(reviewList);
 
 	    return JsonResult.success(reviewList);
 	}
