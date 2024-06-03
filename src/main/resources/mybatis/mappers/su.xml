@@ -209,6 +209,35 @@
 		</foreach>
 		and category=2
 	</delete>
+	
+	<!-- 가게 운영시간 등록 -->
+	<insert id="insertRtBybNo" parameterType="map">
+		<![CDATA[
+		    INSERT INTO reserveTime 
+		    VALUES (null,#{bNo}, #{rtDate}, #{rtTime}, false)
+	   	]]>
+	</insert>
+	
+	<!-- 가게 운영시간 등록 여부 -->
+	<select id="selectRtBybNo" parameterType="int" resultType="com.javaex.vo.ReserveVo" >
+		<![CDATA[
+		    select rtNo , rtDate from reserveTime where bNo=#{bNo} group by rtDate
+	   	]]>
+	</select>
+	
+	<!-- 가게 운영시간 가져오기 -->
+	<select id="selectRtimeBybNo" parameterType="com.javaex.vo.ReserveVo" resultType="com.javaex.vo.ReserveVo" >
+		<![CDATA[
+		    select rtNo , rtDate , rtTime from reserveTime where bNo=#{bNo} and rtDate =#{rtDate}
+	   	]]>
+	</select>
+	
+	<!-- 가게 운영시간 삭제 -->
+	<delete id="deleteRt" parameterType="com.javaex.vo.ReserveVo" >
+		<![CDATA[
+		    delete from reserveTime where bNo=#{bNo} and rtDate=#{rtDate}
+	   	]]>
+	</delete>
 
 
 

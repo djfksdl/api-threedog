@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,6 +37,26 @@ public class AYController {
 		return JsonResult.success(dogVo.getDogImg());
 	}
 
+	// 반려견정보1개 가져오기
+	@GetMapping("/api/mypage/petgetinfor")
+	public JsonResult petGetInfor(@RequestParam(value = "dogNo") int dogNo) {
+		System.out.println("AYController.getRList");
+		System.out.println(dogNo);
+
+		DogVo dogVo = ayService.exePetGetInfor(dogNo);
+
+		return JsonResult.success(dogVo);
+	}
+
+	@PutMapping("/api/mypage/petupdate")
+	public JsonResult petUpdate(@ModelAttribute DogVo dogVo) {
+		System.out.println("AYController.petUpdate");
+
+		ayService.exePetUpdate(dogVo);
+
+		return JsonResult.success(dogVo);
+	}
+
 	// 리뷰등록
 	@PostMapping("/api/mypage/reviewinsert")
 	public JsonResult reviewInsert(@ModelAttribute ReviewVo reviewVo) {
@@ -54,6 +75,39 @@ public class AYController {
 		System.out.println("AYController.getRList");
 
 		List<ReviewVo> reviewVo = ayService.exeGetRList(bNo);
+
+		return JsonResult.success(reviewVo);
+	}
+
+	// 조회수 증가
+	@PostMapping("/api/mypage/updateview")
+	public JsonResult updateView(@RequestParam(value = "rNo") int rNo) {
+		System.out.println("AYController.updateView");
+		System.out.println(rNo);
+
+		ayService.exeUpdateView(rNo);
+
+		return JsonResult.success("서엉ㅇ공~");
+	}
+
+	// 리뷰1개 가져오기
+	@GetMapping("/api/mypage/getonerlist")
+	public JsonResult getOnerList(@RequestParam(value = "rNo") int rNo) {
+		System.out.println("AYController.getOnerList");
+
+		System.out.println(rNo);
+		ReviewVo reviewVo = ayService.exeGetOnerList(rNo);
+
+		return JsonResult.success(reviewVo);
+	}
+
+	// 리뷰사진들
+	@GetMapping("/api/mypage/getsavename")
+	public JsonResult getrSaveNameList(@RequestParam(value = "rNo") int rNo) {
+		System.out.println("AYController.getrSaveNameList");
+
+		System.out.println(rNo);
+		List<ReviewVo> reviewVo = ayService.exegetrSaveNameList(rNo);
 
 		return JsonResult.success(reviewVo);
 	}
@@ -148,9 +202,70 @@ public class AYController {
 		System.out.println("AYController.reserveInsert");
 		System.out.println("예약하기 ~~~~~ ");
 		System.out.println(reserveVo);
-		
+
 		ayService.exeReserveInsert(reserveVo);
 
 		return JsonResult.success("성공 ~~~~~");
 	}
+
+	// 사이드바
+	@GetMapping("/api/mypage/sidebar")
+	public JsonResult getSidebar(@RequestParam(value = "uNo") int uNo) {
+		System.out.println("AYController.getSidebar");
+
+		UserVo userVo = ayService.exeGetSidebar(uNo);
+
+		return JsonResult.success(userVo);
+	}
+
+	// 사이드바
+	@GetMapping("/api/mypage/sidebar2")
+	public JsonResult getSidebar2(@RequestParam(value = "uNo") int uNo) {
+		System.out.println("AYController.getSidebar2");
+
+		List<DogVo> dogVo = ayService.exeGetSidebar2(uNo);
+
+		return JsonResult.success(dogVo);
+	}
+
+	// 마이페이지 예약
+	@GetMapping("/api/mypage/reserve")
+	public JsonResult getReserve(@RequestParam(value = "uNo") int uNo) {
+		System.out.println("AYController.getReserve");
+
+		ReserveVo reserveVo = ayService.exeGetReserve(uNo);
+
+		return JsonResult.success(reserveVo);
+	}
+
+	// 마이페이지 후기
+	@GetMapping("/api/mypage/review")
+	public JsonResult getReview(@RequestParam(value = "uNo") int uNo) {
+		System.out.println("AYController.getReview");
+
+		ReviewVo reviewVo = ayService.exeGetReview(uNo);
+
+		return JsonResult.success(reviewVo);
+	}
+
+	// 마이페이지 알림장
+	@GetMapping("/api/mypage/mydiary")
+	public JsonResult getMydiary(@RequestParam(value = "uNo") int uNo) {
+		System.out.println("AYController.getMydiary");
+
+		ReserveVo reserveVo = ayService.exeGetMydiary(uNo);
+
+		return JsonResult.success(reserveVo);
+	}
+	
+	//마이페이지 예약더보기
+	@GetMapping("/api/mypage/reservationlist")
+	public JsonResult getReservationList(@RequestParam(value = "uNo") int uNo) {
+		System.out.println("AYController.reservationlist");
+
+		List<ReserveVo> reserveList = ayService.exeGetReservationList(uNo);
+
+		return JsonResult.success(reserveList);
+	}
+
 }

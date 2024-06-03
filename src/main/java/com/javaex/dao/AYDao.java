@@ -35,6 +35,25 @@ public class AYDao {
 		return dogVo.getDogImg();
 	}
 
+	// 반려견수정
+	public String petUpdate(DogVo dogVo) {
+		System.out.println("AYDao.petUpdate()");
+		System.out.println(dogVo);
+
+		sqlSession.update("ay.petUpdate", dogVo);
+
+		return dogVo.getDogImg();
+	}
+
+	// 반려견정보1개 가져오기
+	public DogVo getPetGetInfor(int dogNo) {
+		System.out.println("AYDao.getPetGetInfor()");
+
+		DogVo dogVo = sqlSession.selectOne("ay.petSelectOne", dogNo);
+
+		return dogVo;
+	}
+
 	// 리뷰등록
 	public void addReview(ReviewVo reviewVo) {
 		System.out.println("AYDao.addReview()");
@@ -42,6 +61,7 @@ public class AYDao {
 		// 리뷰 정보를 먼저 등록
 		sqlSession.insert("ay.addReview01", reviewVo);
 		sqlSession.update("ay.insertPoint", reviewVo);
+		sqlSession.update("ay.addUserPoint", reviewVo);
 		// 등록된 리뷰의 rNo를 가져옴
 		int rNo = reviewVo.getrNo();
 
@@ -60,19 +80,50 @@ public class AYDao {
 		System.out.println("성공");
 	}
 
-	// 가게리스트
+	// 조회수 증가
+	public void updateView(int rNo) {
+		System.out.println("AYDao.updateView");
+
+		sqlSession.update("ay.reviewUpdateView", rNo);
+
+	}
+
+	// 리뷰리스트
 	public List<ReviewVo> getRList(int bNo) {
 		System.out.println("AYDao.getRList");
 		List<ReviewVo> reviewVo = sqlSession.selectList("ay.reviewSelect", bNo);
 
+		System.out.println(reviewVo);
+
 		return reviewVo;
+	}
+
+	// 리뷰1개 가져오기
+	public ReviewVo getOnerList(int rNo) {
+		System.out.println("AYDao.getOnerList()");
+		ReviewVo reviewVo = sqlSession.selectOne("ay.selectOneRList", rNo);
+
+		System.out.println(reviewVo);
+
+		return reviewVo;
+
+	}
+
+	public List<ReviewVo> getrSaveNameList(int rNo) {
+		System.out.println("AYDao.getrSaveNameList()");
+		List<ReviewVo> reviewVo = sqlSession.selectList("ay.SaveNameList", rNo);
+
+		System.out.println(reviewVo);
+
+		return reviewVo;
+
 	}
 
 	// 가게정보 가져오기
 	public BusinessVo getBList(int bNo) {
 		System.out.println("AYDao.getBList()");
 		BusinessVo businessVo = sqlSession.selectOne("ay.selectOne", bNo);
-
+		System.out.println("가게정보!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		System.out.println(businessVo);
 
 		return businessVo;
@@ -137,26 +188,133 @@ public class AYDao {
 		return reserveList;
 	}
 
-	// 예약하기
+	// 예약테이블 등록
 	public String reserveInsert(ReserveVo reserveVo) {
 		System.out.println("AYDao.reserveInsert()");
 		System.out.println(reserveVo);
 
-		// 예약테이블 등록
-//		sqlSession.insert("ay.reserveInsert", reserveVo);
-//
-//		// 예약시간테이블 수정
-//		sqlSession.update("ay.reserveTime", reserveVo);
-//
-//		// 포인터테이블 등록
-//		sqlSession.insert("ay.reservePoint", reserveVo);
-//
-//		// 반려견테이블 수정
-//		sqlSession.update("ay.reserveDog", reserveVo);
-//
-//		// 예약가격테이블 등록
-//		sqlSession.insert("ay.reservePrice)", reserveVo);
+		sqlSession.insert("ay.reserveInsert", reserveVo);
+		reserveVo.setRsNum(reserveVo.getRsNo());
 
 		return reserveVo.getSignImg();
 	}
+
+	// 예약시간테이블 수정
+	public String reserveTime(ReserveVo reserveVo) {
+		System.out.println("AYDao.reserveTime()");
+		System.out.println(reserveVo);
+
+		sqlSession.update("ay.reserveTime", reserveVo);
+
+		return reserveVo.getSignImg();
+	}
+
+	// 포인트테이블 등록
+	public String reservePoint(ReserveVo reserveVo) {
+		System.out.println("AYDao.reservePoint()");
+		System.out.println(reserveVo);
+		System.out.println("예약번호???????????");
+		System.out.println(reserveVo.getRsNum());
+		sqlSession.insert("ay.reservePoint", reserveVo);
+
+		return reserveVo.getSignImg();
+	}
+
+	// 유저포인트 수정
+	public String userPoint(ReserveVo reserveVo) {
+		System.out.println("AYDao.userPoint()");
+		System.out.println(reserveVo);
+
+		sqlSession.update("ay.userPoint", reserveVo);
+
+		return reserveVo.getSignImg();
+	}
+
+	// 반려견테이블 수정
+	public String reserveDog(ReserveVo reserveVo) {
+		System.out.println("AYDao.reserveDog()");
+		System.out.println(reserveVo);
+
+		sqlSession.update("ay.reserveDog", reserveVo);
+
+		return reserveVo.getSignImg();
+	}
+
+	// 예약가격테이블 등록
+	public String reservePrice(ReserveVo reserveVo) {
+		System.out.println("AYDao.reservePrice()");
+		System.out.println(reserveVo);
+
+		sqlSession.insert("ay.reservePrice", reserveVo);
+
+		for (int priceNo : reserveVo.getPriceNoPlus()) {
+			Map<String, Object> paramMap = new HashMap<>();
+			paramMap.put("rsNo", reserveVo.getRsNo());
+			paramMap.put("priceNo", priceNo);
+			paramMap.put("rtNo", reserveVo.getRtNo());
+			sqlSession.insert("ay.reservePrice2", paramMap);
+		}
+
+		return reserveVo.getSignImg();
+	}
+
+	// 사이드바
+	public UserVo getSidebar(int uNo) {
+		System.out.println("AYDao.getSidebar");
+
+		UserVo userVo = sqlSession.selectOne("ay.selectSidebar1", uNo);
+		System.out.println(userVo);
+
+		return userVo;
+	}
+
+	// 사이드바
+	public List<DogVo> getSidebar2(int uNo) {
+		System.out.println("AYDao.getSidebar");
+
+		List<DogVo> dogVo = sqlSession.selectList("ay.selectSidebar2", uNo);
+		System.out.println(dogVo);
+
+		return dogVo;
+	}
+
+	// 마이페이지 예약
+	public ReserveVo getReserve(int uNo) {
+		System.out.println("AYDao.ReserveVo");
+
+		ReserveVo reserveVo = sqlSession.selectOne("ay.selectGetReserve", uNo);
+		System.out.println(reserveVo);
+		return reserveVo;
+	}
+
+	// 마이페이지 리뷰
+	public ReviewVo getReview(int uNo) {
+		System.out.println("AYDao.getReview");
+
+		ReviewVo reviewVo = sqlSession.selectOne("ay.selectGetReview", uNo);
+		System.out.println(reviewVo);
+
+		return reviewVo;
+	}
+
+	// 마이페이지 알림장
+	public ReserveVo getMydiary(int uNo) {
+		System.out.println("AYDao.getMydiary");
+
+		ReserveVo reserveVo = sqlSession.selectOne("ay.selectGetMydiary", uNo);
+		System.out.println(reserveVo);
+
+		return reserveVo;
+	}
+
+	// 마이페이지 예약더보기
+	public List<ReserveVo> getReservationList(int uNo) {
+		System.out.println("AYDao.getReservationList");
+
+		List<ReserveVo> reserveList = sqlSession.selectList("ay.selectListReservation", uNo);
+		System.out.println(reserveList);
+		
+		return reserveList;
+	}
+
 }

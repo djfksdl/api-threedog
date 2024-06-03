@@ -1,8 +1,10 @@
 package com.javaex.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +17,7 @@ import com.javaex.service.SUService;
 import com.javaex.util.JsonResult;
 import com.javaex.util.JwtUtil;
 import com.javaex.vo.BusinessVo;
+import com.javaex.vo.ReserveVo;
 import com.javaex.vo.UserVo;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -113,6 +116,72 @@ public class SUController {
 	}
 	
 	// manager================================
+	
+	//가게 운영시간 등록
+	@PostMapping("/api/su/insertRT")
+	public JsonResult insertRtBybNo(@RequestBody ReserveVo reserveVo) {
+		System.out.println("SUController.insertRtBybNo");
+
+//		System.out.println("잘넘어 오는가"+reserveVo);
+		suService.exeInsertRtBybNo(reserveVo);
+
+		return JsonResult.success("얏호");
+	}
+	
+	//가게 운영시간 등록 여부
+	@GetMapping("/api/su/selectRt")
+	public JsonResult selectRt(@RequestParam(value="bNo")int bNo) {
+		System.out.println("SUController.selectRt");
+
+		List<ReserveVo> dList = suService.exeGetRtBybNo(bNo);
+
+//		System.out.println("잘 가져왔는가"+dList);
+		return JsonResult.success(dList);
+	}
+	
+	//가게 운영시간 가져오기
+	@GetMapping("/api/su/selectRtime")
+	public JsonResult selectRtime(@RequestParam(value="bNo")int bNo, @RequestParam(value="rtDate")String rtDate) {
+		System.out.println("SUController.selectRtime");
+		
+		ReserveVo rVo = new ReserveVo();
+		rVo.setbNo(bNo);
+		rVo.setRtDate(rtDate);
+		System.out.println("프론트에서 여기 확인하기"+rVo.getbNo() );
+		System.out.println("프론트에서 여기 확인하기"+rVo.getRtDate() );
+
+		List<ReserveVo> timeList = suService.exeGetRtimeBybNo(rVo);
+
+//		System.out.println("잘 가져왔는가"+timeList);
+		return JsonResult.success(timeList);
+	}
+	
+	//가게 운영시간 삭제
+	@DeleteMapping("/api/su/deleteRtime")
+	public JsonResult deleteRtime(@RequestBody ReserveVo reserveVo) {
+		System.out.println("SUController.deleteRtime");
+		
+		System.out.println("받아온 bNo 확인하기" + reserveVo.getbNo() );
+		System.out.println("받아온 rtDate 확인하기" + reserveVo.getRtDate() );
+
+		suService.exeDeleteRt(reserveVo);
+
+		return JsonResult.success("얏호");
+	}
+	
+	//가게 운영시간 수정
+		@PostMapping("/api/su/updateRtime")
+		public JsonResult updateRtime(@RequestBody ReserveVo reserveVo) {
+			System.out.println("SUController.updateRtime");
+			
+			System.out.println("받아온 bNo 확인하기" + reserveVo.getbNo() );
+			System.out.println("받아온 rtDate 확인하기" + reserveVo.getRtDate() );
+			System.out.println("받아온 rtTimes 확인하기" + reserveVo.getRtTimes() );
+
+			suService.exeUpdateRt(reserveVo);
+
+			return JsonResult.success("얏호");
+		}
 	
 	
 

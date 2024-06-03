@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class ReviewVo {
 
+	// 리뷰
 	private int rNo;
 	private int bNo;
 	private int uNo;
@@ -19,12 +20,105 @@ public class ReviewVo {
 	private String filePath;
 	private int userPoint;
 	private int rsNo;
-
+	private String saveName;
+	private int uPoint;
 	private List<String> saveNameList;
 	private List<MultipartFile> file;
 
+	// 반려견정보
+	private int dogNo;
+	private String dogName;
+	private double weight;
+
+	// 예약
+	private int expectedPrice;
+	private int surcharge;
+	private String beauty;
+	private String uId;
+	private String title;
+
+	public int getSurcharge() {
+		return surcharge;
+	}
+
+	public void setSurcharge(int surcharge) {
+		this.surcharge = surcharge;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public int getuPoint() {
+		return uPoint;
+	}
+
+	public void setuPoint(int uPoint) {
+		this.uPoint = uPoint;
+	}
+
 	public ReviewVo() {
 		super();
+	}
+
+	public String getSaveName() {
+		return saveName;
+	}
+
+	public void setSaveName(String saveName) {
+		this.saveName = saveName;
+	}
+
+	public String getuId() {
+		return uId;
+	}
+
+	public void setuId(String uId) {
+		this.uId = uId;
+	}
+
+	public String getBeauty() {
+		return beauty;
+	}
+
+	public void setBeauty(String beauty) {
+		this.beauty = beauty;
+	}
+
+	public int getDogNo() {
+		return dogNo;
+	}
+
+	public void setDogNo(int dogNo) {
+		this.dogNo = dogNo;
+	}
+
+	public String getDogName() {
+		return dogName;
+	}
+
+	public void setDogName(String dogName) {
+		this.dogName = dogName;
+	}
+
+	public double getWeight() {
+		return weight;
+	}
+
+	public void setWeight(double weight) {
+		this.weight = weight;
+	}
+
+	public int getExpectedPrice() {
+		return expectedPrice;
+	}
+
+	public void setExpectedPrice(int expectedPrice) {
+		this.expectedPrice = expectedPrice;
 	}
 
 	public String getOrgName() {
@@ -151,10 +245,10 @@ public class ReviewVo {
 	public String toString() {
 		return "ReviewVo [rNo=" + rNo + ", bNo=" + bNo + ", uNo=" + uNo + ", star=" + star + ", rContent=" + rContent
 				+ ", rDate=" + rDate + ", views=" + views + ", riNo=" + riNo + ", imgCount=" + imgCount + ", orgName="
-				+ orgName + ", filePath=" + filePath + ", userPoint=" + userPoint + ", rsNo=" + rsNo + ", saveNameList="
-				+ saveNameList + ", file=" + file + "]";
+				+ orgName + ", filePath=" + filePath + ", userPoint=" + userPoint + ", rsNo=" + rsNo + ", saveName="
+				+ saveName + ", uPoint=" + uPoint + ", saveNameList=" + saveNameList + ", file=" + file + ", dogNo="
+				+ dogNo + ", dogName=" + dogName + ", weight=" + weight + ", expectedPrice=" + expectedPrice
+				+ ", surcharge=" + surcharge + ", beauty=" + beauty + ", uId=" + uId + ", title=" + title + "]";
 	}
-
-
 
 }

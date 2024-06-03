@@ -54,9 +54,19 @@ public class ReserveVo {
 	private MultipartFile signFile;
 	private List<String> beautyPlus;
 	private Boolean rtFinish;
+	private int rNo;
+
 	private int rsNum;
 	private int usePoint;
-	
+	private List<Integer> priceNoPlus;
+	private List<String> rtDates;
+	private List<String> rtTimes;
+	private String title;
+
+	private String bPhone;
+	private String bAddress;
+	private String bdAddress;
+
 	// 생성자
 	public ReserveVo() {
 		super();
@@ -67,13 +77,47 @@ public class ReserveVo {
 		this.bNo = bNo;
 		this.rtDate = rtDate;
 	}
-	
-	
 
+	public int getrNo() {
+		return rNo;
+	}
 
+	public void setrNo(int rNo) {
+		this.rNo = rNo;
+	}
 
-	
-	
+	public String getbPhone() {
+		return bPhone;
+	}
+
+	public void setbPhone(String bPhone) {
+		this.bPhone = bPhone;
+	}
+
+	public String getbAddress() {
+		return bAddress;
+	}
+
+	public void setbAddress(String bAddress) {
+		this.bAddress = bAddress;
+	}
+
+	public String getBdAddress() {
+		return bdAddress;
+	}
+
+	public void setBdAddress(String bdAddress) {
+		this.bdAddress = bdAddress;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	public int getRsNum() {
 		return rsNum;
 	}
@@ -105,7 +149,6 @@ public class ReserveVo {
 	public void setBeautyPlus(List<String> beautyPlus) {
 		this.beautyPlus = beautyPlus;
 	}
-
 
 	public int getRsNo() {
 		return rsNo;
@@ -467,6 +510,30 @@ public class ReserveVo {
 		this.files = files;
 	}
 
+	public List<Integer> getPriceNoPlus() {
+		return priceNoPlus;
+	}
+
+	public void setPriceNoPlus(List<Integer> priceNoPlus) {
+		this.priceNoPlus = priceNoPlus;
+	}
+
+	public List<String> getRtDates() {
+		return rtDates;
+	}
+
+	public void setRtDates(List<String> rtDates) {
+		this.rtDates = rtDates;
+	}
+
+	public List<String> getRtTimes() {
+		return rtTimes;
+	}
+
+	public void setRtTimes(List<String> rtTimes) {
+		this.rtTimes = rtTimes;
+	}
+
 	@Override
 	public String toString() {
 		return "ReserveVo [rsNo=" + rsNo + ", bNo=" + bNo + ", dogNo=" + dogNo + ", rtNo=" + rtNo + ", rtDate=" + rtDate
@@ -480,8 +547,9 @@ public class ReserveVo {
 				+ ", beautyNo=" + beautyNo + ", onePrice=" + onePrice + ", sizeDiv=" + sizeDiv + ", weightDiv="
 				+ weightDiv + ", beauty=" + beauty + ", aiNo=" + aiNo + ", saveName=" + saveName + ", pushNo=" + pushNo
 				+ ", pushTime=" + pushTime + ", files=" + files + ", signFile=" + signFile + ", beautyPlus="
-				+ beautyPlus + ", rtFinish=" + rtFinish + ", rsNum=" + rsNum + ", usePoint=" + usePoint + "]";
+				+ beautyPlus + ", rtFinish=" + rtFinish + ", rNo=" + rNo + ", rsNum=" + rsNum + ", usePoint=" + usePoint
+				+ ", priceNoPlus=" + priceNoPlus + ", rtDates=" + rtDates + ", rtTimes=" + rtTimes + ", title=" + title
+				+ ", bPhone=" + bPhone + ", bAddress=" + bAddress + ", bdAddress=" + bdAddress + "]";
 	}
-	
-	
+
 }
