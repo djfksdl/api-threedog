@@ -145,13 +145,13 @@ public class AYService {
 		return dogVo;
 	}
 
-	//리뷰사진등록
+	// 리뷰사진등록
 	public String exeReviewInsert(ReviewVo reviewVo) {
 		System.out.println("AYService.exeReviewInsert2()");
 
 		List<MultipartFile> files = reviewVo.getFile();
 		ayDao.addReview(reviewVo);
-		
+
 		for (MultipartFile file : files) {
 
 			// 오리지널 파일명
@@ -180,13 +180,13 @@ public class AYService {
 				// 파일저장디렉토리
 				saveDir = "C:\\javaStudy\\upload\\";
 			}
-			
+
 			// 파일전체경로
 			String filePath = saveDir + File.separator + saveName;
 			System.out.println(filePath);
-			
+
 			reviewVo.setSaveName(saveName);
-			
+
 			// 파일저장
 			try {
 				byte[] fileData = file.getBytes();
@@ -232,7 +232,6 @@ public class AYService {
 
 		return reviewVo;
 	}
-
 
 	// 가게정보 가져오기
 	public BusinessVo exeGetBList(int bNo) {
@@ -410,5 +409,14 @@ public class AYService {
 
 		return reserveList;
 	}
-	
+
+	// 리뷰1개 가져오기
+	public ReviewVo exeGetOnerList2(int rsNo) {
+		System.out.println("AYService.exeGetOnerList2");
+
+		ReviewVo reviewVo = ayDao.getOnerList2(rsNo);
+
+		return reviewVo;
+	}
+
 }
