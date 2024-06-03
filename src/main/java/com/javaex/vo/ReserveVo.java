@@ -7,110 +7,103 @@ import org.springframework.web.multipart.MultipartFile;
 public class ReserveVo {
 
 	// 필드
-    private int rsNo;
-    private int bNo;
-    private int dogNo;
-    private int rtNo;
-    private String rtDate;
-    private String rtTime;
-    private String signImg;
-    private int expectedPrice;
-    private String attitude;
-    private String rCondition;
-    private String tangle;
-    private String disliked;
-    private String bath;
-    private Integer surcharge;
-    private String message;
-    private Double currentWeight;
-    private String dogName;
-    private String kind;
-    private double weight;
-    private String birth;
-    private String gender;
-    private Boolean neutering;
-    private Boolean experience;
-    private Integer bite;
-    private String memo;
-    private String dogImg;
-    private String size;
-    private Boolean skin;
-    private Boolean heart;
-    private Boolean marking;
-    private Boolean mounting;
-    private int uNo;
-    private int rspNo;
-    private int priceNo;
-    private int beautyNo;
-    private Integer onePrice;
-    private String sizeDiv;
-    private String weightDiv;
-    private String beauty;
-    private int aiNo;
-    private String saveName;
-    private int pushNo;
-    private String pushTime;
-    private List<MultipartFile> files;
+	private int rsNo;
+	private int bNo;
+	private int dogNo;
+	private int rtNo;
+	private String rtDate;
+	private String rtTime;
+	private String signImg;
+	private int expectedPrice;
+	private String attitude;
+	private String rCondition;
+	private String tangle;
+	private String disliked;
+	private String bath;
+	private Integer surcharge;
+	private String message;
+	private Double currentWeight;
+	private String dogName;
+	private String kind;
+	private double weight;
+	private String birth;
+	private String gender;
+	private Boolean neutering;
+	private Boolean experience;
+	private Integer bite;
+	private String memo;
+	private String dogImg;
+	private String size;
+	private Boolean skin;
+	private Boolean heart;
+	private Boolean marking;
+	private Boolean mounting;
+	private int uNo;
+	private int rspNo;
+	private int priceNo;
+	private int beautyNo;
+	private Integer onePrice;
+	private String sizeDiv;
+	private String weightDiv;
+	private String beauty;
+	private int aiNo;
+	private String saveName;
+	private int pushNo;
+	private String pushTime;
+	private List<MultipartFile> files;
+	private MultipartFile signFile;
+	private List<String> beautyPlus;
+	private Boolean rtFinish;
+
+	private int rsNum;
+	private int usePoint;
+	private List<Integer> priceNoPlus;
+	private List<String> rtDates;
+    private List<String> rtTimes;
+
+
 
 	// 생성자
 	public ReserveVo() {
 		super();
 	}
 
-	public ReserveVo(int rsNo, int bNo, int dogNo, int rtNo, String rtDate, String rtTime, String signImg,
-			int expectedPrice, String attitude, String rCondition, String tangle, String disliked, String bath,
-			Integer surcharge, String message, Double currentWeight, String dogName, String kind, double weight,
-			String birth, String gender, Boolean neutering, Boolean experience, Integer bite, String memo,
-			String dogImg, String size, Boolean skin, Boolean heart, Boolean marking, Boolean mounting, int uNo,
-			int rspNo, int priceNo, int beautyNo, Integer onePrice, String sizeDiv, String weightDiv, String beauty,
-			int aiNo, String saveName, int pushNo, String pushTime, List<MultipartFile> files) {
+	public ReserveVo(int bNo, String rtDate) {
 		super();
-		this.rsNo = rsNo;
 		this.bNo = bNo;
-		this.dogNo = dogNo;
-		this.rtNo = rtNo;
 		this.rtDate = rtDate;
-		this.rtTime = rtTime;
-		this.signImg = signImg;
-		this.expectedPrice = expectedPrice;
-		this.attitude = attitude;
-		this.rCondition = rCondition;
-		this.tangle = tangle;
-		this.disliked = disliked;
-		this.bath = bath;
-		this.surcharge = surcharge;
-		this.message = message;
-		this.currentWeight = currentWeight;
-		this.dogName = dogName;
-		this.kind = kind;
-		this.weight = weight;
-		this.birth = birth;
-		this.gender = gender;
-		this.neutering = neutering;
-		this.experience = experience;
-		this.bite = bite;
-		this.memo = memo;
-		this.dogImg = dogImg;
-		this.size = size;
-		this.skin = skin;
-		this.heart = heart;
-		this.marking = marking;
-		this.mounting = mounting;
-		this.uNo = uNo;
-		this.rspNo = rspNo;
-		this.priceNo = priceNo;
-		this.beautyNo = beautyNo;
-		this.onePrice = onePrice;
-		this.sizeDiv = sizeDiv;
-		this.weightDiv = weightDiv;
-		this.beauty = beauty;
-		this.aiNo = aiNo;
+	}
 
-		this.saveName = saveName;
+	public int getRsNum() {
+		return rsNum;
+	}
 
-		this.pushNo = pushNo;
-		this.pushTime = pushTime;
-		this.files = files;
+	public void setRsNum(int rsNum) {
+		this.rsNum = rsNum;
+	}
+
+	public Boolean getRtFinish() {
+		return rtFinish;
+	}
+
+	public void setRtFinish(Boolean rtFinish) {
+		this.rtFinish = rtFinish;
+	}
+
+	public MultipartFile getSignFile() {
+		return signFile;
+	}
+
+	public void setSignFile(MultipartFile signFile) {
+		this.signFile = signFile;
+	}
+
+	public List<String> getBeautyPlus() {
+		return beautyPlus;
+	}
+
+	public void setBeautyPlus(List<String> beautyPlus) {
+		this.beautyPlus = beautyPlus;
 	}
 
 	public int getRsNo() {
@@ -401,6 +394,14 @@ public class ReserveVo {
 		this.onePrice = onePrice;
 	}
 
+	public int getUsePoint() {
+		return usePoint;
+	}
+
+	public void setUsePoint(int usePoint) {
+		this.usePoint = usePoint;
+	}
+
 	public String getSizeDiv() {
 		return sizeDiv;
 	}
@@ -464,6 +465,29 @@ public class ReserveVo {
 	public void setFiles(List<MultipartFile> files) {
 		this.files = files;
 	}
+	public List<Integer> getPriceNoPlus() {
+		return priceNoPlus;
+	}
+
+	public void setPriceNoPlus(List<Integer> priceNoPlus) {
+		this.priceNoPlus = priceNoPlus;
+	}
+
+	public List<String> getRtDates() {
+		return rtDates;
+	}
+
+	public void setRtDates(List<String> rtDates) {
+		this.rtDates = rtDates;
+	}
+
+	public List<String> getRtTimes() {
+		return rtTimes;
+	}
+
+	public void setRtTimes(List<String> rtTimes) {
+		this.rtTimes = rtTimes;
+	}
 
 	@Override
 	public String toString() {
@@ -477,6 +501,11 @@ public class ReserveVo {
 				+ marking + ", mounting=" + mounting + ", uNo=" + uNo + ", rspNo=" + rspNo + ", priceNo=" + priceNo
 				+ ", beautyNo=" + beautyNo + ", onePrice=" + onePrice + ", sizeDiv=" + sizeDiv + ", weightDiv="
 				+ weightDiv + ", beauty=" + beauty + ", aiNo=" + aiNo + ", saveName=" + saveName + ", pushNo=" + pushNo
-				+ ", pushTime=" + pushTime + ", files=" + files + "]";
+				+ ", pushTime=" + pushTime + ", files=" + files + ", signFile=" + signFile + ", beautyPlus="
+				+ beautyPlus + ", rtFinish=" + rtFinish + ", rsNum=" + rsNum + ", usePoint=" + usePoint
+				+ ", priceNoPlus=" + priceNoPlus + ", rtDates=" + rtDates + ", rtTimes=" + rtTimes + "]";
 	}
+
+
+
 }

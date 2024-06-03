@@ -91,6 +91,7 @@ public class JWController {
 		String fileUrl = jwService.uploadImage(rsNo, file);
 		System.out.println("업로드된 파일 URL: " + fileUrl); // 콘솔 출력 추가
 		return JsonResult.success(Map.of("url", fileUrl)); // 업로드된 이미지의 URL 반환
+		
 	}
 
 	// 미용 기록 업데이트를 처리하는 컨트롤러 메서드
