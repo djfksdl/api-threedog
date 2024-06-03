@@ -48,6 +48,7 @@ public class AYController {
 		return JsonResult.success(dogVo);
 	}
 
+	// 반려견 수정
 	@PutMapping("/api/mypage/petupdate")
 	public JsonResult petUpdate(@ModelAttribute DogVo dogVo) {
 		System.out.println("AYController.petUpdate");
@@ -64,7 +65,7 @@ public class AYController {
 		System.out.println(reviewVo);
 
 		ayService.exeReviewInsert(reviewVo);
-
+		
 		return JsonResult.success("성공");
 	}
 
@@ -96,17 +97,6 @@ public class AYController {
 
 		System.out.println(rNo);
 		ReviewVo reviewVo = ayService.exeGetOnerList(rNo);
-
-		return JsonResult.success(reviewVo);
-	}
-
-	// 리뷰사진들
-	@GetMapping("/api/mypage/getsavename")
-	public JsonResult getrSaveNameList(@RequestParam(value = "rNo") int rNo) {
-		System.out.println("AYController.getrSaveNameList");
-
-		System.out.println(rNo);
-		List<ReviewVo> reviewVo = ayService.exegetrSaveNameList(rNo);
 
 		return JsonResult.success(reviewVo);
 	}
@@ -256,8 +246,8 @@ public class AYController {
 
 		return JsonResult.success(reserveVo);
 	}
-	
-	//마이페이지 예약더보기
+
+	// 마이페이지 예약더보기
 	@GetMapping("/api/mypage/reservationlist")
 	public JsonResult getReservationList(@RequestParam(value = "uNo") int uNo) {
 		System.out.println("AYController.reservationlist");

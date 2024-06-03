@@ -76,7 +76,7 @@
 	</insert>
 
 	<!-- 리뷰 이미지 등록 -->
-	<insert id="addReview02" parameterType="map">
+	<insert id="addReview02" parameterType="com.javaex.vo.ReviewVo">
         <![CDATA[
             insert into reviewimg (riNo, rNo, saveName)
             values (null, #{rNo}, #{saveName})
@@ -265,7 +265,7 @@
 	<insert id="reservePrice2" parameterType="map">
         <![CDATA[
            	insert into rsPrice values
-      	(null, #{rsNo}, #{priceNo}, #{rtNo})
+      		(null, #{rsNo}, #{priceNo}, #{rtNo})
         ]]>
 	</insert>
 

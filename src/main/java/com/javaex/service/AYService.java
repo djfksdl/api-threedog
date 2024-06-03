@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -146,13 +145,13 @@ public class AYService {
 		return dogVo;
 	}
 
-	// 리뷰등록
-	public void exeReviewInsert(ReviewVo reviewVo) {
-		System.out.println("AYService.reviewInsert()");
+	//리뷰사진등록
+	public String exeReviewInsert(ReviewVo reviewVo) {
+		System.out.println("AYService.exeReviewInsert2()");
 
 		List<MultipartFile> files = reviewVo.getFile();
-		List<String> saveNameList = new ArrayList<>();
-
+		ayDao.addReview(reviewVo);
+		
 		for (MultipartFile file : files) {
 
 			// 오리지널 파일명
@@ -181,13 +180,13 @@ public class AYService {
 				// 파일저장디렉토리
 				saveDir = "C:\\javaStudy\\upload\\";
 			}
-
+			
 			// 파일전체경로
-			String filePath = saveDir + File.separator + saveNameList;
+			String filePath = saveDir + File.separator + saveName;
 			System.out.println(filePath);
-
-			saveNameList.add(saveName);
-
+			
+			reviewVo.setSaveName(saveName);
+			
 			// 파일저장
 			try {
 				byte[] fileData = file.getBytes();
@@ -201,12 +200,10 @@ public class AYService {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			reviewVo.setSaveNameList(saveNameList);
-			System.out.println("*****************saveNameList*****************");
-			System.out.println(saveNameList);
 
+			ayDao.addReview2(reviewVo);
 		}
-		ayDao.addReview(reviewVo);
+		return reviewVo.getSaveName();
 
 	}
 
@@ -236,13 +233,6 @@ public class AYService {
 		return reviewVo;
 	}
 
-	public List<ReviewVo> exegetrSaveNameList(int rNo) {
-		System.out.println("AYService.exegetrSaveNameList");
-
-		List<ReviewVo> reviewVo = ayDao.getrSaveNameList(rNo);
-
-		return reviewVo;
-	}
 
 	// 가게정보 가져오기
 	public BusinessVo exeGetBList(int bNo) {
