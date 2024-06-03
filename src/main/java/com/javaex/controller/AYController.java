@@ -228,4 +228,14 @@ public class AYController {
 		return JsonResult.success(dogVo);
 	}
 
+	// 마이페이지 예약
+	@GetMapping("/api/mypage/reserve")
+	public JsonResult getReserve(@RequestParam(value = "uNo") int uNo) {
+		System.out.println("AYController.getReserve");
+
+		ReserveVo reserveVo = ayService.exeGetReserve(uNo);
+
+		return JsonResult.success(reserveVo);
+	}
+
 }

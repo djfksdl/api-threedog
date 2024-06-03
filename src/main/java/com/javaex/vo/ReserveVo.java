@@ -59,9 +59,8 @@ public class ReserveVo {
 	private int usePoint;
 	private List<Integer> priceNoPlus;
 	private List<String> rtDates;
-    private List<String> rtTimes;
-
-
+	private List<String> rtTimes;
+	private String title;
 
 	// 생성자
 	public ReserveVo() {
@@ -72,6 +71,14 @@ public class ReserveVo {
 		super();
 		this.bNo = bNo;
 		this.rtDate = rtDate;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public int getRsNum() {
@@ -465,6 +472,7 @@ public class ReserveVo {
 	public void setFiles(List<MultipartFile> files) {
 		this.files = files;
 	}
+
 	public List<Integer> getPriceNoPlus() {
 		return priceNoPlus;
 	}
@@ -503,9 +511,8 @@ public class ReserveVo {
 				+ weightDiv + ", beauty=" + beauty + ", aiNo=" + aiNo + ", saveName=" + saveName + ", pushNo=" + pushNo
 				+ ", pushTime=" + pushTime + ", files=" + files + ", signFile=" + signFile + ", beautyPlus="
 				+ beautyPlus + ", rtFinish=" + rtFinish + ", rsNum=" + rsNum + ", usePoint=" + usePoint
-				+ ", priceNoPlus=" + priceNoPlus + ", rtDates=" + rtDates + ", rtTimes=" + rtTimes + "]";
+				+ ", priceNoPlus=" + priceNoPlus + ", rtDates=" + rtDates + ", rtTimes=" + rtTimes + ", title=" + title
+				+ "]";
 	}
-
-
 
 }

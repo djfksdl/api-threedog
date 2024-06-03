@@ -384,5 +384,13 @@ public class AYService {
 
 		return dogVo;
 	}
-
+	
+	// 예약내역
+	public ReserveVo exeGetReserve(int uNo) {
+		System.out.println("AYService.exeGetReserve");
+		
+		ReserveVo reserveVo = ayDao.getReserve(uNo);
+		
+		return reserveVo;
+	}
 }

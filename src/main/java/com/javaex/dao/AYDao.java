@@ -34,16 +34,16 @@ public class AYDao {
 
 		return dogVo.getDogImg();
 	}
-	
+
 	// 반려견수정
-		public String petUpdate(DogVo dogVo) {
-			System.out.println("AYDao.petUpdate()");
-			System.out.println(dogVo);
+	public String petUpdate(DogVo dogVo) {
+		System.out.println("AYDao.petUpdate()");
+		System.out.println(dogVo);
 
-			sqlSession.update("ay.petUpdate", dogVo);
+		sqlSession.update("ay.petUpdate", dogVo);
 
-			return dogVo.getDogImg();
-		}
+		return dogVo.getDogImg();
+	}
 
 	// 반려견정보1개 가져오기
 	public DogVo getPetGetInfor(int dogNo) {
@@ -274,5 +274,13 @@ public class AYDao {
 		System.out.println(dogVo);
 
 		return dogVo;
+	}
+
+	public ReserveVo getReserve(int uNo) {
+		System.out.println("AYDao.ReserveVo");
+
+		ReserveVo reserveVo = sqlSession.selectOne("ay.selectGetReserve", uNo);
+		System.out.println(reserveVo);
+		return reserveVo;
 	}
 }
