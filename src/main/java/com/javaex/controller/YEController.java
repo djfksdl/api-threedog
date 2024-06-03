@@ -3,7 +3,6 @@ package com.javaex.controller;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +17,7 @@ import com.javaex.util.JwtUtil;
 import com.javaex.vo.BusinessVo;
 import com.javaex.vo.ReviewListVo;
 import com.javaex.vo.SearchVo;
+import com.javaex.vo.StatsVo;
 import com.javaex.vo.StoreVo;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -194,4 +194,39 @@ public class YEController {
 	    return JsonResult.success(reviewList);
 	}
 	
+	// 주별 통계
+//	@GetMapping("/api/weekstats")
+//	public JsonResult weekStats() {
+//		System.out.println("YEController.weekStats()");
+//
+//		List<StatsVo> weekList = yeService.exeWeekList();
+//
+//		System.out.println(weekList);
+//		
+//		return JsonResult.success(weekList);
+//	}
+	
+	// 월별 통계
+//	@GetMapping("/api/monthstats")
+//	public JsonResult monthStats() {
+//		System.out.println("YEController.monthStats()");
+//
+//		List<StatsVo> monthList = yeService.exeMonthList();
+//		
+//		System.out.println(monthList);
+//		
+//		return JsonResult.success(monthList);
+//	}
+	
+	// 년별 통계
+//	@GetMapping("/api/yearstats")
+//	public JsonResult yearStats() {
+//		System.out.println("YEController.yearStats()");
+//
+//		List<StatsVo> yearList = yeService.exeYearList();
+//		
+//		System.out.println(yearList);
+//
+//		return JsonResult.success(yearList);
+//	}
 }
