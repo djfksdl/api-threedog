@@ -258,6 +258,7 @@ public class AYDao {
 		return reserveVo.getSignImg();
 	}
 
+	// 사이드바
 	public UserVo getSidebar(int uNo) {
 		System.out.println("AYDao.getSidebar");
 
@@ -267,6 +268,7 @@ public class AYDao {
 		return userVo;
 	}
 
+	// 사이드바
 	public List<DogVo> getSidebar2(int uNo) {
 		System.out.println("AYDao.getSidebar");
 
@@ -276,6 +278,7 @@ public class AYDao {
 		return dogVo;
 	}
 
+	// 마이페이지 예약
 	public ReserveVo getReserve(int uNo) {
 		System.out.println("AYDao.ReserveVo");
 
@@ -283,13 +286,35 @@ public class AYDao {
 		System.out.println(reserveVo);
 		return reserveVo;
 	}
-	
+
+	// 마이페이지 리뷰
 	public ReviewVo getReview(int uNo) {
 		System.out.println("AYDao.getReview");
 
 		ReviewVo reviewVo = sqlSession.selectOne("ay.selectGetReview", uNo);
 		System.out.println(reviewVo);
-		
+
 		return reviewVo;
 	}
+
+	// 마이페이지 알림장
+	public ReserveVo getMydiary(int uNo) {
+		System.out.println("AYDao.getMydiary");
+
+		ReserveVo reserveVo = sqlSession.selectOne("ay.selectGetMydiary", uNo);
+		System.out.println(reserveVo);
+
+		return reserveVo;
+	}
+
+	// 마이페이지 예약
+	public List<ReserveVo> getReservationList(int uNo) {
+		System.out.println("AYDao.getReservationList");
+
+		List<ReserveVo> reserveVo = sqlSession.selectList("ay.selectListReservation", uNo);
+		System.out.println(reserveVo);
+		
+		return reserveVo;
+	}
+
 }

@@ -402,4 +402,22 @@ public class AYService {
 
 		return reviewVo;
 	}
+
+	// 알림장
+	public ReserveVo exeGetMydiary(int uNo) {
+		System.out.println("AYService.exeGetReview");
+
+		ReserveVo reserveVo = ayDao.getMydiary(uNo);
+
+		return reserveVo;
+	}
+
+	// 예약더보기
+	public List<ReserveVo> exeGetReservationList(int uNo) {
+		System.out.println("AYService.exeGetReservationList");
+
+		List<ReserveVo> reserveVo = ayDao.getReservationList(uNo);
+
+		return reserveVo;
+	}
 }

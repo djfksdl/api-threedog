@@ -248,4 +248,24 @@ public class AYController {
 		return JsonResult.success(reviewVo);
 	}
 
+	// 마이페이지 알림장
+	@GetMapping("/api/mypage/mydiary")
+	public JsonResult getMydiary(@RequestParam(value = "uNo") int uNo) {
+		System.out.println("AYController.getMydiary");
+
+		ReserveVo reserveVo = ayService.exeGetMydiary(uNo);
+
+		return JsonResult.success(reserveVo);
+	}
+	
+	//마이페이지 예약더보기
+	@GetMapping("/api/mypage/reservationlist")
+	public JsonResult getReservationList(@RequestParam(value = "uNo") int uNo) {
+		System.out.println("AYController.reservationlist");
+
+		List<ReserveVo> reserveVo = ayService.exeGetReservationList(uNo);
+
+		return JsonResult.success(reserveVo);
+	}
+
 }

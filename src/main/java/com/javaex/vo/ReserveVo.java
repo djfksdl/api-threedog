@@ -62,6 +62,10 @@ public class ReserveVo {
 	private List<String> rtTimes;
 	private String title;
 
+	private String bPhone;
+	private String bAddress;
+	private String bdAddress;
+
 	// 생성자
 	public ReserveVo() {
 		super();
@@ -71,6 +75,30 @@ public class ReserveVo {
 		super();
 		this.bNo = bNo;
 		this.rtDate = rtDate;
+	}
+
+	public String getbPhone() {
+		return bPhone;
+	}
+
+	public void setbPhone(String bPhone) {
+		this.bPhone = bPhone;
+	}
+
+	public String getbAddress() {
+		return bAddress;
+	}
+
+	public void setbAddress(String bAddress) {
+		this.bAddress = bAddress;
+	}
+
+	public String getBdAddress() {
+		return bdAddress;
+	}
+
+	public void setBdAddress(String bdAddress) {
+		this.bdAddress = bdAddress;
 	}
 
 	public String getTitle() {
@@ -512,7 +540,7 @@ public class ReserveVo {
 				+ ", pushTime=" + pushTime + ", files=" + files + ", signFile=" + signFile + ", beautyPlus="
 				+ beautyPlus + ", rtFinish=" + rtFinish + ", rsNum=" + rsNum + ", usePoint=" + usePoint
 				+ ", priceNoPlus=" + priceNoPlus + ", rtDates=" + rtDates + ", rtTimes=" + rtTimes + ", title=" + title
-				+ "]";
+				+ ", bPhone=" + bPhone + ", bAddress=" + bAddress + ", bdAddress=" + bdAddress + "]";
 	}
 
 }
