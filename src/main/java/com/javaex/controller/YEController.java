@@ -94,8 +94,8 @@ public class YEController {
 
 		List<StoreVo> mainList = yeService.exeList(storeVo);
 
-		System.out.println("-----------");
-	    System.out.println(mainList);
+//		System.out.println("-----------");
+//	    System.out.println(mainList);
 
 		return JsonResult.success(mainList);
 	}
