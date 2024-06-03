@@ -76,7 +76,7 @@
 	</insert>
 
 	<!-- 리뷰 이미지 등록 -->
-	<insert id="addReview02" parameterType="map">
+	<insert id="addReview02" parameterType="com.javaex.vo.ReviewVo">
         <![CDATA[
             insert into reviewimg (riNo, rNo, saveName)
             values (null, #{rNo}, #{saveName})
@@ -265,7 +265,7 @@
 	<insert id="reservePrice2" parameterType="map">
         <![CDATA[
            	insert into rsPrice values
-      	(null, #{rsNo}, #{priceNo}, #{rtNo})
+      		(null, #{rsNo}, #{priceNo}, #{rtNo})
         ]]>
 	</insert>
 
@@ -332,17 +332,15 @@
 	<!-- 알림장 -->
 	<select id="selectGetMydiary" parameterType="int" resultType="com.javaex.vo.ReserveVo">
 		<![CDATA[
-			select re.rNo,re.bNo, re.uNo, re.rsNo, re.star, re.rContent, re.rDate, re.views, ri.saveName, rs.dogNo, d.dogName, rs.expectedPrice, rs.surcharge, b.title, ri.saveName
-			from review re
-			join reviewimg ri on re.rNo=ri.rNo
-			join reserve rs on rs.rsNo = re.rsNo
-			join dog d on d.dogNo=rs.dogNo
-			join business b on b.bNo=re.bNo
-			where re.uNo=1
-			group by rNo
-			order by re.rNo desc
+			select r.rsNo, r.dogNo, r.rtNo, r.expectedPrice, r.attitude,r.rCondition,r.tangle,r.disliked,r.bath,r.message,rt.bNo, rt.rtDate, rt.rtTime,d.dogName, d.uNo, r.surcharge, p.pushNo, p.pushTime
+			from reserve r
+			join reserveTime rt on r.rtNo=rt.rtNo
+			join business b on b.bNo=rt.bNo
+			join dog d on d.dogNo=r.dogNo
+			join push p on p.rsNo=r.rsNo
+			where uNo=1 
+			order by pushNo desc
 			limit 1
-			
 		
 		]]>
 	</select>
@@ -376,6 +374,19 @@
 			where u.uNo=1 and bl.sizeDiv != '추가요금' and rtFinish=1
 			group by rs.rsNo
 			order by rs.rsNo desc
+		]]>
+	</select>
+
+	<!-- 리뷰 1개 가져오기 -->
+	<select id="selectOneRList2" parameterType="int" resultType="com.javaex.vo.ReviewVo">
+		<![CDATA[
+		SELECT r.rNo, rs.rtNo, u.uId, r.star, r.rContent, r.rDate, r.views, rs.expectedPrice, d.dogNo, d.dogName, d.weight, b.bNo
+      FROM review r
+      JOIN users u ON r.uNo = u.uNo
+      JOIN reserve rs ON rs.rsNo = r.rsNo
+      JOIN dog d ON d.dogNo = rs.dogNo
+        join business b on r.bNo=b.bNo
+      WHERE r.rsNo = #{rsNo}
 		]]>
 	</select>
 

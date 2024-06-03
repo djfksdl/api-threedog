@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import com.javaex.vo.BusinessVo;
 import com.javaex.vo.ReviewListVo;
 import com.javaex.vo.SearchVo;
+import com.javaex.vo.StatsVo;
 import com.javaex.vo.StoreVo;
 
 import ch.qos.logback.core.recovery.ResilientSyslogOutputStream;
@@ -83,16 +84,28 @@ public class YEDao {
 
 		return markList;
 	}
-
-//	public List<ReviewListVo> keyword(Map<String, Object> params) {
-//		System.out.println("YEDao.keyword()");
-//		System.out.println(params);
-//		return sqlSession.selectList("ye.keyword", params);
-//	}
 	
 	public List<ReviewListVo> keyword(SearchVo searchVo) {
 		System.out.println("YEDao.keyword()");
-		System.out.println(searchVo);
+		
 		return sqlSession.selectList("ye.keyword", searchVo);
+	}
+
+	public List<StatsVo> week() {
+		System.out.println("YEDao.week()");
+		
+		return sqlSession.selectList("ye.weekList");
+	}
+
+	public List<StatsVo> month() {
+		System.out.println("YEDao.month()");
+		
+		return sqlSession.selectList("ye.monthList");
+	}
+
+	public List<StatsVo> year() {
+		System.out.println("YEDao.year()");
+		
+		return sqlSession.selectList("ye.yearList");
 	}
 }

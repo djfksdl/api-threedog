@@ -12,6 +12,7 @@ import com.javaex.dao.YEDao;
 import com.javaex.vo.BusinessVo;
 import com.javaex.vo.ReviewListVo;
 import com.javaex.vo.SearchVo;
+import com.javaex.vo.StatsVo;
 import com.javaex.vo.StoreVo;
 
 @Service
@@ -83,18 +84,33 @@ public class YEService {
 		return markList;
 	}
 
-//	public List<ReviewListVo> exeKeyword(Map<String, Object> params) {
-//        System.out.println("YEService.exeKeyword()");
-//        System.out.println(params);
-//
-//        return yeDao.keyword(params);
-//    }
-
 	public List<ReviewListVo> exeKeyword(SearchVo searchVo) {
 		System.out.println("YEService.exeKeyword()");
-//		System.out.println(searchVo);
 
 		return yeDao.keyword(searchVo);
+	}
+
+	public List<StatsVo> exeWeekList() {
+		System.out.println("YEService.exeWeekList()");
+		
+		List<StatsVo> weekList = yeDao.week();
+		
+		return weekList;
+	}
+
+	public List<StatsVo> exeMonthList() {
+		System.out.println("YEService.exeMonthList()");
+		
+		List<StatsVo> monthList =  yeDao.month();
+		return null;
+	}
+
+	public List<StatsVo> exeYearList() {
+		System.out.println("YEService.exeYearList()");
+		
+		List<StatsVo> yearList = yeDao.year();
+		
+		return null;
 	}
 	
 }

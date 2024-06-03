@@ -263,7 +263,69 @@
 	    GROUP BY r.rNo
 	    ]]>
 	</select>
-
    <!-- 후기 키워드 검색 -->
+   
+   <!-- 주별 통계 -->
+	<select id="weekList" resultType="com.javaex.vo.StatsVo">
+		<![CDATA[
+			SELECT 
+			    b.bNo,
+			    YEAR(rt.rtDate) AS year,
+			    WEEK(rt.rtDate) AS week,
+			    SUM(r.expectedPrice + IFNULL(r.surcharge, 0)) AS totalPrice
+			FROM reserve r
+			JOIN reserveTime rt ON r.rtNo = rt.rtNo
+			JOIN push p ON r.rsNo = p.rsNo
+			JOIN business b ON rt.bNo = b.bNo
+			WHERE b.bNo = #{bNo}
+			GROUP BY 
+			    b.bNo, 
+			    YEAR(rt.rtDate), 
+			    WEEK(rt.rtDate)
+		]]>
+	</select>
+	<!-- 주별 통계 -->
+	
+	<!-- 월별 통계 -->
+	<select id="monthList" resultType="com.javaex.vo.StatsVo">
+		<![CDATA[
+			SELECT 
+			    b.bNo,
+			    YEAR(rt.rtDate) AS year,
+			    MONTH(rt.rtDate) AS month,
+			    SUM(r.expectedPrice + IFNULL(r.surcharge, 0)) AS totalPrice
+			FROM reserve r
+			JOIN reserveTime rt ON r.rtNo = rt.rtNo
+			JOIN push p ON r.rsNo = p.rsNo
+			JOIN business b ON rt.bNo = b.bNo
+			WHERE YEAR(rt.rtDate) = YEAR(CURDATE())
+			GROUP BY 
+			    b.bNo, 
+			    YEAR(rt.rtDate), 
+			    MONTH(rt.rtDate)
+			ORDER BY b.bNo, MONTH(rt.rtDate)
+		]]>
+	</select>
+	<!-- 월별 통계 -->
+	
+	<!-- 년별 통계 -->
+	<select id="yearList" resultType="com.javaex.vo.StatsVo">
+		<![CDATA[
+			SELECT 
+			    b.bNo,
+			    YEAR(rt.rtDate) AS year,
+			    SUM(r.expectedPrice + IFNULL(r.surcharge, 0)) AS totalPrice
+			FROM reserve r
+			JOIN reserveTime rt ON r.rtNo = rt.rtNo
+			JOIN push p ON r.rsNo = p.rsNo
+			JOIN business b ON rt.bNo = b.bNo
+			GROUP BY 
+			    b.bNo, 
+			    YEAR(rt.rtDate)
+			ORDER BY year DESC
+			LIMIT 4
+		]]>
+	</select>
+	<!-- 년별 통계 -->
 
 </mapper>
