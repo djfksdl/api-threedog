@@ -63,7 +63,6 @@ public class AYDao {
 		sqlSession.update("ay.insertPoint", reviewVo);
 		sqlSession.update("ay.addUserPoint", reviewVo);
 
-		
 	}
 
 	// 리뷰등록
@@ -71,9 +70,9 @@ public class AYDao {
 		System.out.println("AYDao.addReview2()");
 		System.out.println("제발 사진추가좀하자아아아");
 		System.out.println(reviewVo.getrNo());
-		
+
 		System.out.println(reviewVo);
-		
+
 		sqlSession.insert("ay.addReview02", reviewVo);
 
 		System.out.println(reviewVo.getSaveName());
@@ -305,16 +304,67 @@ public class AYDao {
 
 		return reserveList;
 	}
-	
+
 	// 리뷰1개 가져오기
-		public ReviewVo getOnerList2(int rsNo) {
-			System.out.println("AYDao.getOnerList2()");
-			ReviewVo reviewVo = sqlSession.selectOne("ay.selectOneRList2",rsNo);
+	public ReviewVo getOnerList2(int rsNo) {
+		System.out.println("AYDao.getOnerList2()");
+		ReviewVo reviewVo = sqlSession.selectOne("ay.selectOneRList2", rsNo);
 
-			System.out.println(reviewVo);
+		System.out.println(reviewVo);
 
-			return reviewVo;
+		return reviewVo;
 
-		}
+	}
+
+	// 리뷰1개 가져오기
+	public List<ReviewVo> getSaveName(int rsNo) {
+		System.out.println("AYDao.getOnerList2()");
+		List<ReviewVo> reviewList = sqlSession.selectList("ay.reviewSaveNameList", rsNo);
+
+		System.out.println(reviewList);
+
+		return reviewList;
+
+	}
+
+	public List<ReviewVo> getSaveName2(int rNo) {
+		System.out.println("AYDao.getSaveName2()");
+		List<ReviewVo> reviewList = sqlSession.selectList("ay.reviewSaveNameList2", rNo);
+
+		System.out.println(reviewList);
+
+		return reviewList;
+
+	}
+	
+	public List<ReviewVo> recentOrder(int bNo) {
+		System.out.println("AYDao.recentOrder()");
+		List<ReviewVo> reviewList = sqlSession.selectList("ay.recentOrder", bNo);
+
+		System.out.println(reviewList);
+
+		return reviewList;
+
+	}
+	
+	public List<ReviewVo> Vieworder(int bNo) {
+		System.out.println("AYDao.Vieworder()");
+		List<ReviewVo> reviewList = sqlSession.selectList("ay.Vieworder", bNo);
+
+		System.out.println(reviewList);
+
+		return reviewList;
+
+	}
+	
+	public List<ReviewVo> Stargradeorder(int bNo) {
+		System.out.println("AYDao.Stargradeorder()");
+		List<ReviewVo> reviewList = sqlSession.selectList("ay.Stargradeorder", bNo);
+
+		System.out.println(reviewList);
+
+		return reviewList;
+
+	}
 
 }

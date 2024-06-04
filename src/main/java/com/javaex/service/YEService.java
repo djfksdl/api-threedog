@@ -90,27 +90,36 @@ public class YEService {
 		return yeDao.keyword(searchVo);
 	}
 
-	public List<StatsVo> exeWeekList() {
+	public List<StatsVo> exeWeekList(int bNo) {
 		System.out.println("YEService.exeWeekList()");
 		
-		List<StatsVo> weekList = yeDao.week();
+		List<StatsVo> weekList = yeDao.week(bNo);
 		
 		return weekList;
 	}
 
-	public List<StatsVo> exeMonthList() {
+	public List<StatsVo> exeMonthList(int bNo) {
 		System.out.println("YEService.exeMonthList()");
 		
-		List<StatsVo> monthList =  yeDao.month();
-		return null;
+		List<StatsVo> monthList =  yeDao.month(bNo);
+		
+		return monthList;
 	}
 
-	public List<StatsVo> exeYearList() {
+	public List<StatsVo> exeYearList(int bNo) {
 		System.out.println("YEService.exeYearList()");
 		
-		List<StatsVo> yearList = yeDao.year();
+		List<StatsVo> yearList = yeDao.year(bNo);
 		
-		return null;
+		return yearList;
+	}
+
+	public List<StatsVo> exeDayList(int bNo) {
+		System.out.println("YEService.exeDayList()");
+		
+		List<StatsVo> dayList = yeDao.day(bNo);
+		
+		return dayList;
 	}
 	
 }

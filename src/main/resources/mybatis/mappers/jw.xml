@@ -68,13 +68,6 @@
     ]]>  
 	</update>
 
-
-
-
-
-	<!-- <![CDATA[ DELETE rp, rt, r FROM rsPrice rp JOIN reserve r ON rp.rsNo = r.rsNo JOIN reserveTime rt ON r.rtNo = rt.rtNo WHERE r.rsNo = #{rsNo}; ]]> -->
-
-
 	<!-- ************************ 알림장 화면 ***************************** -->
 
 	<!-- 특정 예약의 미용 기록 조회 -->
@@ -99,8 +92,7 @@
 	<update id="updateGroomingRecord" parameterType="com.javaex.vo.ReserveVo">
 	  <![CDATA[
 	    UPDATE reserve
-	    SET signImg = #{signImg},
-	        expectedPrice = #{expectedPrice},
+	    SET expectedPrice = #{expectedPrice},
 	        attitude = #{attitude},
 	        rCondition = #{rCondition},
 	        tangle = #{tangle},
@@ -119,6 +111,14 @@
 	    <![CDATA[
 	    INSERT INTO afterImg (rsNo, saveName)
 	    VALUES (#{rsNo}, #{saveName});
+	    ]]>
+	</insert>
+	
+		<!-- 푸시 알림 삽입 쿼리 -->
+	<insert id="insertPushNotification" parameterType="int">
+	    <![CDATA[
+	    INSERT INTO push (rsNo, pushTime)
+	    VALUES (#{rsNo}, NOW());
 	    ]]>
 	</insert>
 

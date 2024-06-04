@@ -419,4 +419,43 @@ public class AYService {
 		return reviewVo;
 	}
 
+	// 리뷰1개 가져오기
+	public List<ReviewVo> exeGetSaveName(int rsNo) {
+		System.out.println("AYService.exeGetOnerList2");
+
+		List<ReviewVo> reviewList = ayDao.getSaveName(rsNo);
+
+		return reviewList;
+	}
+
+	public List<ReviewVo> exeGetSaveName2(int rNo) {
+		System.out.println("AYService.exeGetSaveName2");
+
+		List<ReviewVo> reviewList = ayDao.getSaveName2(rNo);
+
+		return reviewList;
+	}
+	
+	public List<ReviewVo> exeRecentOrder(int bNo) {
+		System.out.println("AYService.exeRecentOrder");
+
+		List<ReviewVo> reviewList = ayDao.recentOrder(bNo);
+
+		return reviewList;
+	}
+	public List<ReviewVo> exeVieworder(int bNo) {
+		System.out.println("AYService.exeVieworder");
+
+		List<ReviewVo> reviewList = ayDao.Vieworder(bNo);
+
+		return reviewList;
+	}
+	public List<ReviewVo> exeStargradeorder(int bNo) {
+		System.out.println("AYService.exeStargradeorder");
+
+		List<ReviewVo> reviewList = ayDao.Stargradeorder(bNo);
+
+		return reviewList;
+	}
+
 }

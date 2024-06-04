@@ -263,8 +263,54 @@ public class AYController {
 		System.out.println("AYController.getOnerList2");
 
 		ReviewVo reviewVo = ayService.exeGetOnerList2(rsNo);
-
 		return JsonResult.success(reviewVo);
+	}
+
+	// 리뷰1개 가져오기
+	@GetMapping("/api/mypage/getsavenamelist")
+	public JsonResult getSaveNameList(@RequestParam(value = "rsNo") int rsNo) {
+		System.out.println("AYController.getSaveNameList");
+
+		List<ReviewVo> reviewList = ayService.exeGetSaveName(rsNo);
+		
+		return JsonResult.success(reviewList);
+	}
+	
+	@GetMapping("/api/mypage/getsavename")
+	public JsonResult getSaveName(@RequestParam(value = "rNo") int rNo) {
+		System.out.println("AYController.getSaveName");
+
+		List<ReviewVo> reviewList = ayService.exeGetSaveName2(rNo);
+		
+		return JsonResult.success(reviewList);
+	}
+	
+	//최신순 검색
+	@GetMapping("/api/mypage/recentorder")
+	public JsonResult recentOrder(@RequestParam(value = "bNo") int bNo) {
+		System.out.println("AYController.recentOrder");
+
+		List<ReviewVo> reviewList = ayService.exeRecentOrder(bNo);
+		
+		return JsonResult.success(reviewList);
+	}
+	
+	@GetMapping("/api/mypage/vieworder")
+	public JsonResult Vieworder(@RequestParam(value = "bNo") int bNo) {
+		System.out.println("AYController.vieworder");
+
+		List<ReviewVo> reviewList = ayService.exeVieworder(bNo);
+		
+		return JsonResult.success(reviewList);
+	}
+	
+	@GetMapping("/api/mypage/stargradeorder")
+	public JsonResult Stargradeorder(@RequestParam(value = "bNo") int bNo) {
+		System.out.println("AYController.stargradeorder");
+
+		List<ReviewVo> reviewList = ayService.exeStargradeorder(bNo);
+		
+		return JsonResult.success(reviewList);
 	}
 
 }

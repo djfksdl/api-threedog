@@ -22,7 +22,7 @@ public class ReserveVo {
 	private String bath;
 	private Integer surcharge;
 	private String message;
-	private Double currentWeight;
+	private Double curruntWeight;//currentWeight 원래 이건데 db에 스펠링 오류 기억하고있어야함 
 	private String dogName;
 	private String kind;
 	private double weight;
@@ -270,12 +270,12 @@ public class ReserveVo {
 		this.message = message;
 	}
 
-	public Double getCurrentWeight() {
-		return currentWeight;
+	public Double getcurruntWeight() {
+		return curruntWeight;
 	}
 
-	public void setCurrentWeight(Double currentWeight) {
-		this.currentWeight = currentWeight;
+	public void setcurruntWeight(Double curruntWeight) {
+		this.curruntWeight = curruntWeight;
 	}
 
 	public String getDogName() {
@@ -539,7 +539,7 @@ public class ReserveVo {
 		return "ReserveVo [rsNo=" + rsNo + ", bNo=" + bNo + ", dogNo=" + dogNo + ", rtNo=" + rtNo + ", rtDate=" + rtDate
 				+ ", rtTime=" + rtTime + ", signImg=" + signImg + ", expectedPrice=" + expectedPrice + ", attitude="
 				+ attitude + ", rCondition=" + rCondition + ", tangle=" + tangle + ", disliked=" + disliked + ", bath="
-				+ bath + ", surcharge=" + surcharge + ", message=" + message + ", currentWeight=" + currentWeight
+				+ bath + ", surcharge=" + surcharge + ", message=" + message + ", curruntWeight=" + curruntWeight
 				+ ", dogName=" + dogName + ", kind=" + kind + ", weight=" + weight + ", birth=" + birth + ", gender="
 				+ gender + ", neutering=" + neutering + ", experience=" + experience + ", bite=" + bite + ", memo="
 				+ memo + ", dogImg=" + dogImg + ", size=" + size + ", skin=" + skin + ", heart=" + heart + ", marking="

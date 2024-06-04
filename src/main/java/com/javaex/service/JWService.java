@@ -45,6 +45,14 @@ public class JWService {
 		System.out.println("JWService.updateReserveTime() 메서드 실행");
 	}
 
+
+	// 첫 번째 메서드: rsPrice와 reserve 테이블에서 예약 정보 삭제
+	public void deleteReserve(int rsNo) {
+	    jwDao.deleteReserve(rsNo);
+	    jwDao.deleteReserve2(rsNo);
+	    System.out.println("예약 정보 삭제 완료: " + rsNo);
+	    }
+
 	// 예약 삭제 및 예약 시간 완료 상태 업데이트
 	@Transactional
 	public void deleteAndFinishReserve(int rsNo) {
@@ -55,7 +63,15 @@ public class JWService {
 	    // 예약 시간 완료 상태 업데이트
 	    jwDao.updateReserveTimeFinishByRsNo(rsNo);
 	    System.out.println("예약 정보 삭제 및 예약 시간 완료 상태 업데이트 완료");
+
 	}
+
+	// 두 번째 메서드: 예약 시간의 rtFinish 값을 0으로 업데이트
+	public void updateReserveTimeFinish(int rtNo) {
+	    jwDao.updateReserveTimeFinishByRsNo(rtNo);
+	    System.out.println("예약 시간 정보 업데이트 완료: " + rtNo);
+	}
+
 
 	// 특정 예약의 미용 기록 조회
 	public ReserveVo selectGroomingRecord(int rsNo) {
@@ -71,13 +87,20 @@ public class JWService {
 	 ****************************/
 	// 미용 기록 업데이트
 	public void updateGroomingRecord(ReserveVo reserveVo) {
+		 System.out.println("서비스: 미용 기록 업데이트");
 		jwDao.updateGroomingRecord(reserveVo); // DAO 호출하여 미용 기록 업데이트
-		List<MultipartFile> files = reserveVo.getFiles(); // 첨부된 파일들 가져오기
-		for (MultipartFile file : files) {
-			uploadImage(reserveVo.getRsNo(), file); // 각 파일을 업로드
-		}
+		
+		   // 첨부된 파일들 가져오기
+        List<MultipartFile> files = reserveVo.getFiles(); 
+        if (files != null) {
+            for (MultipartFile file : files) {
+                uploadImage(reserveVo.getRsNo(), file); // 각 파일을 업로드
+            }
+        }
 	}
+	
 
+	
 	// 이미지 업로드 메서드
 	public String uploadImage(int rsNo, MultipartFile file) {
 		String saveDir = getSaveDirectory(); // 파일 저장 디렉토리 경로 설정
@@ -114,4 +137,8 @@ public class JWService {
 			return "C:\\javaStudy\\upload\\"; // 윈도우즈 경로 설정
 		}
 	}
+	// 알림발송
+	 public void insertPushNotification(int rsNo) {
+		 jwDao.insertPushNotification(rsNo);
+	    }
 }
