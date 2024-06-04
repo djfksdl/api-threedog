@@ -107,31 +107,54 @@ public class JWController {
 	
 	// 미용 기록 업데이트를 처리하는 컨트롤러 메서드
 	@PutMapping("/api/jw/{rsNo}/updategroomingrecord")
-	public JsonResult updateGroomingRecord(@PathVariable("rsNo") int rsNo, @RequestBody Map<String, String> params) {
+	public JsonResult updateGroomingRecord(@PathVariable("rsNo") int rsNo, @RequestBody Map<String, Object> params) {
 	    // ReserveVo 객체 생성 및 설정
 	    ReserveVo reserveVo = new ReserveVo();
 	    reserveVo.setRsNo(rsNo); // 예약 번호를 설정
 
 	    // 필요한 필드들 설정
-	    // 필요한 필드들 설정
-	    reserveVo.setAttitude(params.get("groomingEtiquette"));
-	    reserveVo.setrCondition(params.get("condition"));
-	    reserveVo.setTangle(params.get("mattedArea"));
-	    reserveVo.setDisliked(params.get("dislikedArea"));
-	    reserveVo.setBath(params.get("bathDry"));
-	    //reserveVo.setCurruntWeight(params.get("curruntWeight")); // 몸무게 추가
-	    reserveVo.setMessage(params.get("note"));
-	    //reserveVo.setExpectedPrice(params.get("priceList2")); // JSON 문자열로 추가
-	    
+	    reserveVo.setAttitude((String) params.get("groomingEtiquette"));
+	    reserveVo.setrCondition((String) params.get("condition"));
+	    reserveVo.setTangle((String) params.get("mattedArea"));
+	    reserveVo.setDisliked((String) params.get("dislikedArea"));
+	    reserveVo.setBath((String) params.get("bathDry"));
+
+	    // curruntWeight를 double로 설정
+	    if (params.get("curruntWeight") instanceof Number) {
+	        reserveVo.setcurruntWeight(((Number) params.get("curruntWeight")).doubleValue());
+	    } else if (params.get("curruntWeight") instanceof String) {
+	        try {
+	            reserveVo.setcurruntWeight(Double.parseDouble((String) params.get("curruntWeight")));
+	        } catch (NumberFormatException e) {
+	            reserveVo.setcurruntWeight(0.0); // 기본값으로 설정하거나 예외 처리
+	        }
+	    } else {
+	        reserveVo.setcurruntWeight(0.0); // 기본값으로 설정하거나 예외 처리
+	    }
+
+	    reserveVo.setMessage((String) params.get("note"));
+
+	    // priceList2를 Integer로 설정
+	    if (params.get("priceList2") instanceof Number) {
+	        reserveVo.setExpectedPrice(((Number) params.get("priceList2")).intValue());
+	    } else if (params.get("priceList2") instanceof String) {
+	        try {
+	            reserveVo.setExpectedPrice(Integer.parseInt((String) params.get("priceList2")));
+	        } catch (NumberFormatException e) {
+	            reserveVo.setExpectedPrice(0); // 기본값으로 설정하거나 예외 처리
+	        }
+	    } else {
+	        reserveVo.setExpectedPrice(0); // 기본값으로 설정하거나 예외 처리
+	    }
+
 	    System.out.println(reserveVo);
-
-
 
 	    System.out.println("업데이트할 예약 번호: " + rsNo); // 예약 번호 확인
 	    jwService.updateGroomingRecord(reserveVo); // 서비스 호출하여 미용 기록 업데이트
 	    System.out.println("미용 기록 업데이트 완료: " + reserveVo); // 업데이트 완료 확인
 	    return JsonResult.success(reserveVo); // 성공 응답 반환
 	}
+
 
 	// 푸시 알림 저장
     @PostMapping("/api/jw/{rsNo}/pushnotification")
