@@ -65,7 +65,7 @@ public class AYController {
 		System.out.println(reviewVo);
 
 		ayService.exeReviewInsert(reviewVo);
-		
+
 		return JsonResult.success("성공");
 	}
 
@@ -255,6 +255,16 @@ public class AYController {
 		List<ReserveVo> reserveList = ayService.exeGetReservationList(uNo);
 
 		return JsonResult.success(reserveList);
+	}
+
+	// 리뷰1개 가져오기
+	@GetMapping("/api/mypage/reservationlist2")
+	public JsonResult getOnerList2(@RequestParam(value = "rsNo") int rsNo) {
+		System.out.println("AYController.getOnerList2");
+
+		ReviewVo reviewVo = ayService.exeGetOnerList2(rsNo);
+
+		return JsonResult.success(reviewVo);
 	}
 
 }

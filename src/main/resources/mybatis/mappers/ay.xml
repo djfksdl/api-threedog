@@ -377,4 +377,17 @@
 		]]>
 	</select>
 
+	<!-- 리뷰 1개 가져오기 -->
+	<select id="selectOneRList2" parameterType="int" resultType="com.javaex.vo.ReviewVo">
+		<![CDATA[
+		SELECT r.rNo, rs.rtNo, u.uId, r.star, r.rContent, r.rDate, r.views, rs.expectedPrice, d.dogNo, d.dogName, d.weight, b.bNo
+      FROM review r
+      JOIN users u ON r.uNo = u.uNo
+      JOIN reserve rs ON rs.rsNo = r.rsNo
+      JOIN dog d ON d.dogNo = rs.dogNo
+        join business b on r.bNo=b.bNo
+      WHERE r.rsNo = #{rsNo}
+		]]>
+	</select>
+
 </mapper>
