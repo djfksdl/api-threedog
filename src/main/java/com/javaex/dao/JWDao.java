@@ -90,6 +90,7 @@ public class JWDao {
 	//알림발송
 	public void insertPushNotification(int rsNo) {
 		 sqlSession.insert("jw.insertPushNotification", rsNo);
+		 System.out.println("푸싱싱싱: " + rsNo);
 		
 	}
 

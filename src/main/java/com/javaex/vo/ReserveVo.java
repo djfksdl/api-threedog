@@ -14,13 +14,15 @@ public class ReserveVo {
 	private String rtDate;
 	private String rtTime;
 	private String signImg;
-	private int expectedPrice;
+	
+	private int expectedPrice;//예상금액
+	
 	private String attitude;
 	private String rCondition;
 	private String tangle;
 	private String disliked;
 	private String bath;
-	private Integer surcharge;
+	private Integer surcharge;// 추가요금
 	private String message;
 	private Double curruntWeight;//currentWeight 원래 이건데 db에 스펠링 오류 기억하고있어야함 
 	private String dogName;

@@ -134,17 +134,17 @@ public class JWController {
 
 	    reserveVo.setMessage((String) params.get("note"));
 
-	    // priceList2를 Integer로 설정
-	    if (params.get("priceList2") instanceof Number) {
-	        reserveVo.setExpectedPrice(((Number) params.get("priceList2")).intValue());
-	    } else if (params.get("priceList2") instanceof String) {
+	    // additionalFee를 Integer로 설정
+	    if (params.get("additionalFee") instanceof Number) {
+	        reserveVo.setSurcharge(((Number) params.get("additionalFee")).intValue());
+	    } else if (params.get("additionalFee") instanceof String) {
 	        try {
-	            reserveVo.setExpectedPrice(Integer.parseInt((String) params.get("priceList2")));
+	            reserveVo.setSurcharge(Integer.parseInt((String) params.get("additionalFee")));
 	        } catch (NumberFormatException e) {
-	            reserveVo.setExpectedPrice(0); // 기본값으로 설정하거나 예외 처리
+	            reserveVo.setSurcharge(0); // 기본값으로 설정하거나 예외 처리
 	        }
 	    } else {
-	        reserveVo.setExpectedPrice(0); // 기본값으로 설정하거나 예외 처리
+	        reserveVo.setSurcharge(0); // 기본값으로 설정하거나 예외 처리
 	    }
 
 	    System.out.println(reserveVo);
@@ -157,9 +157,10 @@ public class JWController {
 
 
 	// 푸시 알림 저장
-    @PostMapping("/api/jw/{rsNo}/pushnotification")
+    @PostMapping("/api/jw/{rsNo}/insertPushNotification")
     public ResponseEntity<?> insertPushNotification(@PathVariable("rsNo") int rsNo) {
         jwService.insertPushNotification(rsNo);
+        System.out.println("푸쉬푸쉬베이베: " + rsNo); // 업데이트 완료 확인
         return ResponseEntity.ok().build();
     }
 	

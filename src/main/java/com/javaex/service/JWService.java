@@ -140,5 +140,6 @@ public class JWService {
 	// 알림발송
 	 public void insertPushNotification(int rsNo) {
 		 jwDao.insertPushNotification(rsNo);
+		 System.out.println("푸싱싱싱: " + rsNo);
 	    }
 }
