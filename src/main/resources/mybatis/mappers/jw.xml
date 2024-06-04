@@ -92,8 +92,7 @@
 	<update id="updateGroomingRecord" parameterType="com.javaex.vo.ReserveVo">
 	  <![CDATA[
 	    UPDATE reserve
-	    SET signImg = #{signImg},
-	        expectedPrice = #{expectedPrice},
+	    SET expectedPrice = #{expectedPrice},
 	        attitude = #{attitude},
 	        rCondition = #{rCondition},
 	        tangle = #{tangle},
@@ -112,6 +111,14 @@
 	    <![CDATA[
 	    INSERT INTO afterImg (rsNo, saveName)
 	    VALUES (#{rsNo}, #{saveName});
+	    ]]>
+	</insert>
+	
+		<!-- 푸시 알림 삽입 쿼리 -->
+	<insert id="insertPushNotification" parameterType="int">
+	    <![CDATA[
+	    INSERT INTO push (rsNo, pushTime)
+	    VALUES (#{rsNo}, NOW());
 	    ]]>
 	</insert>
 

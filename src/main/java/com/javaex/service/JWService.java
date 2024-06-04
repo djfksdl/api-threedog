@@ -87,13 +87,20 @@ public class JWService {
 	 ****************************/
 	// 미용 기록 업데이트
 	public void updateGroomingRecord(ReserveVo reserveVo) {
+		 System.out.println("서비스: 미용 기록 업데이트");
 		jwDao.updateGroomingRecord(reserveVo); // DAO 호출하여 미용 기록 업데이트
-		List<MultipartFile> files = reserveVo.getFiles(); // 첨부된 파일들 가져오기
-		for (MultipartFile file : files) {
-			uploadImage(reserveVo.getRsNo(), file); // 각 파일을 업로드
-		}
+		
+		   // 첨부된 파일들 가져오기
+        List<MultipartFile> files = reserveVo.getFiles(); 
+        if (files != null) {
+            for (MultipartFile file : files) {
+                uploadImage(reserveVo.getRsNo(), file); // 각 파일을 업로드
+            }
+        }
 	}
+	
 
+	
 	// 이미지 업로드 메서드
 	public String uploadImage(int rsNo, MultipartFile file) {
 		String saveDir = getSaveDirectory(); // 파일 저장 디렉토리 경로 설정
@@ -130,4 +137,8 @@ public class JWService {
 			return "C:\\javaStudy\\upload\\"; // 윈도우즈 경로 설정
 		}
 	}
+	// 알림발송
+	 public void insertPushNotification(int rsNo) {
+		 jwDao.insertPushNotification(rsNo);
+	    }
 }

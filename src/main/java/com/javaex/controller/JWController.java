@@ -25,6 +25,7 @@ public class JWController {
 	@Autowired
 	private JWService jwService;
 
+	
 	/****************************
 	 * 스케줕화면
 	 ****************************/
@@ -95,12 +96,36 @@ public class JWController {
 		
 	}
 
+//	// 미용 기록 업데이트를 처리하는 컨트롤러 메서드
+//	@PutMapping("/api/jw/{rsNo}/updategroomingrecord")
+//	public JsonResult updateGroomingRecord(@PathVariable("rsNo") int rsNo, @RequestBody ReserveVo reserveVo) {
+//		reserveVo.setRsNo(rsNo); // 예약 번호를 설정
+//		 System.out.println("업데이트할 예약 번호: " + rsNo); // 예약 번호 확인
+//		jwService.updateGroomingRecord(reserveVo); // 서비스 호출하여 미용 기록 업데이트
+//		  System.out.println("미용 기록 업데이트 완료: " + reserveVo); // 업데이트 완료 확인
+//		return JsonResult.success(reserveVo); // 성공 응답 반환
+//	}
+	
 	// 미용 기록 업데이트를 처리하는 컨트롤러 메서드
 	@PutMapping("/api/jw/{rsNo}/updategroomingrecord")
-	public JsonResult updateGroomingRecord(@PathVariable("rsNo") int rsNo, @RequestBody ReserveVo reserveVo) {
-		reserveVo.setRsNo(rsNo); // 예약 번호를 설정
-		jwService.updateGroomingRecord(reserveVo); // 서비스 호출하여 미용 기록 업데이트
-		return JsonResult.success(reserveVo); // 성공 응답 반환
+	public JsonResult updateGroomingRecord(@PathVariable("rsNo") int rsNo, @RequestParam Map<String, String> params) {
+	    // ReserveVo 객체 생성 및 설정
+	    ReserveVo reserveVo = new ReserveVo();
+	    reserveVo.setRsNo(rsNo); // 예약 번호를 설정
+
+	    // 필요한 필드들 설정
+
+	    System.out.println("업데이트할 예약 번호: " + rsNo); // 예약 번호 확인
+	    jwService.updateGroomingRecord(reserveVo); // 서비스 호출하여 미용 기록 업데이트
+	    System.out.println("미용 기록 업데이트 완료: " + reserveVo); // 업데이트 완료 확인
+	    return JsonResult.success(reserveVo); // 성공 응답 반환
 	}
 
+	// 푸시 알림 저장
+    @PostMapping("/api/jw/{rsNo}/pushnotification")
+    public ResponseEntity<?> insertPushNotification(@PathVariable("rsNo") int rsNo) {
+        jwService.insertPushNotification(rsNo);
+        return ResponseEntity.ok().build();
+    }
+	
 }

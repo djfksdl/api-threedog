@@ -76,6 +76,7 @@ public class JWDao {
 	 ****************************/
 	// 미용 기록 업데이트 쿼리 실행
 	public void updateGroomingRecord(ReserveVo reserveVo) {
+		  System.out.println("DAO: 미용 기록 업데이트 쿼리 실행");
 		sqlSession.update("jw.updateGroomingRecord", reserveVo);
 	}
 
@@ -85,6 +86,11 @@ public class JWDao {
 		paramMap.put("rsNo", rsNo); // 예약 번호
 		paramMap.put("saveName", saveName); // 저장된 파일명
 		sqlSession.insert("jw.insertAfterImg", paramMap); // 쿼리 실행하여 DB에 삽입
+	}
+	//알림발송
+	public void insertPushNotification(int rsNo) {
+		 sqlSession.insert("jw.insertPushNotification", rsNo);
+		
 	}
 
 }
