@@ -93,7 +93,6 @@ public class JWController {
 		String fileUrl = jwService.uploadImage(rsNo, file);
 		System.out.println("업로드된 파일 URL: " + fileUrl); // 콘솔 출력 추가
 		return JsonResult.success(Map.of("url", fileUrl)); // 업로드된 이미지의 URL 반환
-		
 	}
 
 //	// 미용 기록 업데이트를 처리하는 컨트롤러 메서드
@@ -108,12 +107,25 @@ public class JWController {
 	
 	// 미용 기록 업데이트를 처리하는 컨트롤러 메서드
 	@PutMapping("/api/jw/{rsNo}/updategroomingrecord")
-	public JsonResult updateGroomingRecord(@PathVariable("rsNo") int rsNo, @RequestParam Map<String, String> params) {
+	public JsonResult updateGroomingRecord(@PathVariable("rsNo") int rsNo, @RequestBody Map<String, String> params) {
 	    // ReserveVo 객체 생성 및 설정
 	    ReserveVo reserveVo = new ReserveVo();
 	    reserveVo.setRsNo(rsNo); // 예약 번호를 설정
 
 	    // 필요한 필드들 설정
+	    // 필요한 필드들 설정
+	    reserveVo.setAttitude(params.get("groomingEtiquette"));
+	    reserveVo.setrCondition(params.get("condition"));
+	    reserveVo.setTangle(params.get("mattedArea"));
+	    reserveVo.setDisliked(params.get("dislikedArea"));
+	    reserveVo.setBath(params.get("bathDry"));
+	    //reserveVo.setCurruntWeight(params.get("curruntWeight")); // 몸무게 추가
+	    reserveVo.setMessage(params.get("note"));
+	    //reserveVo.setExpectedPrice(params.get("priceList2")); // JSON 문자열로 추가
+	    
+	    System.out.println(reserveVo);
+
+
 
 	    System.out.println("업데이트할 예약 번호: " + rsNo); // 예약 번호 확인
 	    jwService.updateGroomingRecord(reserveVo); // 서비스 호출하여 미용 기록 업데이트
