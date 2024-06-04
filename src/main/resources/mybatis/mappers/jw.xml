@@ -66,13 +66,6 @@
     ]]>  
 	</update>
 
-
-
-
-
-	<!-- <![CDATA[ DELETE rp, rt, r FROM rsPrice rp JOIN reserve r ON rp.rsNo = r.rsNo JOIN reserveTime rt ON r.rtNo = rt.rtNo WHERE r.rsNo = #{rsNo}; ]]> -->
-
-
 	<!-- ************************ 알림장 화면 ***************************** -->
 
 	<!-- 특정 예약의 미용 기록 조회 -->

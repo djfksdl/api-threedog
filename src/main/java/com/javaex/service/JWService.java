@@ -47,11 +47,19 @@ public class JWService {
 		System.out.println("JWService.updateReserveTime() 메서드 실행");
 	}
 
-	// 예약 삭제
+	// 첫 번째 메서드: rsPrice와 reserve 테이블에서 예약 정보 삭제
 	public void deleteReserve(int rsNo) {
-		jwDao.deleteReserve(rsNo);
-		System.out.println("JWService.deleteReserve() 메서드 실행");
+	    jwDao.deleteReserve(rsNo);
+	    jwDao.deleteReserve2(rsNo);
+	    System.out.println("예약 정보 삭제 완료: " + rsNo);
 	}
+
+	// 두 번째 메서드: 예약 시간의 rtFinish 값을 0으로 업데이트
+	public void updateReserveTimeFinish(int rtNo) {
+	    jwDao.updateReserveTimeFinish(rtNo);
+	    System.out.println("예약 시간 정보 업데이트 완료: " + rtNo);
+	}
+
 
 	// 특정 예약의 미용 기록 조회
 	public ReserveVo selectGroomingRecord(int rsNo) {
