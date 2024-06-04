@@ -136,7 +136,7 @@
 		]]>
 	</select>
 
-		<select id="reviewSaveNameList2" parameterType="int" resultType="com.javaex.vo.ReviewVo">
+	<select id="reviewSaveNameList2" parameterType="int" resultType="com.javaex.vo.ReviewVo">
 		<![CDATA[
 			select ri.riNo, ri.rNo, ri.saveName 
 			from reviewimg ri
@@ -409,5 +409,53 @@
 		]]>
 	</select>
 
+
+	<select id="recentOrder" parameterType="int" resultType="com.javaex.vo.ReviewVo">
+		<![CDATA[
+			SELECT r.rNo, rs.rtNo, u.uId, r.star, r.rContent, r.rDate, r.views, rs.expectedPrice, d.dogNo, d.dogName, d.weight, b.bNo, rs.surcharge,ri.saveName
+      FROM review r
+      JOIN users u ON r.uNo = u.uNo
+      JOIN reserve rs ON rs.rsNo = r.rsNo
+      JOIN dog d ON d.dogNo = rs.dogNo
+        join business b on r.bNo=b.bNo
+        join reviewimg ri on ri.rNo=r.rNo
+      where b.bNo=#{bNo} 
+       group by r.rNo
+      order by r.rNo desc
+      
+		]]>
+	</select>
+
+	<select id="Vieworder" parameterType="int" resultType="com.javaex.vo.ReviewVo">
+		<![CDATA[
+			SELECT r.rNo, rs.rtNo, u.uId, r.star, r.rContent, r.rDate, r.views, rs.expectedPrice, d.dogNo, d.dogName, d.weight, b.bNo, rs.surcharge,ri.saveName
+      FROM review r
+      JOIN users u ON r.uNo = u.uNo
+      JOIN reserve rs ON rs.rsNo = r.rsNo
+      JOIN dog d ON d.dogNo = rs.dogNo
+        join business b on r.bNo=b.bNo
+        join reviewimg ri on ri.rNo=r.rNo
+      where b.bNo=#{bNo} 
+      group by r.rNo
+      order by views desc
+      
+		]]>
+	</select>
+
+	<select id="Stargradeorder" parameterType="int" resultType="com.javaex.vo.ReviewVo">
+		<![CDATA[
+			SELECT r.rNo, rs.rtNo, u.uId, r.star, r.rContent, r.rDate, r.views, rs.expectedPrice, d.dogNo, d.dogName, d.weight, b.bNo, rs.surcharge,ri.saveName
+      FROM review r
+      JOIN users u ON r.uNo = u.uNo
+      JOIN reserve rs ON rs.rsNo = r.rsNo
+      JOIN dog d ON d.dogNo = rs.dogNo
+        join business b on r.bNo=b.bNo
+        join reviewimg ri on ri.rNo=r.rNo
+      where b.bNo=#{bNo} 
+       group by r.rNo
+      order by star desc
+      
+		]]>
+	</select>
 
 </mapper>

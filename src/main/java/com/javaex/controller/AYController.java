@@ -284,5 +284,33 @@ public class AYController {
 		
 		return JsonResult.success(reviewList);
 	}
+	
+	//최신순 검색
+	@GetMapping("/api/mypage/recentorder")
+	public JsonResult recentOrder(@RequestParam(value = "bNo") int bNo) {
+		System.out.println("AYController.recentOrder");
+
+		List<ReviewVo> reviewList = ayService.exeRecentOrder(bNo);
+		
+		return JsonResult.success(reviewList);
+	}
+	
+	@GetMapping("/api/mypage/vieworder")
+	public JsonResult Vieworder(@RequestParam(value = "bNo") int bNo) {
+		System.out.println("AYController.vieworder");
+
+		List<ReviewVo> reviewList = ayService.exeVieworder(bNo);
+		
+		return JsonResult.success(reviewList);
+	}
+	
+	@GetMapping("/api/mypage/stargradeorder")
+	public JsonResult Stargradeorder(@RequestParam(value = "bNo") int bNo) {
+		System.out.println("AYController.stargradeorder");
+
+		List<ReviewVo> reviewList = ayService.exeStargradeorder(bNo);
+		
+		return JsonResult.success(reviewList);
+	}
 
 }

@@ -435,5 +435,27 @@ public class AYService {
 
 		return reviewList;
 	}
+	
+	public List<ReviewVo> exeRecentOrder(int bNo) {
+		System.out.println("AYService.exeRecentOrder");
+
+		List<ReviewVo> reviewList = ayDao.recentOrder(bNo);
+
+		return reviewList;
+	}
+	public List<ReviewVo> exeVieworder(int bNo) {
+		System.out.println("AYService.exeVieworder");
+
+		List<ReviewVo> reviewList = ayDao.Vieworder(bNo);
+
+		return reviewList;
+	}
+	public List<ReviewVo> exeStargradeorder(int bNo) {
+		System.out.println("AYService.exeStargradeorder");
+
+		List<ReviewVo> reviewList = ayDao.Stargradeorder(bNo);
+
+		return reviewList;
+	}
 
 }

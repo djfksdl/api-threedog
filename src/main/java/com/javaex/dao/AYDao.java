@@ -336,5 +336,35 @@ public class AYDao {
 		return reviewList;
 
 	}
+	
+	public List<ReviewVo> recentOrder(int bNo) {
+		System.out.println("AYDao.recentOrder()");
+		List<ReviewVo> reviewList = sqlSession.selectList("ay.recentOrder", bNo);
+
+		System.out.println(reviewList);
+
+		return reviewList;
+
+	}
+	
+	public List<ReviewVo> Vieworder(int bNo) {
+		System.out.println("AYDao.Vieworder()");
+		List<ReviewVo> reviewList = sqlSession.selectList("ay.Vieworder", bNo);
+
+		System.out.println(reviewList);
+
+		return reviewList;
+
+	}
+	
+	public List<ReviewVo> Stargradeorder(int bNo) {
+		System.out.println("AYDao.Stargradeorder()");
+		List<ReviewVo> reviewList = sqlSession.selectList("ay.Stargradeorder", bNo);
+
+		System.out.println(reviewList);
+
+		return reviewList;
+
+	}
 
 }
