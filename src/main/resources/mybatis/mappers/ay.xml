@@ -210,8 +210,8 @@
 	<!-- 예약테이블 -->
 	<insert id="reserveInsert" parameterType="com.javaex.vo.ReserveVo">
       <![CDATA[
-		insert into reserve(rsNo, dogNo, rtNo, signImg, expectedPrice ) 
-		values(null, #{dogNo}, #{rtNo}, #{signImg}, #{expectedPrice} )
+		insert into reserve 
+		values(null, #{dogNo}, #{rtNo}, #{signImg}, #{expectedPrice},"","","","","",0,"",0.0 )
  	]]>
 
 		<selectKey keyProperty="rsNo" resultType="int" order="AFTER">
