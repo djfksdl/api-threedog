@@ -45,13 +45,14 @@ public class JWService {
 		System.out.println("JWService.updateReserveTime() 메서드 실행");
 	}
 
-<<<<<<< HEAD
+
 	// 첫 번째 메서드: rsPrice와 reserve 테이블에서 예약 정보 삭제
 	public void deleteReserve(int rsNo) {
 	    jwDao.deleteReserve(rsNo);
 	    jwDao.deleteReserve2(rsNo);
 	    System.out.println("예약 정보 삭제 완료: " + rsNo);
-=======
+	    }
+
 	// 예약 삭제 및 예약 시간 완료 상태 업데이트
 	@Transactional
 	public void deleteAndFinishReserve(int rsNo) {
@@ -62,12 +63,12 @@ public class JWService {
 	    // 예약 시간 완료 상태 업데이트
 	    jwDao.updateReserveTimeFinishByRsNo(rsNo);
 	    System.out.println("예약 정보 삭제 및 예약 시간 완료 상태 업데이트 완료");
->>>>>>> branch 'master' of https://github.com/djfksdl/api-threedog.git
+
 	}
 
 	// 두 번째 메서드: 예약 시간의 rtFinish 값을 0으로 업데이트
 	public void updateReserveTimeFinish(int rtNo) {
-	    jwDao.updateReserveTimeFinish(rtNo);
+	    jwDao.updateReserveTimeFinishByRsNo(rtNo);
 	    System.out.println("예약 시간 정보 업데이트 완료: " + rtNo);
 	}
 
