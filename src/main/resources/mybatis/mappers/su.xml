@@ -16,7 +16,7 @@
 	<insert id="insertUser" parameterType="com.javaex.vo.UserVo">
 		<![CDATA[
 			insert into users
-			values(null, #{uId}, #{uPw},#{uName},#{uPhone}, #{uZipCode},#{uAddress},#{uDetailAddress},null,#{uProfile})
+			values(null, #{uId}, #{uPw},#{uName},#{uPhone}, #{uZipCode},#{uAddress},#{uDetailAddress},0,#{uProfile})
 		]]>
 	</insert>
 
