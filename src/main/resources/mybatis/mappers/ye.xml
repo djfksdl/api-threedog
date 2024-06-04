@@ -55,45 +55,49 @@
 	<!-- 검색 화면 리스트 -->
 
 	<!-- 지도, 캘린더 검색 -->
-	<select id="searchmap" resultType="com.javaex.vo.StoreVo">
-		<![CDATA[
-			SELECT b.bNo, b.title, b.logo,
-			       (3959 * acos(cos(radians(COALESCE(#{lat}, b.latitude))) * cos(radians(b.latitude)) 
-			       * cos(radians(b.longitude) - radians(COALESCE(#{lan}, b.longitude))) + sin(radians(COALESCE(#{lat}, b.latitude))) 
-			       * sin(radians(b.latitude)))) AS distance
-			FROM business b
-			LEFT JOIN (
-			        SELECT rt.bNo, COUNT(*) as reserved_count
-			        FROM reserve r
-			        JOIN reserveTime rt ON r.rtNo = rt.rtNo
-			        GROUP BY rt.bNo
-			        ) r ON b.bNo = r.bNo
-			LEFT JOIN (
-			        SELECT bNo, COUNT(*) as reserved_time_count
-			        FROM reserveTime
-			        WHERE rtDate = COALESCE(#{rsDate}, rtDate)
-			        GROUP BY bNo
-			        ) rt ON b.bNo = rt.bNo
-			WHERE (r.reserved_count IS NULL OR r.reserved_count < (
-			        SELECT MAX(count_per_bNo) FROM (
-			            SELECT rt.bNo, COUNT(*) as count_per_bNo
-			            FROM reserve r
-			            JOIN reserveTime rt ON r.rtNo = rt.rtNo
-			            GROUP BY rt.bNo
-			        ) as subquery
-			    )
-			    ) AND (rt.reserved_time_count IS NULL OR rt.reserved_time_count < (
-			        SELECT MAX(count_per_bNo) FROM (
-			            SELECT bNo, COUNT(*) as count_per_bNo
-			            FROM reserveTime
-			            WHERE rtDate = COALESCE(#{rsDate}, rtDate)
-			            GROUP BY bNo
-			        ) as subquery
-			    )
-			    )
-			ORDER BY distance ASC
-		]]>
-	</select>
+	<select id="searchmap" parameterType="com.javaex.vo.StoreVo" resultType="com.javaex.vo.StoreVo">
+    <![CDATA[
+        SELECT 
+            b.bNo, 
+            b.title, 
+            b.logo,
+            (3959 * acos(cos(radians(COALESCE(#{lat}, b.latitude))) * cos(radians(b.latitude))
+            * cos(radians(b.longitude) - radians(COALESCE(#{lan}, b.longitude))) + sin(radians(COALESCE(#{lat}, b.latitude)))
+            * sin(radians(b.latitude)))) AS distance
+        FROM 
+            business b
+        LEFT JOIN (
+            SELECT 
+                rt.bNo, 
+                COUNT(*) as reserved_count
+            FROM 
+                reserve r
+            JOIN 
+                reserveTime rt ON r.rtNo = rt.rtNo
+            GROUP BY 
+                rt.bNo
+        ) r ON b.bNo = r.bNo
+        LEFT JOIN (
+            SELECT 
+                bNo, 
+                COUNT(*) as reserved_time_count
+            FROM 
+                reserveTime
+            WHERE 
+                (#{rsDate} IS NULL OR (rtDate = #{rsDate} AND rtFinish = 0))
+            GROUP BY 
+                bNo
+        ) rt ON b.bNo = rt.bNo
+        WHERE 
+            (#{rsDate} IS NULL OR rt.reserved_time_count > 0)
+        ORDER BY 
+            distance ASC
+    ]]>
+</select>
+
+
+	<!-- 지도, 캘린더 검색 -->
+
 
 	<!-- 그냥 가게 리스트 -->
 	<select id="mainlist" resultType="com.javaex.vo.StoreVo">
@@ -325,7 +329,7 @@
 		]]>
 	</select>
 	<!-- 년별 통계 -->
-	
+
 	<!-- 일일 통계 -->
 	<select id="today" parameterType="int" resultType="com.javaex.vo.StatsVo">
 		<![CDATA[

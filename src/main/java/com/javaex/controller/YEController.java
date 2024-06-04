@@ -110,16 +110,18 @@ public class YEController {
 			lat = 37.5665;
 		if (lng == null)
 			lng = 126.9780;
-
+		if (rsDate =="")
+			rsDate = null;
+		
 		StoreVo storeVo = new StoreVo(lat, lng, rsDate);
 
-//		System.out.println("Received lat: " + storeVo.getLat());
-//		System.out.println("Received lng: " + storeVo.getLan());
-//		System.out.println("Received rsDate: " + storeVo.getRsDate());
+		System.out.println("Received lat: " + storeVo.getLat());
+		System.out.println("Received lng: " + storeVo.getLan());
+		System.out.println("Received rsDate: " + storeVo.getRsDate());
 
 		List<StoreVo> storeList = yeService.exeSearchMap(storeVo);
 
-//		System.out.println("dd"+storeList);
+		System.out.println("dd"+storeList);
 
 		return JsonResult.success(storeList);
 	}
