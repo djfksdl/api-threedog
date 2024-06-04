@@ -56,44 +56,44 @@
 
 	<!-- 지도, 캘린더 검색 -->
 	<select id="searchmap" parameterType="com.javaex.vo.StoreVo" resultType="com.javaex.vo.StoreVo">
-    <![CDATA[
-        SELECT 
-            b.bNo, 
-            b.title, 
-            b.logo,
-            (3959 * acos(cos(radians(COALESCE(#{lat}, b.latitude))) * cos(radians(b.latitude))
-            * cos(radians(b.longitude) - radians(COALESCE(#{lan}, b.longitude))) + sin(radians(COALESCE(#{lat}, b.latitude)))
-            * sin(radians(b.latitude)))) AS distance
-        FROM 
-            business b
-        LEFT JOIN (
-            SELECT 
-                rt.bNo, 
-                COUNT(*) as reserved_count
-            FROM 
-                reserve r
-            JOIN 
-                reserveTime rt ON r.rtNo = rt.rtNo
-            GROUP BY 
-                rt.bNo
-        ) r ON b.bNo = r.bNo
-        LEFT JOIN (
-            SELECT 
-                bNo, 
-                COUNT(*) as reserved_time_count
-            FROM 
-                reserveTime
-            WHERE 
-                (#{rsDate} IS NULL OR (rtDate = #{rsDate} AND rtFinish = 0))
-            GROUP BY 
-                bNo
-        ) rt ON b.bNo = rt.bNo
-        WHERE 
-            (#{rsDate} IS NULL OR rt.reserved_time_count > 0)
-        ORDER BY 
-            distance ASC
-    ]]>
-</select>
+    	<![CDATA[
+	        SELECT 
+	            b.bNo, 
+	            b.title, 
+	            b.logo,
+	            (3959 * acos(cos(radians(COALESCE(#{lat}, b.latitude))) * cos(radians(b.latitude))
+	            * cos(radians(b.longitude) - radians(COALESCE(#{lan}, b.longitude))) + sin(radians(COALESCE(#{lat}, b.latitude)))
+	            * sin(radians(b.latitude)))) AS distance
+	        FROM 
+	            business b
+	        LEFT JOIN (
+	            SELECT 
+	                rt.bNo, 
+	                COUNT(*) as reserved_count
+	            FROM 
+	                reserve r
+	            JOIN 
+	                reserveTime rt ON r.rtNo = rt.rtNo
+	            GROUP BY 
+	                rt.bNo
+	        ) r ON b.bNo = r.bNo
+	        LEFT JOIN (
+	            SELECT 
+	                bNo, 
+	                COUNT(*) as reserved_time_count
+	            FROM 
+	                reserveTime
+	            WHERE 
+	                (#{rsDate} IS NULL OR (rtDate = #{rsDate} AND rtFinish = 0))
+	            GROUP BY 
+	                bNo
+	        ) rt ON b.bNo = rt.bNo
+	        WHERE 
+	            (#{rsDate} IS NULL OR rt.reserved_time_count > 0)
+	        ORDER BY 
+	            distance ASC
+	    ]]>
+	</select>
 
 
 	<!-- 지도, 캘린더 검색 -->
