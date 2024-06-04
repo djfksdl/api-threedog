@@ -62,22 +62,20 @@ public class AYDao {
 		sqlSession.insert("ay.addReview01", reviewVo);
 		sqlSession.update("ay.insertPoint", reviewVo);
 		sqlSession.update("ay.addUserPoint", reviewVo);
-		// 등록된 리뷰의 rNo를 가져옴
-		int rNo = reviewVo.getrNo();
 
-		// 리뷰 이미지 정보를 등록
-		for (String saveName : reviewVo.getSaveNameList()) {
-			Map<String, Object> paramMap = new HashMap<String, Object>();
-			paramMap.put("rNo", rNo);
-			paramMap.put("saveName", saveName);
-			System.out.println(saveName);
-//			paramMap.put("orgName", reviewVo.getOrgName());
-//			paramMap.put("filePath", reviewVo.getFilePath());
+	}
 
-			sqlSession.insert("ay.addReview02", paramMap);
-		}
+	// 리뷰등록
+	public void addReview2(ReviewVo reviewVo) {
+		System.out.println("AYDao.addReview2()");
+		System.out.println("제발 사진추가좀하자아아아");
+		System.out.println(reviewVo.getrNo());
 
-		System.out.println("성공");
+		System.out.println(reviewVo);
+
+		sqlSession.insert("ay.addReview02", reviewVo);
+
+		System.out.println(reviewVo.getSaveName());
 	}
 
 	// 조회수 증가
@@ -102,16 +100,6 @@ public class AYDao {
 	public ReviewVo getOnerList(int rNo) {
 		System.out.println("AYDao.getOnerList()");
 		ReviewVo reviewVo = sqlSession.selectOne("ay.selectOneRList", rNo);
-
-		System.out.println(reviewVo);
-
-		return reviewVo;
-
-	}
-
-	public List<ReviewVo> getrSaveNameList(int rNo) {
-		System.out.println("AYDao.getrSaveNameList()");
-		List<ReviewVo> reviewVo = sqlSession.selectList("ay.SaveNameList", rNo);
 
 		System.out.println(reviewVo);
 
@@ -193,8 +181,8 @@ public class AYDao {
 		System.out.println("AYDao.reserveInsert()");
 		System.out.println(reserveVo);
 
-		sqlSession.insert("ay.reserveInsert", reserveVo);
 		reserveVo.setRsNum(reserveVo.getRsNo());
+		sqlSession.insert("ay.reserveInsert", reserveVo);
 
 		return reserveVo.getSignImg();
 	}
@@ -313,8 +301,30 @@ public class AYDao {
 
 		List<ReserveVo> reserveList = sqlSession.selectList("ay.selectListReservation", uNo);
 		System.out.println(reserveList);
-		
+
 		return reserveList;
+	}
+
+	// 리뷰1개 가져오기
+	public ReviewVo getOnerList2(int rsNo) {
+		System.out.println("AYDao.getOnerList2()");
+		ReviewVo reviewVo = sqlSession.selectOne("ay.selectOneRList2", rsNo);
+
+		System.out.println(reviewVo);
+
+		return reviewVo;
+
+	}
+
+	// 리뷰1개 가져오기
+	public List<ReviewVo> getSaveName(int rsNo) {
+		System.out.println("AYDao.getOnerList2()");
+		List<ReviewVo> reviewList = sqlSession.selectList("ay.reviewSaveNameList", rsNo);
+
+		System.out.println(reviewList);
+
+		return reviewList;
+
 	}
 
 }

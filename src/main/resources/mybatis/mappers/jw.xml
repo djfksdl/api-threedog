@@ -59,10 +59,12 @@
     ]]>
 	</delete>
 
-	<update id="updateReserveTimeFinish" parameterType="int">
+	<update id="updateReserveTimeFinishByRsNo" parameterType="int">
 		<!-- 해당 예약 번호에 연결된 예약 시간의 rtFinish 값을 0으로 업데이트 -->
     <![CDATA[
-       UPDATE reserveTime SET rtFinish = 0 WHERE rtNo = #{rtNo};
+       UPDATE reserveTime 
+       SET rtFinish = 0 
+       WHERE rtNo = (SELECT rtNo FROM reserve WHERE rsNo = #{rsNo});
     ]]>  
 	</update>
 

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -62,14 +63,14 @@ public class JWController {
 		return JsonResult.success(reserveVo);
 	}
 
-	// 일정 삭제
+	// 일정 삭제 및 예약 시간 업데이트
 	@DeleteMapping("/api/jw/{rsNo}/delete")
-	public JsonResult deleteReserve(@PathVariable("rsNo") int rsNo) {
-
-		jwService.deleteReserve(rsNo);
-		return JsonResult.success(rsNo);
-	}
-
+    public ResponseEntity<?> deleteAndUpdateReserve(@PathVariable int rsNo) {
+        jwService.deleteAndFinishReserve(rsNo);
+        return ResponseEntity.ok().build();
+    }
+    
+    
 	// 특정 예약의 미용 기록 조회
 	@GetMapping("/api/jw/{rsNo}/groomingrecord")
 	public JsonResult selectGroomingRecord(@PathVariable("rsNo") int rsNo) {

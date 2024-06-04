@@ -305,20 +305,7 @@ public class SUDao {
 	public void updateRt(ReserveVo reserveVo) {
 		System.out.println("SUDao.updateRt");
 
-		int bNo = reserveVo.getbNo();
-		String rtDate = reserveVo.getRtDate();
-
-		List<String> rtTimes = reserveVo.getRtTimes();
-
-		// rtTimes의 각 값을 반복하여 데이터베이스에 삽입합니다.
-		for (String startTime : rtTimes) {
-			Map<String, Object> paramMap = new HashMap<>();
-			paramMap.put("bNo", bNo);
-			paramMap.put("rtDate", rtDate);
-			paramMap.put("rtTime", startTime);
-
-			sqlSession.insert("su.insertRtBybNo", paramMap);
-		}
+		sqlSession.insert("su.updateRtBybNo", reserveVo);
 
 	}
 
