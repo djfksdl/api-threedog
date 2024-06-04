@@ -327,4 +327,14 @@ public class AYDao {
 
 	}
 
+	public List<ReviewVo> getSaveName2(int rNo) {
+		System.out.println("AYDao.getSaveName2()");
+		List<ReviewVo> reviewList = sqlSession.selectList("ay.reviewSaveNameList2", rNo);
+
+		System.out.println(reviewList);
+
+		return reviewList;
+
+	}
+
 }

@@ -275,5 +275,14 @@ public class AYController {
 		
 		return JsonResult.success(reviewList);
 	}
+	
+	@GetMapping("/api/mypage/getsavename")
+	public JsonResult getSaveName(@RequestParam(value = "rNo") int rNo) {
+		System.out.println("AYController.getSaveName");
+
+		List<ReviewVo> reviewList = ayService.exeGetSaveName2(rNo);
+		
+		return JsonResult.success(reviewList);
+	}
 
 }
