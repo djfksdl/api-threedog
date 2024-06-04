@@ -263,8 +263,17 @@ public class AYController {
 		System.out.println("AYController.getOnerList2");
 
 		ReviewVo reviewVo = ayService.exeGetOnerList2(rsNo);
-
 		return JsonResult.success(reviewVo);
+	}
+
+	// 리뷰1개 가져오기
+	@GetMapping("/api/mypage/getsavenamelist")
+	public JsonResult getSaveNameList(@RequestParam(value = "rsNo") int rsNo) {
+		System.out.println("AYController.getSaveNameList");
+
+		List<ReviewVo> reviewList = ayService.exeGetSaveName(rsNo);
+		
+		return JsonResult.success(reviewList);
 	}
 
 }

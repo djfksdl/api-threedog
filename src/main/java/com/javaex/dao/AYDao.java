@@ -63,7 +63,6 @@ public class AYDao {
 		sqlSession.update("ay.insertPoint", reviewVo);
 		sqlSession.update("ay.addUserPoint", reviewVo);
 
-		
 	}
 
 	// 리뷰등록
@@ -71,9 +70,9 @@ public class AYDao {
 		System.out.println("AYDao.addReview2()");
 		System.out.println("제발 사진추가좀하자아아아");
 		System.out.println(reviewVo.getrNo());
-		
+
 		System.out.println(reviewVo);
-		
+
 		sqlSession.insert("ay.addReview02", reviewVo);
 
 		System.out.println(reviewVo.getSaveName());
@@ -305,16 +304,27 @@ public class AYDao {
 
 		return reserveList;
 	}
-	
+
 	// 리뷰1개 가져오기
-		public ReviewVo getOnerList2(int rsNo) {
-			System.out.println("AYDao.getOnerList2()");
-			ReviewVo reviewVo = sqlSession.selectOne("ay.selectOneRList2",rsNo);
+	public ReviewVo getOnerList2(int rsNo) {
+		System.out.println("AYDao.getOnerList2()");
+		ReviewVo reviewVo = sqlSession.selectOne("ay.selectOneRList2", rsNo);
 
-			System.out.println(reviewVo);
+		System.out.println(reviewVo);
 
-			return reviewVo;
+		return reviewVo;
 
-		}
+	}
+
+	// 리뷰1개 가져오기
+	public List<ReviewVo> getSaveName(int rsNo) {
+		System.out.println("AYDao.getOnerList2()");
+		List<ReviewVo> reviewList = sqlSession.selectList("ay.reviewSaveNameList", rsNo);
+
+		System.out.println(reviewList);
+
+		return reviewList;
+
+	}
 
 }

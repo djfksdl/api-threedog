@@ -418,5 +418,15 @@ public class AYService {
 
 		return reviewVo;
 	}
+	
+	// 리뷰1개 가져오기
+	public List<ReviewVo> exeGetSaveName(int rsNo) {
+		System.out.println("AYService.exeGetOnerList2");
+
+		List<ReviewVo> reviewList = ayDao.getSaveName(rsNo);
+
+		return reviewList;
+	}
+
 
 }
