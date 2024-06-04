@@ -141,7 +141,7 @@
 	<!-- 인기 검색어 리스트 -->
 
 	<!-- 후기 키워드 검색 -->
-  	<select id="keyword" parameterType="com.javaex.vo.SearchVo" resultType="com.javaex.vo.ReviewListVo">
+	<select id="keyword" parameterType="com.javaex.vo.SearchVo" resultType="com.javaex.vo.ReviewListVo">
 	   <![CDATA[
 	    SELECT DISTINCT
 	        b.title,
@@ -163,134 +163,137 @@
 	    ) rs ON r.rsNo = rs.rsNo
 	    WHERE 1=1
 	    ]]>
-	    <if test="keyword != null and !keyword.isEmpty()">
+		<if test="keyword != null and !keyword.isEmpty()">
 	       <![CDATA[
 	        AND b.title LIKE CONCAT('%', #{keyword}, '%')
 	        ]]>
-	    </if>
-	    <if test="selectedCities != null and !selectedCities.isEmpty()">
-	        AND (
-	            <foreach collection="selectedCities" item="city" separator=" OR ">
-	                <if test="city != null and !city.isEmpty()">
+		</if>
+		<if test="selectedCities != null and !selectedCities.isEmpty()">
+			AND (
+			<foreach collection="selectedCities" item="city" separator=" OR ">
+				<if test="city != null and !city.isEmpty()">
 	                <![CDATA[
 	                    b.bAddress LIKE CONCAT('%', #{city}, '%')
-	                ]]>   
-	                </if>
-	            </foreach>
-	        )
-	    </if>
-	    <if test="selectedWeights != null and !selectedWeights.isEmpty()">
+	                ]]>
+				</if>
+			</foreach>
+			)
+		</if>
+		<if test="selectedWeights != null and !selectedWeights.isEmpty()">
 	        <![CDATA[
 	        AND (
-	        ]]>   
-	            <foreach collection="selectedWeights" item="weight" separator=" OR ">
-	                <choose>
-	                    <when test="weight == 0">
+	        ]]>
+			<foreach collection="selectedWeights" item="weight" separator=" OR ">
+				<choose>
+					<when test="weight == 0">
 	                       <![CDATA[
 	                        rs.curruntWeight BETWEEN 0 AND 2
-	                       ]]>      
-	                    </when>
-	                    <when test="weight == 1">
+	                       ]]>
+					</when>
+					<when test="weight == 1">
 	                       <![CDATA[
 	                        rs.curruntWeight BETWEEN 2 AND 5
-	                        ]]> 
-	                    </when>
-	                    <when test="weight == 2">
+	                        ]]>
+					</when>
+					<when test="weight == 2">
 	                       <![CDATA[
 	                        rs.curruntWeight BETWEEN 5 AND 8
-	                        ]]> 
-	                    </when>
-	                    <when test="weight == 3">
+	                        ]]>
+					</when>
+					<when test="weight == 3">
 	                       <![CDATA[
 	                        rs.curruntWeight BETWEEN 8 AND 10
 	                        ]]>
-	                    </when>
-	                    <when test="weight == 4">
+					</when>
+					<when test="weight == 4">
 	                       <![CDATA[
 	                        rs.curruntWeight BETWEEN 10 AND 12
 	                        ]]>
-	                    </when>
-	                    <when test="weight == 5">
+					</when>
+					<when test="weight == 5">
 	                       <![CDATA[
 	                        rs.curruntWeight >= 12
 	                        ]]>
-	                    </when>
-	                </choose>
-	            </foreach>
-	        )
-	    </if>
-	    <if test="selectedTypes != null and !selectedTypes.isEmpty()">
+					</when>
+				</choose>
+			</foreach>
+			)
+		</if>
+		<if test="selectedTypes != null and !selectedTypes.isEmpty()">
 	       <![CDATA[
 	        AND rs.size IN
 	        ]]>
-	        <foreach item="type" collection="selectedTypes" open="(" close=")" separator=",">
-	            #{type}
-	        </foreach>
-	    </if>
-	    <if test="selectedPrices != null and !selectedPrices.isEmpty()">
+			<foreach item="type" collection="selectedTypes" open="(" close=")" separator=",">
+				#{type}
+			</foreach>
+		</if>
+		<if test="selectedPrices != null and !selectedPrices.isEmpty()">
 	       <![CDATA[
 	        AND (
 	        ]]>
-	            <foreach collection="selectedPrices" item="price" separator=" OR ">
-	                <choose>
-	                    <when test="price == 0">
+			<foreach collection="selectedPrices" item="price" separator=" OR ">
+				<choose>
+					<when test="price == 0">
 	                       <![CDATA[
 	                        rs.expectedPrice + rs.surcharge <= 20000
 	                        ]]>
-	                    </when>
-	                    <when test="price == 1">
+					</when>
+					<when test="price == 1">
 	                       <![CDATA[
 	                        rs.expectedPrice + rs.surcharge <= 40000
 	                        ]]>
-	                    </when>
-	                    <when test="price == 2">
+					</when>
+					<when test="price == 2">
 	                         <![CDATA[
 	                        rs.expectedPrice + rs.surcharge <= 60000
 	                        ]]>
-	                    </when>
-	                    <when test="price == 3">
+					</when>
+					<when test="price == 3">
 	                       <![CDATA[
 	                        rs.expectedPrice + rs.surcharge >= 60000
 	                        ]]>
-	                    </when>
-	                </choose>
-	            </foreach>
+					</when>
+				</choose>
+			</foreach>
 	        <![CDATA[
 	        )
 	        ]]>
-	    </if>
+		</if>
 	    <![CDATA[
 	    GROUP BY r.rNo
 	    ]]>
 	</select>
-   <!-- 후기 키워드 검색 -->
-   
-   <!-- 주별 통계 -->
-	<select id="weekList" resultType="com.javaex.vo.StatsVo">
+	<!-- 후기 키워드 검색 -->
+
+	<!-- 주별 통계 -->
+	<select id="weekList" parameterType="int" resultType="com.javaex.vo.StatsVo">
 		<![CDATA[
 			SELECT 
-			    b.bNo,
-			    YEAR(rt.rtDate) AS year,
-			    WEEK(rt.rtDate) AS week,
-			    SUM(r.expectedPrice + IFNULL(r.surcharge, 0)) AS totalPrice
-			FROM reserve r
-			JOIN reserveTime rt ON r.rtNo = rt.rtNo
-			JOIN push p ON r.rsNo = p.rsNo
-			JOIN business b ON rt.bNo = b.bNo
-			WHERE b.bNo = #{bNo}
-			GROUP BY 
-			    b.bNo, 
-			    YEAR(rt.rtDate), 
-			    WEEK(rt.rtDate)
+		        b.bNo,
+		        YEAR(rt.rtDate) AS year,
+		        MONTH(rt.rtDate) AS month,
+		        FLOOR((DAY(rt.rtDate) - 1) / 7) + 1 AS week,
+		        SUM(r.expectedPrice + IFNULL(r.surcharge, 0)) AS totalPrice
+		    FROM reserve r
+		    JOIN reserveTime rt ON r.rtNo = rt.rtNo
+		    JOIN push p ON r.rsNo = p.rsNo
+		    JOIN business b ON rt.bNo = b.bNo
+		    WHERE b.bNo = #{bNo}
+		          AND YEAR(rt.rtDate) = YEAR(CURDATE())
+		          AND MONTH(rt.rtDate) = MONTH(CURDATE())
+		    GROUP BY 
+		        b.bNo, 
+		        YEAR(rt.rtDate), 
+		        MONTH(rt.rtDate), 
+		        week
 		]]>
 	</select>
 	<!-- 주별 통계 -->
-	
+
 	<!-- 월별 통계 -->
-	<select id="monthList" resultType="com.javaex.vo.StatsVo">
+	<select id="monthList" parameterType="int" resultType="com.javaex.vo.StatsVo">
 		<![CDATA[
 			SELECT 
-			    b.bNo,
 			    YEAR(rt.rtDate) AS year,
 			    MONTH(rt.rtDate) AS month,
 			    SUM(r.expectedPrice + IFNULL(r.surcharge, 0)) AS totalPrice
@@ -298,34 +301,60 @@
 			JOIN reserveTime rt ON r.rtNo = rt.rtNo
 			JOIN push p ON r.rsNo = p.rsNo
 			JOIN business b ON rt.bNo = b.bNo
-			WHERE YEAR(rt.rtDate) = YEAR(CURDATE())
-			GROUP BY 
-			    b.bNo, 
-			    YEAR(rt.rtDate), 
-			    MONTH(rt.rtDate)
+			WHERE YEAR(rt.rtDate) = YEAR(CURDATE()) and b.bNo = #{bNo}
+			GROUP BY b.bNo, YEAR(rt.rtDate), MONTH(rt.rtDate)
 			ORDER BY b.bNo, MONTH(rt.rtDate)
 		]]>
 	</select>
 	<!-- 월별 통계 -->
-	
+
 	<!-- 년별 통계 -->
-	<select id="yearList" resultType="com.javaex.vo.StatsVo">
+	<select id="yearList" parameterType="int" resultType="com.javaex.vo.StatsVo">
 		<![CDATA[
 			SELECT 
-			    b.bNo,
 			    YEAR(rt.rtDate) AS year,
 			    SUM(r.expectedPrice + IFNULL(r.surcharge, 0)) AS totalPrice
 			FROM reserve r
 			JOIN reserveTime rt ON r.rtNo = rt.rtNo
 			JOIN push p ON r.rsNo = p.rsNo
 			JOIN business b ON rt.bNo = b.bNo
-			GROUP BY 
-			    b.bNo, 
-			    YEAR(rt.rtDate)
-			ORDER BY year DESC
+			where b.bNo = #{bNo}
+			GROUP BY b.bNo, YEAR(rt.rtDate)
+			ORDER BY year asc
 			LIMIT 4
 		]]>
 	</select>
 	<!-- 년별 통계 -->
+	
+	<!-- 일일 통계 -->
+	<select id="today" parameterType="int" resultType="com.javaex.vo.StatsVo">
+		<![CDATA[
+			SELECT 
+			    b.bNo,
+			    d.size,
+			    DATE(rt.rtDate) AS date,
+			    DAYOFWEEK(rt.rtDate) AS dayOfWeek,
+			    SUM(r.expectedPrice + IFNULL(r.surcharge, 0)) AS totalPrice
+			FROM 
+			    reserve r
+			JOIN 
+			    reserveTime rt ON r.rtNo = rt.rtNo
+			JOIN 
+			    push p ON r.rsNo = p.rsNo
+			JOIN 
+			    business b ON rt.bNo = b.bNo
+			JOIN 
+			    dog d ON r.dogNo = d.dogNo
+			WHERE 
+			    b.bNo = #{bNo}
+			    AND YEARWEEK(rt.rtDate) = YEARWEEK(CURDATE())
+			GROUP BY 
+			    b.bNo, 
+			    d.size,
+			    DATE(rt.rtDate), 
+			    DAYOFWEEK(rt.rtDate)
+		]]>
+	</select>
+	<!-- 일일 통계 -->
 
 </mapper>

@@ -195,38 +195,49 @@ public class YEController {
 	}
 	
 	// 주별 통계
-//	@GetMapping("/api/weekstats")
-//	public JsonResult weekStats() {
-//		System.out.println("YEController.weekStats()");
-//
-//		List<StatsVo> weekList = yeService.exeWeekList();
-//
-//		System.out.println(weekList);
-//		
-//		return JsonResult.success(weekList);
-//	}
+	@GetMapping("/api/weekstats")
+	public JsonResult weekStats(@RequestParam(value = "bNo") int bNo) {
+		System.out.println("YEController.weekStats()");
+//		System.out.println(bNo);
+		List<StatsVo> weekList = yeService.exeWeekList(bNo);
+
+//		System.out.println("주"+weekList);
+		
+		return JsonResult.success(weekList);
+	}
 	
 	// 월별 통계
-//	@GetMapping("/api/monthstats")
-//	public JsonResult monthStats() {
-//		System.out.println("YEController.monthStats()");
-//
-//		List<StatsVo> monthList = yeService.exeMonthList();
-//		
-//		System.out.println(monthList);
-//		
-//		return JsonResult.success(monthList);
-//	}
+	@GetMapping("/api/monthstats")
+	public JsonResult monthStats(@RequestParam(value = "bNo") int bNo) {
+		System.out.println("YEController.monthStats()");
+
+		List<StatsVo> monthList = yeService.exeMonthList(bNo);
+		
+//		System.out.println("월"+monthList);
+		
+		return JsonResult.success(monthList);
+	}
 	
 	// 년별 통계
-//	@GetMapping("/api/yearstats")
-//	public JsonResult yearStats() {
-//		System.out.println("YEController.yearStats()");
-//
-//		List<StatsVo> yearList = yeService.exeYearList();
-//		
-//		System.out.println(yearList);
-//
-//		return JsonResult.success(yearList);
-//	}
+	@GetMapping("/api/yearstats")
+	public JsonResult yearStats(@RequestParam(value = "bNo") int bNo) {
+		System.out.println("YEController.yearStats()");
+
+		List<StatsVo> yearList = yeService.exeYearList(bNo);
+		
+//		System.out.println("년"+yearList);
+
+		return JsonResult.success(yearList);
+	}
+	
+	@GetMapping("/api/daystats")
+	public JsonResult dayStats(@RequestParam(value = "bNo") int bNo) {
+		System.out.println("YEController.dayStats()");
+
+		List<StatsVo> dayList = yeService.exeDayList(bNo);
+		
+//		System.out.println("날짜"+dayList);
+
+		return JsonResult.success(dayList);
+	}
 }

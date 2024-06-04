@@ -91,21 +91,27 @@ public class YEDao {
 		return sqlSession.selectList("ye.keyword", searchVo);
 	}
 
-	public List<StatsVo> week() {
+	public List<StatsVo> week(int bNo) {
 		System.out.println("YEDao.week()");
 		
-		return sqlSession.selectList("ye.weekList");
+		return sqlSession.selectList("ye.weekList", bNo);
 	}
 
-	public List<StatsVo> month() {
+	public List<StatsVo> month(int bNo) {
 		System.out.println("YEDao.month()");
 		
-		return sqlSession.selectList("ye.monthList");
+		return sqlSession.selectList("ye.monthList", bNo);
 	}
 
-	public List<StatsVo> year() {
+	public List<StatsVo> year(int bNo) {
 		System.out.println("YEDao.year()");
 		
-		return sqlSession.selectList("ye.yearList");
+		return sqlSession.selectList("ye.yearList", bNo);
+	}
+
+	public List<StatsVo> day(int bNo) {
+		System.out.println("YEDao.day()");
+		
+		return sqlSession.selectList("ye.today", bNo);
 	}
 }

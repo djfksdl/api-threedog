@@ -7,9 +7,27 @@ public class StatsVo {
 	private int month;
 	private int year;
 	private int totalPrice;
-	
+	private String size;
+	private int dayOfWeek;
+
 	public StatsVo() {
 		super();
+	}
+
+	public int getDayOfWeek() {
+		return dayOfWeek;
+	}
+
+	public void setDayOfWeek(int dayOfWeek) {
+		this.dayOfWeek = dayOfWeek;
+	}
+
+	public String getSize() {
+		return size;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
 	}
 
 	public int getbNo() {
@@ -19,7 +37,7 @@ public class StatsVo {
 	public void setbNo(int bNo) {
 		this.bNo = bNo;
 	}
-	
+
 	public int getWeek() {
 		return week;
 	}
@@ -55,7 +73,7 @@ public class StatsVo {
 	@Override
 	public String toString() {
 		return "StatsVo [bNo=" + bNo + ", week=" + week + ", month=" + month + ", year=" + year + ", totalPrice="
-				+ totalPrice + "]";
+				+ totalPrice + ", size=" + size + ", dayOfWeek=" + dayOfWeek + "]";
 	}
-	
+
 }
