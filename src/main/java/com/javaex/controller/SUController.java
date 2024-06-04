@@ -70,6 +70,12 @@ public class SUController {
 		}
 
 	}
+	
+	// 카카오톡 로그인
+	@GetMapping("https://kauth.kakao.com/oauth/authorize")
+	public JsonResult kakaoLogin() {
+		return JsonResult.success("얏호호");
+	}
 
 	// editPage================================
 
