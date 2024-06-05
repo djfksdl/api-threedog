@@ -232,6 +232,7 @@ public class YEController {
 		return JsonResult.success(yearList);
 	}
 	
+	// 일일 종류 별 금액
 	@GetMapping("/api/daystats")
 	public JsonResult dayStats(@RequestParam(value = "bNo") int bNo) {
 		System.out.println("YEController.dayStats()");
