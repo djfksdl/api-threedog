@@ -19,6 +19,19 @@
 			values(null, #{uId}, #{uPw},#{uName},#{uPhone}, #{uZipCode},#{uAddress},#{uDetailAddress},0,#{uProfile})
 		]]>
 	</insert>
+	
+	<!-- 카카오 회원가입 -->
+	<insert id="signUpKaKao" parameterType="com.javaex.vo.UserVo">
+		<![CDATA[
+			insert into users
+			values(null, #{uId}, "",#{uName},"", "","","",0,#{uProfile})
+		]]>
+		<selectKey keyProperty="uNo" resultType="int" order="AFTER">
+			<![CDATA[
+				select last_insert_id()
+			]]>
+		</selectKey>
+	</insert>
 
 	<!-- 로그인 -->
 	<select id="login" parameterType="com.javaex.vo.UserVo" resultType="com.javaex.vo.UserVo">
@@ -30,6 +43,29 @@
 			and uPw = #{uPw}
 		]]>
 	</select>
+	
+	<!-- 카카오 로그인 -->
+	<select id="loginByKakao" parameterType="com.javaex.vo.UserVo" resultType="com.javaex.vo.UserVo">
+		<![CDATA[
+			select uNo,
+				   uName
+			from users
+			where uId = #{uId}
+			and uNo = #{uNo}
+		]]>
+	</select>
+	
+	<!-- 카카오 로그인(회원가입이 되었을때) -->
+	<select id="loginByKakao2" parameterType="com.javaex.vo.UserVo" resultType="com.javaex.vo.UserVo">
+		<![CDATA[
+			select uNo,
+				   uName
+			from users
+			where uId = #{uId}
+		]]>
+	</select>
+	
+	
 
 	<!-- ************************** editPage ************************** -->
 

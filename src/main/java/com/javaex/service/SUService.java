@@ -119,6 +119,35 @@ public class SUService {
 
 		return authUser;
 	}
+	
+//	카카오 로그인 체크
+	public UserVo exeKakaoLogin(UserVo userVo) {
+		System.out.println("SUService.exeKakaoLogin");
+		
+		// 회원가입 여부 체크
+		int userCheck = suDao.checkKakaoId(userVo.getuId());
+		
+		//아이디가 없을때(회원이 아닐때 -> 회원가입 시키기)
+		if(userCheck != 1) {
+			
+			// 회원가입하기
+			int count = suDao.signUpKaKao(userVo);
+			
+			// 회원가입 성공했으면 로그인하기
+			if(count == 1) {
+				return suDao.loginByKakao(userVo);
+				
+			}else {//회원가입 실패시
+				return null;
+			}
+			
+		}else {
+			//회원가입 되어있을때 -> 로그인하기
+			return suDao.loginByKakao2(userVo);
+			
+		}
+		
+	}
 
 //	editPage ==============================
 

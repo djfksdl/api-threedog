@@ -46,6 +46,50 @@ public class SUDao {
 
 		return authUser;
 	}
+//	카카오 - 회원가입 여부 체크
+	public int checkKakaoId(String uId) {
+		System.out.println("SUDao.checkKakaoId");
+		
+		int count = sqlSession.selectOne("su.checkId", uId);
+		
+		return count;//있으면 1(회원일떄)
+		
+	}
+	
+
+//	카카오 - 회원가입
+	public int signUpKaKao(UserVo userVo) {
+		System.out.println("SUDao.signUpKaKao");
+		
+		int count = sqlSession.insert("su.signUpKaKao", userVo);
+		System.out.println("카카오 회원가입 후 count가 uNo 일까?그냥 결과인가"+ count );
+		return count;
+	}
+	
+//	카카오 - 로그인
+	public UserVo loginByKakao(UserVo userVo) {
+		System.out.println("SUDao.loginByKakao");
+		
+		System.out.println("회원가입 후 로그인이라면 uNo있는지 체크하기" +userVo);
+		
+		UserVo kakaoVo = sqlSession.selectOne("su.loginByKakao", userVo);
+		
+		System.out.println("회원가입 후 로그인" +userVo);
+		
+		return kakaoVo;
+		
+	}
+//	카카오 - 로그인
+	public UserVo loginByKakao2(UserVo userVo) {
+		System.out.println("SUDao.loginByKakao2");
+		
+		UserVo kakaoVo = sqlSession.selectOne("su.loginByKakao2", userVo);
+		
+		System.out.println("로그인만" +userVo);
+		return kakaoVo;
+		
+	}
+	
 
 //	************************** editPage **************************
 

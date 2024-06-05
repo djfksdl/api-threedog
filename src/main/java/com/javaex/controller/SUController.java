@@ -71,10 +71,22 @@ public class SUController {
 
 	}
 	
-	// 카카오톡 로그인
-	@GetMapping("https://kauth.kakao.com/oauth/authorize")
-	public JsonResult kakaoLogin() {
-		return JsonResult.success("얏호호");
+	// 카카오톡 로그인 회원가입 체크
+	@PostMapping("/api/su/kakao")
+	public JsonResult kakaoCheck(@RequestBody UserVo userVo , HttpServletResponse response ) {
+		System.out.println("SUController.kakaoCheck");
+		
+		System.out.println(userVo);
+		
+		UserVo authKakao = suService.exeKakaoLogin(userVo);
+		
+		if(authKakao != null) {
+			JwtUtil.createTokenAndSetHeader(response, ""+authKakao.getuNo() );
+			return JsonResult.success(authKakao);
+		} else {
+			return null;
+		}
+		
 	}
 
 	// editPage================================
