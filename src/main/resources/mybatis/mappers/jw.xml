@@ -121,5 +121,39 @@
 	    VALUES (#{rsNo}, NOW());
 	    ]]>
 	</insert>
+	
+		<!-- ************************ 마이다이어리 ***************************** -->
+		
+	<!-- 회원의 강아지별 모든 알림장리스트 -->
+	<select id="userDogList" parameterType="map" resultType="com.javaex.vo.ReserveVo"> 
+	   <![CDATA[
+			SELECT 
+			    d.dogNo, 
+			    d.dogName, 
+			    d.dogImg,
+			    rs.*,
+			    rt.rtNo, 
+			    rt.rtDate, 
+			    rt.rtTime,
+			    b.bNo, 
+			    b.title, 
+			    b.bPhone
+			FROM 
+			    users u
+			JOIN 
+			    dog d ON u.uNo = d.uNo
+			JOIN 
+			    reserve rs ON d.dogNo = rs.dogNo
+			JOIN 
+			    reserveTime rt ON rs.rtNo = rt.rtNo
+			JOIN 
+			    business b ON rt.bNo = b.bNo
+			WHERE 
+			    u.uNo = #{uNo}
+			ORDER BY 
+			    rt.rtDate DESC;
+	   ]]>
+	</select>
+	
 
 </mapper>

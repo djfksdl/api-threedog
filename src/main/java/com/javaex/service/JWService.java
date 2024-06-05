@@ -142,4 +142,13 @@ public class JWService {
 		 jwDao.insertPushNotification(rsNo);
 		 System.out.println("푸싱싱싱: " + rsNo);
 	    }
+
+	 
+	 /****************************
+	  * 회원 강아지의 마이다이어리
+	  ****************************/
+	 public List<ReserveVo> getUserDogList(int uNo) {
+	     System.out.println("강아지 멍멍");
+	     return jwDao.userDogList(uNo);
+	 }
 }

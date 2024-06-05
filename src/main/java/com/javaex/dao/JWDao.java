@@ -41,7 +41,6 @@ public class JWDao {
 	}
 
 	// 예약 삭제
-	// 예약 삭제
 	public void deleteReserve(int rsNo) {
 	    sqlSession.delete("jw.deleteReserve", rsNo);
 	    System.out.println("예약 정보 삭제 완료: " + rsNo);
@@ -93,5 +92,18 @@ public class JWDao {
 		 System.out.println("푸싱싱싱: " + rsNo);
 		
 	}
+	
+	
+	/****************************
+	 * 회원 강아지의 마이다이어리
+	 ****************************/
+	public List<ReserveVo> userDogList(int uNo) {
+	    Map<String, Integer> paramMap = Map.of("uNo", uNo);
+	    
+	    System.out.println("고양이 냥냥");
+	    return sqlSession.selectList("jw.userDogList", paramMap);
+	}
+	
+	
 
 }

@@ -94,16 +94,6 @@ public class JWController {
 		System.out.println("업로드된 파일 URL: " + fileUrl); // 콘솔 출력 추가
 		return JsonResult.success(Map.of("url", fileUrl)); // 업로드된 이미지의 URL 반환
 	}
-
-//	// 미용 기록 업데이트를 처리하는 컨트롤러 메서드
-//	@PutMapping("/api/jw/{rsNo}/updategroomingrecord")
-//	public JsonResult updateGroomingRecord(@PathVariable("rsNo") int rsNo, @RequestBody ReserveVo reserveVo) {
-//		reserveVo.setRsNo(rsNo); // 예약 번호를 설정
-//		 System.out.println("업데이트할 예약 번호: " + rsNo); // 예약 번호 확인
-//		jwService.updateGroomingRecord(reserveVo); // 서비스 호출하여 미용 기록 업데이트
-//		  System.out.println("미용 기록 업데이트 완료: " + reserveVo); // 업데이트 완료 확인
-//		return JsonResult.success(reserveVo); // 성공 응답 반환
-//	}
 	
 	// 미용 기록 업데이트를 처리하는 컨트롤러 메서드
 	@PutMapping("/api/jw/{rsNo}/updategroomingrecord")
@@ -163,5 +153,17 @@ public class JWController {
         System.out.println("푸쉬푸쉬베이베: " + rsNo); // 업데이트 완료 확인
         return ResponseEntity.ok().build();
     }
-	
+    
+    
+    /****************************
+     * 회원 강아지의 마이다이어리
+     ****************************/
+    @GetMapping("/api/jw/userDogList/{uNo}")
+    public JsonResult getUserDogList(@PathVariable("uNo") int uNo) {
+        System.out.println("어떤회원의 강아지별 알림장리스트");
+        List<ReserveVo> userDogList = jwService.getUserDogList(uNo);
+        System.out.println(userDogList);
+        return JsonResult.success(userDogList);
+    }
+    
 }
