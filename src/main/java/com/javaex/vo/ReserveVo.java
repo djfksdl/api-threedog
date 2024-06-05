@@ -68,6 +68,7 @@ public class ReserveVo {
 	private String bPhone;
 	private String bAddress;
 	private String bdAddress;
+	private String logo;
 
 	// 생성자
 	public ReserveVo() {
@@ -78,6 +79,16 @@ public class ReserveVo {
 		super();
 		this.bNo = bNo;
 		this.rtDate = rtDate;
+	}
+
+	
+	
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
 	}
 
 	public int getrNo() {
@@ -551,7 +562,7 @@ public class ReserveVo {
 				+ ", pushTime=" + pushTime + ", files=" + files + ", signFile=" + signFile + ", beautyPlus="
 				+ beautyPlus + ", rtFinish=" + rtFinish + ", rNo=" + rNo + ", rsNum=" + rsNum + ", usePoint=" + usePoint
 				+ ", priceNoPlus=" + priceNoPlus + ", rtDates=" + rtDates + ", rtTimes=" + rtTimes + ", title=" + title
-				+ ", bPhone=" + bPhone + ", bAddress=" + bAddress + ", bdAddress=" + bdAddress + "]";
+				+ ", bPhone=" + bPhone + ", bAddress=" + bAddress + ", bdAddress=" + bdAddress + ", logo=" + logo + "]";
 	}
 
 }
