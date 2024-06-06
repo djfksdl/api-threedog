@@ -293,7 +293,7 @@
 	<!-- 사이드바 -->
 	<select id="selectSidebar1" parameterType="com.javaex.vo.UserVo" resultType="com.javaex.vo.UserVo">
 		<![CDATA[
-		select u.uNo, u.uId, u.uProfile, u.uPoint
+		select u.uNo, u.uId, u.uProfile, u.uPoint, uName
 		from users u
 		where u.uNo=#{uNo}
 			
@@ -319,6 +319,7 @@
 		join business b on b.bNo=rt.bNo
 		join dog d on d.dogNo=r.dogNo
 		where d.uNo=#{uNo}
+		order by r.rsNo desc
 		limit 1
 			
 		]]>
@@ -333,7 +334,7 @@
 			join reserve rs on rs.rsNo = re.rsNo
 			join dog d on d.dogNo=rs.dogNo
 			join business b on b.bNo=re.bNo
-			where re.uNo=1
+			where re.uNo=#{uNo}
 			group by rNo
 			order by re.rNo desc
 			limit 1
@@ -349,7 +350,7 @@
 			join business b on b.bNo=rt.bNo
 			join dog d on d.dogNo=r.dogNo
 			join push p on p.rsNo=r.rsNo
-			where uNo=1 
+			where uNo=#{uNo} 
 			order by pushNo desc
 			limit 1
 		
