@@ -100,9 +100,12 @@ public class JWDao {
 	public List<ReserveVo> userDogList(int uNo) {
 	    Map<String, Integer> paramMap = Map.of("uNo", uNo);
 	    
-	    System.out.println("고양이 냥냥");
-	    return sqlSession.selectList("jw.userDogList", paramMap);
+	    System.out.println("고양이 냥냥 - DAO 호출: paramMap = " + paramMap);
+	    List<ReserveVo> userDogList = sqlSession.selectList("jw.userDogList", paramMap);
+	    System.out.println("DAO에서 받은 강아지 알림장 리스트: " + userDogList);
+	    return userDogList;
 	}
+
 	
 	
 

@@ -126,37 +126,49 @@
 		
 	<!-- 회원의 강아지별 모든 알림장리스트 -->
 	<select id="userDogList" parameterType="map" resultType="com.javaex.vo.ReserveVo"> 
-	   <![CDATA[
-                SELECT 
-				    d.dogNo, 
-				    d.dogName, 
-				    d.dogImg,
-				    rs.*,
-				    rt.rtNo, 
-				    rt.rtDate, 
-				    rt.rtTime,
-				    b.bNo, 
-				    b.title, 
-				    b.bPhone
-				FROM 
-				    users u
-				JOIN 
-				    dog d ON u.uNo = d.uNo
-				JOIN 
-				    reserve rs ON d.dogNo = rs.dogNo
-				JOIN 
-				    push p ON rs.rsNo = p.rsNo
-				JOIN 
-				    reserveTime rt ON rs.rtNo = rt.rtNo
-				JOIN 
-				    business b ON rt.bNo = b.bNo
-				WHERE 
-				    u.uNo = #{uNo}
-				    AND p.pushNo IS NOT NULL
-				ORDER BY 
-				    rt.rtDate DESC;
-	   ]]>
-	</select>
+   <![CDATA[
+       SELECT 
+            d.dogNo, 
+            d.dogName, 
+            d.dogImg,
+            rs.rsNo,
+            rs.expectedPrice,
+            rs.attitude,
+            rs.rCondition,
+            rs.tangle,
+            rs.disliked,
+            rs.bath,
+            rs.surcharge,
+            rs.message,
+            rs.curruntWeight,
+            rt.rtNo, 
+            rt.rtDate, 
+            rt.rtTime,
+            b.bNo, 
+            b.title, 
+            b.bPhone
+        FROM 
+            users u
+        JOIN 
+            dog d ON u.uNo = d.uNo
+        JOIN 
+            reserve rs ON d.dogNo = rs.dogNo
+        JOIN 
+            push p ON rs.rsNo = p.rsNo
+        JOIN 
+            reserveTime rt ON rs.rtNo = rt.rtNo
+        JOIN 
+            business b ON rt.bNo = b.bNo
+        WHERE 
+            u.uNo = #{uNo}
+            AND p.pushNo IS NOT NULL
+        GROUP BY 
+            rs.rsNo
+        ORDER BY 
+            rt.rtDate DESC;
+   ]]>
+</select>
+
 	
 
 </mapper>

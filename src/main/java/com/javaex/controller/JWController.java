@@ -95,6 +95,8 @@ public class JWController {
 		return JsonResult.success(Map.of("url", fileUrl)); // 업로드된 이미지의 URL 반환
 	}
 	
+	
+	
 	// 미용 기록 업데이트를 처리하는 컨트롤러 메서드
 	@PutMapping("/api/jw/{rsNo}/updategroomingrecord")
 	public JsonResult updateGroomingRecord(@PathVariable("rsNo") int rsNo, @RequestBody Map<String, Object> params) {
@@ -160,10 +162,11 @@ public class JWController {
      ****************************/
     @GetMapping("/api/jw/userDogList/{uNo}")
     public JsonResult getUserDogList(@PathVariable("uNo") int uNo) {
-        System.out.println("어떤회원의 강아지별 알림장리스트");
+        System.out.println("어떤회원의 강아지별 알림장리스트 요청: uNo = " + uNo);
         List<ReserveVo> userDogList = jwService.getUserDogList(uNo);
-        System.out.println(userDogList);
+        System.out.println("회원 강아지별 알림장리스트: " + userDogList);
         return JsonResult.success(userDogList);
     }
+
     
 }
