@@ -11,7 +11,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/api/**") // 경로- 요청주소가 api로 시작해야한다.는 뜻
 				.allowedMethods("GET", "POST", "PUT", "DELETE")
-				//.allowedOrigins("http://localhost:8080")//visual studio에 있는 서버랑 동일해야함.
+//				.allowedOrigins("http://localhost:8080")//visual studio에 있는 서버랑 동일해야함.
 				.allowedOrigins("http://43.200.182.62:9010")
 				.allowedHeaders("*") // 모든 요청해더
 				.exposedHeaders("Authorization")// 노출시킬 헤더
