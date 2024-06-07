@@ -55,6 +55,6 @@ jobs:
             sudo docker rm threedog || true
             sudo docker run -d \
               --name threedog \
-              -p 9010:9010 \
+              -p 9033:9033 \
               -v /home/ec2-user/upload:/app/upload \
               djfksdl/threedog:latest
