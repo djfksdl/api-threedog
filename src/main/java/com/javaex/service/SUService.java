@@ -386,12 +386,12 @@ public class SUService {
 			
 			//추가파일o, 삭제파일o
 			if(businessVo.getDelSlideHiNos() !=null) {
-				System.out.println("추가파일o, 삭제파일o");
+				System.out.println("슬라이드 추가파일o, 슬라이드 삭제파일o");
 				suDao.insertSlideImgs(businessVo);
 				suDao.deleteSlideImgs(businessVo);
 			}else {
 				//추가파일o, 삭제파일x
-				System.out.println("추가파일o, 삭제파일x");
+				System.out.println("슬라이드 추가파일o, 슬라이드 삭제파일x");
 				suDao.insertSlideImgs(businessVo);
 			}
 			
@@ -399,17 +399,17 @@ public class SUService {
 		}else {
 			//추가파일x, 삭제파일o
 			if(businessVo.getDelSlideHiNos() !=null) {
-				System.out.println("추가파일x, 삭제파일o");
+				System.out.println("슬라이드 추가파일x, 슬라이드 삭제파일o");
 				suDao.deleteSlideImgs(businessVo);
 			}else {
-				System.out.println("추가파일x, 삭제파일x");
+				System.out.println("슬라이드 추가파일x, 슬라이드 삭제파일x");
 				//추가파일x , 삭제파일x: 아무것도 안함
 			}
 		}
 //		
 //
 //		// 여기는 컷이미지 사진 추출
-		if(businessVo.getSlideImgs() != null) {
+		if(businessVo.getCutImgs() != null) {
 			List<MultipartFile> cutImgs = businessVo.getCutImgs();
 			List<String> cutImgsSaveName = new ArrayList<>();
 

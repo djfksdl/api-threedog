@@ -238,7 +238,7 @@ public class SUDao {
 	public void updateBusinessInfoNoImg(BusinessVo businessVo) {
 		System.out.println("SUDao.updateBusinessInfoNoImg");
 
-//			System.out.println(businessVo);
+//		System.out.println(businessVo);
 		sqlSession.update("su.updateBusinessInfoNoImg", businessVo);
 
 	}
