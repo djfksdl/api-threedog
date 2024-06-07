@@ -49,7 +49,7 @@ public class ReserveVo {
 	private String weightDiv;
 	private String beauty;
 	private int aiNo;
-	private String saveName;
+	private String saveName; //afterimg
 	private int pushNo;
 	private String pushTime;
 	private List<MultipartFile> files;
@@ -69,6 +69,8 @@ public class ReserveVo {
 	private String bAddress;
 	private String bdAddress;
 	private String logo;
+	
+	
 
 	// 생성자
 	public ReserveVo() {

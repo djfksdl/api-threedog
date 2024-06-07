@@ -116,6 +116,8 @@ public class JWService {
 			throw new RuntimeException("File upload failed", e); // 파일 업로드 실패시 예외 발생
 		}
 	}
+	
+	
 
 	// 파일을 저장하는 메서드
 	private void saveFile(String saveDir, String fileName, byte[] bytes) throws IOException {
@@ -148,7 +150,10 @@ public class JWService {
 	  * 회원 강아지의 마이다이어리
 	  ****************************/
 	 public List<ReserveVo> getUserDogList(int uNo) {
-	     System.out.println("강아지 멍멍");
-	     return jwDao.userDogList(uNo);
+	     System.out.println("강아지 멍멍 - 서비스 호출: uNo = " + uNo);
+	     List<ReserveVo> userDogList = jwDao.userDogList(uNo);
+	     System.out.println("서비스에서 받은 강아지 알림장 리스트: " + userDogList);
+	     return userDogList;
 	 }
+
 }
