@@ -1,3 +1,4 @@
+
 -- 테이블 생성
 CREATE TABLE users (
    uNo int auto_increment primary key,
@@ -58,6 +59,7 @@ CREATE TABLE beautylist (
    beauty varchar(50) NOT NULL
 );
 
+
 CREATE TABLE reserve (
    rsNo int auto_increment primary key,
    dogNo int NOT NULL,
@@ -75,8 +77,9 @@ CREATE TABLE reserve (
    CONSTRAINT fk_reserveTime_dog FOREIGN KEY (dogNo) REFERENCES dog(dogNo)
 );
 -- alter table reserve add column rsTime tiem;-- 
--- 포링키 추가
+-- 포링키 추가 
 ALTER TABLE reserve ADD CONSTRAINT fk_reserveTime_reserve FOREIGN KEY (rtNo) REFERENCES reserveTime(rtNo);
+
 
 -- 외래키 이름 찾기
 -- SELECT CONSTRAINT_NAME FROM information_schema.KEY_COLUMN_USAGE WHERE TABLE_NAME = 'reserve' AND COLUMN_NAME = 'bNo';
@@ -109,6 +112,7 @@ CREATE TABLE price (
    CONSTRAINT fk_price_beautylist FOREIGN KEY (beautyNo) REFERENCES beautylist(beautyNo)
 );
 
+
 CREATE TABLE homeimg (
    hiNo int auto_increment primary key,
    bNo int NOT NULL,
@@ -128,13 +132,13 @@ CREATE TABLE designer (
    CONSTRAINT fk_designer_business FOREIGN KEY (bNo) REFERENCES business(bNo)
 );
 
-
+select * from designer;
 CREATE TABLE reviewimg (
    riNo int auto_increment primary key,
    rNo int NOT NULL,
    saveName varchar(300) NULL,
    CONSTRAINT fk_reviewimg_review FOREIGN KEY (rNo) REFERENCES review(rNo)
-);
+); 
 
 
 CREATE TABLE afterImg (
@@ -154,6 +158,11 @@ CREATE TABLE rsPrice (
    CONSTRAINT fk_rsPrice_price FOREIGN KEY (priceNo) REFERENCES price(priceNo),
    CONSTRAINT fk_rsPrice_reserveTime FOREIGN KEY (rtNo) REFERENCES reserveTime(rtNo)
 );
+-- 기존 외래 키 제약 조건 삭제
+ALTER TABLE rsPrice DROP FOREIGN KEY fk_rsPrice_reserveTime;
+
+-- 새로운 외래 키 제약 조건 추가 (ON DELETE CASCADE)
+ALTER TABLE rsPrice ADD CONSTRAINT fk_rsPrice_reserveTime FOREIGN KEY (rtNo) REFERENCES reserveTime(rtNo) ON DELETE CASCADE;
 
 
 CREATE TABLE push (
