@@ -118,6 +118,8 @@
 			       bAddress,
 			       bdAddress,
 			       bPhone,
+			       bNum,
+			       bMaster,
 			       title,
 			       subTitle,
 			       logo,

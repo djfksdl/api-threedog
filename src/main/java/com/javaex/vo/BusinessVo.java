@@ -10,6 +10,7 @@ public class BusinessVo {
 	private String bId;
 	private String bPw;
 	private String bNum;
+	private String bMaster;
 	private String bZipCode;
 	private String bAddress;
 	private String bdAddress;
@@ -42,17 +43,18 @@ public class BusinessVo {
 		super();
 	}
 
-	public BusinessVo(int bNo, String bId, String bPw, String bNum, String bZipCode, String bAddress, String bdAddress,
-			String bPhone, double latitude, double longitude, double averageStar, String title, String subTitle,
-			String dName, String introduce, String job, MultipartFile logoFile, String logo, MultipartFile dProfileFile,
-			String dProfile, List<MultipartFile> slideImgs, List<String> slideImgsSaveName, List<MultipartFile> cutImgs,
-			List<String> cutImgsSaveName, List<PriceVo> priceList, List<Integer> hiNos, List<Integer> delSlideHiNos,
-			List<Integer> delCutHiNos) {
+	public BusinessVo(int bNo, String bId, String bPw, String bNum, String bMaster, String bZipCode, String bAddress,
+			String bdAddress, String bPhone, double latitude, double longitude, double averageStar, String title,
+			String subTitle, String dName, String introduce, String job, MultipartFile logoFile, String logo,
+			MultipartFile dProfileFile, String dProfile, List<MultipartFile> slideImgs, List<String> slideImgsSaveName,
+			List<MultipartFile> cutImgs, List<String> cutImgsSaveName, List<PriceVo> priceList, List<Integer> hiNos,
+			List<Integer> delSlideHiNos, List<Integer> delCutHiNos) {
 		super();
 		this.bNo = bNo;
 		this.bId = bId;
 		this.bPw = bPw;
 		this.bNum = bNum;
+		this.bMaster = bMaster;
 		this.bZipCode = bZipCode;
 		this.bAddress = bAddress;
 		this.bdAddress = bdAddress;
@@ -78,6 +80,8 @@ public class BusinessVo {
 		this.delSlideHiNos = delSlideHiNos;
 		this.delCutHiNos = delCutHiNos;
 	}
+
+
 
 	// 메소드-gs
 	public int getbNo() {
@@ -304,17 +308,25 @@ public class BusinessVo {
 		this.delCutHiNos = delCutHiNos;
 	}
 
+	public String getbMaster() {
+		return bMaster;
+	}
+
+	public void setbMaster(String bMaster) {
+		this.bMaster = bMaster;
+	}
+
 	// 메소드-일반
 	@Override
 	public String toString() {
-		return "BusinessVo [bNo=" + bNo + ", bId=" + bId + ", bPw=" + bPw + ", bNum=" + bNum + ", bZipCode=" + bZipCode
-				+ ", bAddress=" + bAddress + ", bdAddress=" + bdAddress + ", bPhone=" + bPhone + ", latitude="
-				+ latitude + ", longitude=" + longitude + ", averageStar=" + averageStar + ", title=" + title
-				+ ", subTitle=" + subTitle + ", dName=" + dName + ", introduce=" + introduce + ", job=" + job
-				+ ", logoFile=" + logoFile + ", logo=" + logo + ", dProfileFile=" + dProfileFile + ", dProfile="
-				+ dProfile + ", slideImgs=" + slideImgs + ", slideImgsSaveName=" + slideImgsSaveName + ", cutImgs="
-				+ cutImgs + ", cutImgsSaveName=" + cutImgsSaveName + ", priceList=" + priceList + ", hiNos=" + hiNos
-				+ ", delSlideHiNos=" + delSlideHiNos + ", delCutHiNos=" + delCutHiNos + "]";
+		return "BusinessVo [bNo=" + bNo + ", bId=" + bId + ", bPw=" + bPw + ", bNum=" + bNum + ", bMaster=" + bMaster
+				+ ", bZipCode=" + bZipCode + ", bAddress=" + bAddress + ", bdAddress=" + bdAddress + ", bPhone="
+				+ bPhone + ", latitude=" + latitude + ", longitude=" + longitude + ", averageStar=" + averageStar
+				+ ", title=" + title + ", subTitle=" + subTitle + ", dName=" + dName + ", introduce=" + introduce
+				+ ", job=" + job + ", logoFile=" + logoFile + ", logo=" + logo + ", dProfileFile=" + dProfileFile
+				+ ", dProfile=" + dProfile + ", slideImgs=" + slideImgs + ", slideImgsSaveName=" + slideImgsSaveName
+				+ ", cutImgs=" + cutImgs + ", cutImgsSaveName=" + cutImgsSaveName + ", priceList=" + priceList
+				+ ", hiNos=" + hiNos + ", delSlideHiNos=" + delSlideHiNos + ", delCutHiNos=" + delCutHiNos + "]";
 	}
 
 
