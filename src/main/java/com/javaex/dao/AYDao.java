@@ -45,6 +45,16 @@ public class AYDao {
 		return dogVo.getDogImg();
 	}
 
+	// 반려견수정
+	public DogVo petUpdateWithoutImage(DogVo dogVo) {
+		System.out.println("AYDao.petUpdateWithoutImage()");
+		System.out.println(dogVo);
+
+		sqlSession.update("ay.petUpdateWithoutImage", dogVo);
+
+		return dogVo;
+	}
+
 	// 반려견정보1개 가져오기
 	public DogVo getPetGetInfor(int dogNo) {
 		System.out.println("AYDao.getPetGetInfor()");
@@ -336,7 +346,7 @@ public class AYDao {
 		return reviewList;
 
 	}
-	
+
 	public List<ReviewVo> recentOrder(int bNo) {
 		System.out.println("AYDao.recentOrder()");
 		List<ReviewVo> reviewList = sqlSession.selectList("ay.recentOrder", bNo);
@@ -346,7 +356,7 @@ public class AYDao {
 		return reviewList;
 
 	}
-	
+
 	public List<ReviewVo> Vieworder(int bNo) {
 		System.out.println("AYDao.Vieworder()");
 		List<ReviewVo> reviewList = sqlSession.selectList("ay.Vieworder", bNo);
@@ -356,7 +366,7 @@ public class AYDao {
 		return reviewList;
 
 	}
-	
+
 	public List<ReviewVo> Stargradeorder(int bNo) {
 		System.out.println("AYDao.Stargradeorder()");
 		List<ReviewVo> reviewList = sqlSession.selectList("ay.Stargradeorder", bNo);

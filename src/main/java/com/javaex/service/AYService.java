@@ -136,6 +136,15 @@ public class AYService {
 		return dogVo.getDogImg();
 	}
 
+	// 반려견 수정
+	public DogVo exePetUpdateWithoutImage(DogVo dogVo) {
+		System.out.println("AYService.exePetUpdateWithoutImage");
+
+		dogVo = ayDao.petUpdateWithoutImage(dogVo);
+
+		return dogVo;
+	}
+
 	// 반려견정보1개 가져오기
 	public DogVo exePetGetInfor(int dogNo) {
 		System.out.println("AYService.exePetGetInfor");
@@ -435,7 +444,7 @@ public class AYService {
 
 		return reviewList;
 	}
-	
+
 	public List<ReviewVo> exeRecentOrder(int bNo) {
 		System.out.println("AYService.exeRecentOrder");
 
@@ -443,6 +452,7 @@ public class AYService {
 
 		return reviewList;
 	}
+
 	public List<ReviewVo> exeVieworder(int bNo) {
 		System.out.println("AYService.exeVieworder");
 
@@ -450,6 +460,7 @@ public class AYService {
 
 		return reviewList;
 	}
+
 	public List<ReviewVo> exeStargradeorder(int bNo) {
 		System.out.println("AYService.exeStargradeorder");
 

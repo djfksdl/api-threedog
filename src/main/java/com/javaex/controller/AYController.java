@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -54,6 +55,15 @@ public class AYController {
 		System.out.println("AYController.petUpdate");
 
 		ayService.exePetUpdate(dogVo);
+
+		return JsonResult.success(dogVo);
+	}
+
+	@PutMapping("/api/mypage/petupdateWithoutImage")
+	public JsonResult petUpdateWithoutImage(@RequestBody DogVo dogVo) {
+		System.out.println("AYController.petUpdateWithoutImage");
+
+		ayService.exePetUpdateWithoutImage(dogVo);
 
 		return JsonResult.success(dogVo);
 	}
@@ -272,44 +282,44 @@ public class AYController {
 		System.out.println("AYController.getSaveNameList");
 
 		List<ReviewVo> reviewList = ayService.exeGetSaveName(rsNo);
-		
+
 		return JsonResult.success(reviewList);
 	}
-	
+
 	@GetMapping("/api/mypage/getsavename")
 	public JsonResult getSaveName(@RequestParam(value = "rNo") int rNo) {
 		System.out.println("AYController.getSaveName");
 
 		List<ReviewVo> reviewList = ayService.exeGetSaveName2(rNo);
-		
+
 		return JsonResult.success(reviewList);
 	}
-	
-	//최신순 검색
+
+	// 최신순 검색
 	@GetMapping("/api/mypage/recentorder")
 	public JsonResult recentOrder(@RequestParam(value = "bNo") int bNo) {
 		System.out.println("AYController.recentOrder");
 
 		List<ReviewVo> reviewList = ayService.exeRecentOrder(bNo);
-		
+
 		return JsonResult.success(reviewList);
 	}
-	
+
 	@GetMapping("/api/mypage/vieworder")
 	public JsonResult Vieworder(@RequestParam(value = "bNo") int bNo) {
 		System.out.println("AYController.vieworder");
 
 		List<ReviewVo> reviewList = ayService.exeVieworder(bNo);
-		
+
 		return JsonResult.success(reviewList);
 	}
-	
+
 	@GetMapping("/api/mypage/stargradeorder")
 	public JsonResult Stargradeorder(@RequestParam(value = "bNo") int bNo) {
 		System.out.println("AYController.stargradeorder");
 
 		List<ReviewVo> reviewList = ayService.exeStargradeorder(bNo);
-		
+
 		return JsonResult.success(reviewList);
 	}
 

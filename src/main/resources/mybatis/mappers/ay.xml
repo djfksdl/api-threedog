@@ -61,6 +61,27 @@
 			where dogNo=#{dogNo}
         ]]>
 	</update>
+	
+	<!-- 반려견 수정하기 -->
+	<update id="petUpdateWithoutImage" parameterType="com.javaex.vo.DogVo">
+		 <![CDATA[
+        	update dog set dogName=#{dogName}, 
+        				   kind=#{kind},
+        				   weight=#{weight},
+        				   birth=#{birth},
+        				   gender=#{gender},
+        				   neutering=#{neutering},
+        				   experience=#{experience},
+        				   memo=#{memo},
+        				   size=#{size},
+        				   skin=#{skin},
+        				   heart=#{heart},
+        				   marking=#{marking},
+        				   mounting=#{mounting},
+        				   bite=#{bite}
+			where dogNo=#{dogNo}
+        ]]>
+	</update>
 
 	<!-- 리뷰 등록 -->
 	<insert id="addReview01" parameterType="com.javaex.vo.ReviewVo">
