@@ -37,7 +37,7 @@
 	<!-- 검색 화면 리스트, 조회순 -->
 	<select id="searchlist" resultType="com.javaex.vo.ReviewListVo">
 		<![CDATA[
-			SELECT r.rNo, r.star, b.title, ri.saveName, b.bNo
+			SELECT r.rNo, r.star, b.title, ri.saveName, b.bNo, rContent
 			FROM review r
 			JOIN business b ON r.bNo = b.bNo
 			LEFT JOIN (
@@ -152,7 +152,8 @@
 	        b.bNo,
 	        AVG(r.star) AS star,
 	        ri.saveName AS saveName,
-	        r.rNo
+	        r.rNo,
+	        r.rContent
 	    FROM business b
 	    INNER JOIN review r ON b.bNo = r.bNo
 	    LEFT JOIN reviewimg ri ON r.rNo = ri.rNo
