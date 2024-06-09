@@ -61,7 +61,7 @@
 			where dogNo=#{dogNo}
         ]]>
 	</update>
-	
+
 	<!-- 반려견 수정하기 -->
 	<update id="petUpdateWithoutImage" parameterType="com.javaex.vo.DogVo">
 		 <![CDATA[
@@ -404,7 +404,38 @@
 			join beautylist bl on bl.beautyNo=pr.beautyNo
             left join review re on re.rsNo=rs.rsNo
 			left join push pu on pu.rsNo=rs.rsNo
-			where u.uNo=1 and bl.sizeDiv != '추가요금' and rtFinish=1
+			where u.uNo=#{1} and bl.sizeDiv != '추가요금' and rtFinish=1
+			group by rs.rsNo
+			order by rs.rsNo desc
+		]]>
+	</select>
+	
+	<!-- 리뷰 더보기 -->
+	<select id="selectListReservation2" parameterType="int" resultType="com.javaex.vo.ReserveVo">
+		<![CDATA[
+			select rs.rsNo, rs.dogNo, rs.rtNo, rt.bNo, rt.rtDate, rt.rtTime, rt.rtFinish,
+			       rs.expectedPrice, rs.surcharge, 
+			       b.title, b.bPhone, b.bAddress, b.bdAddress,b.logo,
+			       d.dogName, d.size,
+			       u.uNo, u.uPoint, 
+			       p.pDiv, p.rsNum, p.usePoint,
+			       rsp.rspNo, rsp.priceNo, rsp.rtNo,
+			       pr.beautyNo, pr.onePrice,
+			       bl.sizeDiv, bl.weightDiv, bl.beauty,
+			       pu.pushNo, pu.pushTime,
+                   re.rNo
+			from reserve rs
+			join reserveTime rt on rt.rtNo=rs.rtNo
+			join business b on rt.bNo=b.bNo
+			join dog d on d.dogNo=rs.dogNo
+			join users u on d.uNo=u.uNo
+			join point p on p.uNo=u.uNo
+			join rsPrice rsp on rsp.rsNo=rs.rsNo
+			join price pr on pr.priceNo=rsp.priceNo
+			join beautylist bl on bl.beautyNo=pr.beautyNo
+            left join review re on re.rsNo=rs.rsNo
+			left join push pu on pu.rsNo=rs.rsNo
+			where u.uNo=#{uNo} and bl.sizeDiv != '추가요금' and rtFinish=1  and pu.pushNo is not null
 			group by rs.rsNo
 			order by rs.rsNo desc
 		]]>
@@ -481,5 +512,14 @@
       
 		]]>
 	</select>
+
+
+
+	<!-- 마이페이지 리뷰 -->
+	
+
+
+
+
 
 </mapper>

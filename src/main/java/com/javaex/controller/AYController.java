@@ -266,8 +266,18 @@ public class AYController {
 
 		return JsonResult.success(reserveList);
 	}
+	
+	// 마이페이지 예약더보기(리뷰)
+	@GetMapping("/api/mypage/reservationlist3")
+	public JsonResult getReservationList2(@RequestParam(value = "uNo") int uNo) {
+		System.out.println("AYController.reservationlist2");
 
-	// 리뷰1개 가져오기
+		List<ReserveVo> reserveList = ayService.exeGetReservationList2(uNo);
+
+		return JsonResult.success(reserveList);
+	}
+
+	// 리뷰1개 가져오기 (마이페이지)
 	@GetMapping("/api/mypage/reservationlist2")
 	public JsonResult getOnerList2(@RequestParam(value = "rsNo") int rsNo) {
 		System.out.println("AYController.getOnerList2");
@@ -276,7 +286,7 @@ public class AYController {
 		return JsonResult.success(reviewVo);
 	}
 
-	// 리뷰1개 가져오기
+	// 리뷰1개 가져오기(마이페이지)
 	@GetMapping("/api/mypage/getsavenamelist")
 	public JsonResult getSaveNameList(@RequestParam(value = "rsNo") int rsNo) {
 		System.out.println("AYController.getSaveNameList");

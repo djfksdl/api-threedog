@@ -419,6 +419,15 @@ public class AYService {
 		return reserveList;
 	}
 
+	// 리뷰더보기
+		public List<ReserveVo> exeGetReservationList2(int uNo) {
+			System.out.println("AYService.exeGetReservationList2");
+
+			List<ReserveVo> reserveList = ayDao.getReservationList2(uNo);
+
+			return reserveList;
+		}
+	
 	// 리뷰1개 가져오기
 	public ReviewVo exeGetOnerList2(int rsNo) {
 		System.out.println("AYService.exeGetOnerList2");

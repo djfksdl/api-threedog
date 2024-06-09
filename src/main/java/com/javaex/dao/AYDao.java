@@ -314,6 +314,16 @@ public class AYDao {
 
 		return reserveList;
 	}
+	
+	// 마이페이지 리뷰더보기
+	public List<ReserveVo> getReservationList2(int uNo) {
+		System.out.println("AYDao.getReservationList2");
+
+		List<ReserveVo> reserveList = sqlSession.selectList("ay.selectListReservation2", uNo);
+		System.out.println(reserveList);
+
+		return reserveList;
+	}
 
 	// 리뷰1개 가져오기
 	public ReviewVo getOnerList2(int rsNo) {
