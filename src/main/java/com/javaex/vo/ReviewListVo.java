@@ -7,6 +7,7 @@ public class ReviewListVo {
 	private String title;
 	private String saveName;
 	private int bNo;
+	private String rContent;
 	
 	public ReviewListVo() {
 		super();
@@ -14,6 +15,18 @@ public class ReviewListVo {
 
 	
 	
+	public String getrContent() {
+		return rContent;
+	}
+
+
+
+	public void setrContent(String rContent) {
+		this.rContent = rContent;
+	}
+
+
+
 	public int getbNo() {
 		return bNo;
 	}
@@ -61,6 +74,6 @@ public class ReviewListVo {
 	@Override
 	public String toString() {
 		return "ReviewListVo [rNo=" + rNo + ", star=" + star + ", title=" + title + ", saveName=" + saveName + ", bNo="
-				+ bNo + "] \n";
+				+ bNo + ", rContent=" + rContent + "]";
 	}
 }
