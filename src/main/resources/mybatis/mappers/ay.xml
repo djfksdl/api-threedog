@@ -171,11 +171,22 @@
 	<!--가게정보1개 가져오기 -->
 	<select id="selectOne" parameterType="int" resultType="com.javaex.vo.BusinessVo">
 		<![CDATA[
-		select b.bNo, b.bPhone, b.bAddress, b.bdAddress, b.title ,b.logo, (select round(avg(star),1) from review where b.bNo=#{bNo}) as averageStar
-			from business b 
-	        join review r on r.bNo=b.bNo
-			where b.bNo=#{bNo}
-	        group by b.bNo
+		SELECT 
+		    b.bNo, 
+		    b.bPhone, 
+		    b.bAddress, 
+		    b.bdAddress, 
+		    b.title,
+		    b.logo,
+		    COALESCE(ROUND(AVG(r.star), 1), 0) AS averageStar  -- 평균 별점이 없을 경우 0으로 설정
+		FROM 
+		    business b
+		LEFT JOIN 
+		    review r ON r.bNo = b.bNo
+		WHERE 
+		    b.bNo = #{bNo}
+		GROUP BY 
+		    b.bNo, b.bPhone, b.bAddress, b.bdAddress, b.title, b.logo
 		]]>
 	</select>
 
