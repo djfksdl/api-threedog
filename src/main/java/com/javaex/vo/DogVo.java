@@ -2,6 +2,8 @@ package com.javaex.vo;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class DogVo {
 
 	private int dogNo;
@@ -20,7 +22,10 @@ public class DogVo {
 	private boolean heart;
 	private boolean marking;
 	private boolean mounting;
+	
+	@JsonIgnore //파일 경로나 URL 등을 직렬화
 	private MultipartFile file;
+	
 	private int uNo;
 
 	public DogVo() {

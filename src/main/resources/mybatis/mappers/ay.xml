@@ -424,7 +424,7 @@
         join reviewimg ri on ri.rNo=r.rNo
       where b.bNo=#{bNo} 
        group by r.rNo
-      order by r.rNo desc
+      order by r.rDate desc
       
 		]]>
 	</select>
