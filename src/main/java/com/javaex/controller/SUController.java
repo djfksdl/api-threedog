@@ -112,7 +112,7 @@ public class SUController {
 		System.out.println("SUController.shopInfoList");
 
 		Map<String, Object> infoPriceMap = suService.exeShopInfoList(bNo);
-		System.out.println("나와라" + infoPriceMap.get("shopInfo") );
+//		System.out.println("나와라" + infoPriceMap.get("shopInfo") );
 
 		return JsonResult.success(infoPriceMap);
 	}

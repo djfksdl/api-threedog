@@ -19,6 +19,7 @@ import com.javaex.dao.SUDao;
 import com.javaex.vo.BusinessVo;
 import com.javaex.vo.PriceVo;
 import com.javaex.vo.ReserveVo;
+import com.javaex.vo.ReviewVo;
 import com.javaex.vo.UserVo;
 
 @Service
@@ -316,6 +317,9 @@ public class SUService {
 		//컷 슬라이드 이미지
 		List<Map<String, Object>> cutImgsSaveNameHiNo= suDao.getCut(bNo);
 //		shopInfo.setCutImgsSaveName(cutImgsSaveName);
+		
+		// 가게리뷰
+//		List<ReviewVo> rList = suDao.getReviewList(bNo);
 
 		// 합쳐서 가져오기
 		Map<String, Object> infoPriceMap = new HashMap<String, Object>();
@@ -323,6 +327,7 @@ public class SUService {
 		infoPriceMap.put("pList", pList);
 		infoPriceMap.put("sList", slideImgsSaveNameHiNo);
 		infoPriceMap.put("cList", cutImgsSaveNameHiNo);
+//		infoPriceMap.put("rList", rList);
 
 		return infoPriceMap;
 	}

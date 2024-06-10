@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.javaex.vo.BusinessVo;
 import com.javaex.vo.PriceVo;
 import com.javaex.vo.ReserveVo;
+import com.javaex.vo.ReviewVo;
 import com.javaex.vo.UserVo;
 
 @Repository
@@ -231,6 +232,15 @@ public class SUDao {
 
 		return result;
 
+	}
+	
+	// 가게리뷰 불러오기
+	public List<ReviewVo> getReviewList(int bNo) {
+		System.out.println("SUDao.getReviewList");
+
+		List<ReviewVo> rList = sqlSession.selectList("su.getReview", bNo);
+
+		return rList;
 	}
 
 	// ========================= 수정 =========================

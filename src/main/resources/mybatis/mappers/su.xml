@@ -191,6 +191,21 @@
         where bNo = #{bNo} and category = 2
     ]]>
 	</select>
+	
+	<!-- 가게리뷰 불러오기 -->
+	<select id="getReviewList" parameterType="int" resultType="com.javaex.vo.ReviewVo">
+		<![CDATA[
+			select r.rNo, 
+				   bNo, 
+				   uNo, 
+			       rsNo, 
+			       star, 
+			       rContent,
+			       saveName
+			from review r join reviewimg ri on r.rNo = ri.riNo
+			WHERE bNo = #{bNo}
+		]]>
+	</select>
 
 	<!-- 가게 수정(파일 안바꿨을때)-business -->
 	<update id="updateBusinessInfoNoImg" parameterType="com.javaex.vo.BusinessVo">

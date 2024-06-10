@@ -135,7 +135,6 @@ CREATE TABLE designer (
    CONSTRAINT fk_designer_business FOREIGN KEY (bNo) REFERENCES business(bNo)
 );
 
-select * from designer;
 CREATE TABLE reviewimg (
    riNo int auto_increment primary key,
    rNo int NOT NULL,
@@ -159,13 +158,9 @@ CREATE TABLE rsPrice (
    rtNo int not null,
    CONSTRAINT fk_rsPrice_reserve FOREIGN KEY (rsNo) REFERENCES reserve(rsNo),
    CONSTRAINT fk_rsPrice_price FOREIGN KEY (priceNo) REFERENCES price(priceNo),
-   CONSTRAINT fk_rsPrice_reserveTime FOREIGN KEY (rtNo) REFERENCES reserveTime(rtNo)
+   CONSTRAINT fk_rsPrice_reserveTime FOREIGN KEY (rtNo) REFERENCES reserveTime(rtNo) ON DELETE CASCADE
 );
--- 기존 외래 키 제약 조건 삭제
-ALTER TABLE rsPrice DROP FOREIGN KEY fk_rsPrice_reserveTime;
 
--- 새로운 외래 키 제약 조건 추가 (ON DELETE CASCADE)
-ALTER TABLE rsPrice ADD CONSTRAINT fk_rsPrice_reserveTime FOREIGN KEY (rtNo) REFERENCES reserveTime(rtNo) ON DELETE CASCADE;
 
 
 CREATE TABLE push (
