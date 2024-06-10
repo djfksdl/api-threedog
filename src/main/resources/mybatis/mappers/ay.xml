@@ -530,20 +530,16 @@
 	<select id="getPointList" parameterType="int" resultType="com.javaex.vo.PointVo">
 		<![CDATA[
 		
-	    select p.pNo, p.uNo, p.pDate, p.pDiv, p.rsNum, p.rvNum, p.usePoint, b.title, b.bNo
+	 select p.pNo, p.uNo, p.pDate, p.pDiv, p.rsNum, p.rvNum, p.usePoint, b.title, b.bNo
 			from point p
 			join review r on r.uNo=p.uNo
 			join business b on b.bNo=r.bNo
-			where p.uNo=#{uNo}
+            join reserveTime rt on rt.bNo=b.bNo
+			where p.uNo=1
 			and usePoint > 0
-			group by rvNum
+            group by rvNum
 			
 		]]>
 	</select>
-
-
-
-
-
 
 </mapper>
