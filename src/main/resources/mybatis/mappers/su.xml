@@ -19,6 +19,17 @@
 			values(null, #{uId}, #{uPw},#{uName},#{uPhone}, #{uZipCode},#{uAddress},#{uDetailAddress},0,#{uProfile})
 		]]>
 	</insert>
+
+	<!-- 로그인 -->
+	<select id="login" parameterType="com.javaex.vo.UserVo" resultType="com.javaex.vo.UserVo">
+		<![CDATA[
+			select uNo,
+				   uName
+			from users
+			where uId = #{uId}
+			and uPw = #{uPw}
+		]]>
+	</select>
 	
 	<!-- 카카오 회원가입 -->
 	<insert id="signUpKaKao" parameterType="com.javaex.vo.UserVo">
@@ -32,17 +43,6 @@
 			]]>
 		</selectKey>
 	</insert>
-
-	<!-- 로그인 -->
-	<select id="login" parameterType="com.javaex.vo.UserVo" resultType="com.javaex.vo.UserVo">
-		<![CDATA[
-			select uNo,
-				   uName
-			from users
-			where uId = #{uId}
-			and uPw = #{uPw}
-		]]>
-	</select>
 	
 	<!-- 카카오 로그인 -->
 	<select id="loginByKakao" parameterType="com.javaex.vo.UserVo" resultType="com.javaex.vo.UserVo">

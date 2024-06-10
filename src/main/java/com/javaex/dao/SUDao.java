@@ -47,6 +47,7 @@ public class SUDao {
 
 		return authUser;
 	}
+	
 //	카카오 - 회원가입 여부 체크
 	public int checkKakaoId(String uId) {
 		System.out.println("SUDao.checkKakaoId");

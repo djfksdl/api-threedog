@@ -127,10 +127,11 @@ public class SUService {
 		
 		// 회원가입 여부 체크
 		int userCheck = suDao.checkKakaoId(userVo.getuId());
+		System.out.println("userCheck + " + userCheck);
 		
 		//아이디가 없을때(회원이 아닐때 -> 회원가입 시키기)
 		if(userCheck != 1) {
-			
+			System.out.println("userCheck != 1 + " + userCheck);
 			// 회원가입하기
 			int count = suDao.signUpKaKao(userVo);
 			
@@ -144,7 +145,9 @@ public class SUService {
 			
 		}else {
 			//회원가입 되어있을때 -> 로그인하기
+			System.out.println("else + " + userCheck);
 			return suDao.loginByKakao2(userVo);
+			
 			
 		}
 		
