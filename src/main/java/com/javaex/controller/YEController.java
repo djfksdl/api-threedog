@@ -80,6 +80,7 @@ public class YEController {
 		return JsonResult.success(reviewList);
 	}
 
+	
 	// 메인 가게 리스트(거리순)
 	@GetMapping("/api/mainlist")
 	public JsonResult mainList(@RequestParam(value = "lat") Double lat, @RequestParam(value = "lng") Double lng) {
