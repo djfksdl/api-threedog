@@ -112,7 +112,7 @@ public class SUController {
 		System.out.println("SUController.shopInfoList");
 
 		Map<String, Object> infoPriceMap = suService.exeShopInfoList(bNo);
-//		System.out.println("나와라" + infoPriceMap );
+		System.out.println("나와라" + infoPriceMap.get("shopInfo") );
 
 		return JsonResult.success(infoPriceMap);
 	}
@@ -122,10 +122,10 @@ public class SUController {
 	public JsonResult updateShop(@ModelAttribute BusinessVo businessVo) {
 		System.out.println("SUController.updateShop");
 
-		System.out.println("수정전 슬라이드 삭제번호"+ businessVo.getDelSlideHiNos() );
-		System.out.println("수정전 슬라이드 이름"+businessVo.getSlideImgs() );
-		System.out.println("수정전 컷 삭제번호"+ businessVo.getDelCutHiNos() );
-		System.out.println("수정전 컷 이름"+businessVo.getCutImgs() );
+//		System.out.println("수정전 슬라이드 삭제번호"+ businessVo.getDelSlideHiNos() );
+//		System.out.println("수정전 슬라이드 이름"+businessVo.getSlideImgs() );
+//		System.out.println("수정전 컷 삭제번호"+ businessVo.getDelCutHiNos() );
+//		System.out.println("수정전 컷 이름"+businessVo.getCutImgs() );
 
 		suService.exeUpdateShopInfo(businessVo);
 		System.out.println("수정후"+businessVo);

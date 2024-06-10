@@ -73,7 +73,7 @@
 	<update id="updateBusinessInfo" parameterType="com.javaex.vo.BusinessVo">
 		<![CDATA[
 			UPDATE business 
-			SET title = #{title}, subTitle = #{subTitle}, logo = #{logo} 
+			SET title = #{title}, subTitle = #{subTitle}, logo = #{logo} ,bTime = #{bTime}, isChange = #{isChange}
 			WHERE bNo = #{bNo}
 		]]>
 	</update>
@@ -118,6 +118,9 @@
 			       bAddress,
 			       bdAddress,
 			       bPhone,
+			       bNum,
+			       bMaster,
+			       bTime,
 			       title,
 			       subTitle,
 			       logo,
@@ -126,7 +129,8 @@
 			       dName ,
 			       introduce,
 			       dProfile ,
-			       job
+			       job,
+			       isChange
 			from business b join designer d
 			on b.bNo = d.bNo
 			where b.bNo=#{bNo}

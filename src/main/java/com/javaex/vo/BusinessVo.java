@@ -10,6 +10,7 @@ public class BusinessVo {
 	private String bId;
 	private String bPw;
 	private String bNum;
+	private String bMaster;
 	private String bZipCode;
 	private String bAddress;
 	private String bdAddress;
@@ -22,6 +23,7 @@ public class BusinessVo {
 	private String dName;
 	private String introduce;
 	private String job;
+	private String bTime;
 	private MultipartFile logoFile;
 	private String logo; // 파일받는건 logoFile로 하고, 넣는건 새로 만들어서 넣어주면 됨. 동시에 받고 넣는건 안된다.자료형도 달라서 안되긴함.
 	private MultipartFile dProfileFile;
@@ -36,23 +38,26 @@ public class BusinessVo {
 	private List<Integer> hiNos;
 	private List<Integer> delSlideHiNos;
 	private List<Integer> delCutHiNos;
+	private boolean isChange;
 
 //	생성자
 	public BusinessVo() {
 		super();
 	}
 
-	public BusinessVo(int bNo, String bId, String bPw, String bNum, String bZipCode, String bAddress, String bdAddress,
-			String bPhone, double latitude, double longitude, double averageStar, String title, String subTitle,
-			String dName, String introduce, String job, MultipartFile logoFile, String logo, MultipartFile dProfileFile,
-			String dProfile, List<MultipartFile> slideImgs, List<String> slideImgsSaveName, List<MultipartFile> cutImgs,
-			List<String> cutImgsSaveName, List<PriceVo> priceList, List<Integer> hiNos, List<Integer> delSlideHiNos,
-			List<Integer> delCutHiNos) {
+	public BusinessVo(int bNo, String bId, String bPw, String bNum, String bMaster, String bZipCode, String bAddress,
+			String bdAddress, String bPhone, double latitude, double longitude, double averageStar, String title,
+			String subTitle, String dName, String introduce, String job, String bTime, MultipartFile logoFile,
+			String logo, MultipartFile dProfileFile, String dProfile, List<MultipartFile> slideImgs,
+			List<String> slideImgsSaveName, List<MultipartFile> cutImgs, List<String> cutImgsSaveName,
+			List<PriceVo> priceList, List<Integer> hiNos, List<Integer> delSlideHiNos, List<Integer> delCutHiNos,
+			boolean isChange) {
 		super();
 		this.bNo = bNo;
 		this.bId = bId;
 		this.bPw = bPw;
 		this.bNum = bNum;
+		this.bMaster = bMaster;
 		this.bZipCode = bZipCode;
 		this.bAddress = bAddress;
 		this.bdAddress = bdAddress;
@@ -65,6 +70,7 @@ public class BusinessVo {
 		this.dName = dName;
 		this.introduce = introduce;
 		this.job = job;
+		this.bTime = bTime;
 		this.logoFile = logoFile;
 		this.logo = logo;
 		this.dProfileFile = dProfileFile;
@@ -77,7 +83,10 @@ public class BusinessVo {
 		this.hiNos = hiNos;
 		this.delSlideHiNos = delSlideHiNos;
 		this.delCutHiNos = delCutHiNos;
+		this.isChange = isChange;
 	}
+
+
 
 	// 메소드-gs
 	public int getbNo() {
@@ -304,18 +313,45 @@ public class BusinessVo {
 		this.delCutHiNos = delCutHiNos;
 	}
 
+	public String getbMaster() {
+		return bMaster;
+	}
+
+	public void setbMaster(String bMaster) {
+		this.bMaster = bMaster;
+	}
+
+	public String getbTime() {
+		return bTime;
+	}
+
+	public void setbTime(String bTime) {
+		this.bTime = bTime;
+	}
+
+	public boolean getIsChange() {
+		return isChange;
+	}
+
+	public void setIsChange(boolean isChange) {
+		this.isChange = isChange;
+	}
+
 	// 메소드-일반
 	@Override
 	public String toString() {
-		return "BusinessVo [bNo=" + bNo + ", bId=" + bId + ", bPw=" + bPw + ", bNum=" + bNum + ", bZipCode=" + bZipCode
-				+ ", bAddress=" + bAddress + ", bdAddress=" + bdAddress + ", bPhone=" + bPhone + ", latitude="
-				+ latitude + ", longitude=" + longitude + ", averageStar=" + averageStar + ", title=" + title
-				+ ", subTitle=" + subTitle + ", dName=" + dName + ", introduce=" + introduce + ", job=" + job
-				+ ", logoFile=" + logoFile + ", logo=" + logo + ", dProfileFile=" + dProfileFile + ", dProfile="
-				+ dProfile + ", slideImgs=" + slideImgs + ", slideImgsSaveName=" + slideImgsSaveName + ", cutImgs="
-				+ cutImgs + ", cutImgsSaveName=" + cutImgsSaveName + ", priceList=" + priceList + ", hiNos=" + hiNos
-				+ ", delSlideHiNos=" + delSlideHiNos + ", delCutHiNos=" + delCutHiNos + "]";
+		return "BusinessVo [bNo=" + bNo + ", bId=" + bId + ", bPw=" + bPw + ", bNum=" + bNum + ", bMaster=" + bMaster
+				+ ", bZipCode=" + bZipCode + ", bAddress=" + bAddress + ", bdAddress=" + bdAddress + ", bPhone="
+				+ bPhone + ", latitude=" + latitude + ", longitude=" + longitude + ", averageStar=" + averageStar
+				+ ", title=" + title + ", subTitle=" + subTitle + ", dName=" + dName + ", introduce=" + introduce
+				+ ", job=" + job + ", bTime=" + bTime + ", logoFile=" + logoFile + ", logo=" + logo + ", dProfileFile="
+				+ dProfileFile + ", dProfile=" + dProfile + ", slideImgs=" + slideImgs + ", slideImgsSaveName="
+				+ slideImgsSaveName + ", cutImgs=" + cutImgs + ", cutImgsSaveName=" + cutImgsSaveName + ", priceList="
+				+ priceList + ", hiNos=" + hiNos + ", delSlideHiNos=" + delSlideHiNos + ", delCutHiNos=" + delCutHiNos
+				+ ", isChange=" + isChange + "]";
 	}
 
+
+	
 
 }

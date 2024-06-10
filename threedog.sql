@@ -26,8 +26,12 @@ CREATE TABLE business (
    subTitle varchar(150) NULL,
    logo varchar(300) NULL,
    latitude DECIMAL(10, 8),
-   longitude DECIMAL(11, 8)
+   longitude DECIMAL(11, 8),
+   bTime varchar(300) NULL,
+   bMaster varchar(30) NULL,
+   isChange BOOLEAN DEFAULT 0
 );
+-- 0은 false, 1은 true
 
 
 CREATE TABLE dog (
@@ -75,8 +79,7 @@ CREATE TABLE reserve (
    message varchar(300) NULL,
    curruntWeight double NULL,
    CONSTRAINT fk_reserveTime_dog FOREIGN KEY (dogNo) REFERENCES dog(dogNo)
-);
--- alter table reserve add column rsTime tiem;-- 
+); 
 -- 포링키 추가 
 ALTER TABLE reserve ADD CONSTRAINT fk_reserveTime_reserve FOREIGN KEY (rtNo) REFERENCES reserveTime(rtNo);
 
@@ -192,6 +195,87 @@ CREATE TABLE reserveTime (
    CONSTRAINT fk_reserveTime_business FOREIGN KEY (bNo) REFERENCES business(bNo)
 );
 
+-- 소형견 몸무게별 목록 추가 
+insert into beautylist values(null, '소형견','2kg이하','목욕');
+insert into beautylist values(null, '소형견','2kg이하','부분');
+insert into beautylist values(null, '소형견','2kg이하','목욕+부분');
+insert into beautylist values(null, '소형견','2kg이하','얼굴+부분+목욕');
+insert into beautylist values(null, '소형견','2kg이하','기본전체미용');
+
+insert into beautylist values(null, '소형견','2kg~5kg','목욕');
+insert into beautylist values(null, '소형견','2kg~5kg','부분');
+insert into beautylist values(null, '소형견','2kg~5kg','목욕+부분');
+insert into beautylist values(null, '소형견','2kg~5kg','얼굴+부분+목욕');
+insert into beautylist values(null, '소형견','2kg~5kg','기본전체미용');
+
+insert into beautylist values(null, '소형견','5kg~8kg','목욕');
+insert into beautylist values(null, '소형견','5kg~8kg','부분');
+insert into beautylist values(null, '소형견','5kg~8kg','목욕+부분');
+insert into beautylist values(null, '소형견','5kg~8kg','얼굴+부분+목욕');
+insert into beautylist values(null, '소형견','5kg~8kg','기본전체미용');
+
+insert into beautylist values(null, '소형견','8kg~10kg','목욕');
+insert into beautylist values(null, '소형견','8kg~10kg','부분');
+insert into beautylist values(null, '소형견','8kg~10kg','목욕+부분');
+insert into beautylist values(null, '소형견','8kg~10kg','얼굴+부분+목욕');
+insert into beautylist values(null, '소형견','8kg~10kg','기본전체미용');
+
+-- 중형견 몸무게별 목록 추가 
+insert into beautylist values(null, '중형견','5kg이하','목욕');
+insert into beautylist values(null, '중형견','5kg이하','부분');
+insert into beautylist values(null, '중형견','5kg이하','목욕+부분');
+insert into beautylist values(null, '중형견','5kg이하','얼굴+부분+목욕');
+insert into beautylist values(null, '중형견','5kg이하','기본전체미용');
+
+insert into beautylist values(null, '중형견','5kg~8kg','목욕');
+insert into beautylist values(null, '중형견','5kg~8kg','부분');
+insert into beautylist values(null, '중형견','5kg~8kg','목욕+부분');
+insert into beautylist values(null, '중형견','5kg~8kg','얼굴+부분+목욕');
+insert into beautylist values(null, '중형견','5kg~8kg','기본전체미용');
+
+insert into beautylist values(null, '중형견','8kg~10kg','목욕');
+insert into beautylist values(null, '중형견','8kg~10kg','부분');
+insert into beautylist values(null, '중형견','8kg~10kg','목욕+부분');
+insert into beautylist values(null, '중형견','8kg~10kg','얼굴+부분+목욕');
+insert into beautylist values(null, '중형견','8kg~10kg','기본전체미용');
+
+insert into beautylist values(null, '중형견','10kg~12kg','목욕');
+insert into beautylist values(null, '중형견','10kg~12kg','부분');
+insert into beautylist values(null, '중형견','10kg~12kg','목욕+부분');
+insert into beautylist values(null, '중형견','10kg~12kg','얼굴+부분+목욕');
+insert into beautylist values(null, '중형견','10kg~12kg','기본전체미용');
+
+insert into beautylist values(null, '중형견','12kg이상','목욕');
+
+-- 특수견 몸무게별 목록 추가 
+insert into beautylist values(null, '특수견','5kg이하','목욕');
+insert into beautylist values(null, '특수견','5kg이하','부분');
+insert into beautylist values(null, '특수견','5kg이하','목욕+부분');
+insert into beautylist values(null, '특수견','5kg이하','얼굴+부분+목욕');
+insert into beautylist values(null, '특수견','5kg이하','스포팅');
+insert into beautylist values(null, '특수견','5kg이하','가위컷');
+
+insert into beautylist values(null, '특수견','5kg~8kg','목욕');
+insert into beautylist values(null, '특수견','5kg~8kg','부분');
+insert into beautylist values(null, '특수견','5kg~8kg','목욕+부분');
+insert into beautylist values(null, '특수견','5kg~8kg','얼굴+부분+목욕');
+insert into beautylist values(null, '특수견','5kg~8kg','스포팅');
+insert into beautylist values(null, '특수견','5kg~8kg','가위컷');
+
+insert into beautylist values(null, '특수견','8kg이상','목욕');
+insert into beautylist values(null, '특수견','8kg이상','부분');
+insert into beautylist values(null, '특수견','8kg이상','목욕+부분');
+insert into beautylist values(null, '특수견','8kg이상','얼굴+부분+목욕');
+insert into beautylist values(null, '특수견','8kg이상','스포팅');
+insert into beautylist values(null, '특수견','8kg이상','가위컷');
+
+-- 추가요금
+insert into beautylist values(null, '추가요금','무관','가위컷');
+insert into beautylist values(null, '추가요금','무관','엉킴');
+insert into beautylist values(null, '추가요금','무관','기장');
+insert into beautylist values(null, '추가요금','무관','특수얼굴컷');
+insert into beautylist values(null, '추가요금','무관','투톤염색');
+insert into beautylist values(null, '추가요금','무관','염색');
 
 
 
