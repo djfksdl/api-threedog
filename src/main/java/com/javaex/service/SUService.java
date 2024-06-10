@@ -322,7 +322,7 @@ public class SUService {
 //		shopInfo.setCutImgsSaveName(cutImgsSaveName);
 		
 		// 가게리뷰
-//		List<ReviewVo> rList = suDao.getReviewList(bNo);
+		List<ReviewVo> rList =suDao.getReviewList(bNo);
 
 		// 합쳐서 가져오기
 		Map<String, Object> infoPriceMap = new HashMap<String, Object>();
@@ -330,7 +330,7 @@ public class SUService {
 		infoPriceMap.put("pList", pList);
 		infoPriceMap.put("sList", slideImgsSaveNameHiNo);
 		infoPriceMap.put("cList", cutImgsSaveNameHiNo);
-//		infoPriceMap.put("rList", rList);
+		infoPriceMap.put("rList", rList);
 
 		return infoPriceMap;
 	}
