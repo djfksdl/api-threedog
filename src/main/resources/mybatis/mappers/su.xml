@@ -195,17 +195,21 @@
 	</select>
 	
 	<!-- 가게리뷰 불러오기 -->
-	<select id="getReviewList" parameterType="int" resultType="com.javaex.vo.ReviewVo">
+	<select id="getReview" parameterType="int" resultType="com.javaex.vo.ReviewVo">
 		<![CDATA[
-			select r.rNo, 
-				   bNo, 
-				   uNo, 
-			       rsNo, 
-			       star, 
-			       rContent,
-			       saveName
-			from review r join reviewimg ri on r.rNo = ri.riNo
-			WHERE bNo = #{bNo}
+			SELECT u.uId, r.star, r.rContent, d.dogName, b.bNo, saveName, beauty
+		    FROM review r
+	      	JOIN users u ON r.uNo = u.uNo
+	      	JOIN reserve rs ON rs.rsNo = r.rsNo
+	      	JOIN dog d ON d.dogNo = rs.dogNo
+	      	join business b on r.bNo=b.bNo
+	      	join reviewimg ri on r.rNo = ri.rNo
+	      	join rsPrice rsp on rsp.rsNo = rs.rsNo
+	      	join price p on p.priceNo = rsp.priceNo
+	      	join beautylist bl on bl.beautyNo = p.beautyNo
+	      	WHERE b.bNo=1 
+	      	group by uId
+	      	order by star desc
 		]]>
 	</select>
 

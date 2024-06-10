@@ -213,7 +213,7 @@ public class AYDao {
 		System.out.println("AYDao.reservePoint()");
 		System.out.println(reserveVo);
 		System.out.println("예약번호???????????");
-		System.out.println(reserveVo.getRsNum());
+		System.out.println(reserveVo.getRsNo());
 		sqlSession.insert("ay.reservePoint", reserveVo);
 
 		return reserveVo.getSignImg();

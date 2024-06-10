@@ -317,7 +317,7 @@
 	<!-- 포인트테이블 -->
 	<insert id="reservePoint" parameterType="com.javaex.vo.ReserveVo">
       <![CDATA[
-		insert into point values (null, #{uNo}, now(), 1, #{rsNum}, 0, #{usePoint})
+		insert into point values (null, #{uNo}, now(), 1, #{rsNo}, 0, #{usePoint})
  	]]>
 	</insert>
 
