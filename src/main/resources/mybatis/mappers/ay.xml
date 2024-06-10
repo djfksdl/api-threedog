@@ -409,7 +409,7 @@
 			join business b on rt.bNo=b.bNo
 			join dog d on d.dogNo=rs.dogNo
 			join users u on d.uNo=u.uNo
-			join point p on p.uNo=u.uNo
+			join point p on p.rsNum=rs.rsNo
 			join rsPrice rsp on rsp.rsNo=rs.rsNo
 			join price pr on pr.priceNo=rsp.priceNo
 			join beautylist bl on bl.beautyNo=pr.beautyNo
@@ -535,7 +535,7 @@
 			join review r on r.uNo=p.uNo
 			join business b on b.bNo=r.bNo
             join reserveTime rt on rt.bNo=b.bNo
-			where p.uNo=1
+			where p.uNo=#{uNo}
 			and usePoint > 0
             group by rvNum
             order by p.pDate desc
