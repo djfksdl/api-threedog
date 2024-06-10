@@ -421,14 +421,14 @@ public class AYService {
 	}
 
 	// 리뷰더보기
-		public List<ReserveVo> exeGetReservationList2(int uNo) {
-			System.out.println("AYService.exeGetReservationList2");
+	public List<ReserveVo> exeGetReservationList2(int uNo) {
+		System.out.println("AYService.exeGetReservationList2");
 
-			List<ReserveVo> reserveList = ayDao.getReservationList2(uNo);
+		List<ReserveVo> reserveList = ayDao.getReservationList2(uNo);
 
-			return reserveList;
-		}
-	
+		return reserveList;
+	}
+
 	// 리뷰1개 가져오기
 	public ReviewVo exeGetOnerList2(int rsNo) {
 		System.out.println("AYService.exeGetOnerList2");
@@ -478,11 +478,19 @@ public class AYService {
 
 		return reviewList;
 	}
-	
+
 	public List<PointVo> exeGetPointList(int uNo) {
 		System.out.println("AYService.exeGetPointList");
 
 		List<PointVo> pointList = ayDao.getPointList(uNo);
+
+		return pointList;
+	}
+
+	public List<PointVo> exeGetDataByDateRange(PointVo pointVo) {
+		System.out.println("AYService.exeGetDataByDateRange");
+
+		List<PointVo> pointList = ayDao.getDataByDateRange(pointVo);
 
 		return pointList;
 	}

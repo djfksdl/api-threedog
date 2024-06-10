@@ -343,4 +343,19 @@ public class AYController {
 		return JsonResult.success(pointList);
 	}
 
+	@GetMapping("/api/mypage/getdatabydaterange")
+	public JsonResult getDataByDateRange(@RequestParam(value = "uNo") int uNo,
+			@RequestParam(value = "startDate") String startDate, @RequestParam(value = "endDate") String endDate) {
+		System.out.println("AYController.getDataByDateRange");
+		
+		
+		PointVo pointVo = new PointVo(uNo, startDate, endDate);
+		
+		System.out.println(pointVo);
+		
+		List<PointVo> pointList = ayService.exeGetDataByDateRange(pointVo);
+
+		return JsonResult.success(pointList);
+	}
+
 }

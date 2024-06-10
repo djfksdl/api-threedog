@@ -398,4 +398,15 @@ public class AYDao {
 
 	}
 
+	public List<PointVo> getDataByDateRange(PointVo pointVo) {
+		System.out.println("AYDao.getDataByDateRange()");
+		
+		List<PointVo> pointList = sqlSession.selectList("ay.getDataByDateRange", pointVo);
+
+		System.out.println(pointList);
+
+		return pointList;
+
+	}
+
 }

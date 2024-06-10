@@ -5,6 +5,9 @@ public class PointVo {
 	private int uNo;
 	private int pNo;
 	private String pDate;
+	private String rDate;
+	private String startDate;
+	private String endDate;
 	private boolean pDiv;
 	private int rsNum;
 	private int rvNum;
@@ -14,6 +17,33 @@ public class PointVo {
 
 	public PointVo() {
 		super();
+	}
+	
+	
+
+	public PointVo(int uNo, String startDate, String endDate) {
+		super();
+		this.uNo = uNo;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
+
+
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
 
 	public int getuNo() {
@@ -88,10 +118,19 @@ public class PointVo {
 		this.title = title;
 	}
 
+	public String getrDate() {
+		return rDate;
+	}
+
+	public void setrDate(String rDate) {
+		this.rDate = rDate;
+	}
+
 	@Override
 	public String toString() {
-		return "PointVo [uNo=" + uNo + ", pNo=" + pNo + ", pDate=" + pDate + ", pDiv=" + pDiv + ", rsNum=" + rsNum
-				+ ", rvNum=" + rvNum + ", usePoint=" + usePoint + ", bNo=" + bNo + ", title=" + title + "]";
+		return "PointVo [uNo=" + uNo + ", pNo=" + pNo + ", pDate=" + pDate + ", rDate=" + rDate + ", startDate="
+				+ startDate + ", endDate=" + endDate + ", pDiv=" + pDiv + ", rsNum=" + rsNum + ", rvNum=" + rvNum
+				+ ", usePoint=" + usePoint + ", bNo=" + bNo + ", title=" + title + "]";
 	}
 
 }
