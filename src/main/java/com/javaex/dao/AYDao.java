@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.javaex.vo.BusinessVo;
 import com.javaex.vo.DogVo;
+import com.javaex.vo.PointVo;
 import com.javaex.vo.PriceVo;
 import com.javaex.vo.ReserveVo;
 import com.javaex.vo.ReviewVo;
@@ -314,7 +315,7 @@ public class AYDao {
 
 		return reserveList;
 	}
-	
+
 	// 마이페이지 리뷰더보기
 	public List<ReserveVo> getReservationList2(int uNo) {
 		System.out.println("AYDao.getReservationList2");
@@ -384,6 +385,16 @@ public class AYDao {
 		System.out.println(reviewList);
 
 		return reviewList;
+
+	}
+
+	public List<PointVo> getPointList(int uNo) {
+		System.out.println("AYDao.getPointList()");
+		List<PointVo> pointList = sqlSession.selectList("ay.getPointList", uNo);
+
+		System.out.println(pointList);
+
+		return pointList;
 
 	}
 

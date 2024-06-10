@@ -15,6 +15,7 @@ import com.javaex.service.AYService;
 import com.javaex.util.JsonResult;
 import com.javaex.vo.BusinessVo;
 import com.javaex.vo.DogVo;
+import com.javaex.vo.PointVo;
 import com.javaex.vo.PriceVo;
 import com.javaex.vo.ReserveVo;
 import com.javaex.vo.ReviewVo;
@@ -266,7 +267,7 @@ public class AYController {
 
 		return JsonResult.success(reserveList);
 	}
-	
+
 	// 마이페이지 예약더보기(리뷰)
 	@GetMapping("/api/mypage/reservationlist3")
 	public JsonResult getReservationList2(@RequestParam(value = "uNo") int uNo) {
@@ -331,6 +332,15 @@ public class AYController {
 		List<ReviewVo> reviewList = ayService.exeStargradeorder(bNo);
 
 		return JsonResult.success(reviewList);
+	}
+
+	@GetMapping("/api/mypage/getpointlist")
+	public JsonResult getPointList(@RequestParam(value = "uNo") int uNo) {
+		System.out.println("AYController.getPointList");
+
+		List<PointVo> pointList = ayService.exeGetPointList(uNo);
+
+		return JsonResult.success(pointList);
 	}
 
 }

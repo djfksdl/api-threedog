@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.javaex.dao.AYDao;
 import com.javaex.vo.BusinessVo;
 import com.javaex.vo.DogVo;
+import com.javaex.vo.PointVo;
 import com.javaex.vo.PriceVo;
 import com.javaex.vo.ReserveVo;
 import com.javaex.vo.ReviewVo;
@@ -476,6 +477,14 @@ public class AYService {
 		List<ReviewVo> reviewList = ayDao.Stargradeorder(bNo);
 
 		return reviewList;
+	}
+	
+	public List<PointVo> exeGetPointList(int uNo) {
+		System.out.println("AYService.exeGetPointList");
+
+		List<PointVo> pointList = ayDao.getPointList(uNo);
+
+		return pointList;
 	}
 
 }

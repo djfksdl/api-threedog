@@ -415,12 +415,12 @@
 			join beautylist bl on bl.beautyNo=pr.beautyNo
             left join review re on re.rsNo=rs.rsNo
 			left join push pu on pu.rsNo=rs.rsNo
-			where u.uNo=#{1} and bl.sizeDiv != '추가요금' and rtFinish=1
+			where u.uNo=#{uNo} and bl.sizeDiv != '추가요금' and rtFinish=1
 			group by rs.rsNo
 			order by rs.rsNo desc
 		]]>
 	</select>
-	
+
 	<!-- 리뷰 더보기 -->
 	<select id="selectListReservation2" parameterType="int" resultType="com.javaex.vo.ReserveVo">
 		<![CDATA[
@@ -527,7 +527,20 @@
 
 
 	<!-- 마이페이지 리뷰 -->
-	
+	<select id="getPointList" parameterType="int" resultType="com.javaex.vo.PointVo">
+		<![CDATA[
+		
+	    select p.pNo, p.uNo, p.pDate, p.pDiv, p.rsNum, p.rvNum, p.usePoint, b.title, b.bNo
+			from point p
+			join review r on r.uNo=p.uNo
+			join business b on b.bNo=r.bNo
+			where p.uNo=#{uNo}
+			and usePoint > 0
+			group by rvNum
+			
+		]]>
+	</select>
+
 
 
 
