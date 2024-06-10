@@ -434,21 +434,22 @@
 			       pr.beautyNo, pr.onePrice,
 			       bl.sizeDiv, bl.weightDiv, bl.beauty,
 			       pu.pushNo, pu.pushTime,
-                   re.rNo
+			       re.rNo
 			from reserve rs
 			join reserveTime rt on rt.rtNo=rs.rtNo
 			join business b on rt.bNo=b.bNo
 			join dog d on d.dogNo=rs.dogNo
 			join users u on d.uNo=u.uNo
-			join point p on p.uNo=u.uNo
+			join point p on p.rsNum=rs.rsNo
 			join rsPrice rsp on rsp.rsNo=rs.rsNo
 			join price pr on pr.priceNo=rsp.priceNo
 			join beautylist bl on bl.beautyNo=pr.beautyNo
-            left join review re on re.rsNo=rs.rsNo
+			left join review re on re.rsNo=rs.rsNo
 			left join push pu on pu.rsNo=rs.rsNo
-			where u.uNo=#{uNo} and bl.sizeDiv != '추가요금' and rtFinish=1  and pu.pushNo is not null
+			where u.uNo=#{uNo} and bl.sizeDiv != '추가요금' and rtFinish=1 and pu.pushNo!=0
 			group by rs.rsNo
 			order by rs.rsNo desc
+
 		]]>
 	</select>
 
@@ -530,13 +531,12 @@
 	<select id="getPointList" parameterType="int" resultType="com.javaex.vo.PointVo">
 		<![CDATA[
 		
-	 select p.pNo, p.uNo, p.pDate, p.pDiv, p.rsNum, p.rvNum, p.usePoint, b.title, b.bNo
+	select p.pNo, p.uNo, p.pDate, p.pDiv, p.rsNum, p.rvNum, p.usePoint, b.title, b.bNo
 			from point p
-			join review r on r.uNo=p.uNo
+			join review r on r.rsNo=p.rsNum
 			join business b on b.bNo=r.bNo
             join reserveTime rt on rt.bNo=b.bNo
 			where p.uNo=#{uNo}
-			and usePoint > 0
             group by rvNum
             order by p.pDate desc
 			
