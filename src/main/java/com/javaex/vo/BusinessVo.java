@@ -329,11 +329,11 @@ public class BusinessVo {
 		this.bTime = bTime;
 	}
 
-	public boolean isChange() {
+	public boolean getIsChange() {
 		return isChange;
 	}
 
-	public void setChange(boolean isChange) {
+	public void setIsChange(boolean isChange) {
 		this.isChange = isChange;
 	}
 
