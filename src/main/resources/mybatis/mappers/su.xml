@@ -59,7 +59,9 @@
 	<select id="loginByKakao2" parameterType="com.javaex.vo.UserVo" resultType="com.javaex.vo.UserVo">
 		<![CDATA[
 			select uNo,
-				   uName
+				   uName,
+				   uId,
+				   uProfile
 			from users
 			where uId = #{uId}
 		]]>
