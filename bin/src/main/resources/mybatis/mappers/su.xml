@@ -16,7 +16,7 @@
 	<insert id="insertUser" parameterType="com.javaex.vo.UserVo">
 		<![CDATA[
 			insert into users
-			values(null, #{uId}, #{uPw},#{uName},#{uPhone}, #{uZipCode},#{uAddress},#{uDetailAddress},null,#{uProfile})
+			values(null, #{uId}, #{uPw},#{uName},#{uPhone}, #{uZipCode},#{uAddress},#{uDetailAddress},0,#{uProfile})
 		]]>
 	</insert>
 
@@ -30,6 +30,44 @@
 			and uPw = #{uPw}
 		]]>
 	</select>
+	
+	<!-- 카카오 회원가입 -->
+	<insert id="signUpKaKao" parameterType="com.javaex.vo.UserVo">
+		<![CDATA[
+			insert into users
+			values(null, #{uId}, "",#{uName},"", "","","",0,#{uProfile})
+		]]>
+		<selectKey keyProperty="uNo" resultType="int" order="AFTER">
+			<![CDATA[
+				select last_insert_id()
+			]]>
+		</selectKey>
+	</insert>
+	
+	<!-- 카카오 로그인 -->
+	<select id="loginByKakao" parameterType="com.javaex.vo.UserVo" resultType="com.javaex.vo.UserVo">
+		<![CDATA[
+			select uNo,
+				   uName
+			from users
+			where uId = #{uId}
+			and uNo = #{uNo}
+		]]>
+	</select>
+	
+	<!-- 카카오 로그인(회원가입이 되었을때) -->
+	<select id="loginByKakao2" parameterType="com.javaex.vo.UserVo" resultType="com.javaex.vo.UserVo">
+		<![CDATA[
+			select uNo,
+				   uName,
+				   uId,
+				   uProfile
+			from users
+			where uId = #{uId}
+		]]>
+	</select>
+	
+	
 
 	<!-- ************************** editPage ************************** -->
 
@@ -37,7 +75,7 @@
 	<update id="updateBusinessInfo" parameterType="com.javaex.vo.BusinessVo">
 		<![CDATA[
 			UPDATE business 
-			SET title = #{title}, subTitle = #{subTitle}, logo = #{logo} 
+			SET title = #{title}, subTitle = #{subTitle}, logo = #{logo} ,bTime = #{bTime}, isChange = #{isChange}
 			WHERE bNo = #{bNo}
 		]]>
 	</update>
@@ -82,6 +120,9 @@
 			       bAddress,
 			       bdAddress,
 			       bPhone,
+			       bNum,
+			       bMaster,
+			       bTime,
 			       title,
 			       subTitle,
 			       logo,
@@ -90,7 +131,8 @@
 			       dName ,
 			       introduce,
 			       dProfile ,
-			       job
+			       job,
+			       isChange
 			from business b join designer d
 			on b.bNo = d.bNo
 			where b.bNo=#{bNo}
@@ -151,6 +193,25 @@
         where bNo = #{bNo} and category = 2
     ]]>
 	</select>
+	
+	<!-- 가게리뷰 불러오기 -->
+	<select id="getReview" parameterType="int" resultType="com.javaex.vo.ReviewVo">
+		<![CDATA[
+			SELECT u.uId, r.star, r.rContent, d.dogName, b.bNo, saveName, beauty
+		    FROM review r
+	      	JOIN users u ON r.uNo = u.uNo
+	      	JOIN reserve rs ON rs.rsNo = r.rsNo
+	      	JOIN dog d ON d.dogNo = rs.dogNo
+	      	join business b on r.bNo=b.bNo
+	      	join reviewimg ri on r.rNo = ri.rNo
+	      	join rsPrice rsp on rsp.rsNo = rs.rsNo
+	      	join price p on p.priceNo = rsp.priceNo
+	      	join beautylist bl on bl.beautyNo = p.beautyNo
+	      	WHERE b.bNo=1 
+	      	group by uId
+	      	order by star desc
+		]]>
+	</select>
 
 	<!-- 가게 수정(파일 안바꿨을때)-business -->
 	<update id="updateBusinessInfoNoImg" parameterType="com.javaex.vo.BusinessVo">
@@ -209,8 +270,43 @@
 		</foreach>
 		and category=2
 	</delete>
+	
+	<!-- 가게 운영시간 등록 -->
+	<insert id="insertRtBybNo" parameterType="map">
+		<![CDATA[
+		    INSERT INTO reserveTime 
+		    VALUES (null,#{bNo}, #{rtDate}, #{rtTime}, false)
+	   	]]>
+	</insert>
+	
+	<!-- 가게 운영시간 등록 여부 -->
+	<select id="selectRtBybNo" parameterType="int" resultType="com.javaex.vo.ReserveVo" >
+		<![CDATA[
+		    select rtNo , rtDate from reserveTime where bNo=#{bNo} group by rtDate
+	   	]]>
+	</select>
+	
+	<!-- 가게 운영시간 가져오기 -->
+	<select id="selectRtimeBybNo" parameterType="com.javaex.vo.ReserveVo" resultType="com.javaex.vo.ReserveVo" >
+		<![CDATA[
+		    select rtNo , rtDate , rtTime, rtFinish from reserveTime where bNo=#{bNo} and rtDate =#{rtDate} order by rtTime asc
+	   	]]>
+	</select>
+	
+	<!-- 가게 운영시간 삭제 -->
+	<delete id="deleteRt" parameterType="com.javaex.vo.ReserveVo" >
+		<![CDATA[
+		    delete from reserveTime where bNo=#{bNo} and rtDate=#{rtDate} and rtTime=#{rtTime}
+	   	]]>
+	</delete>
 
-
+	<!-- 가게 운영시간 수정(1개 등록) -->
+	<insert id="updateRtBybNo" parameterType="com.javaex.vo.ReserveVo">
+		<![CDATA[
+		    INSERT INTO reserveTime 
+		    VALUES (null,#{bNo}, #{rtDate}, #{rtTime}, false)
+	   	]]>
+	</insert>
 
 
 
