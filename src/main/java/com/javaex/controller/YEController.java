@@ -102,9 +102,9 @@ public class YEController {
 	}
 	
 	// 메인 가게 리스트(거리순)
-		@GetMapping("/api/mainlist")
+		@GetMapping("/api/mainlist02")
 		public JsonResult mainList02(@RequestParam(value = "lat") Double lat, @RequestParam(value = "lng") Double lng) {
-			System.out.println("YEController.mainList()");
+			System.out.println("YEController.mainList02()");
 
 			if (lat == null)
 				lat = 37.5665;
