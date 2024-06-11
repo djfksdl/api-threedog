@@ -217,7 +217,7 @@
 	<update id="updateBusinessInfoNoImg" parameterType="com.javaex.vo.BusinessVo">
 		<![CDATA[
 			UPDATE business 
-			SET title = #{title}, subTitle = #{subTitle}
+			SET title = #{title}, subTitle = #{subTitle}, bTime=#{bTime}
 			WHERE bNo = #{bNo}
 		]]>
 	</update>

@@ -100,7 +100,7 @@ public class SUDao {
 	public void updateBusinessInfo(BusinessVo businessVo) {
 		System.out.println("SUDao.updateBusinessInfo");
 
-		System.out.println("여기확인******************"+ businessVo);
+		System.out.println("여기확인******************"+ businessVo.getbTime());
 		sqlSession.update("su.updateBusinessInfo", businessVo);
 	}
 
