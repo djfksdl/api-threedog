@@ -30,6 +30,58 @@
   ]]>
 	</insert>
 
+	<!-- 반려견1개정보 가져오기 -->
+	<select id="petSelectOne" parameterType="int" resultType="com.javaex.vo.DogVo">
+		<![CDATA[
+			select dogNo, uNo, dogName, kind, weight, birth, gender, neutering, experience, bite, memo, dogImg, size, skin, heart, marking, mounting
+			from dog
+			where dogNo=#{dogNo}
+		
+		]]>
+	</select>
+
+	<!-- 반려견 수정하기 -->
+	<update id="petUpdate" parameterType="com.javaex.vo.DogVo">
+		 <![CDATA[
+        	update dog set dogName=#{dogName}, 
+        				   kind=#{kind},
+        				   weight=#{weight},
+        				   birth=#{birth},
+        				   gender=#{gender},
+        				   neutering=#{neutering},
+        				   experience=#{experience},
+        				   memo=#{memo},
+        				   size=#{size},
+        				   skin=#{skin},
+        				   heart=#{heart},
+        				   marking=#{marking},
+        				   mounting=#{mounting},
+        				   bite=#{bite},
+        				   dogImg=#{dogImg}
+			where dogNo=#{dogNo}
+        ]]>
+	</update>
+
+	<!-- 반려견 수정하기 -->
+	<update id="petUpdateWithoutImage" parameterType="com.javaex.vo.DogVo">
+		 <![CDATA[
+        	update dog set dogName=#{dogName}, 
+        				   kind=#{kind},
+        				   weight=#{weight},
+        				   birth=#{birth},
+        				   gender=#{gender},
+        				   neutering=#{neutering},
+        				   experience=#{experience},
+        				   memo=#{memo},
+        				   size=#{size},
+        				   skin=#{skin},
+        				   heart=#{heart},
+        				   marking=#{marking},
+        				   mounting=#{mounting},
+        				   bite=#{bite}
+			where dogNo=#{dogNo}
+        ]]>
+	</update>
 
 	<!-- 리뷰 등록 -->
 	<insert id="addReview01" parameterType="com.javaex.vo.ReviewVo">
@@ -45,7 +97,7 @@
 	</insert>
 
 	<!-- 리뷰 이미지 등록 -->
-	<insert id="addReview02" parameterType="map">
+	<insert id="addReview02" parameterType="com.javaex.vo.ReviewVo">
         <![CDATA[
             insert into reviewimg (riNo, rNo, saveName)
             values (null, #{rNo}, #{saveName})
@@ -60,20 +112,81 @@
         ]]>
 	</insert>
 
+	<update id="addUserPoint" parameterType="com.javaex.vo.ReviewVo">
+		 <![CDATA[
+        	update users set uPoint=uPoint+1000
+			where uNo=#{uNo}
+        ]]>
+	</update>
+
 	<!-- 후기가져오기 -->
 	<select id="reviewSelect" parameterType="int" resultType="com.javaex.vo.ReviewVo">
 		<![CDATA[
+			select r.rNo, r.bNo, r.uNo, r.rsNo, r.star, r.rContent, r.rDate, r.views, ri.riNo, ri.saveName, u.uId, res.dogNo , d.dogName, d.weight
+			from review r
+			join reviewimg ri on r.rNo=ri.rNo
+			join users u on u.uNo=r.uNo
+			join reserve res on res.rsNo=r.rsNo
+			join dog d on d.dogNo=res.dogNo
+			where bNo=#{bNo}
+			group by ri.rNo
 		
 		]]>
 	</select>
 
+	<!-- 조회수증가 -->
+	<update id="reviewUpdateView" parameterType="int">
+      <![CDATA[
+		update review set views=views+1
+		where rNo=#{rNo};
+		
+ 	]]>
+	</update>
+
+
+	<!-- 리뷰 1개 가져오기 -->
+	<select id="selectOneRList" parameterType="int" resultType="com.javaex.vo.ReviewVo">
+		<![CDATA[
+		SELECT r.rNo, rs.rtNo, u.uId, r.star, r.rContent, r.rDate, r.views, rs.expectedPrice, d.dogNo, d.dogName, d.weight, b.bNo, rs.surcharge
+      FROM review r
+      JOIN users u ON r.uNo = u.uNo
+      JOIN reserve rs ON rs.rsNo = r.rsNo
+      JOIN dog d ON d.dogNo = rs.dogNo
+        join business b on r.bNo=b.bNo
+      WHERE r.rNo = #{rNo}
+		]]>
+	</select>
+
+	<select id="reviewSaveNameList2" parameterType="int" resultType="com.javaex.vo.ReviewVo">
+		<![CDATA[
+			select ri.riNo, ri.rNo, ri.saveName 
+			from reviewimg ri
+			join review r on ri.rNo=r.rNo
+			where ri.rNo=#{rNo}
+		]]>
+	</select>
+
+
+
 	<!--가게정보1개 가져오기 -->
 	<select id="selectOne" parameterType="int" resultType="com.javaex.vo.BusinessVo">
 		<![CDATA[
-		select b.bNo, b.bPhone, b.bAddress, b.bdAddress, b.title ,b.logo, round(avg(r.star),1) averageStar
-		from business b 
-		join review r on b.bNo=r.bNo
-		where b.bNo=#{bNo};
+		SELECT 
+		    b.bNo, 
+		    b.bPhone, 
+		    b.bAddress, 
+		    b.bdAddress, 
+		    b.title,
+		    b.logo,
+		    COALESCE(ROUND(AVG(r.star), 1), 0) AS averageStar  -- 평균 별점이 없을 경우 0으로 설정
+		FROM 
+		    business b
+		LEFT JOIN 
+		    review r ON r.bNo = b.bNo
+		WHERE 
+		    b.bNo = #{bNo}
+		GROUP BY 
+		    b.bNo, b.bPhone, b.bAddress, b.bdAddress, b.title, b.logo
 		]]>
 	</select>
 
@@ -99,7 +212,7 @@
 	<!-- 미용목록, 가격표가져오기 -->
 	<select id="selectPrice" parameterType="com.javaex.vo.PriceVo" resultType="com.javaex.vo.PriceVo">
 		<![CDATA[
-			select b.weightDiv, b.beauty , p.onePrice
+			select b.weightDiv, b.beauty , p.onePrice, p.priceNo, p.beautyNo
 			from beautylist b
 			join price p on b.beautyNo=p.beautyNo
 			where p.bNo=#{bNo} and b.sizeDiv=#{sizeDiv}
@@ -109,7 +222,7 @@
 	<!-- 추가요금가져오기 -->
 	<select id="selectPlusPrice" parameterType="int" resultType="com.javaex.vo.PriceVo">
 		<![CDATA[
-			select b.beauty , p.onePrice
+			select b.weightDiv, b.beauty , p.onePrice, p.priceNo, p.beautyNo
 			from beautylist b
 			join price p on b.beautyNo=p.beautyNo
 			where p.bNo=#{bNo} and b.sizeDiv='추가요금'
@@ -119,9 +232,10 @@
 	<!-- 유저포인트 가져오기 -->
 	<select id="selectUserPoint" parameterType="int" resultType="com.javaex.vo.UserVo">
 		<![CDATA[
-			select uNo, sum(usePoint) uPoint
-			from point
+			select uPoint
+			from users
 			where uNo=#{uNo}
+		
 		]]>
 	</select>
 
@@ -139,24 +253,11 @@
 	<!-- 예약테이블 -->
 	<insert id="reserveInsert" parameterType="com.javaex.vo.ReserveVo">
       <![CDATA[
-		insert into reserve values 
-		(null,
-		 #{dogNo},
-		 #{rtNo},
-		 #{signImg},
-		 #{expectedPrice},
-		 '',
-		 '',
-		 '',
-		 '',
-		 '',
-		 0,
-		 '',
-		 0.0,
-		 )
+		insert into reserve 
+		values(null, #{dogNo}, #{rtNo}, #{signImg}, #{expectedPrice},"","","","","",0,"",0.0 )
  	]]>
- 	
- 		<selectKey keyProperty="rsNo" resultType="int" order="AFTER">
+
+		<selectKey keyProperty="rsNo" resultType="int" order="AFTER">
             <![CDATA[
                 select last_insert_id()
             ]]>
@@ -167,7 +268,7 @@
 	<update id="reserveTime" parameterType="com.javaex.vo.ReserveVo">
       <![CDATA[
 		update reserveTime set rtFinish=true
-		where rtNo=(select rtNo from reserve where rtNo=#{rtNo}) and bNo=#{bNo}
+		where rtNo=#{rtNo} and bNo=#{bNo}
 		
  	]]>
 		<selectKey keyProperty="rtNo" resultType="int" order="AFTER">
@@ -177,18 +278,14 @@
 		</selectKey>
 	</update>
 
-	<!-- 예약가격테이블 -->
-	<insert id="reservePrice" parameterType="com.javaex.vo.ReserveVo">
+	<!-- 유저포인트 -->
+	<update id="userPoint" parameterType="com.javaex.vo.ReserveVo">
       <![CDATA[
-      insert into rsPrice values(null, #{rsNo}, #{priceNo}, #{rtNo})
+		update users set uPoint=uPoint-#{usePoint}
+		where uNo=#{uNo}
  	]]>
-	</insert>
-	<!-- 포인트테이블 -->
-	<insert id="reservePoint" parameterType="com.javaex.vo.ReserveVo">
-      <![CDATA[
-		insert into point values (null, #{uNo}, now(), 1, #{rsNum}, 0,#{usePoint})
- 	]]>
-	</insert>
+	</update>
+
 	<!-- 반려견테이블 -->
 	<update id="reserveDog" parameterType="com.javaex.vo.ReserveVo">
       <![CDATA[
@@ -197,4 +294,272 @@
 		where dogNo=#{dogNo}
  	]]>
 	</update>
+
+
+	<!-- 예약가격테이블 -->
+	<insert id="reservePrice" parameterType="com.javaex.vo.ReserveVo">
+      <![CDATA[
+      	insert into rsPrice values
+      	(null, #{rsNo}, #{priceNo}, #{rtNo})
+ 	]]>
+	</insert>
+
+	<!-- 예약가격테이블 -->
+	<insert id="reservePrice2" parameterType="map">
+        <![CDATA[
+           	insert into rsPrice values
+      		(null, #{rsNo}, #{priceNo}, #{rtNo})
+        ]]>
+	</insert>
+
+
+
+	<!-- 포인트테이블 -->
+	<insert id="reservePoint" parameterType="com.javaex.vo.ReserveVo">
+      <![CDATA[
+		insert into point values (null, #{uNo}, now(), 1, #{rsNo}, 0, #{usePoint})
+ 	]]>
+	</insert>
+
+
+	<!-- 사이드바 -->
+	<select id="selectSidebar1" parameterType="com.javaex.vo.UserVo" resultType="com.javaex.vo.UserVo">
+		<![CDATA[
+		select u.uNo, u.uId, u.uProfile, u.uPoint, uName
+		from users u
+		where u.uNo=#{uNo}
+			
+		]]>
+	</select>
+
+	<!-- 사이드바2 -->
+	<select id="selectSidebar2" parameterType="com.javaex.vo.DogVo" resultType="com.javaex.vo.DogVo">
+		<![CDATA[
+		select dogImg, dogName, dogNo
+		from dog
+		where uNo=#{uNo}
+			
+		]]>
+	</select>
+
+	<!-- 예약내역 -->
+	<select id="selectGetReserve" parameterType="int" resultType="com.javaex.vo.ReserveVo">
+		<![CDATA[
+		select r.rsNo, r.dogNo, r.rtNo, r.expectedPrice, rt.bNo, rt.rtDate, rt.rtTime,d.dogName, d.uNo, b.title,r.surcharge
+		from reserve r
+		join reserveTime rt on r.rtNo=rt.rtNo
+		join business b on b.bNo=rt.bNo
+		join dog d on d.dogNo=r.dogNo
+		where d.uNo=#{uNo}
+		order by r.rsNo desc
+		limit 1
+			
+		]]>
+	</select>
+
+	<!-- 후기내역 -->
+	<select id="selectGetReview" parameterType="int" resultType="com.javaex.vo.ReviewVo">
+		<![CDATA[
+			select re.rNo,re.bNo, re.uNo, re.rsNo, re.star, re.rContent, re.rDate, re.views, ri.saveName, rs.dogNo, d.dogName, rs.expectedPrice, rs.surcharge, b.title, ri.saveName
+			from review re
+			join reviewimg ri on re.rNo=ri.rNo
+			join reserve rs on rs.rsNo = re.rsNo
+			join dog d on d.dogNo=rs.dogNo
+			join business b on b.bNo=re.bNo
+			where re.uNo=#{uNo}
+			group by rNo
+			order by re.rNo desc
+			limit 1
+		]]>
+	</select>
+
+	<!-- 알림장 -->
+	<select id="selectGetMydiary" parameterType="int" resultType="com.javaex.vo.ReserveVo">
+		<![CDATA[
+			select r.rsNo, r.dogNo, r.rtNo, r.expectedPrice, r.attitude,r.rCondition,r.tangle,r.disliked,r.bath,r.message,rt.bNo, rt.rtDate, rt.rtTime,d.dogName, d.uNo, r.surcharge, p.pushNo, p.pushTime
+			from reserve r
+			join reserveTime rt on r.rtNo=rt.rtNo
+			join business b on b.bNo=rt.bNo
+			join dog d on d.dogNo=r.dogNo
+			join push p on p.rsNo=r.rsNo
+			where uNo=#{uNo} 
+			order by pushNo desc
+			limit 1
+		
+		]]>
+	</select>
+
+
+	<!-- 예약내역 더보기 -->
+	<select id="selectListReservation" parameterType="int" resultType="com.javaex.vo.ReserveVo">
+		<![CDATA[
+			select rs.rsNo, rs.dogNo, rs.rtNo, rt.bNo, rt.rtDate, rt.rtTime, rt.rtFinish,
+			       rs.expectedPrice, rs.surcharge, 
+			       b.title, b.bPhone, b.bAddress, b.bdAddress,b.logo,
+			       d.dogName, d.size,
+			       u.uNo, u.uPoint, 
+			       p.pDiv, p.rsNum, p.usePoint,
+			       rsp.rspNo, rsp.priceNo, rsp.rtNo,
+			       pr.beautyNo, pr.onePrice,
+			       bl.sizeDiv, bl.weightDiv, bl.beauty,
+			       pu.pushNo, pu.pushTime,
+                   re.rNo
+			from reserve rs
+			join reserveTime rt on rt.rtNo=rs.rtNo
+			join business b on rt.bNo=b.bNo
+			join dog d on d.dogNo=rs.dogNo
+			join users u on d.uNo=u.uNo
+			join point p on p.rsNum=rs.rsNo
+			join rsPrice rsp on rsp.rsNo=rs.rsNo
+			join price pr on pr.priceNo=rsp.priceNo
+			join beautylist bl on bl.beautyNo=pr.beautyNo
+            left join review re on re.rsNo=rs.rsNo
+			left join push pu on pu.rsNo=rs.rsNo
+			where u.uNo=#{uNo} and bl.sizeDiv != '추가요금' and rtFinish=1
+			group by rs.rsNo
+			order by rs.rsNo desc
+		]]>
+	</select>
+
+	<!-- 리뷰 더보기 -->
+	<select id="selectListReservation2" parameterType="int" resultType="com.javaex.vo.ReserveVo">
+		<![CDATA[
+			select rs.rsNo, rs.dogNo, rs.rtNo, rt.bNo, rt.rtDate, rt.rtTime, rt.rtFinish,
+			       rs.expectedPrice, rs.surcharge, 
+			       b.title, b.bPhone, b.bAddress, b.bdAddress,b.logo,
+			       d.dogName, d.size,
+			       u.uNo, u.uPoint, 
+			       p.pDiv, p.rsNum, p.usePoint,
+			       rsp.rspNo, rsp.priceNo, rsp.rtNo,
+			       pr.beautyNo, pr.onePrice,
+			       bl.sizeDiv, bl.weightDiv, bl.beauty,
+			       pu.pushNo, pu.pushTime,
+			       re.rNo
+			from reserve rs
+			join reserveTime rt on rt.rtNo=rs.rtNo
+			join business b on rt.bNo=b.bNo
+			join dog d on d.dogNo=rs.dogNo
+			join users u on d.uNo=u.uNo
+			join point p on p.rsNum=rs.rsNo
+			join rsPrice rsp on rsp.rsNo=rs.rsNo
+			join price pr on pr.priceNo=rsp.priceNo
+			join beautylist bl on bl.beautyNo=pr.beautyNo
+			left join review re on re.rsNo=rs.rsNo
+			left join push pu on pu.rsNo=rs.rsNo
+			where u.uNo=#{uNo} and bl.sizeDiv != '추가요금' and rtFinish=1 and pu.pushNo!=0
+			group by rs.rsNo
+			order by rs.rsNo desc
+
+		]]>
+	</select>
+
+	<!-- 리뷰 1개 가져오기 -->
+	<select id="selectOneRList2" parameterType="int" resultType="com.javaex.vo.ReviewVo">
+		<![CDATA[
+		SELECT r.rNo, rs.rtNo, u.uId, r.star, r.rContent, r.rDate, r.views, rs.expectedPrice, d.dogNo, d.dogName, d.weight, b.bNo
+      FROM review r
+      JOIN users u ON r.uNo = u.uNo
+      JOIN reserve rs ON rs.rsNo = r.rsNo
+      JOIN dog d ON d.dogNo = rs.dogNo
+       join business b on r.bNo=b.bNo
+      WHERE r.rsNo = #{rsNo}
+		]]>
+	</select>
+
+	<!-- 리뷰 1개 가져오기 -->
+	<select id="reviewSaveNameList" parameterType="int" resultType="com.javaex.vo.ReviewVo">
+		<![CDATA[
+			select ri.riNo, ri.rNo, ri.saveName 
+			from reviewimg ri
+			join review r on ri.rNo=r.rNo
+			where r.rsNo=#{rsNo}
+		]]>
+	</select>
+
+
+	<select id="recentOrder" parameterType="int" resultType="com.javaex.vo.ReviewVo">
+		<![CDATA[
+			SELECT r.rNo, rs.rtNo, u.uId, r.star, r.rContent, r.rDate, r.views, rs.expectedPrice, d.dogNo, d.dogName, d.weight, b.bNo, rs.surcharge,ri.saveName
+      FROM review r
+      JOIN users u ON r.uNo = u.uNo
+      JOIN reserve rs ON rs.rsNo = r.rsNo
+      JOIN dog d ON d.dogNo = rs.dogNo
+        join business b on r.bNo=b.bNo
+        join reviewimg ri on ri.rNo=r.rNo
+      where b.bNo=#{bNo} 
+       group by r.rNo
+      order by r.rDate desc
+      
+		]]>
+	</select>
+
+	<select id="Vieworder" parameterType="int" resultType="com.javaex.vo.ReviewVo">
+		<![CDATA[
+			SELECT r.rNo, rs.rtNo, u.uId, r.star, r.rContent, r.rDate, r.views, rs.expectedPrice, d.dogNo, d.dogName, d.weight, b.bNo, rs.surcharge,ri.saveName
+      FROM review r
+      JOIN users u ON r.uNo = u.uNo
+      JOIN reserve rs ON rs.rsNo = r.rsNo
+      JOIN dog d ON d.dogNo = rs.dogNo
+        join business b on r.bNo=b.bNo
+        join reviewimg ri on ri.rNo=r.rNo
+      where b.bNo=#{bNo} 
+      group by r.rNo
+      order by views desc
+      
+		]]>
+	</select>
+
+	<select id="Stargradeorder" parameterType="int" resultType="com.javaex.vo.ReviewVo">
+		<![CDATA[
+			SELECT r.rNo, rs.rtNo, u.uId, r.star, r.rContent, r.rDate, r.views, rs.expectedPrice, d.dogNo, d.dogName, d.weight, b.bNo, rs.surcharge,ri.saveName
+      FROM review r
+      JOIN users u ON r.uNo = u.uNo
+      JOIN reserve rs ON rs.rsNo = r.rsNo
+      JOIN dog d ON d.dogNo = rs.dogNo
+        join business b on r.bNo=b.bNo
+        join reviewimg ri on ri.rNo=r.rNo
+      where b.bNo=#{bNo} 
+       group by r.rNo
+      order by star desc
+      
+		]]>
+	</select>
+
+
+
+	<!-- 마이페이지 포인트 -->
+	<select id="getPointList" parameterType="int" resultType="com.javaex.vo.PointVo">
+		<![CDATA[
+		
+	select p.pNo, p.uNo, p.pDate, p.pDiv, p.rsNum, p.rvNum, p.usePoint, b.title, b.bNo
+			from point p
+			join review r on r.rsNo=p.rsNum
+			join business b on b.bNo=r.bNo
+            join reserveTime rt on rt.bNo=b.bNo
+			where p.uNo=#{uNo}
+            group by rvNum
+            order by p.pDate desc
+			
+		]]>
+	</select>
+
+	<!-- 마이페이지 날짜 -->
+	<select id="getDataByDateRange" parameterType="com.javaex.vo.PointVo" resultType="com.javaex.vo.PointVo">
+		<![CDATA[
+			select p.pNo, p.uNo, p.pDate, p.pDiv, p.rsNum, p.rvNum, p.usePoint
+			from point p
+			join review r on r.uNo=p.uNo
+			join business b on b.bNo=r.bNo
+            join reserveTime rt on rt.bNo=b.bNo
+			where p.uNo=#{uNo}
+			and usePoint > 0
+            and pDate between #{startDate} and #{endDate}
+            group by rvNum
+            order by p.pDate desc
+			
+		]]>
+	</select>
+
+
+
 </mapper>
