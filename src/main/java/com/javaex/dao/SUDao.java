@@ -100,8 +100,8 @@ public class SUDao {
 	public void updateBusinessInfo(BusinessVo businessVo) {
 		System.out.println("SUDao.updateBusinessInfo");
 
+		System.out.println("여기확인******************"+ businessVo);
 		sqlSession.update("su.updateBusinessInfo", businessVo);
-
 	}
 
 	// 가게 등록 -designer

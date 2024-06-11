@@ -68,6 +68,14 @@ public class YEDao {
 
 		return mainList;
 	}
+	
+	public List<StoreVo> mainList02(StoreVo storeVo) {
+		System.out.println("YEDao.mainList()");
+
+		List<StoreVo> mainList = sqlSession.selectList("ye.mainlist02", storeVo);
+
+		return mainList;
+	}
 
 	public List<StoreVo> popList() {
 		System.out.println("YEDao.popList()");

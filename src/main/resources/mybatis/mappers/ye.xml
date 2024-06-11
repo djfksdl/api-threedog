@@ -119,6 +119,24 @@
 
     ]]>
 	</select>
+	
+	<select id="mainlist02" resultType="com.javaex.vo.StoreVo">
+    <![CDATA[
+        SELECT b.bNo, b.title, b.logo,
+	       (3959 * acos(cos(radians(COALESCE(#{lat}, b.latitude))) * cos(radians(b.latitude)) 
+	       * cos(radians(b.longitude) - radians(COALESCE(#{lan}, b.longitude))) + sin(radians(COALESCE(#{lat}, b.latitude))) 
+	       * sin(radians(b.latitude)))) AS distance, 
+	       b.latitude AS lat, 
+	       b.longitude AS lan
+		FROM business b
+		LEFT JOIN (
+		    SELECT bNo, COUNT(*) as reserved_time_count
+		    FROM reserveTime
+		    GROUP BY bNo
+		) rt ON b.bNo = rt.bNo
+		ORDER BY distance ASC
+    ]]>
+	</select>
 	<!-- 그냥 가게 리스트 -->
 
 	<!-- 가게들 마커 표시 -->

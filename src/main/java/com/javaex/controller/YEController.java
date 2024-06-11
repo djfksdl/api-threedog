@@ -100,6 +100,26 @@ public class YEController {
 
 		return JsonResult.success(mainList);
 	}
+	
+	// 메인 가게 리스트(거리순)
+		@GetMapping("/api/mainlist")
+		public JsonResult mainList02(@RequestParam(value = "lat") Double lat, @RequestParam(value = "lng") Double lng) {
+			System.out.println("YEController.mainList()");
+
+			if (lat == null)
+				lat = 37.5665;
+			if (lng == null)
+				lng = 126.9780;
+
+			StoreVo storeVo = new StoreVo(lat, lng);
+
+			List<StoreVo> mainList = yeService.exeList02(storeVo);
+
+//			System.out.println("-----------");
+//		    System.out.println(mainList);
+
+			return JsonResult.success(mainList);
+		}
 
 	// 지도, 캘린더로 검색 리스트
 	@GetMapping("/api/searchmap")
