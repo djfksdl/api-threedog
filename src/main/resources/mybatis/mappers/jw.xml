@@ -45,7 +45,8 @@
 	      <![CDATA[
 	      UPDATE reserveTime
 	      SET rtDate = #{rtDate},
-	          rtfinish = #{rtFinish}
+	          rtTime = #{rtTime},
+	          rtfinish = 1
 	      WHERE rtNo = (SELECT rtNo 
 	                    FROM reserve 
 	                    WHERE rsNo =#{rsNo});
@@ -58,7 +59,7 @@
 	      <![CDATA[
 	      UPDATE reserveTime
 	      SET rtTime = #{rtTime},
-	          rtfinish = #{rtFinish}
+	          rtfinish = #{newRtFinish}
 	      WHERE rtNo = (SELECT rtNo 
 	                    FROM reserve 
 	                    WHERE rsNo = #{rsNo});
