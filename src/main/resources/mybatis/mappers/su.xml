@@ -207,7 +207,7 @@
 	      	join rsPrice rsp on rsp.rsNo = rs.rsNo
 	      	join price p on p.priceNo = rsp.priceNo
 	      	join beautylist bl on bl.beautyNo = p.beautyNo
-	      	WHERE b.bNo=1 
+	      	WHERE b.bNo=#{bNo} 
 	      	group by uId
 	      	order by star desc
 		]]>
