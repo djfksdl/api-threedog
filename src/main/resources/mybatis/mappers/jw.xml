@@ -3,165 +3,187 @@
 
 <mapper namespace="jw">
 
-   <!-- ************************ 스케줄 화면 ***************************** -->
-
-   <!-- 한 가게의 예약 리스트 정보 조회 -->
-   <select id="selectReserveList" parameterType="int" resultType="com.javaex.vo.ReserveVo">
-      <![CDATA[
-      SELECT r.*, d.*, p.*, b.*, rt.rtDate, rt.rtTime
-      FROM reserve r
-      JOIN dog d ON r.dogNo = d.dogNo
-      JOIN rsPrice rp ON r.rsNo = rp.rsNo
-      JOIN price p ON rp.priceNo = p.priceNo
-      JOIN beautylist b ON p.beautyNo = b.beautyNo
-      JOIN reserveTime rt ON r.rtNo = rt.rtNo
-      WHERE rt.bNo = #{bNo}
-      GROUP BY r.rsNo;
-       ]]>
-   </select>
-
-   <!-- 일자 수정 -->
-   <update id="updateReserveDate" parameterType="com.javaex.vo.ReserveVo">
-      <![CDATA[
-      UPDATE reserveTime
-      SET rtDate = #{rtDate}
-      WHERE rtNo = (SELECT rtNo 
-                    FROM reserve 
-                    WHERE rsNo =#{rsNo});
-                     ]]>
-   </update>
-
-
-   <!-- 시간 수정 -->
-   <update id="updateReserveTime" parameterType="com.javaex.vo.ReserveVo">
-      <![CDATA[
-      UPDATE reserveTime
-      SET rtTime = #{rtTime}
-      WHERE rtNo = (SELECT rtNo 
-                    FROM reserve 
-                    WHERE rsNo = #{rsNo});
-                    ]]>
-   </update>
-
-
-   <!-- 예약 정보 삭제 -->
-   <delete id="deleteReserve" parameterType="int">
-      <!-- rsPrice 테이블에서 해당 예약 번호에 연결된 모든 행 삭제 -->
-    <![CDATA[
-        DELETE FROM rsPrice WHERE rsNo = #{rsNo};
-    ]]>
-   </delete>
-
-   <delete id="deleteReserve2" parameterType="int">
-      <!-- reserve 테이블에서 예약 번호 삭제 -->
-    <![CDATA[
-        DELETE FROM reserve WHERE rsNo = #{rsNo};
-    ]]>
-   </delete>
-
-   <update id="updateReserveTimeFinishByRsNo" parameterType="int">
-      <!-- 해당 예약 번호에 연결된 예약 시간의 rtFinish 값을 0으로 업데이트 -->
-    <![CDATA[
-       UPDATE reserveTime 
-       SET rtFinish = 0 
-       WHERE rtNo = (SELECT rtNo FROM reserve WHERE rsNo = #{rsNo});
-    ]]>  
-   </update>
-
-   <!-- ************************ 알림장 화면 ***************************** -->
-
-   <!-- 특정 예약의 미용 기록 조회 -->
-   <select id="selectGroomingRecord" parameterType="int" resultType="com.javaex.vo.ReserveVo"> 
-      <![CDATA[
-         SELECT r.*, d.*, p.*, b.*, rt.rtDate, rt.rtTime, ai.*, push.*
-         FROM reserve r
-         JOIN dog d ON r.dogNo = d.dogNo
-         JOIN rsPrice rp ON r.rsNo = rp.rsNo
-         JOIN price p ON rp.priceNo = p.priceNo
-         JOIN beautylist b ON p.beautyNo = b.beautyNo
-         JOIN reserveTime rt ON r.rtNo = rt.rtNo
-         LEFT JOIN afterImg ai ON 
-         r.rsNo = ai.rsNo
-         LEFT JOIN push ON r.rsNo = push.rsNo
-         WHERE r.rsNo = #{rsNo}
-         GROUP BY r.rsNo;
-      ]]>
-   </select>
-
-   <!-- 미용 기록 업데이트 쿼리 -->
-   <update id="updateGroomingRecord" parameterType="com.javaex.vo.ReserveVo">
-     <![CDATA[
-       UPDATE reserve
-       SET 
-           attitude = #{attitude},
-           rCondition = #{rCondition},
-           tangle = #{tangle},
-           disliked = #{disliked},
-           bath = #{bath},
-           surcharge = #{surcharge},
-           message = #{message},
-           curruntWeight = #{curruntWeight}
-       WHERE rsNo = #{rsNo};
-       ]]>
-   </update>
-
-   <!-- 이미지 정보 삽입 쿼리 -->
-
-   <insert id="insertAfterImg" parameterType="map">
-       <![CDATA[
-       INSERT INTO afterImg (rsNo, saveName)
-       VALUES (#{rsNo}, #{saveName});
-       ]]>
-   </insert>
-   
-      <!-- 푸시 알림 삽입 쿼리 -->
-   <insert id="insertPushNotification" parameterType="int">
-       <![CDATA[
-       INSERT INTO push (rsNo, pushTime)
-       VALUES (#{rsNo}, NOW());
-       ]]>
-   </insert>
-   
-      <!-- ************************ 마이다이어리 ***************************** -->
-      
-   <!-- 회원의 강아지별 모든 알림장리스트 -->
-   <select id="userDogList" parameterType="map" resultType="com.javaex.vo.ReserveVo"> 
-      <![CDATA[
-          SELECT 
-             d.dogNo, 
-             d.dogName, 
-             d.dogImg,
-             rs.*,
-             rt.rtNo, 
-             rt.rtDate, 
-             rt.rtTime,
-             b.bNo, 
-             b.title, 
-             b.bPhone,
-             p.pushNo,
-             ai.saveName
-         FROM 
-             users u
-         JOIN 
-             dog d ON u.uNo = d.uNo
-         JOIN 
-             reserve rs ON d.dogNo = rs.dogNo
-         JOIN 
-             push p ON rs.rsNo = p.rsNo
-         JOIN 
-             reserveTime rt ON rs.rtNo = rt.rtNo
-         JOIN 
-             business b ON rt.bNo = b.bNo
-         LEFT JOIN
-             afterImg ai ON rs.rsNo = ai.rsNo
-         WHERE 
-             u.uNo = #{uNo} AND p.pushNo IS NOT NULL
-         GROUP BY 
-             rs.rsNo
-         ORDER BY 
-             rt.rtDate DESC;
-      ]]>
-   </select>
-   
-
+	   <!-- ************************ 스케줄 화면 ***************************** -->
+	
+	   <!-- 한 가게의 예약 리스트 정보 조회 -->
+	   <select id="selectReserveList" parameterType="int" resultType="com.javaex.vo.ReserveVo">
+	      <![CDATA[
+	      SELECT r.*, d.*, p.*, b.*, rt.rtDate, rt.rtTime
+	      FROM reserve r
+	      JOIN dog d ON r.dogNo = d.dogNo
+	      JOIN rsPrice rp ON r.rsNo = rp.rsNo
+	      JOIN price p ON rp.priceNo = p.priceNo
+	      JOIN beautylist b ON p.beautyNo = b.beautyNo
+	      JOIN reserveTime rt ON r.rtNo = rt.rtNo
+	      WHERE rt.bNo = #{bNo}
+	      GROUP BY r.rsNo;
+	       ]]>
+	   </select>
+	   
+	   <!-- 일자 및 예약 가능 여부 수정 -->
+	<!--   <update id="updateReserveDateTime" parameterType="com.javaex.vo.ReserveVo">
+	       <![CDATA[
+	       UPDATE reserveTime rt
+	       JOIN reserve r ON rt.rtNo = r.rtNo
+	       SET rt.rtDate = #{rtDate},
+	           rt.rtTime = #{rtTime},
+	           rt.rtFinish = (
+	               SELECT COUNT(*)
+	               FROM reserve r2
+	               JOIN reserveTime rt2 ON r2.rtNo = rt2.rtNo
+	               WHERE rt2.rtDate = #{rtDate} AND rt2.rtTime = #{rtTime}
+	           )
+	       WHERE r.rsNo = #{rsNo};
+	       ]]>
+	   </update>-->
+	   
+	
+	   <!-- 일자 수정 -->
+	   <update id="updateReserveDate" parameterType="com.javaex.vo.ReserveVo">
+	      <![CDATA[
+	      UPDATE reserveTime
+	      SET rtDate = #{rtDate},
+	          rtfinish = #{rtFinish}
+	      WHERE rtNo = (SELECT rtNo 
+	                    FROM reserve 
+	                    WHERE rsNo =#{rsNo});
+	                     ]]>
+	   </update>
+	
+	
+	   <!-- 시간 수정 -->
+	   <update id="updateReserveTime" parameterType="com.javaex.vo.ReserveVo">
+	      <![CDATA[
+	      UPDATE reserveTime
+	      SET rtTime = #{rtTime},
+	          rtfinish = #{rtFinish}
+	      WHERE rtNo = (SELECT rtNo 
+	                    FROM reserve 
+	                    WHERE rsNo = #{rsNo});
+	                    ]]>
+	   </update>
+	   
+	
+	
+	
+	   <!-- 예약 정보 삭제 -->
+	   <delete id="deleteReserve" parameterType="int">
+	      <!-- rsPrice 테이블에서 해당 예약 번호에 연결된 모든 행 삭제 -->
+	    <![CDATA[
+	        DELETE FROM rsPrice WHERE rsNo = #{rsNo};
+	    ]]>
+	   </delete>
+	
+	   <delete id="deleteReserve2" parameterType="int">
+	      <!-- reserve 테이블에서 예약 번호 삭제 -->
+	    <![CDATA[
+	        DELETE FROM reserve WHERE rsNo = #{rsNo};
+	    ]]>
+	   </delete>
+	
+	   <update id="updateReserveTimeFinishByRsNo" parameterType="int">
+	      <!-- 해당 예약 번호에 연결된 예약 시간의 rtFinish 값을 0으로 업데이트 -->
+	    <![CDATA[
+	       UPDATE reserveTime 
+	       SET rtFinish = #{rtFinish}
+	       WHERE rtNo = (SELECT rtNo FROM reserve WHERE rsNo = #{rsNo});
+	    ]]>  
+	   </update>
+	
+	   <!-- ************************ 알림장 화면 ***************************** -->
+	
+	   <!-- 특정 예약의 미용 기록 조회 -->
+	   <select id="selectGroomingRecord" parameterType="int" resultType="com.javaex.vo.ReserveVo"> 
+	      <![CDATA[
+	         SELECT r.*, d.*, p.*, b.*, rt.rtDate, rt.rtTime, ai.*, push.*
+	         FROM reserve r
+	         JOIN dog d ON r.dogNo = d.dogNo
+	         JOIN rsPrice rp ON r.rsNo = rp.rsNo
+	         JOIN price p ON rp.priceNo = p.priceNo
+	         JOIN beautylist b ON p.beautyNo = b.beautyNo
+	         JOIN reserveTime rt ON r.rtNo = rt.rtNo
+	         LEFT JOIN afterImg ai ON 
+	         r.rsNo = ai.rsNo
+	         LEFT JOIN push ON r.rsNo = push.rsNo
+	         WHERE r.rsNo = #{rsNo}
+	         GROUP BY r.rsNo;
+	      ]]>
+	   </select>
+	
+	   <!-- 미용 기록 업데이트 쿼리 -->
+	   <update id="updateGroomingRecord" parameterType="com.javaex.vo.ReserveVo">
+	     <![CDATA[
+	       UPDATE reserve
+	       SET 
+	           attitude = #{attitude},
+	           rCondition = #{rCondition},
+	           tangle = #{tangle},
+	           disliked = #{disliked},
+	           bath = #{bath},
+	           surcharge = #{surcharge},
+	           message = #{message},
+	           curruntWeight = #{curruntWeight}
+	       WHERE rsNo = #{rsNo};
+	       ]]>
+	   </update>
+	
+	   <!-- 이미지 정보 삽입 쿼리 -->
+	
+	   <insert id="insertAfterImg" parameterType="map">
+	       <![CDATA[
+	       INSERT INTO afterImg (rsNo, saveName)
+	       VALUES (#{rsNo}, #{saveName});
+	       ]]>
+	   </insert>
+	   
+	      <!-- 푸시 알림 삽입 쿼리 -->
+	   <insert id="insertPushNotification" parameterType="int">
+	       <![CDATA[
+	       INSERT INTO push (rsNo, pushTime)
+	       VALUES (#{rsNo}, NOW());
+	       ]]>
+	   </insert>
+	   
+	      <!-- ************************ 마이다이어리 ***************************** -->
+	      
+	   <!-- 회원의 강아지별 모든 알림장리스트 -->
+	   <select id="userDogList" parameterType="map" resultType="com.javaex.vo.ReserveVo"> 
+	      <![CDATA[
+	          SELECT 
+	             d.dogNo, 
+	             d.dogName, 
+	             d.dogImg,
+	             rs.*,
+	             rt.rtNo, 
+	             rt.rtDate, 
+	             rt.rtTime,
+	             b.bNo, 
+	             b.title, 
+	             b.bPhone,
+	             p.pushNo,
+	             ai.saveName
+	         FROM 
+	             users u
+	         JOIN 
+	             dog d ON u.uNo = d.uNo
+	         JOIN 
+	             reserve rs ON d.dogNo = rs.dogNo
+	         JOIN 
+	             push p ON rs.rsNo = p.rsNo
+	         JOIN 
+	             reserveTime rt ON rs.rtNo = rt.rtNo
+	         JOIN 
+	             business b ON rt.bNo = b.bNo
+	         LEFT JOIN
+	             afterImg ai ON rs.rsNo = ai.rsNo
+	         WHERE 
+	             u.uNo = #{uNo} AND p.pushNo IS NOT NULL
+	         GROUP BY 
+	             rs.rsNo
+	         ORDER BY 
+	             rt.rtDate DESC;
+	      ]]>
+	   </select>
+	   
+	
 </mapper>
