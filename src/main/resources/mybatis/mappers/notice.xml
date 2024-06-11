@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="notice">
+
+	<!-- 등록 -->
+	<insert id="insert" parameterType="com.javaex.vo.NoticeVo">
+		<![CDATA[
+			insert into notice
+			values(null, #{title}, #{content}, now(), 1)
+		]]>
+	</insert>
+
+	<!-- 전체 글갯수 -->
+	<select id="selectTotalCnt" parameterType="string" resultType="int">
+		<![CDATA[
+			select  count(*) count
+			from notice
+     	]]>
+		<where>
+			<if test="keyword != null">
+				<![CDATA[
+					title like concat ('%',#{keyword},'%')
+					or content like concat ('%',#{keyword},'%')
+				]]>
+			</if>
+		</where>
+	</select>
+
+	<!-- 리스트(검색O, 페이징O) -->
+	<select id="selectList" parameterType="map" resultType="com.javaex.vo.NoticeVo">
+		<![CDATA[ 
+			select  n.no,
+					n.title,
+			        n.content,
+			        n.reg_date regDate,
+			        n.uNo,
+			        u.uName,
+			        u.uNo
+			from notice n, users u
+			where n.uNo=u.uNo
+     	]]>
+		<if test="keyword != null">
+			<![CDATA[
+				and (title like concat ('%', #{keyword}, '%')
+				or content like concat ('%', #{keyword}, '%'))
+			]]>
+		</if>
+		<![CDATA[ 
+			order by no desc
+			limit #{startRowNo}, #{listCnt}
+     	]]>
+	</select>
+
+	<!-- 수정 -->
+	<update id="update" parameterType="com.javaex.vo.NoticeVo">
+		<![CDATA[
+			update notice
+			set title=#{title},
+				content=#{content}
+			where no=#{no}
+			and uNo=1
+		]]>
+	</update>
+	
+	<!-- 하나 불러오기/읽기, 수정 -->
+	<select id="selectOne" parameterType="int" resultType="com.javaex.vo.NoticeVo">
+      <![CDATA[ 
+        select  no,
+				u.uName,
+		        title,
+		        content,
+		        reg_date regDate
+		from notice n, users u
+		where no=#{no}
+		and n.uNo=u.uNo
+      ]]>
+	</select>
+	
+	<!-- 삭제 -->
+	<delete id="delete" parameterType="int">
+		<![CDATA[
+			delete from notice
+			where no=#{no}
+		]]>
+	</delete>
+
+</mapper>
