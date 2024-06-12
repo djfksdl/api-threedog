@@ -58,7 +58,7 @@ public class SUService {
 
 		// 파일이 null일때 디폴트 이미지를 저장경로에 미리 저장해놓고 saveName만 db에 저장하니까 그걸 넣어줌.
 		if (userVo.getFile() == null) {
-			String saveName = "default_profile.jpg";
+			String saveName = "";
 			userVo.setuProfile(saveName);
 
 			// 파일이 null이 아닐때
