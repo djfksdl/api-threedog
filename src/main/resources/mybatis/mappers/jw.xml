@@ -18,7 +18,7 @@
         LEFT JOIN afterImg ai ON r.rsNo = ai.rsNo
         LEFT JOIN push ON r.rsNo = push.rsNo
 		WHERE rt.bNo = #{bNo}
-		GROUP BY r.rsNo;
+		GROUP BY r.rsNo
 	       ]]>
 	   </select>
 	   
@@ -49,7 +49,7 @@
 	          rtfinish = 1
 	      WHERE rtNo = (SELECT rtNo 
 	                    FROM reserve 
-	                    WHERE rsNo =#{rsNo});
+	                    WHERE rsNo =#{rsNo})
 	                     ]]>
 	   </update>
 	
@@ -62,7 +62,7 @@
 	          rtfinish = #{newRtFinish}
 	      WHERE rtNo = (SELECT rtNo 
 	                    FROM reserve 
-	                    WHERE rsNo = #{rsNo});
+	                    WHERE rsNo = #{rsNo})
 	                    ]]>
 	   </update>
 	   
@@ -73,14 +73,14 @@
 	   <delete id="deleteReserve" parameterType="int">
 	      <!-- rsPrice 테이블에서 해당 예약 번호에 연결된 모든 행 삭제 -->
 	    <![CDATA[
-	        DELETE FROM rsPrice WHERE rsNo = #{rsNo};
+	        DELETE FROM rsPrice WHERE rsNo = #{rsNo}
 	    ]]>
 	   </delete>
 	
 	   <delete id="deleteReserve2" parameterType="int">
 	      <!-- reserve 테이블에서 예약 번호 삭제 -->
 	    <![CDATA[
-	        DELETE FROM reserve WHERE rsNo = #{rsNo};
+	        DELETE FROM reserve WHERE rsNo = #{rsNo}
 	    ]]>
 	   </delete>
 	
@@ -89,7 +89,7 @@
 	    <![CDATA[
 	       UPDATE reserveTime 
 	       SET rtFinish = #{rtFinish}
-	       WHERE rtNo = (SELECT rtNo FROM reserve WHERE rsNo = #{rsNo});
+	       WHERE rtNo = (SELECT rtNo FROM reserve WHERE rsNo = #{rsNo})
 	    ]]>  
 	   </update>
 	
@@ -109,7 +109,7 @@
 	         r.rsNo = ai.rsNo
 	         LEFT JOIN push ON r.rsNo = push.rsNo
 	         WHERE r.rsNo = #{rsNo}
-	         GROUP BY r.rsNo;
+	         GROUP BY r.rsNo
 	      ]]>
 	   </select>
 	
@@ -126,7 +126,7 @@
 	           surcharge = #{surcharge},
 	           message = #{message},
 	           curruntWeight = #{curruntWeight}
-	       WHERE rsNo = #{rsNo};
+	       WHERE rsNo = #{rsNo}
 	       ]]>
 	   </update>
 	
@@ -135,7 +135,7 @@
 	   <insert id="insertAfterImg" parameterType="map">
 	       <![CDATA[
 	       INSERT INTO afterImg (rsNo, saveName)
-	       VALUES (#{rsNo}, #{saveName});
+	       VALUES (#{rsNo}, #{saveName})
 	       ]]>
 	   </insert>
 	   
@@ -143,7 +143,7 @@
 	   <insert id="insertPushNotification" parameterType="int">
 	       <![CDATA[
 	       INSERT INTO push (rsNo, pushTime)
-	       VALUES (#{rsNo}, NOW());
+	       VALUES (#{rsNo}, NOW())
 	       ]]>
 	   </insert>
 	   
@@ -152,7 +152,7 @@
 	   <!-- 회원의 강아지별 모든 알림장리스트 -->
 	   <select id="userDogList" parameterType="map" resultType="com.javaex.vo.ReserveVo"> 
 	      <![CDATA[
-	          SELECT 
+	         SELECT 
 	             d.dogNo, 
 	             d.dogName, 
 	             d.dogImg,
@@ -164,7 +164,8 @@
 	             b.title, 
 	             b.bPhone,
 	             p.pushNo,
-	             ai.saveName
+	             ai.saveName,
+                 re.rNo
 	         FROM 
 	             users u
 	         JOIN 
@@ -179,12 +180,14 @@
 	             business b ON rt.bNo = b.bNo
 	         LEFT JOIN
 	             afterImg ai ON rs.rsNo = ai.rsNo
+	             
+			 left join review re on re.rsNo=rs.rsNo
 	         WHERE 
-	             u.uNo = #{uNo} AND p.pushNo IS NOT NULL
+	             u.uNo = 13 AND p.pushNo IS NOT NULL
 	         GROUP BY 
 	             rs.rsNo
 	         ORDER BY 
-	             rt.rtDate DESC;
+	             rt.rtDate DESC
 	      ]]>
 	   </select>
 	   
