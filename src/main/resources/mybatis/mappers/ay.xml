@@ -396,7 +396,7 @@
 		<![CDATA[
 			select rs.rsNo, rs.dogNo, rs.rtNo, rt.bNo, rt.rtDate, rt.rtTime, rt.rtFinish,
 			       rs.expectedPrice, rs.surcharge, 
-			       b.title, b.bPhone, b.bAddress, b.bdAddress,
+			       b.title, b.bPhone, b.bAddress, b.bdAddress,b.logo,
 			       d.dogName, d.size,
 			       u.uNo, u.uPoint, 
 			       p.pDiv, p.rsNum, p.usePoint,
