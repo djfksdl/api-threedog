@@ -6,13 +6,13 @@
 	<insert id="bInsert" parameterType="com.javaex.vo.BusinessVo">
       <![CDATA[
       ]]>
-		insert into business (bNo, bId, bPw, bNum, bZipCode, bAddress, bdAddress, bPhone, latitude, longitude)
+		insert into business (bNo, bId, bPw, bNum, bZipCode, bAddress, bdAddress, bPhone, latitude, longitude, bMaster)
 		values (
 		null,
 		#{bId}, #{bPw}, #{bNum},
 		#{bZipCode},
 		#{bAddress}, #{bdAddress},
-		#{bPhone}, #{latitude}, #{longitude})
+		#{bPhone}, #{latitude}, #{longitude}, #(bMaster))
 	</insert>
 	<!-- 사업자 회원가입 -->
 
