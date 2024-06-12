@@ -404,17 +404,17 @@
 			       pr.beautyNo, pr.onePrice,
 			       bl.sizeDiv, bl.weightDiv, bl.beauty,
 			       pu.pushNo, pu.pushTime,
-                   re.rNo
+			       re.rNo
 			from reserve rs
 			join reserveTime rt on rt.rtNo=rs.rtNo
 			join business b on rt.bNo=b.bNo
 			join dog d on d.dogNo=rs.dogNo
 			join users u on d.uNo=u.uNo
-			join point p on p.uNo=u.uNo
+			join point p on p.rsNum=rs.rsNo
 			join rsPrice rsp on rsp.rsNo=rs.rsNo
 			join price pr on pr.priceNo=rsp.priceNo
 			join beautylist bl on bl.beautyNo=pr.beautyNo
-            left join review re on re.rsNo=rs.rsNo
+			left join review re on re.rsNo=rs.rsNo
 			left join push pu on pu.rsNo=rs.rsNo
 			where u.uNo=#{uNo} and bl.sizeDiv != '추가요금'
 			group by rs.rsNo
@@ -447,9 +447,9 @@
 			join beautylist bl on bl.beautyNo=pr.beautyNo
 			left join review re on re.rsNo=rs.rsNo
 			left join push pu on pu.rsNo=rs.rsNo
-			where u.uNo=#{uNo} and bl.sizeDiv != '추가요금' and rtFinish=1 and pu.pushNo!=0
+			where u.uNo=#{uNo} and bl.sizeDiv != '추가요금' and  re.rNo is not null
 			group by rs.rsNo
-			order by rs.rsNo desc
+			order by rt.rtDate desc, rt.rtTime desc
 
 		]]>
 	</select>
