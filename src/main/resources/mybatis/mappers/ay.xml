@@ -418,7 +418,7 @@
 			left join push pu on pu.rsNo=rs.rsNo
 			where u.uNo=#{uNo} and bl.sizeDiv != '추가요금'
 			group by rs.rsNo
-			order by rs.rsNo desc
+			order by rt.rtDate desc, rt.rtTime desc
 		]]>
 	</select>
 
