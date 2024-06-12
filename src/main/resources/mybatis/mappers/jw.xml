@@ -183,7 +183,7 @@
 	             
 			 left join review re on re.rsNo=rs.rsNo
 	         WHERE 
-	             u.uNo = 13 AND p.pushNo IS NOT NULL
+	             u.uNo = #{uNO} AND p.pushNo IS NOT NULL
 	         GROUP BY 
 	             rs.rsNo
 	         ORDER BY 
