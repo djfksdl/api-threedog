@@ -56,54 +56,48 @@ public class SUService {
 			saveDir = "C:\\javaStudy\\upload";
 		}
 
-		// 파일이 null일때 디폴트 이미지를 저장경로에 미리 저장해놓고 saveName만 db에 저장하니까 그걸 넣어줌.
-		if (userVo.getFile() == null) {
-			String saveName = "";
-			userVo.setuProfile(saveName);
+		
+		// (1)파일관련 정보 추출///////////////////////////////////////////////////
 
-			// 파일이 null이 아닐때
-		} else {
-			// (1)파일관련 정보 추출///////////////////////////////////////////////////
+		// 오리지널 파일명
+		String orgName = userVo.getFile().getOriginalFilename();
+		System.out.println(orgName);
 
-			// 오리지널 파일명
-			String orgName = userVo.getFile().getOriginalFilename();
-			System.out.println(orgName);
+		// 확장자
+		String exName = orgName.substring(orgName.lastIndexOf("."));
+		System.out.println(exName);
 
-			// 확장자
-			String exName = orgName.substring(orgName.lastIndexOf("."));
-			System.out.println(exName);
+		// 저장파일명(겹치지 않아야 된다)
+		String saveName = System.currentTimeMillis() + UUID.randomUUID().toString() + exName;
+		System.out.println(saveName);
 
-			// 저장파일명(겹치지 않아야 된다)
-			String saveName = System.currentTimeMillis() + UUID.randomUUID().toString() + exName;
-			System.out.println(saveName);
+		// 파일사이즈
+		long fileSize = userVo.getFile().getSize();
+		System.out.println(fileSize);
 
-			// 파일사이즈
-			long fileSize = userVo.getFile().getSize();
-			System.out.println(fileSize);
+		// 파일전체경로
+		String filePath = saveDir + File.separator + saveName;
+		System.out.println(filePath);
 
-			// 파일전체경로
-			String filePath = saveDir + File.separator + saveName;
-			System.out.println(filePath);
+		// vo로묶기
+		userVo.setuProfile(saveName);
 
-			// vo로묶기
-			userVo.setuProfile(saveName);
+		// (2)파일저장(서버쪽 하드디스크에 저장)///////////////////////////////////////////////////
+		try {
+			byte[] fileData;
+			fileData = userVo.getFile().getBytes();
 
-			// (2)파일저장(서버쪽 하드디스크에 저장)///////////////////////////////////////////////////
-			try {
-				byte[] fileData;
-				fileData = userVo.getFile().getBytes();
+			OutputStream os = new FileOutputStream(filePath);
+			BufferedOutputStream bos = new BufferedOutputStream(os);
 
-				OutputStream os = new FileOutputStream(filePath);
-				BufferedOutputStream bos = new BufferedOutputStream(os);
+			bos.write(fileData);
+			bos.close();
 
-				bos.write(fileData);
-				bos.close();
-
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+
+		
 
 		// (3)DB저장 /////////////////////////////////////////////////////
 		int count = suDao.signUp(userVo);
