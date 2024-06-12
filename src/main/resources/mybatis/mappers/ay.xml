@@ -376,12 +376,13 @@
 	<!-- 알림장 -->
 	<select id="selectGetMydiary" parameterType="int" resultType="com.javaex.vo.ReserveVo">
 		<![CDATA[
-			select r.rsNo, r.dogNo, r.rtNo, r.expectedPrice, r.attitude,r.rCondition,r.tangle,r.disliked,r.bath,r.message,rt.bNo, rt.rtDate, rt.rtTime,d.dogName, d.uNo, r.surcharge, p.pushNo, p.pushTime
+			select r.rsNo, r.dogNo, r.rtNo, r.expectedPrice, r.attitude,r.rCondition,r.tangle,r.disliked,r.bath,r.message,rt.bNo, rt.rtDate, rt.rtTime,d.dogName, d.uNo, r.surcharge, p.pushNo, p.pushTime, a.saveName
 			from reserve r
 			join reserveTime rt on r.rtNo=rt.rtNo
 			join business b on b.bNo=rt.bNo
 			join dog d on d.dogNo=r.dogNo
 			join push p on p.rsNo=r.rsNo
+			  join afterImg a on a.rsNo=r.rsNo
 			where uNo=#{uNo} 
 			order by pushNo desc
 			limit 1
