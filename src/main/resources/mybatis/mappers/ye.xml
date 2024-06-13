@@ -135,7 +135,6 @@
 		    GROUP BY bNo
 		) rt ON b.bNo = rt.bNo
 		ORDER BY distance ASC
-		LIMIT 10
     ]]>
 	</select>
 	<!-- 그냥 가게 리스트 -->
